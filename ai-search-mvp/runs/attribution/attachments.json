@@ -1,0 +1,20 @@
+[
+  {
+    "id": "attachment:trial-sheet-template",
+    "source": "docs",
+    "title": "Trial observation sheet template",
+    "body": "Fields for date, lane, device, online/offline test, unsent count, replay result, and exception notes.",
+    "unavailable": false,
+    "observed_result": "Full attachment returned",
+    "read_by_researcher": true
+  },
+  {
+    "id": "attachment:raw-lane-export",
+    "source": "docs",
+    "title": "Raw lane event export",
+    "body": "",
+    "unavailable": true,
+    "observed_result": "Original attachment unavailable; not evidence of approval or failure.",
+    "read_by_researcher": true
+  }
+]

@@ -1,0 +1,67 @@
+{
+  "frozen_at": "2026-10-23T17:10:03.481566+00:00",
+  "synthetic_only": true,
+  "source_call_budget": 45,
+  "request_limit": 80,
+  "page_size": 3,
+  "earlier_lookback_days": 90,
+  "author": "Separate isolated AI author with generic brief, domain-diversity constraint, distractors and nested-reply requirement. No old story, implementation, research prompt, private records or current conversation.",
+  "researcher": "Fresh isolated AI session with scope and fixed synthetic MCP only. No hidden rubric.",
+  "stop": "One substantive attempt, 45 charged source calls, 80 requests or 15 minutes. Final receipt required; no retuning or hints after story observation.",
+  "changes": [
+    "Observed open branches ranked deepest first; AI chooses requests and explains deviations.",
+    "Subject-authored full-read audit calls out diagnosis, ruling out causes, proposed fixes and follow-through in the final narrative.",
+    "Roles select evidence indices inside a claim; code derives role-record-claim links.",
+    "Used-record dispositions derive from citations; uncited full records require an explicit model explanation.",
+    "Checked attachment ledger derives only from actual receipts."
+  ],
+  "hypotheses": [
+    "Material nested replies are inspected before peripheral standalone work consumes the budget.",
+    "Personal diagnostic contributions survive in final prose, not only tables.",
+    "Every full read has exactly one mechanically consistent disposition; unsupported or missing semantic explanations still fail."
+  ],
+  "failure_criteria": [
+    "Missing/refused/stale completion receipt.",
+    "Relevant accessible context remains unnoticed or is misinterpreted.",
+    "Invented/mismatched span ID or unsupported claim.",
+    "Narrative contradicts authoritative stopping counts or silently loses material attribution."
+  ],
+  "assessment": "Original-source/manual hidden-rubric assessment after first run; separate structural and semantic outcomes.",
+  "record_range": {
+    "requested": [
+      32,
+      40
+    ],
+    "accepted_without_editing": [
+      32,
+      64
+    ]
+  },
+  "comparison_limit": "New story, prioritisation prompt, observed queues and output schema changed together; no causal benchmark claim.",
+  "freeze": {
+    "model/diverse-author.txt": "23e456b2f64d3ed1e90cc23ada2a1457f6b9a456e5afb26de43873eed77b0830",
+    "model/completion-researcher.txt": "34b7860ac444b192b8d8f7e68976bca85283913944586297b81dabf913fde854",
+    "model/author.schema.json": "4118bbc8ec7114ea0e5e1458e1e1db24723435a8feb35b03bd90a8ba686450ec",
+    "model/completion.schema.json": "50c99eb94bfa635768e964b3ef2f32b54ce2520c3404951abb5513358d8cf91d",
+    "model/attribution.schema.json": "e394b3b250cfb2002d2573648233470c02964f6e3d3dd59b5835a9654110b36a",
+    "model/review.schema.json": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+    "completion_server.py": "e2c13752c078e2e77e9fedb69d8f7057a6f7be1d58630c3f42f2870779ce4a84",
+    "completion_review.py": "1b7aed0d24e2775561178a427cb1f8f470567b64f9a22a1cd5a270255d193131",
+    "completion_experiment.py": "f916a17b00e5173fcd1529bd25ed878b90f45e772cd7c795c70e4a3213ef08eb",
+    "attribution_server.py": "351f9fde507796c5111c9b86d91006c423fd067fdd3916742daaf4d021698916",
+    "attribution_review.py": "0936c3b067650163e80dace1408f4000014f834d15b5a4eeef5933773fd8a5c2",
+    "semantic_review.py": "66b6851333e51e2535dd990784d6229827f68f399ee5a04c5100be5ac70fb0e5",
+    "followup_server.py": "3c5df5973d274f6c91f44426a55af0d87fa1c9a04ad6eb203f9e897bb00786ee",
+    "autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "mcp_server.py": "d808a0d52d9bbeca7024a155cf289274e17e73fe74ce50b71dece38f13867131",
+    "model_backend.py": "2ef789c86ae7a9fff2885b4e34c0c5c3f0fc7c3bdc33074fbbd83194f39b7b55",
+    "tests/test_completion.py": "3f9a8d15b1c20faa41023a22e7d57b80dc65be3b6f97b7a404228fd656d87956",
+    "depth_server.py": "8bcf007afb148ac8dd122e163ca8e6ac6c2ea44f1f08b43122427b5797c02846",
+    "depth_review.py": "8e5048caca78fa12cf43250be41e147a07497af0b746ba57abb93ceed3fd048b",
+    "depth_experiment.py": "886e3217e4e30af474eb2aac314bf77967ae681fc887aa9a2d71bc2007d86fff",
+    "model/depth-author.txt": "66b81d75f8c8ee3894427c2865eedf2ff790ea676ebbfb639a171c1282f4bc99",
+    "model/depth-researcher.txt": "1ee74e3aebd35211da10a82444a887258bb78ab953482e38287b41d10e22ba78",
+    "model/depth.schema.json": "eb9095b7b2dbf60e73a80d4afdbb9360b0e073532dc2751fe068430595788514",
+    "tests/test_depth.py": "c963503a6e1d8ef696ed7aefd771f5a7c7a710b7f1c5178980e4e165a4b1d378"
+  }
+}

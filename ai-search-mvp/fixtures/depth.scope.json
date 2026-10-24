@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 personally contribute to Project Glassfin during the question window, and what happened afterwards?",
+  "query": "Project Glassfin",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2027-04-01",
+  "end": "2027-05-31",
+  "horizon": "2027-08-31",
+  "timezone": "Europe/London"
+}

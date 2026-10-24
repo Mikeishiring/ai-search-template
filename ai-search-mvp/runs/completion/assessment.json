@@ -1,0 +1,672 @@
+{
+  "headline": "The stop was honest. The research remained incomplete.",
+  "summary": "All surfaced standalone records were read before judging relevance. All 43 selected source spans resolve exactly. The researcher stopped at the real source limit, leaving a deeper review reply and an export attachment unchecked; one personal contribution was still lost during synthesis.",
+  "scope_limit": "One untouched museum-audio story from a separate AI author; one uncoached research attempt. Ten of twelve themes fully met and two partly met. The completion receipt is valid, but four attribution/disposition checks fail. This is not an end-to-end pass.",
+  "expected_records": 39,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal technical contribution",
+      "criterion": "Conclude that Contributor 01 proposed and implemented the transcript-to-audio cue alignment command, including confidence reporting, overlap prevention, provenance, configuration, and regression fixtures.",
+      "anchors": [
+        "chat:002",
+        "repo:001",
+        "repo:003",
+        "repo:005"
+      ],
+      "pitfall": "Saying only that Contributor 01 generally helped, or crediting them with the entire player and content system.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C3",
+        "C4",
+        "C5"
+      ],
+      "assessment": "Credits the subject with the proposal, alignment command, confidence reporting, overlap prevention, provenance, configuration and tests. Keeps player and content ownership separate.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "Evidence and validation boundaries",
+      "criterion": "Report the four-recording evaluation accurately: median boundary error was 0.42 seconds across 68 reviewed boundaries, with known failures around music, and Contributor 01 explicitly withheld broader validation claims.",
+      "anchors": [
+        "repo:003",
+        "repo:006",
+        "chat:004"
+      ],
+      "pitfall": "Turning a small reference evaluation into proof that all twelve recordings were accurate.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C4"
+      ],
+      "assessment": "Defines the 0.42-second median over 68 reviewed boundaries in four recordings, with two poor music sections and no claim that all twelve recordings were validated.",
+      "unread_anchors": [
+        "repo:006"
+      ]
+    },
+    {
+      "id": "theme-03",
+      "name": "Review-driven improvement",
+      "criterion": "Recognize that Contributor 07 identified configurability and provenance gaps, Contributor 01 corrected them, and approval covered the tool path rather than all editorial accuracy.",
+      "anchors": [
+        "repo:004",
+        "repo:005",
+        "repo:006"
+      ],
+      "pitfall": "Presenting the first implementation as complete or treating code approval as content validation.",
+      "importance": "secondary",
+      "status": "partial",
+      "claim_ids": [
+        "C5"
+      ],
+      "assessment": "Names Contributor 07’s review requests and the subject’s corrections, but leaves the deeper approval reply unread. That reply explicitly distinguishes tool-path approval from editorial validation. The model reports the gap instead of inventing a review result.",
+      "unread_anchors": [
+        "repo:006"
+      ]
+    },
+    {
+      "id": "theme-04",
+      "name": "Production and documentation work",
+      "criterion": "Credit Contributor 01 with regenerating reviewed batches, detecting the stale J master, rerunning J, supplying a player fixture, documenting operation, and remaining available for cue defects.",
+      "anchors": [
+        "repo:007",
+        "docs:005",
+        "chat:009",
+        "chat:010",
+        "repo:008",
+        "chat:011"
+      ],
+      "pitfall": "Omitting operational follow-through, or claiming Contributor 01 personally reviewed and approved every transcript.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C6",
+        "C7",
+        "C9",
+        "C12"
+      ],
+      "assessment": "The account preserves regeneration, stale-master detection and rerun, documentation, the fixture supplied for a player repair and operational follow-through. It avoids claiming the subject personally approved all content. The guide itself is treated as contextual rather than directly quoted.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-05",
+      "name": "Shared ownership",
+      "criterion": "Separate roles: Contributor 03 led transcript correction and editorial judgments, Contributor 04 owned player fixes, Contributor 08 supported export, Contributor 07 reviewed code, and Contributor 06 made release decisions.",
+      "anchors": [
+        "docs:004",
+        "repo:007",
+        "docs:006",
+        "chat:011",
+        "docs:008"
+      ],
+      "pitfall": "Attributing the ten-recording release or all improvements solely to Contributor 01.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C1",
+        "C6",
+        "C9",
+        "C10"
+      ],
+      "assessment": "Separates editorial corrections and listening, export support, player fixes, code review and programme release authority. The final account carries these roles rather than crediting the whole release to the subject.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-06",
+      "name": "Pilot scope and release outcome",
+      "criterion": "State that ten of twelve recordings were released to the spring evening programme; K and L remained blocked by transcript approval and were not completed through June.",
+      "anchors": [
+        "docs:001",
+        "docs:008",
+        "chat:016",
+        "docs:011"
+      ],
+      "pitfall": "Claiming all twelve launched, or treating the two pending recordings as evidence that Contributor 01 failed to deliver assigned work.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C10"
+      ],
+      "assessment": "Keeps the ten-of-twelve release and continued use through June, and explicitly excludes the two recordings awaiting curatorial transcript approval from the subject’s responsibility.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-07",
+      "name": "Player defects versus alignment defects",
+      "criterion": "Distinguish older-tablet flicker and seek-state problems, owned and fixed by Contributor 04, from cue alignment quality; Contributor 01 only supplied a fixture for one fix.",
+      "anchors": [
+        "chat:006",
+        "repo:007",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Blaming or crediting Contributor 01 for player rendering and seek-state repairs.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "C9"
+      ],
+      "assessment": "Credits player flicker and seek-state repairs to Contributor 04. Limits the subject’s contribution to supplying a fixture and preserves the evidence that seeking problems reproduced independently of cue generation.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-08",
+      "name": "Observed use and issue handling",
+      "criterion": "Note the limited internal walkthrough, early host reports, Contributor 01's investigation of recording D, and the subsequent manual editorial split; one quiet shift did not prove resolution generally.",
+      "anchors": [
+        "docs:007",
+        "chat:013",
+        "chat:014",
+        "chat:015"
+      ],
+      "pitfall": "Claiming visitor satisfaction or definitive defect elimination from sparse staff and host observations.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "C8",
+        "C14"
+      ],
+      "assessment": "Distinguishes an internal walkthrough from visitor research and a manual editorial split from a general tool fix, with only one quiet shift afterwards. However, the final account and claims do not credit the subject’s investigation of recording D or suggestion of that split, despite reading chat:014 in full. Early host observations are also compressed away.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-09",
+      "name": "Follow-up outcome and uncertainty",
+      "criterion": "Through June, the ten recordings remained in use and no session was cancelled; voluntary logs recorded 11 comments over approximately 510 starts, but could not establish a true error rate or accessibility impact.",
+      "anchors": [
+        "docs:010",
+        "docs:011"
+      ],
+      "pitfall": "Converting voluntary comment logs into a measured success rate or formal accessibility result.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C10",
+        "C11"
+      ],
+      "assessment": "Preserves ten recordings remaining in use, no cancellations caused by the player, and the eleven voluntary comments over roughly 510 starts across seven sessions. Keeps the category breakdown and declines to infer a true error rate or visitor impact.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-10",
+      "name": "Reuse and adoption limits",
+      "criterion": "Recognize one documented reuse outside the pilot, performed with partial review, while permanent-collection adoption remained undecided.",
+      "anchors": [
+        "repo:012",
+        "chat:016",
+        "docs:011"
+      ],
+      "pitfall": "Calling one reuse organisation-wide adoption, or calling the absence of a migration decision a tool failure.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C12"
+      ],
+      "assessment": "Finds the single staff-training reuse with only flagged sections reviewed, distinguishes reuse from broad adoption, and retains the lack of a permanent-collection migration decision.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-11",
+      "name": "Efficiency claim is weakly evidenced",
+      "criterion": "Report that two editors said preparation felt easier or reduced, but time was not tracked and the underlying survey attachment is unavailable; the retrospective itself supports only a limited qualitative claim.",
+      "anchors": [
+        "docs:011"
+      ],
+      "pitfall": "Inventing quantified time savings, ignoring the limitation, or treating the unavailable attachment as necessary proof.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "C13"
+      ],
+      "assessment": "Reports only the two-editor qualitative effort claim with no time tracking. The survey was explicitly unavailable, so the claim rests on the retrospective summary rather than an invented saving or an imagined survey result.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-12",
+      "name": "Known technical limitations",
+      "criterion": "Explain that music and simultaneous speakers could yield plausible but wrong timing, requiring confidence flags and human editorial review rather than full automation.",
+      "anchors": [
+        "chat:003",
+        "docs:005",
+        "chat:014",
+        "docs:011"
+      ],
+      "pitfall": "Describing the workflow as autonomous, or implying every flagged case was a failure rather than a prompt for review.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C3",
+        "C4",
+        "C8"
+      ],
+      "assessment": "Retains weak music and overlapping-speaker timing, visible confidence flags and human editorial review. Does not turn a plausible timing output or a manual content judgment into autonomous accuracy.",
+      "unread_anchors": []
+    }
+  ],
+  "issue_heading": "Exact quotations do not guarantee a complete account.",
+  "issues": [
+    {
+      "severity": "Deep reply not reached",
+      "claim_ids": [
+        "C5"
+      ],
+      "detail": "The final queue names repo:005 as having unopened context. Its child repo:006 approves the changed tool path while withholding broader editorial validation. The model spent its last charged call checking the unavailable survey, leaving this nested review reply uninspected. It disclosed the gap accurately."
+    },
+    {
+      "severity": "Personal investigation omitted",
+      "claim_ids": [
+        "C8"
+      ],
+      "detail": "In chat:014, the subject checks recording D against the released master, explains why changing the algorithm will not fix simultaneous speakers, and proposes a manual split. The record was read but labeled contextual. The final story mentions the split without preserving this personal diagnostic work."
+    },
+    {
+      "severity": "Evidence ledger inconsistent",
+      "claim_ids": [
+        "C5",
+        "C6"
+      ],
+      "detail": "Three records—chat:005, chat:011 and chat:016—are marked used without a linked quotation. repo:005 appears as both used and unresolved, conflating a read record with its unread child. One role’s source, docs:001, is outside its chain’s linked claims. The validator retains all of these failures."
+    },
+    {
+      "severity": "Unchecked attachment in checked-file ledger",
+      "claim_ids": [
+        "C6",
+        "C12"
+      ],
+      "detail": "The model included att:export-sample in attachment_dispositions despite never opening it. Its reason truthfully says it was not inspected, but that field is for checked attachments. The source remains an explicit unresolved item; no contents were fabricated."
+    },
+    {
+      "severity": "Coverage costs calls",
+      "claim_ids": [],
+      "detail": "The conservative rule made the model read the film-night, scanner-outage and recorder-maintenance records before excluding them. It also spent 14 calls enumerating three windows across three sources. This prevents snippet-only dismissal but leaves a prioritisation tradeoff under a fixed budget; it is not a scalable relevance strategy by itself."
+    }
+  ],
+  "limitations": [
+    "The author received only a generic synthetic brief plus diversity requirements: a domain outside warehouse/logistics and cooling, three distractors and a material nested reply. The 40-record story was accepted unchanged. No prior story, private record, implementation or researcher prompt was supplied.",
+    "Author and researcher used the same provider/default model family; the exact model identifier was not captured. The new setting is museum transcript alignment, but the author reused the fictional project name. Separate AI sessions do not establish human-level benchmark independence.",
+    "This assistant manually assessed the twelve hidden author-defined themes after the first response. Ten full and two partial measures interpreted coverage for this case, separately from structural validation. It is not a general reliability estimate.",
+    "38 of 39 accessible primary records were read. The remaining record is an approval nested beneath three prior repository messages; it was not returned as a snippet. One additional record lies beyond the horizon. All three distractors were fully read, then excluded.",
+    "All 43 cited spans resolve to exact text from records returned in full. The AI chose the spans; the local compiler supplied their text. This prevents altered punctuation in evidence quotations but does not validate claim relevance, paraphrases or narrative completeness.",
+    "The final receipt matches 45 charged calls and 47 total requests, with zero source calls remaining. There was one finish check, accepted as source_limit. The model did not attempt an early check in this story; unit tests demonstrate rejection of premature completion.",
+    "The receipt certifies the stopping state of observed evidence, not exhaustive discovery or semantic quality. It expressly retains one unopened context and one unchecked attachment. The raw response and receipt are preserved alongside the compiled citation view.",
+    "Four structural checks fail: used records lacking quotations, a duplicate record disposition, a role source outside its linked claims, and an unchecked attachment in the checked-file ledger. None was patched into a passing result.",
+    "The model read the nested stale-master clarification and manual-split follow-up but did not finish the deeper review chain. Genuine nesting was exercised; search and out-of-window query broadening were not used. The earlier 90-day sweep was empty, and pre-existing context came from the project brief.",
+    "The available export attachment remains unchecked and the survey is explicitly unavailable. No source supports quantified labour savings or formal accessibility improvement. Source metrics are retained reports, not independently recomputed telemetry.",
+    "The completion gate, source-span protocol, free local audits, larger request ceiling and different story all changed. The theme score cannot isolate the effect of any one change. No private archive or live online source was accessed."
+  ],
+  "method": "The implementation, prompts, schemas, completion and span validator were frozen before a separate AI authored the story. A fresh researcher selected every MCP request and source span. Its first response was saved, then the local compiler resolved span IDs and checked the final receipt. This assistant opened the hidden rubric only after research ended and assessed the original sources; there was no coaching, retest or fixture edit.",
+  "next_experiment": "Test budget allocation across deeper replies and peripheral records on another untouched case. Generate evidence dispositions and chain cross-references from selected spans rather than free-form lists, while separately testing whether personal diagnostic work survives the final narrative. Keep this result unchanged.",
+  "summary_counts": {
+    "fully_met": 10,
+    "partial": 2,
+    "missed": 0,
+    "themes": 12,
+    "full_records": 38,
+    "accessible_records": 39,
+    "source_calls": 45,
+    "requests": 47,
+    "cache_hits": 0,
+    "remaining_source_calls": 0,
+    "completed_contexts": 12,
+    "unfinished_contexts": 1,
+    "completed_source_window_sweeps": 9,
+    "unread_surfaced_records": 0,
+    "unchecked_attachments": 1,
+    "exact_spans": 43,
+    "submitted_spans": 43,
+    "completion_receipt_valid": true,
+    "validation_flags": 4,
+    "disposition_records": 38,
+    "attribution_chains": 4
+  },
+  "final_planning": {
+    "unopened_contexts": [
+      {
+        "source": "repo",
+        "id": "repo:005",
+        "root_read": true
+      }
+    ],
+    "unread_references": [],
+    "unchecked_attachments": [
+      {
+        "source": "repo",
+        "id": "att:export-sample"
+      }
+    ],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "later_use": "A completed sweep is discovery coverage, not proof of continued use. Read the relevant later evidence and separate reports from measurement.",
+    "calls_remaining": 0,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted.",
+    "full_read_index": [
+      {
+        "id": "chat:002",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-01-06",
+        "title": "Initial timing proposal"
+      },
+      {
+        "id": "chat:003",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-01-06",
+        "title": "Editorial safeguard"
+      },
+      {
+        "id": "chat:004",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-01-18",
+        "title": "Prototype status"
+      },
+      {
+        "id": "chat:005",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-01-19",
+        "title": "Walkthrough decision"
+      },
+      {
+        "id": "chat:008",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-02-10",
+        "title": "Second review batch"
+      },
+      {
+        "id": "chat:009",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-02-11",
+        "title": "Regeneration completed"
+      },
+      {
+        "id": "chat:013",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-03-12",
+        "title": "Early host notes"
+      },
+      {
+        "id": "chat:014",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-03-13",
+        "title": "Recording D investigation"
+      },
+      {
+        "id": "docs:002",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2027-01-09",
+        "title": "Alignment method draft"
+      },
+      {
+        "id": "docs:003",
+        "source": "docs",
+        "author": "Contributor 04",
+        "date": "2027-01-09",
+        "title": "Player considerations"
+      },
+      {
+        "id": "docs:005",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2027-02-04",
+        "title": "Cue-generation runbook"
+      },
+      {
+        "id": "docs:006",
+        "source": "docs",
+        "author": "Contributor 08",
+        "date": "2027-02-04",
+        "title": "Export procedure"
+      },
+      {
+        "id": "repo:001",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-01-07",
+        "title": "Prototype transcript-to-audio alignment"
+      },
+      {
+        "id": "repo:002",
+        "source": "repo",
+        "author": "Contributor 08",
+        "date": "2027-01-08",
+        "title": "Export constraints"
+      },
+      {
+        "id": "repo:003",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-01-14",
+        "title": "Add cue alignment prototype"
+      },
+      {
+        "id": "repo:004",
+        "source": "repo",
+        "author": "Contributor 07",
+        "date": "2027-01-15",
+        "title": "Review requested changes"
+      },
+      {
+        "id": "repo:008",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-02-12",
+        "title": "Recording J rerun"
+      },
+      {
+        "id": "repo:009",
+        "source": "repo",
+        "author": "Contributor 03",
+        "date": "2027-02-13",
+        "title": "J editorial acceptance"
+      },
+      {
+        "id": "chat:001",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-01-04",
+        "title": "January priorities"
+      },
+      {
+        "id": "chat:006",
+        "source": "chat",
+        "author": "Contributor 04",
+        "date": "2027-01-25",
+        "title": "Tablet flicker found"
+      },
+      {
+        "id": "chat:007",
+        "source": "chat",
+        "author": "Contributor 09",
+        "date": "2027-02-02",
+        "title": "Film night moved"
+      },
+      {
+        "id": "chat:011",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-02-19",
+        "title": "Limited release decision"
+      },
+      {
+        "id": "chat:012",
+        "source": "chat",
+        "author": "Contributor 12",
+        "date": "2027-02-24",
+        "title": "Scanner unavailable"
+      },
+      {
+        "id": "chat:016",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-05-18",
+        "title": "Pilot closure"
+      },
+      {
+        "id": "docs:001",
+        "source": "docs",
+        "author": "Contributor 03",
+        "date": "2027-01-05",
+        "title": "Lantern pilot brief"
+      },
+      {
+        "id": "docs:004",
+        "source": "docs",
+        "author": "Contributor 03",
+        "date": "2027-01-23",
+        "title": "Review log: first six"
+      },
+      {
+        "id": "docs:007",
+        "source": "docs",
+        "author": "Contributor 05",
+        "date": "2027-02-18",
+        "title": "Internal walkthrough notes"
+      },
+      {
+        "id": "docs:008",
+        "source": "docs",
+        "author": "Contributor 06",
+        "date": "2027-03-03",
+        "title": "Limited release record"
+      },
+      {
+        "id": "docs:009",
+        "source": "docs",
+        "author": "Contributor 10",
+        "date": "2027-03-20",
+        "title": "Recorder maintenance renewal"
+      },
+      {
+        "id": "docs:010",
+        "source": "docs",
+        "author": "Contributor 05",
+        "date": "2027-05-10",
+        "title": "Seven-session follow-up"
+      },
+      {
+        "id": "docs:011",
+        "source": "docs",
+        "author": "Contributor 06",
+        "date": "2027-06-25",
+        "title": "Lantern retrospective"
+      },
+      {
+        "id": "repo:007",
+        "source": "repo",
+        "author": "Contributor 04",
+        "date": "2027-01-28",
+        "title": "Prevent transcript highlight flicker"
+      },
+      {
+        "id": "repo:010",
+        "source": "repo",
+        "author": "Contributor 04",
+        "date": "2027-02-22",
+        "title": "Seek-state defect"
+      },
+      {
+        "id": "repo:011",
+        "source": "repo",
+        "author": "Contributor 04",
+        "date": "2027-03-05",
+        "title": "Reset highlight on seek"
+      },
+      {
+        "id": "repo:012",
+        "source": "repo",
+        "author": "Contributor 11",
+        "date": "2027-04-02",
+        "title": "First reuse outside pilot"
+      },
+      {
+        "id": "chat:010",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-02-11",
+        "title": "Stale master confirmed"
+      },
+      {
+        "id": "chat:015",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-03-14",
+        "title": "Recording D adjusted"
+      },
+      {
+        "id": "repo:005",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-01-16",
+        "title": "Review changes addressed"
+      }
+    ],
+    "earlier_start": "2026-10-03",
+    "requests_remaining": 33,
+    "attribution_review": "Before finalising, account for every fully read record: used, contextual, unresolved or irrelevant. Carry material initiators, reviewers, implementers and later owners into claims and narrative, with citations. This index does not infer roles.",
+    "unread_surfaced_records": [],
+    "stop_policy": "Read surfaced records before dismissing relevance. finish_check is required before the final response; do not invent a budget explanation."
+  },
+  "completion_receipt": {
+    "allowed": true,
+    "status": "source_limit",
+    "counts": {
+      "source_calls": 45,
+      "source_budget": 45,
+      "requests_including_this_check": 47,
+      "request_limit": 80,
+      "source_calls_remaining": 0,
+      "requests_remaining": 33
+    },
+    "unresolved": {
+      "unread_surfaced_records": [],
+      "unopened_contexts": [
+        {
+          "source": "repo",
+          "id": "repo:005",
+          "root_read": true
+        }
+      ],
+      "unread_references": [],
+      "unchecked_attachments": [
+        {
+          "source": "repo",
+          "id": "att:export-sample"
+        }
+      ],
+      "pending_pages": [],
+      "unfinished_window_sweeps": []
+    },
+    "scope": "Observed records and enumerated windows only; unseen source contents and semantic completeness are not certified.",
+    "receipt_id": "7416daad410d4243513e86feae16514efad1d63a9d512b40aba5e9a5e201077e",
+    "cache_hit": false,
+    "source_charge": 0,
+    "remaining_calls": 0
+  },
+  "validation_errors": [
+    "Used disposition lacks linked quotation",
+    "Unknown or duplicate disposition record: repo:005",
+    "Role lacks linked source quotation",
+    "Unobserved or duplicate attachment disposition"
+  ],
+  "used_without_linked_quote": [
+    "chat:005",
+    "chat:011",
+    "chat:016"
+  ],
+  "adjudicator": "This assistant; manual comparison with separate-author rubric and original sources",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "raw_response_sha256": "21e5fe9cc5c66731a008ae4abbf35a05e81638af7a4838e40918f0b5b73950e5",
+  "compiled_review_sha256": "1dfd6a7925bbb05d434c80ddb11609da4ed84420b0adb22063fc425d999cba94",
+  "gold_sha256": "ba90ea6eff86818cbfac4df05804958ddfbbc822d036b52860ff9f3a0252da81"
+}

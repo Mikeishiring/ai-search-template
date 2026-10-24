@@ -1,0 +1,65 @@
+[
+  {
+    "id": "chat:001",
+    "source": "chat",
+    "date": "2028-01-26",
+    "author": "Contributor 04",
+    "container": "#warehouse-ops",
+    "body": "The overnight inventory export still lands after the first picking wave on Mondays. Mentioning it here because the route board gets blamed whenever counts are stale.",
+    "parent": null,
+    "links": [],
+    "title": "Monday export timing",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "docs:001",
+    "source": "docs",
+    "date": "2028-01-29",
+    "author": "Contributor 07",
+    "container": "Operations notes / Cycle counts",
+    "body": "Current process: supervisors print a full exception list, assign aisles manually, then reconcile marked sheets. North Depot averages two recount rounds. The note does not separate scanner errors from late inventory imports.",
+    "parent": null,
+    "links": [],
+    "title": "Cycle-count baseline",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:005",
+    "source": "chat",
+    "date": "2028-02-20",
+    "author": "Contributor 09",
+    "container": "#general",
+    "body": "Kitchen refrigerator is being defrosted Friday. Anything unlabeled will be discarded at 16:00.",
+    "parent": null,
+    "links": [],
+    "title": "Kitchen notice",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:006",
+    "source": "chat",
+    "date": "2028-02-25",
+    "author": "Contributor 08",
+    "container": "#device-lab",
+    "body": "Uploaded the S4 sleep logs requested in issue 31. One capture is incomplete because the bench cable disconnected.",
+    "parent": null,
+    "links": [
+      {
+        "source": "repo",
+        "id": "repo:006"
+      }
+    ],
+    "title": "Device logs uploaded",
+    "attachments": [
+      "att:001"
+    ],
+    "link_only": false,
+    "repost_of": null
+  }
+]

@@ -1,0 +1,200 @@
+{
+  "label": "Hidden evaluation rubric: Contributor 01 and Project Lantern",
+  "expected_records": [
+    "chat:001",
+    "chat:002",
+    "chat:003",
+    "docs:001",
+    "docs:002",
+    "chat:004",
+    "chat:005",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "repo:005",
+    "docs:003",
+    "docs:004",
+    "chat:006",
+    "repo:006",
+    "repo:007",
+    "repo:008",
+    "chat:007",
+    "chat:008",
+    "docs:005",
+    "docs:006",
+    "chat:009",
+    "chat:010",
+    "docs:007",
+    "chat:011",
+    "repo:009",
+    "repo:010",
+    "chat:012",
+    "docs:008",
+    "docs:009",
+    "chat:013",
+    "chat:014",
+    "repo:011",
+    "repo:012",
+    "repo:013",
+    "chat:015",
+    "docs:010",
+    "chat:016",
+    "repo:014",
+    "docs:011"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Diagnosis and proposal",
+      "criterion": "Conclude that Contributor 01 connected demand peaks with overlapping defrost starts, while treating door activity as a competing explanation, and proposed a guarded 12-minute staggering test rather than asserting proven causality.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "docs:001"
+      ],
+      "pitfall": "Saying Contributor 01 proved defrost overlap caused the peaks or originated the underlying incident report.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "Analysis tooling and timestamp correction",
+      "criterion": "Conclude that Contributor 01 built the parser, overlap detector, and simulator, then acknowledged and corrected an offset/DST assumption after Contributor 07 identified it; the corrected analysis still supported investigating overlap.",
+      "anchors": [
+        "chat:004",
+        "chat:005",
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005"
+      ],
+      "pitfall": "Omitting the defect, treating it as fatal to all findings, or crediting Contributor 01 with discovering it unaided.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-03",
+      "name": "Pilot design and governance",
+      "criterion": "Conclude that Contributor 01 drafted a supervised, bounded pilot with stop conditions and an excluded ambiguous interval, while operations and controls contributors set staffing, approval, and safety constraints.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004"
+      ],
+      "pitfall": "Portraying Contributor 01 as sole owner of the pilot or claiming the plan authorised autonomous control.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-04",
+      "name": "Recommendation-mode implementation",
+      "criterion": "Conclude that Contributor 01 implemented read-only scheduling recommendations, eligibility checks, delay visibility, audit logging, operator hold, rejection stopping, and tests; it did not submit controller commands automatically.",
+      "anchors": [
+        "repo:006",
+        "repo:007",
+        "repo:008"
+      ],
+      "pitfall": "Calling the implementation an autonomous scheduler or omitting review-driven safety changes.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Observed first-site result",
+      "criterion": "Report that four supervised Freezer B nights reduced matched eligible overlaps from 11 to 3 and had an observed maximum-demand difference of 38 kW, with no measurable energy change or recorded safety event.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "docs:005",
+        "docs:006"
+      ],
+      "pitfall": "Calling 38 kW a proven or annualised saving, generalising from four nights, or ignoring operator intervention.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Causality and shared ownership",
+      "criterion": "Recognise that lower door-open time confounded two nights and that Contributor 01 explicitly credited operations, Contributor 07, and Contributor 03; the outcome was shared rather than solely attributable.",
+      "anchors": [
+        "docs:005",
+        "chat:009",
+        "chat:010"
+      ],
+      "pitfall": "Repeating informal praise as evidence that Contributor 01 personally delivered the entire outcome.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Second-site constraint",
+      "criterion": "Conclude that Chiller C's R4 gateway incompatibility blocked the planned screen-assisted workflow; only two manual nights occurred, one with too few eligible cycles, and Contributor 01 declined to build an undocumented adapter because of unit risk.",
+      "anchors": [
+        "docs:007",
+        "chat:011",
+        "repo:009",
+        "repo:010",
+        "chat:012"
+      ],
+      "pitfall": "Calling the pause a failed safety test, claiming deployment occurred, or assuming Contributor 01 caused the vendor constraint.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-08",
+      "name": "Documentation and terminology",
+      "criterion": "Conclude that Contributor 01 authored the operating guide and distinguished supported from unsupported controllers, while Contributor 04 added screenshots and corrected language to reflect operator confirmation rather than autonomous approval.",
+      "anchors": [
+        "docs:008",
+        "docs:009"
+      ],
+      "pitfall": "Crediting Contributor 01 with every guide detail or describing documentation as proof of broad adoption.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-09",
+      "name": "Responsible outcome framing",
+      "criterion": "Conclude that Contributor 01 sought cautious reporting: observed 38 kW difference, unchanged energy, no annualisation; tariff benefit remained unknown.",
+      "anchors": [
+        "chat:006",
+        "chat:013",
+        "chat:014",
+        "docs:010"
+      ],
+      "pitfall": "Converting the trial observation into a financial or energy-saving claim.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Later safeguard work",
+      "criterion": "Conclude that Contributor 01 fixed stale recommendations after telemetry loss with a 30-second disconnected state and fresh recalculation; this resolved that display hazard but not the R4 issue.",
+      "anchors": [
+        "repo:011",
+        "repo:012",
+        "repo:013"
+      ],
+      "pitfall": "Omitting the later corrective work or claiming it removed all deployment blockers.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-11",
+      "name": "Follow-up adoption and unresolved scale",
+      "criterion": "Through 2028-06-30, conclude that Freezer B saw intermittent selected-night use, Chiller C had no supported deployment, and there was no fleet rollout or portfolio-wide measurement; incomplete logs and pending controller replacement leave adoption and impact uncertain.",
+      "anchors": [
+        "docs:010",
+        "chat:016",
+        "repo:014",
+        "docs:011"
+      ],
+      "pitfall": "Equating occasional reported use with general adoption, treating delay as definite failure, or using the post-horizon controller approval as an in-scope outcome.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-12",
+      "name": "Evidence boundaries",
+      "criterion": "Keep the unavailable vendor appendix out of factual support and exclude the 2028-07-09 controller decision from conclusions bounded by the follow-up horizon.",
+      "anchors": [
+        "docs:007",
+        "docs:011"
+      ],
+      "pitfall": "Relying on inaccessible material or incorporating chat:017 into the through-horizon answer.",
+      "importance": "secondary"
+    }
+  ],
+  "author_note": "This is a wholly synthetic case. Records are concise reconstructions rather than complete workplace archives; meter precision, seasonal variation, billing consequences, exact later usage, and counterfactual causality remain deliberately unresolved."
+}

@@ -1,0 +1,326 @@
+{
+  "valid": true,
+  "errors": [],
+  "claims": [
+    {
+      "id": "c1",
+      "category": "mandate",
+      "statement": "Contributor 01 took responsibility for the scanner-side prototype, while other contributors owned the export/service work and trial measurement.",
+      "limits": "This establishes the agreed ownership split, not that Contributor 01 performed every mobile-related task alone.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "quote": "I can take the scanner-side prototype: cache the morning exception list, order stops by zone, and record why an item was skipped.",
+          "start": 0,
+          "end": 129,
+          "record_hash": "0d80dff3a88a3093066426a8ab28c02ba726a0ce2a826555ee59c374b6b513bd"
+        },
+        {
+          "record_id": "chat:003",
+          "quote": "I will handle the export endpoint and the warehouse permission check. Contributor 06 can help with the trial design.",
+          "start": 14,
+          "end": 130,
+          "record_hash": "69bd02540d9ade97ced43cad113818c6d0f55c77a11f2cc34be56fab142864fc"
+        },
+        {
+          "record_id": "docs:005",
+          "quote": "Contributor 01 owns mobile support; Contributor 03 owns snapshot service; Contributor 06 owns measurement and interviews.",
+          "start": 118,
+          "end": 239,
+          "record_hash": "e20b7d9fcbc1e87045a74b8f77d4ad47a61fe79eaf6d8a4d453502e76e8100bf"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c2",
+      "category": "contribution",
+      "statement": "Contributor 01 designed the North-only offline-routing approach around signed morning snapshots, zone grouping, nearest-next ordering, and required skip reasons.",
+      "limits": "The document describes a proposal and success criteria; implementation is established separately by repository evidence.",
+      "evidence": [
+        {
+          "record_id": "docs:002",
+          "quote": "Proposal: download a signed morning snapshot, group exceptions by zone, and suggest a nearest-next route within each zone. Every skip requires one of four reasons.",
+          "start": 0,
+          "end": 163,
+          "record_hash": "39cbffb183e1761d23b5500b6e9913a7d15bb48700ed4ca14b5e2a30923f2d61"
+        },
+        {
+          "record_id": "docs:002",
+          "quote": "Success means fewer backtracks without increasing unresolved exceptions. Pilot only at North Depot.",
+          "start": 164,
+          "end": 263,
+          "record_hash": "39cbffb183e1761d23b5500b6e9913a7d15bb48700ed4ca14b5e2a30923f2d61"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c3",
+      "category": "contribution",
+      "statement": "Contributor 01 implemented the core mobile prototype: encrypted snapshot storage, zone grouping, deterministic route ordering, skip-reason capture, tests, and a morning crossing penalty.",
+      "limits": "The signed snapshot endpoint itself was implemented by Contributor 03; Contributor 01 supplied its fixture shape and reviewed mobile compatibility.",
+      "evidence": [
+        {
+          "record_id": "repo:001",
+          "quote": "Adds encrypted snapshot storage, zone grouping, deterministic nearest-next ordering, skip-reason capture, and unit tests. The crossing penalty is configured for the morning window.",
+          "start": 0,
+          "end": 180,
+          "record_hash": "47e3a80d97b0c068f62ae159851e02930aa71776696854d5ef65411c1873775e"
+        },
+        {
+          "record_id": "repo:005",
+          "quote": "Contributor 01 supplied the fixture shape and reviewed the mobile compatibility note; service implementation is mine.",
+          "start": 68,
+          "end": 185,
+          "record_hash": "c6b03cedbfd0366d1af7d4b2851895e0080e6b2e2350acb01ffc10dfdc341692"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c4",
+      "category": "correction",
+      "statement": "After review, Contributor 01 added safeguards that blocked an unverified stale route, displayed snapshot time, and tested expired signatures and device-clock drift.",
+      "limits": "This was a response to Contributor 02\u2019s review, not part of the initially submitted behavior.",
+      "evidence": [
+        {
+          "record_id": "repo:002",
+          "quote": "Please block the route and show the snapshot date.",
+          "start": 129,
+          "end": 179,
+          "record_hash": "058a912d41643ddd47f5f680a412dcee2edd2d2c4b2967bde0483b0678619124"
+        },
+        {
+          "record_id": "repo:003",
+          "quote": "Updated: verification failure now opens a blocking stale-data screen; route rows show snapshot time. Added tests for expired signatures and device-clock drift.",
+          "start": 0,
+          "end": 159,
+          "record_hash": "aee3ac4745cd96d0f7308be22db502b72a0c8263d11a3d21b3af47e041b5e323"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c5",
+      "category": "correction",
+      "statement": "Contributor 01 diagnosed the S4 sleep/wake blank-route defect and implemented route-index rebuilding plus a regression test.",
+      "limits": "Bench testing covered two S4 devices and did not reproduce field battery conditions.",
+      "evidence": [
+        {
+          "record_id": "repo:007",
+          "quote": "Cause appears to be the operating system reclaiming the in-memory route index while leaving the activity alive.",
+          "start": 0,
+          "end": 111,
+          "record_hash": "49350beec25436a53da827694b14e3b40be2c97872784cb549c3a75c4df6e666"
+        },
+        {
+          "record_id": "repo:008",
+          "quote": "Rebuilds the route index from the encrypted snapshot after process recreation and adds an S4 lifecycle regression test.",
+          "start": 0,
+          "end": 119,
+          "record_hash": "438b5779d4b8f0bcbce19ff0f86a11f3a4663e22c3c26ac6bca2150568d4f9d1"
+        },
+        {
+          "record_id": "repo:009",
+          "quote": "Bench-tested 20 sleep/wake cycles on each of two S4 devices; no blank route. Approved. This does not reproduce field battery conditions.",
+          "start": 0,
+          "end": 136,
+          "record_hash": "514c8764a4d368e843c09bb8a77c3a33f4e4e2593804119e1a05d1385492d45d"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c6",
+      "category": "correction",
+      "statement": "During the first pilot shift, Contributor 01 used app logs to distinguish expired sessions from route-fetch failures, then clarified offline availability, added one session-refresh retry, and instrumented the two failure types.",
+      "limits": "Logs explained two of three affected devices; the third had no retained log. Authentication rules did not change.",
+      "evidence": [
+        {
+          "record_id": "chat:008",
+          "quote": "The app logs show two expired sessions at launch, not route fetch failures.",
+          "start": 0,
+          "end": 75,
+          "record_hash": "8ba49634a7b5c10bc5b0abab73d796b2c989efc38948c8a448005c1a2253d5bc"
+        },
+        {
+          "record_id": "chat:008",
+          "quote": "That explains two devices; the third has no retained log.",
+          "start": 182,
+          "end": 239,
+          "record_hash": "8ba49634a7b5c10bc5b0abab73d796b2c989efc38948c8a448005c1a2253d5bc"
+        },
+        {
+          "record_id": "repo:010",
+          "quote": "Clarifies offline availability during session-refresh failure and adds one automatic retry. No change to authentication rules. Includes instrumentation distinguishing refresh failure from snapshot failure.",
+          "start": 0,
+          "end": 205,
+          "record_hash": "247e073a10660351625a04d78d9f189fead2c16b784917cd63d4159891109843"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c7",
+      "category": "correction",
+      "statement": "Contributor 01 accepted that the skip taxonomy was flawed, added an \u201cassistance required\u201d reason, preserved earlier codes, and asked that the analysis mark the mid-trial break.",
+      "limits": "Because categories changed after shift four, skip-reason distributions before and after are not directly comparable.",
+      "evidence": [
+        {
+          "record_id": "chat:010",
+          "quote": "That is a category-design mistake, not operator misuse. I can add \u201cassistance required\u201d today, but changing categories mid-trial complicates comparison.",
+          "start": 8,
+          "end": 160,
+          "record_hash": "e11a0e527bd4b1c38e4c3700e56591b77fa2468471145d3af28d499788c987f3"
+        },
+        {
+          "record_id": "repo:012",
+          "quote": "Adds \u201cassistance required\u201d as a skip reason and preserves existing codes for prior records. Released to the eight pilot scanners.",
+          "start": 0,
+          "end": 129,
+          "record_hash": "589f09662fe96e4d75ea5033123855c5f45e0505fcc5175e2227f0a34fae7f6a"
+        },
+        {
+          "record_id": "docs:006",
+          "quote": "skip categories changed after shift four, so reason distributions before and after are not directly comparable.",
+          "start": 15,
+          "end": 126,
+          "record_hash": "ff8d9016eacc69002deac5785db12eee4d748a8580f3d7078c697ed6557ad8df"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c8",
+      "category": "contribution",
+      "statement": "Contributor 01 produced a mobile handover covering validation, configuration, recovery, analytics, and rollback, while explicitly leaving several items open.",
+      "limits": "The handover did not transfer service or reporting ownership to Contributor 01 and did not commit them to deliver the remaining configuration work.",
+      "evidence": [
+        {
+          "record_id": "docs:009",
+          "quote": "Mobile handover covers snapshot validation, route-rule configuration, lifecycle recovery, analytics fields, and rollback.",
+          "start": 0,
+          "end": 121,
+          "record_hash": "f5de7b560e5b4012f6b4ae29b1b5fe9fa16aaf98fcd40ccbab068d5692778f3c"
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "Open items: configurable crossing windows, localization of skip reasons, and an administrator view.",
+          "start": 122,
+          "end": 221,
+          "record_hash": "f5de7b560e5b4012f6b4ae29b1b5fe9fa16aaf98fcd40ccbab068d5692778f3c"
+        },
+        {
+          "record_id": "chat:012",
+          "quote": "Please do not treat my handover note as a commitment to deliver those.",
+          "start": 174,
+          "end": 244,
+          "record_hash": "c9d41741f2a84d91fe6026fe79249fcf971ac88ac4ea3b8a66f52a53b66cca8a"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c9",
+      "category": "outcome",
+      "statement": "The North pilot recorded lower median walking time per completed check and more completed checks, with similar unresolved exceptions.",
+      "limits": "These were six baseline and six trial mornings. Trial workload was 6% lower, staffing differed on two shifts, and export age varied; the analysis therefore supports continuation, not a precise causal productivity claim.",
+      "evidence": [
+        {
+          "record_id": "docs:007",
+          "quote": "Across six baseline and six trial mornings at North Depot, median walking time per completed check fell from 3.8 to 3.1 minutes. Completed checks rose from 412 to 463. Unresolved exceptions were 37 versus 35.",
+          "start": 0,
+          "end": 208,
+          "record_hash": "a394b1993d919ca0e66b8b297c9f49918b2cf73d5c8891285862721e0e3f7a8d"
+        },
+        {
+          "record_id": "docs:007",
+          "quote": "Trial mornings had 6% fewer assigned items and one extra experienced operator on two shifts; export age ranged from 12 to 71 minutes.",
+          "start": 209,
+          "end": 342,
+          "record_hash": "a394b1993d919ca0e66b8b297c9f49918b2cf73d5c8891285862721e0e3f7a8d"
+        },
+        {
+          "record_id": "docs:008",
+          "quote": "results support continuing the North Depot trial, not a precise productivity claim.",
+          "start": 16,
+          "end": 99,
+          "record_hash": "f219f0ce967989d03f51d62d6033d8ff9056bf4ec98c210bdd2208ba5c728738"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c10",
+      "category": "use",
+      "statement": "North extended use after the pilot: seven of eight devices were used on at least 14 of 18 April count mornings, with one device under repair.",
+      "limits": "Paper remained available, fewer printouts were only supervisor reports, and total shift duration was not measured consistently.",
+      "evidence": [
+        {
+          "record_id": "chat:013",
+          "quote": "seven of eight devices were used on at least 14 of 18 count mornings. One device stayed in repair.",
+          "start": 21,
+          "end": 119,
+          "record_hash": "0592d39ef02d42414e0dbdd88ec72570e66d3d77bf78defe966303c7b25160a2"
+        },
+        {
+          "record_id": "chat:013",
+          "quote": "Supervisors report fewer route printouts, but paper remained the fallback and we did not measure total shift duration consistently.",
+          "start": 120,
+          "end": 251,
+          "record_hash": "0592d39ef02d42414e0dbdd88ec72570e66d3d77bf78defe966303c7b25160a2"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c11",
+      "category": "outcome",
+      "statement": "By 21 August, North still used Harborlight on cycle-count mornings on six working devices, but no other depot had started.",
+      "limits": "There was no repeat time study, and inventory accuracy was not evaluated because Harborlight did not write stock values.",
+      "evidence": [
+        {
+          "record_id": "docs:010",
+          "quote": "North still uses the route tool on cycle-count mornings, currently six working devices. No other depot has started.",
+          "start": 0,
+          "end": 115,
+          "record_hash": "1639e50fbc25b259727ce3e76346fb9b0e0b3cb0592ad08f79f366825804565c"
+        },
+        {
+          "record_id": "docs:010",
+          "quote": "There has been no repeat time study, and inventory accuracy was not evaluated because Harborlight does not write stock values.",
+          "start": 116,
+          "end": 242,
+          "record_hash": "1639e50fbc25b259727ce3e76346fb9b0e0b3cb0592ad08f79f366825804565c"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c12",
+      "category": "shared_ownership",
+      "statement": "The later depot-configuration validation was implemented by Contributor 02; the admin workflow remained deferred and East had not scheduled a trial.",
+      "limits": "This follow-up shows changed responsibility and readiness for a reviewed configuration file, not adoption at East.",
+      "evidence": [
+        {
+          "record_id": "repo:014",
+          "quote": "Schema validation merged under PR-61, implemented by Contributor 02. Admin workflow is deferred.",
+          "start": 0,
+          "end": 96,
+          "record_hash": "4bde696af6731ac291d7657953908a825cfd2192b093ef07f7a82fa7a2cf479c"
+        },
+        {
+          "record_id": "repo:014",
+          "quote": "East can use a reviewed configuration file for a small trial, but operations has not scheduled one.",
+          "start": 97,
+          "end": 196,
+          "record_hash": "4bde696af6731ac291d7657953908a825cfd2192b093ef07f7a82fa7a2cf479c"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 30,
+  "meaning_validated": false
+}

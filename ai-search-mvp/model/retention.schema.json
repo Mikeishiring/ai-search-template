@@ -1,0 +1,167 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claims",
+    "unknowns",
+    "rejected_conclusions",
+    "stop_receipt_id",
+    "research_choices",
+    "story_order",
+    "omitted_material"
+  ],
+  "properties": {
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "statement",
+          "limits",
+          "evidence",
+          "roles"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "origin",
+              "mandate",
+              "contribution",
+              "shared_ownership",
+              "use",
+              "correction",
+              "constraint",
+              "outcome",
+              "other"
+            ]
+          },
+          "statement": {
+            "type": "string"
+          },
+          "limits": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "record_id",
+                "span_id"
+              ],
+              "properties": {
+                "record_id": {
+                  "type": "string"
+                },
+                "span_id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "actor",
+                "role",
+                "evidence_indices"
+              ],
+              "properties": {
+                "actor": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "evidence_indices": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  },
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rejected_conclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "statement",
+          "reason",
+          "record_ids"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "record_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "stop_receipt_id": {
+      "type": "string"
+    },
+    "research_choices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "story_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "omitted_material": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "record_id",
+          "reason"
+        ],
+        "properties": {
+          "record_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,858 @@
+{
+  "synthetic": true,
+  "snapshot": "2027-09-20",
+  "sources": [
+    {
+      "id": "chat",
+      "platform": "Fictional workplace chat",
+      "enumeration": true,
+      "inventory": "All retained public channels, project channels, and relevant direct-message conversations in the synthetic workspace.",
+      "read_only": true
+    },
+    {
+      "id": "docs",
+      "platform": "Fictional document workspace",
+      "enumeration": true,
+      "inventory": "All retained project pages and nested blocks, including attachment references.",
+      "read_only": true
+    },
+    {
+      "id": "repo",
+      "platform": "Fictional code and issue repository",
+      "enumeration": true,
+      "inventory": "All retained issues, pull requests, reviews, comments, and releases.",
+      "read_only": true
+    }
+  ],
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2027-03-26",
+      "author": "Contributor 04",
+      "container": "#lab-operations",
+      "body": "Starting a thread for Project Glassfin. The current conductivity assay worksheet accepts impossible dilution combinations and gives technicians no warning. Contributor 01, Contributor 03, and I will sketch a guarded replacement before the April trial.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "Glassfin kickoff thread",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2027-04-02",
+      "author": "Contributor 01",
+      "container": "#glassfin",
+      "body": "I mapped the existing worksheet rules into six validation cases. Two questions remain: whether reruns inherit the original sample temperature and whether a blank result may be released. I put both in the decision page rather than guessing.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        },
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Initial rule mapping",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2027-04-03",
+      "author": "Contributor 03",
+      "container": "#glassfin",
+      "body": "For reruns, technicians record the new temperature. Blank results must stay blocked until a supervisor signs off. I added those decisions to the page.",
+      "parent": "chat:002",
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        }
+      ],
+      "title": "Rule decisions",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2027-04-08",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01 / Contributor 02",
+      "body": "The form prototype is ready for a bench walkthrough. I wrote the validation layer and the inline error text; could you check whether the sequence matches how technicians actually prepare the dilution?",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:003"
+        }
+      ],
+      "title": "Request for workflow review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2027-04-09",
+      "author": "Contributor 02",
+      "container": "Direct message: Contributor 01 / Contributor 02",
+      "body": "Sequence is mostly right. The warning arrives after the technician has already disposed of the aliquot. Move the volume check ahead of the preparation confirmation. I can test again Friday.",
+      "parent": "chat:004",
+      "links": [],
+      "title": "Prototype feedback",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:006",
+      "source": "chat",
+      "date": "2027-04-09",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01 / Contributor 02",
+      "body": "Agreed. I moved that check earlier and added a test for the disposal case. The broader step order came from Contributor 04's process map, not from my interviews.",
+      "parent": "chat:005",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:004"
+        }
+      ],
+      "title": "Feedback incorporated",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2027-04-15",
+      "author": "Contributor 01",
+      "container": "#glassfin",
+      "body": "Today's pilot surfaced a unit bug: entering 750 µL was compared as 750 mL and blocked every such dilution. I disabled release of the pilot build and am preparing a conversion fix. Three trial records were affected; none were published.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        }
+      ],
+      "title": "Pilot unit defect",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2027-04-15",
+      "author": "Contributor 04",
+      "container": "#glassfin",
+      "body": "Confirmed the three records stayed in the sandbox. Contributor 01 found this during observation, but our review checklist also missed mixed-unit inputs.",
+      "parent": "chat:007",
+      "links": [],
+      "title": "Impact confirmation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2027-04-22",
+      "author": "Contributor 03",
+      "container": "#glassfin",
+      "body": "Second bench run completed: 18 sample entries, no invalid dilution accepted. Two technicians still paused at the supervisor-signoff wording. This is a limited trial, not a production reliability result.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "Second bench run",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:010",
+      "source": "chat",
+      "date": "2027-05-04",
+      "author": "Contributor 01",
+      "container": "#glassfin",
+      "body": "I drafted the migration script and rollback checklist for moving active assay templates. It deliberately skips archived templates and anything with an unrecognised unit label.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        },
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "Migration draft",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2027-05-07",
+      "author": "Contributor 05",
+      "container": "#glassfin",
+      "body": "The dry run skipped 14 active templates because 'microlitre' was stored as free text. That is safer than converting them incorrectly, but operations needs a cleanup path before launch.",
+      "parent": "chat:010",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:009"
+        }
+      ],
+      "title": "Migration dry-run result",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2027-05-10",
+      "author": "Contributor 01",
+      "container": "#glassfin",
+      "body": "I added an alias table for the four verified spellings and left the other ten templates in the exception report. Contributor 05 owns confirming those labels with the assay leads.",
+      "parent": "chat:011",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Migration exception handling",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2027-05-18",
+      "author": "Contributor 06",
+      "container": "#release-coordination",
+      "body": "Glassfin can enter controlled release on 24 May. Contributor 03 approved the assay rules, Contributor 04 approved the operating procedure, and Contributor 01 has completed the application and migration checks.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        },
+        {
+          "source": "repo",
+          "id": "repo:012"
+        }
+      ],
+      "title": "Controlled-release approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:014",
+      "source": "chat",
+      "date": "2027-05-25",
+      "author": "Contributor 02",
+      "container": "#lab-operations",
+      "body": "First shift on the new form was quieter than expected. One person needed help finding the rerun control; the other five completed entries without assistance. That is one shift in the pilot laboratory.",
+      "parent": null,
+      "links": [],
+      "title": "First-shift observation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:015",
+      "source": "chat",
+      "date": "2027-06-03",
+      "author": "Contributor 05",
+      "container": "#glassfin",
+      "body": "All 14 migration exceptions are resolved: four aliases were safe, eight labels were corrected manually, and two obsolete templates were retired by their owners. Contributor 01 supplied the report and tooling; assay leads made the content decisions.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Migration exceptions resolved",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:016",
+      "source": "chat",
+      "date": "2027-06-21",
+      "author": "Contributor 07",
+      "container": "#quality-review",
+      "body": "In the first four weeks, the pilot laboratory logged 126 assay entries. Seven invalid combinations were blocked before submission. We found no released record with a dilution-rule breach, though manual audit covered only 40 of the 126 entries.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:009"
+        }
+      ],
+      "title": "Four-week quality review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:017",
+      "source": "chat",
+      "date": "2027-07-06",
+      "author": "Contributor 03",
+      "container": "#glassfin",
+      "body": "A blank result was released after a supervisor approved it without reading the note. The software enforced signoff as designed; it did not require a reason. We should not describe the control as preventing inappropriate approval.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:014"
+        }
+      ],
+      "title": "Blank-result incident",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:018",
+      "source": "chat",
+      "date": "2027-07-08",
+      "author": "Contributor 01",
+      "container": "#glassfin",
+      "body": "I proposed requiring an approval reason and showing the blank flag in the confirmation. Contributor 03 prefers the visible flag now and wants evidence before making free-text reasons mandatory. I opened the smaller change accordingly.",
+      "parent": "chat:017",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:015"
+        }
+      ],
+      "title": "Incident response proposal",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:019",
+      "source": "chat",
+      "date": "2027-08-12",
+      "author": "Contributor 06",
+      "container": "#release-coordination",
+      "body": "The second laboratory has postponed adoption until its instrument-interface replacement is complete. Glassfin remains live only in the pilot laboratory; the delay is not currently attributed to the form.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:010"
+        }
+      ],
+      "title": "Expansion postponed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:020",
+      "source": "chat",
+      "date": "2027-04-28",
+      "author": "Contributor 08",
+      "container": "#social",
+      "body": "The lunch-order sheet closes at 15:00. Please mark dietary requirements in the separate field rather than the comments column.",
+      "parent": null,
+      "links": [],
+      "title": "Lunch order",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:021",
+      "source": "chat",
+      "date": "2027-06-11",
+      "author": "Contributor 09",
+      "container": "#equipment",
+      "body": "The east bench balance is drifting by roughly 0.03 g. It has been tagged out pending calibration; this is unrelated to the conductivity instruments.",
+      "parent": null,
+      "links": [],
+      "title": "Balance calibration",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:022",
+      "source": "chat",
+      "date": "2027-09-09",
+      "author": "Contributor 06",
+      "container": "#release-coordination",
+      "body": "The second laboratory completed its interface work and plans a Glassfin readiness review next month. No adoption date has been agreed.",
+      "parent": "chat:019",
+      "links": [],
+      "title": "Later expansion update",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2027-03-27",
+      "author": "Contributor 04",
+      "container": "Glassfin / Project brief",
+      "body": "Objective: reduce invalid conductivity-assay entries by replacing the shared worksheet with a guarded form. Initial scope is one pilot laboratory. Contributor 04 owns process and rollout; Contributor 03 owns assay-rule approval; Contributor 01 owns form implementation and validation logic; Contributor 05 supports migration.",
+      "parent": null,
+      "links": [],
+      "title": "Project Glassfin brief",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2027-04-02",
+      "author": "Contributor 01",
+      "container": "Glassfin / Rule inventory",
+      "body": "Draft inventory covering ranges, dilution ratios, units, reruns, blank results, supervisor release, and error wording. Entries marked 'decision needed' are not implemented assumptions.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Rule inventory draft",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2027-04-03",
+      "author": "Contributor 03",
+      "container": "Glassfin / Rule inventory / Decision log",
+      "body": "Approved: reruns use newly measured temperature; blank results require supervisor signoff; ranges follow assay family rather than instrument model. Assay-rule authority remains with Contributor 03.",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Approved assay decisions",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2027-04-11",
+      "author": "Contributor 02",
+      "container": "Glassfin / Bench walkthrough notes",
+      "body": "Five technicians attempted the scripted workflow. Four completed without prompting. The early volume warning prevented one unnecessary preparation. The sample is too small to estimate routine error rates.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:006"
+        }
+      ],
+      "title": "Bench walkthrough notes",
+      "attachments": [
+        "attachment:walkthrough-photos"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2027-04-23",
+      "author": "Contributor 03",
+      "container": "Glassfin / Trial log / Run 2",
+      "body": "Eighteen synthetic entries completed. Expected blocks: 6; observed blocks: 6. Unexpected blocks: 0. Signoff wording caused two hesitations. No claim is made about live throughput.",
+      "parent": null,
+      "links": [],
+      "title": "Trial run 2 results",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2027-05-05",
+      "author": "Contributor 01",
+      "container": "Glassfin / Release runbook",
+      "body": "Migration sequence: snapshot templates, transform recognised units, produce exception report, obtain owner confirmation, then enable the form. Roll back if record counts differ or any active template disappears.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        }
+      ],
+      "title": "Release and rollback runbook",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2027-05-17",
+      "author": "Contributor 06",
+      "container": "Glassfin / Readiness decision",
+      "body": "Controlled release approved for the pilot laboratory. Open limitations: help text for reruns is easy to miss; ten template labels still require owner confirmation; monitoring is manual for the first month. Approvals are recorded by functional owner, not by consensus.",
+      "parent": null,
+      "links": [],
+      "title": "Readiness decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2027-05-29",
+      "author": "Contributor 08",
+      "container": "Community garden rota",
+      "body": "June watering slots are open. The west planter tap remains stiff, so bring the small valve key from the supply drawer.",
+      "parent": null,
+      "links": [],
+      "title": "Garden rota note",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2027-06-20",
+      "author": "Contributor 07",
+      "container": "Glassfin / Quality review / Month 1",
+      "body": "Scope: pilot laboratory, 24 May–18 June. 126 entries; 7 invalid combinations blocked before submission; 0 dilution-rule breaches among 40 manually audited released entries. These observations do not establish the status of the other 86 released entries or other laboratories.",
+      "parent": null,
+      "links": [],
+      "title": "Month-one quality review",
+      "attachments": [
+        "attachment:audit-export"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:010",
+      "source": "docs",
+      "date": "2027-08-11",
+      "author": "Contributor 06",
+      "container": "Glassfin / Expansion tracker",
+      "body": "Pilot laboratory: live. Second laboratory: waiting on instrument-interface replacement. Third laboratory: not assessed. There is no organisation-wide adoption decision.",
+      "parent": null,
+      "links": [],
+      "title": "Expansion tracker",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2027-04-02",
+      "author": "Contributor 01",
+      "container": "glassfin/issues/12",
+      "body": "Implement validation cases from the rule inventory. Acceptance criteria cover ratio bounds, family-specific ranges, canonical units, rerun temperature, blank-result signoff, and actionable messages. Two policy questions remain linked to the decision log.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "Issue 12: validation cases",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2027-04-04",
+      "author": "Contributor 03",
+      "container": "glassfin/issues/12",
+      "body": "Policy questions are resolved in the decision log. Please treat my values as assay requirements, not implementation suggestions.",
+      "parent": "repo:001",
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        }
+      ],
+      "title": "Assay requirements confirmed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2027-04-08",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/18",
+      "body": "Adds the guarded entry form, six validation paths, inline messages, and event logging. Does not migrate existing templates or change assay definitions.",
+      "parent": null,
+      "links": [],
+      "title": "PR 18: guarded entry form",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2027-04-10",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/18",
+      "body": "Revision moves the volume check before preparation confirmation and adds a regression test for an aliquot that would otherwise be discarded. Change follows Contributor 02's walkthrough feedback.",
+      "parent": "repo:003",
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:005"
+        }
+      ],
+      "title": "PR 18 revision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2027-04-15",
+      "author": "Contributor 01",
+      "container": "glassfin/issues/21",
+      "body": "Mixed-unit comparison treats microlitres as millilitres in one client-side path. Severity is high for usability, but affected records were sandbox-only. Release disabled pending fix and cross-unit tests.",
+      "parent": null,
+      "links": [],
+      "title": "Issue 21: mixed-unit comparison",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2027-04-16",
+      "author": "Contributor 10",
+      "container": "glassfin/pull/22",
+      "body": "Fix correctly normalises volumes before comparison. I requested a parameterised test across every supported unit pair because the original tests covered only matching units.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        }
+      ],
+      "title": "Review of unit fix",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2027-04-17",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/22",
+      "body": "Added the full unit-pair matrix and a server-side check matching the client rule. All 24 combinations pass. Contributor 10 approved after the update.",
+      "parent": "repo:006",
+      "links": [],
+      "title": "Unit fix completed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2027-05-04",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/31",
+      "body": "Adds dry-run migration, rollback verification, and an exception report. The transformer refuses unknown unit labels rather than coercing them.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "PR 31: template migration tooling",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2027-05-07",
+      "author": "Contributor 05",
+      "container": "glassfin/pull/31",
+      "body": "Dry run: 73 active templates discovered; 59 convertible; 14 skipped for free-text unit labels. Counts reconcile and no source templates were modified.",
+      "parent": "repo:008",
+      "links": [],
+      "title": "Migration dry-run review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2027-05-10",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/34",
+      "body": "Adds a reviewed alias table and exports unresolved labels for owner action. It does not decide whether a label is scientifically equivalent; those decisions remain outside the code.",
+      "parent": null,
+      "links": [],
+      "title": "PR 34: unit aliases and exceptions",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:011",
+      "source": "repo",
+      "date": "2027-05-13",
+      "author": "Contributor 10",
+      "container": "glassfin/pull/34",
+      "body": "Approved. The alias list matches the four labels confirmed by Contributor 05. Keeping the other ten out of automatic conversion is the safer boundary.",
+      "parent": "repo:010",
+      "links": [],
+      "title": "Alias review approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:012",
+      "source": "repo",
+      "date": "2027-05-24",
+      "author": "Contributor 06",
+      "container": "glassfin/releases/1.0",
+      "body": "Controlled release to the pilot laboratory. Included: guarded entry form, validation logging, reviewed unit conversion, exception reporting, and rollback procedure. Expansion requires a separate readiness decision.",
+      "parent": null,
+      "links": [],
+      "title": "Glassfin 1.0 controlled release",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:013",
+      "source": "repo",
+      "date": "2027-06-02",
+      "author": "Contributor 09",
+      "container": "notebook-service/issues/88",
+      "body": "Notebook PDF export wraps long reagent names over the footer. This repository is separate from Glassfin; scheduling for the next maintenance cycle.",
+      "parent": null,
+      "links": [],
+      "title": "Unrelated PDF export defect",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:014",
+      "source": "repo",
+      "date": "2027-07-06",
+      "author": "Contributor 03",
+      "container": "glassfin/issues/47",
+      "body": "A supervisor released a blank result after completing the required signoff. The configured rule worked, but the confirmation did not foreground the blank status. Decide whether to strengthen display, require rationale, or change procedure.",
+      "parent": null,
+      "links": [],
+      "title": "Issue 47: blank approval control",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:015",
+      "source": "repo",
+      "date": "2027-07-08",
+      "author": "Contributor 01",
+      "container": "glassfin/pull/49",
+      "body": "Foregrounds the blank flag in the approval confirmation and adds an acknowledgement checkbox. A mandatory written rationale is excluded pending policy evidence. Contributor 03 supplied the accepted wording.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:014"
+        }
+      ],
+      "title": "PR 49: clearer blank confirmation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:016",
+      "source": "repo",
+      "date": "2027-07-12",
+      "author": "Contributor 07",
+      "container": "glassfin/pull/49",
+      "body": "Approved after accessibility checks. This improves salience but cannot establish that supervisors make appropriate decisions; monitor approvals separately.",
+      "parent": "repo:015",
+      "links": [],
+      "title": "Blank-confirmation review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "attachments": [
+    {
+      "id": "attachment:walkthrough-photos",
+      "source": "docs",
+      "title": "Bench walkthrough photographs",
+      "body": "",
+      "unavailable": true
+    },
+    {
+      "id": "attachment:audit-export",
+      "source": "docs",
+      "title": "Month-one audit sample export",
+      "body": "Synthetic audit extract listing 40 reviewed record identifiers, reviewer outcomes, and no observed dilution-rule breaches. It contains no evidence about the remaining 86 entries.",
+      "unavailable": false
+    }
+  ]
+}

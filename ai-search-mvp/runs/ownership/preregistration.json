@@ -1,0 +1,81 @@
+{
+  "frozen_at": "2026-10-23T23:32:48.605984+00:00",
+  "synthetic_only": true,
+  "source_call_budget": 45,
+  "request_limit": 80,
+  "page_size": 3,
+  "earlier_lookback_days": 90,
+  "author": "Separate isolated AI author with generic brief, domain-diversity constraint, distractors and nested-reply requirement. No old story, implementation, research prompt, private records or current conversation.",
+  "researcher": "Fresh isolated AI session with scope and fixed synthetic MCP only. No hidden rubric.",
+  "stop": "One substantive research attempt; 45 charged source calls, 80 total requests or 15 minutes. Generic local draft validation and correction are allowed inside that attempt. No external coaching, fixture edits or protocol changes after author generation.",
+  "changes": [
+    "Notes preserve explicit actor/action/state assertions anchored to exact source spans. Final roles reference saved assertions instead of rewriting them.",
+    "Evaluation-source authorship is derived from original author metadata and included in the compiled account, distinguished from underlying performance.",
+    "One coverage_notes field describes whole or partial coverage. Record omission is derived only for uncited, unrejected material; cited records cannot acquire an omitted state.",
+    "Free draft_check validates the complete output before sealing. The final response must match a valid checked draft for the current evidence, apart from the stop receipt."
+  ],
+  "hypotheses": [
+    "Source authors and material participant roles survive from reading to the account.",
+    "Offers and proposals remain distinct from completed actions in both roles and narrative sentences.",
+    "Partial-content coverage notes cannot produce a cited-but-omitted record."
+  ],
+  "failure_criteria": [
+    "Relevant author or participant attribution disappears.",
+    "A proposal, offer or request is described as completed work without completion evidence.",
+    "Unknown or unsupported attribution references, citation errors, stale checked draft or mismatched final receipt.",
+    "Material context remains missing or distorted despite structurally valid bookkeeping."
+  ],
+  "assessment": "Original-source/manual hidden-rubric assessment after first run; separate structural and semantic outcomes.",
+  "record_range": {
+    "requested": [
+      32,
+      40
+    ],
+    "accepted_without_editing": [
+      32,
+      64
+    ]
+  },
+  "comparison_limit": "Different story, action-state notes, metadata authorship and checked-draft interface changed together. No causal reliability or efficiency comparison.",
+  "freeze": {
+    "model/diverse-author.txt": "23e456b2f64d3ed1e90cc23ada2a1457f6b9a456e5afb26de43873eed77b0830",
+    "model/completion-researcher.txt": "34b7860ac444b192b8d8f7e68976bca85283913944586297b81dabf913fde854",
+    "model/author.schema.json": "4118bbc8ec7114ea0e5e1458e1e1db24723435a8feb35b03bd90a8ba686450ec",
+    "model/completion.schema.json": "50c99eb94bfa635768e964b3ef2f32b54ce2520c3404951abb5513358d8cf91d",
+    "model/attribution.schema.json": "e394b3b250cfb2002d2573648233470c02964f6e3d3dd59b5835a9654110b36a",
+    "model/review.schema.json": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+    "completion_server.py": "e2c13752c078e2e77e9fedb69d8f7057a6f7be1d58630c3f42f2870779ce4a84",
+    "completion_review.py": "1b7aed0d24e2775561178a427cb1f8f470567b64f9a22a1cd5a270255d193131",
+    "completion_experiment.py": "f916a17b00e5173fcd1529bd25ed878b90f45e772cd7c795c70e4a3213ef08eb",
+    "attribution_server.py": "351f9fde507796c5111c9b86d91006c423fd067fdd3916742daaf4d021698916",
+    "attribution_review.py": "0936c3b067650163e80dace1408f4000014f834d15b5a4eeef5933773fd8a5c2",
+    "semantic_review.py": "66b6851333e51e2535dd990784d6229827f68f399ee5a04c5100be5ac70fb0e5",
+    "followup_server.py": "3c5df5973d274f6c91f44426a55af0d87fa1c9a04ad6eb203f9e897bb00786ee",
+    "autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "mcp_server.py": "d808a0d52d9bbeca7024a155cf289274e17e73fe74ce50b71dece38f13867131",
+    "model_backend.py": "2ef789c86ae7a9fff2885b4e34c0c5c3f0fc7c3bdc33074fbbd83194f39b7b55",
+    "tests/test_completion.py": "3f9a8d15b1c20faa41023a22e7d57b80dc65be3b6f97b7a404228fd656d87956",
+    "depth_server.py": "8bcf007afb148ac8dd122e163ca8e6ac6c2ea44f1f08b43122427b5797c02846",
+    "depth_review.py": "8e5048caca78fa12cf43250be41e147a07497af0b746ba57abb93ceed3fd048b",
+    "depth_experiment.py": "886e3217e4e30af474eb2aac314bf77967ae681fc887aa9a2d71bc2007d86fff",
+    "model/depth-author.txt": "66b81d75f8c8ee3894427c2865eedf2ff790ea676ebbfb639a171c1282f4bc99",
+    "model/depth-researcher.txt": "1ee74e3aebd35211da10a82444a887258bb78ab953482e38287b41d10e22ba78",
+    "model/depth.schema.json": "eb9095b7b2dbf60e73a80d4afdbb9360b0e073532dc2751fe068430595788514",
+    "tests/test_depth.py": "c963503a6e1d8ef696ed7aefd771f5a7c7a710b7f1c5178980e4e165a4b1d378",
+    "retention_server.py": "8d4f63337aea06b39d81c0a0299d145f8e15a7c8730b585edc2fe50d36a71eb9",
+    "retention_review.py": "233b1f079dfa34169ac897968fa5f8935b6af9e98ad576ac2bae38bc4a3805c5",
+    "retention_experiment.py": "9bae73f21ad570937e609e1d688e558c662e3bc16dff6675a0dad6512b82454b",
+    "model/retention-author.txt": "03bf00f1863e625d91bdd1b247b9369b0ad2801c6ab5f2db057960956f66486e",
+    "model/retention-researcher.txt": "6e578073c226f832e672e36cf6c99ad0c568e7dc2a2ddcd2dc1e8ba4843a05d8",
+    "model/retention.schema.json": "8c4acf1959a0b379e67c530875ae16f651daac1450b58203ee471f1c75d37ca4",
+    "tests/test_retention.py": "50db03e9c9b40fded7582c778e936054244c450cdeef62a0ae7ab93b84e02197",
+    "ownership_server.py": "e813302d42e912680645e726af18d63da727e91fa5e90ba12d1ed241d82ae785",
+    "ownership_review.py": "a535bde610c49ced2081dff7494deaf64a3d275743c2c3643e9f0a3f7e9184cc",
+    "ownership_experiment.py": "e8b28aceba8dc75d3403585c939a5a5680a828bde1c6bf26bc9af57bdcf26457",
+    "model/ownership-author.txt": "a84c3458e51822e1a4e70915ec087a3858a1e02252a06bd96d731b0afe91932f",
+    "model/ownership-researcher.txt": "eeff1ef518cb2a3b7d8a7158b95e7b80534e9b4988dd78740523cfb8a02987de",
+    "model/ownership.schema.json": "607eb172d1ad44ee8f3c9372b3e5e756ca971e93b06125deaf9ab5acaa6f87e0",
+    "tests/test_ownership.py": "d49b86959b3121ed2a52a17c9d785093ef8d26e638b8e5138962770807609e2e"
+  },
+  "client_date": "2026-10-24"
+}

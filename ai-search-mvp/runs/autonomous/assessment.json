@@ -1,0 +1,331 @@
+{
+  "headline": "It understood the work it read. It missed later use.",
+  "summary": "The researcher chose its own searches across three platforms. It preserved shared ownership and cautious outcome claims, but skipped replies containing an operational result and continued use.",
+  "scope_limit": "One untouched story from a separate AI author; one uncoached research attempt. The same model provider was used for author and researcher. This is not an independent human benchmark.",
+  "expected_records": 41,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Diagnosis and proposal",
+      "criterion": "Conclude that Contributor 01 connected demand peaks with overlapping defrost starts, while treating door activity as a competing explanation, and proposed a guarded 12-minute staggering test rather than asserting proven causality.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "docs:001"
+      ],
+      "pitfall": "Saying Contributor 01 proved defrost overlap caused the peaks or originated the underlying incident report.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-01",
+        "claim-02"
+      ],
+      "assessment": "Preserves a testable overlap hypothesis and the competing door-open explanation. Does not claim the subject originated the incident report or proved causality.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "Analysis tooling and timestamp correction",
+      "criterion": "Conclude that Contributor 01 built the parser, overlap detector, and simulator, then acknowledged and corrected an offset/DST assumption after Contributor 07 identified it; the corrected analysis still supported investigating overlap.",
+      "anchors": [
+        "chat:004",
+        "chat:005",
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005"
+      ],
+      "pitfall": "Omitting the defect, treating it as fatal to all findings, or crediting Contributor 01 with discovering it unaided.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-03",
+        "claim-04"
+      ],
+      "assessment": "Credits the parser, overlap detector and simulator to the subject, while preserving the defect and the other contributor’s discovery and fixture. The acknowledgement reply was not read, but the correction and review were.",
+      "unread_anchors": [
+        "repo:003"
+      ]
+    },
+    {
+      "id": "theme-03",
+      "name": "Pilot design and governance",
+      "criterion": "Conclude that Contributor 01 drafted a supervised, bounded pilot with stop conditions and an excluded ambiguous interval, while operations and controls contributors set staffing, approval, and safety constraints.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004"
+      ],
+      "pitfall": "Portraying Contributor 01 as sole owner of the pilot or claiming the plan authorised autonomous control.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-02",
+        "claim-05"
+      ],
+      "assessment": "Captures the bounded, supervised pilot, stop conditions, excluded interval and reduction from six planned nights to four staffed nights. Separates proposal, safety constraints and operations authority.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-04",
+      "name": "Recommendation-mode implementation",
+      "criterion": "Conclude that Contributor 01 implemented read-only scheduling recommendations, eligibility checks, delay visibility, audit logging, operator hold, rejection stopping, and tests; it did not submit controller commands automatically.",
+      "anchors": [
+        "repo:006",
+        "repo:007",
+        "repo:008"
+      ],
+      "pitfall": "Calling the implementation an autonomous scheduler or omitting review-driven safety changes.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-06"
+      ],
+      "assessment": "Accurately describes recommendation mode and review-driven safety changes without turning the interface into automatic controller commands.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-05",
+      "name": "Observed first-site result",
+      "criterion": "Report that four supervised Freezer B nights reduced matched eligible overlaps from 11 to 3 and had an observed maximum-demand difference of 38 kW, with no measurable energy change or recorded safety event.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "docs:005",
+        "docs:006"
+      ],
+      "pitfall": "Calling 38 kW a proven or annualised saving, generalising from four nights, or ignoring operator intervention.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "claim-07",
+        "claim-08"
+      ],
+      "assessment": "Keeps the four-night 38 kW observation, unchanged energy, operator intervention and safety limits. Misses the concrete operational count: eligible overlaps fell from 11 to 3. That count was in an unread reply under the first trial-night message.",
+      "unread_anchors": [
+        "chat:008"
+      ]
+    },
+    {
+      "id": "theme-06",
+      "name": "Causality and shared ownership",
+      "criterion": "Recognise that lower door-open time confounded two nights and that Contributor 01 explicitly credited operations, Contributor 07, and Contributor 03; the outcome was shared rather than solely attributable.",
+      "anchors": [
+        "docs:005",
+        "chat:009",
+        "chat:010"
+      ],
+      "pitfall": "Repeating informal praise as evidence that Contributor 01 personally delivered the entire outcome.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-08",
+        "claim-09"
+      ],
+      "assessment": "Keeps the lower door-open time as a confounder and preserves the explicit correction to sole credit. Does not present the 38 kW difference as a controlled saving.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-07",
+      "name": "Second-site constraint",
+      "criterion": "Conclude that Chiller C's R4 gateway incompatibility blocked the planned screen-assisted workflow; only two manual nights occurred, one with too few eligible cycles, and Contributor 01 declined to build an undocumented adapter because of unit risk.",
+      "anchors": [
+        "docs:007",
+        "chat:011",
+        "repo:009",
+        "repo:010",
+        "chat:012"
+      ],
+      "pitfall": "Calling the pause a failed safety test, claiming deployment occurred, or assuming Contributor 01 caused the vendor constraint.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "claim-11",
+        "claim-13"
+      ],
+      "assessment": "Finds the R4 constraint, unit risk and two manual trial nights via repository and quarterly records. Does not read the trial message explaining that the second night had too few eligible cycles to compare, so its account loses a material limitation.",
+      "unread_anchors": [
+        "docs:007",
+        "chat:011",
+        "chat:012"
+      ]
+    },
+    {
+      "id": "theme-08",
+      "name": "Documentation and terminology",
+      "criterion": "Conclude that Contributor 01 authored the operating guide and distinguished supported from unsupported controllers, while Contributor 04 added screenshots and corrected language to reflect operator confirmation rather than autonomous approval.",
+      "anchors": [
+        "docs:008",
+        "docs:009"
+      ],
+      "pitfall": "Crediting Contributor 01 with every guide detail or describing documentation as proof of broad adoption.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "claim-10"
+      ],
+      "assessment": "Credits the operating guide to the subject while retaining the operations edits and the clarification that confirmation is not autonomous approval.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-09",
+      "name": "Responsible outcome framing",
+      "criterion": "Conclude that Contributor 01 sought cautious reporting: observed 38 kW difference, unchanged energy, no annualisation; tariff benefit remained unknown.",
+      "anchors": [
+        "chat:006",
+        "chat:013",
+        "chat:014",
+        "docs:010"
+      ],
+      "pitfall": "Converting the trial observation into a financial or energy-saving claim.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "claim-15"
+      ],
+      "assessment": "Preserves the subject’s cautious outcome wording, unchanged energy, no annualisation and unknown tariff benefit. Does not invent money saved.",
+      "unread_anchors": [
+        "chat:006"
+      ]
+    },
+    {
+      "id": "theme-10",
+      "name": "Later safeguard work",
+      "criterion": "Conclude that Contributor 01 fixed stale recommendations after telemetry loss with a 30-second disconnected state and fresh recalculation; this resolved that display hazard but not the R4 issue.",
+      "anchors": [
+        "repo:011",
+        "repo:012",
+        "repo:013"
+      ],
+      "pitfall": "Omitting the later corrective work or claiming it removed all deployment blockers.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "claim-12"
+      ],
+      "assessment": "Finds the later 30-second disconnected-state correction, fresh recalculation and tests, while keeping the separate R4 blocker unresolved.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-11",
+      "name": "Follow-up adoption and unresolved scale",
+      "criterion": "Through 2028-06-30, conclude that Freezer B saw intermittent selected-night use, Chiller C had no supported deployment, and there was no fleet rollout or portfolio-wide measurement; incomplete logs and pending controller replacement leave adoption and impact uncertain.",
+      "anchors": [
+        "docs:010",
+        "chat:016",
+        "repo:014",
+        "docs:011"
+      ],
+      "pitfall": "Equating occasional reported use with general adoption, treating delay as definite failure, or using the post-horizon controller approval as an in-scope outcome.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "claim-13",
+        "claim-14"
+      ],
+      "assessment": "Finds the later R4 clarification and continued lack of second-site prioritisation. Misses the February 2028 selected-night use report and June horizon summary. It therefore calls first-site continuation unknown even though accessible records answer part of that question. The logs still do not establish broad or measured adoption.",
+      "unread_anchors": [
+        "chat:016",
+        "docs:011"
+      ]
+    },
+    {
+      "id": "theme-12",
+      "name": "Evidence boundaries",
+      "criterion": "Keep the unavailable vendor appendix out of factual support and exclude the 2028-07-09 controller decision from conclusions bounded by the follow-up horizon.",
+      "anchors": [
+        "docs:007",
+        "docs:011"
+      ],
+      "pitfall": "Relying on inaccessible material or incorporating chat:017 into the through-horizon answer.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [],
+      "assessment": "Does not rely on the unavailable appendix or the post-horizon controller decision. This is a pass for the rubric’s non-reliance requirement, not proof of discovery: it never read the document referencing the missing attachment and made no attachment call.",
+      "unread_anchors": [
+        "docs:007",
+        "docs:011"
+      ]
+    }
+  ],
+  "issue_heading": "An honest unknown can still be a research miss.",
+  "issues": [
+    {
+      "severity": "Unopened thread",
+      "claim_ids": [
+        "claim-07",
+        "claim-08"
+      ],
+      "detail": "The model read chat:007 but did not expand it. One context read would have returned both the 11-to-3 operational count (chat:008) and selected-night use in February 2028 (chat:016). This is an observed retrieval miss, not a hypothetical gap."
+    },
+    {
+      "severity": "Search scope",
+      "claim_ids": [
+        "claim-13",
+        "claim-14"
+      ],
+      "detail": "Root enumeration covers activity in the original question window. The model never broadened its failed document query from “Project Lantern” to “Lantern”. A post-run audit found the June 2028 horizon summary on the fourth page of that broader search. The search contract, pagination cost and model’s query choices all contributed to the gap."
+    },
+    {
+      "severity": "Sample quality omitted",
+      "claim_ids": [
+        "claim-11",
+        "claim-13"
+      ],
+      "detail": "The quarterly summary gave two manual second-site nights, but the unread trial record says the second night had too few eligible cycles to compare. The model reported the count without this limitation."
+    },
+    {
+      "severity": "Uninspected mandate and attachment",
+      "claim_ids": [
+        "claim-13"
+      ],
+      "detail": "docs:007 stayed snippet-only. The researcher missed the condition requiring eight additional busy-loading nights before fleet automation, and did not discover its unavailable vendor appendix. Avoiding unsupported attachment claims is not the same as auditing missing evidence."
+    },
+    {
+      "severity": "Budget allocation",
+      "claim_ids": [],
+      "detail": "Six initial searches included four empty results. The model then spent 17 calls reading individual roots and exhausted all 45 calls, leaving one search continuation open and two read roots with unread replies. It did not fabricate completeness, but its coverage accounting did not identify these unopened threads."
+    }
+  ],
+  "limitations": [
+    "Separate author session received only a generic authoring brief and schema, with no private data, old fixtures, implementation or researcher prompt. The author and researcher still used the same provider/default model family, so this is weaker independence than a separately recruited human author.",
+    "The author returned 42 records rather than the requested 32–40. The original content was preserved; the 45-call limit and research prompt were not changed. Of those records, 41 are accessible through the horizon and one is later.",
+    "This assistant manually assessed the answer against the author’s 12-theme rubric. Nine themes are fully met and three partly met; the categories are judgement calls, not a general accuracy estimate.",
+    "The rubric is comparatively explicit and the story contains only one unrelated distractor. It is not a stress test of large, noisy workplace archives or ambiguous identity resolution.",
+    "The 31-of-41 read count includes all accessible records, including distractors. It is an inventory measure, not the fraction of relevant context understood. Five records were seen only as snippets and five were not surfaced at all.",
+    "Root enumeration is bounded to the original question window; search and context reads extend through the horizon. A production planner needs an explicit follow-up-window inventory rather than relying only on its initial root listing.",
+    "All 27 quotations match original records actually read by the model. This validates citation provenance, not every interpretation. No fabricated quantified result was found in this assessment.",
+    "Post-run diagnostic probes used the hidden rubric to locate omissions. They were never fed to the researcher, are not a second model attempt, and do not establish that the model would choose those probes unaided.",
+    "Only simulated source adapters were used. No live Slack, Notion, GitHub, calendar or private record was accessed. Inference used the authenticated Codex service; outputs and evidence are stored locally.",
+    "The precise model identifier was not captured by the CLI receipt. Repeatability across model versions is untested."
+  ],
+  "method": "A separate isolated Codex session wrote the story and hidden rubric. The research prompt, source tools, page size of three and 45-call limit were frozen before authoring. The researcher started with scope only and selected every source call. The answer was preserved before this assistant opened the rubric; exact spans and content hashes were then checked.",
+  "next_experiment": "On another independently authored case, test a planner that reserves calls for observed reply flags and a separate follow-up-window inventory. Keep this run as the failure baseline; do not retune it into a passing example.",
+  "summary_counts": {
+    "fully_met": 9,
+    "partial": 3,
+    "missed": 0,
+    "themes": 12,
+    "full_records": 31,
+    "snippet_only": 5,
+    "unseen": 5,
+    "source_calls": 45,
+    "searches": 6,
+    "pending_pages": 1,
+    "read_roots_with_unread_children": 2,
+    "quotes": 27
+  },
+  "unopened_context_roots": [
+    "repo:002",
+    "chat:007"
+  ],
+  "adjudicator": "This assistant; manual comparison against separate-author rubric and original sources",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "review_sha256": "71623144e8d2f17e7346b58cea9922b90a0e7d101fffd3c48ae7a5bc9218f914",
+  "gold_sha256": "d294e5e976ef8416bfe23a5ab514ff4c2fb63d9ca4db68870cb39ebac4a2ec50",
+  "post_run_audit_probe_count": 9
+}

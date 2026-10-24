@@ -1,0 +1,198 @@
+{
+  "label": "Contributor 01 led the reconciliation design and service implementation for Lantern Gate, identified and corrected important technical and wording risks, and supported—but did not solely deliver—the pilot. Subsequent evidence showed reliable recovery in several short, small-venue outages, alongside limited scope, a training misunderstanding, a firmware telemetry defect and unresolved large-venue readiness.",
+  "expected_records": [
+    "chat:001",
+    "chat:002",
+    "docs:001",
+    "docs:002",
+    "docs:003",
+    "docs:004",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "chat:003",
+    "chat:004",
+    "chat:005",
+    "docs:005",
+    "repo:005",
+    "repo:006",
+    "repo:007",
+    "repo:008",
+    "chat:006",
+    "docs:006",
+    "chat:007",
+    "repo:009",
+    "repo:010",
+    "docs:007",
+    "docs:008",
+    "chat:008",
+    "repo:011",
+    "chat:009",
+    "docs:009",
+    "docs:010",
+    "docs:011",
+    "repo:012",
+    "chat:010",
+    "docs:012",
+    "chat:011",
+    "repo:013",
+    "chat:012",
+    "docs:013",
+    "repo:014"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Owned reconciliation design and service implementation",
+      "criterion": "Conclude that Contributor 01 personally took ownership of the offline reconciliation slice and led its service-side design and implementation, while the project brief and review distinguish this from firmware, console and rollout ownership.",
+      "anchors": [
+        "chat:002",
+        "docs:001",
+        "docs:012"
+      ],
+      "pitfall": "Either omit the explicit ownership or claim Contributor 01 owned the entire project and all components.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "Built replay-safe event ingestion",
+      "criterion": "Identify Contributor 01's concrete implementation of the event ledger, idempotent upload behaviour, transaction handling and overlapping-batch test.",
+      "anchors": [
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004"
+      ],
+      "pitfall": "Reduce the work to a vague proposal, or attribute the reviewer's requested test entirely to the reviewer rather than noting Contributor 01 implemented it.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-03",
+      "name": "Designed conflict semantics with acknowledged limits",
+      "criterion": "Explain that Contributor 01 separated repeated uploads from cross-device conflicts, used receipt order as a deterministic rule rather than historical truth, preserved audit events and captured clock offsets.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "repo:006"
+      ],
+      "pitfall": "State that the system established who scanned first, or portray the ordering limitation as undisclosed.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-04",
+      "name": "Corrected invalid-ticket misclassification",
+      "criterion": "Note that a reviewer found invalid tickets would inflate conflicts and Contributor 01 corrected the ordering of validation and added distinct metrics and a fixture.",
+      "anchors": [
+        "repo:007",
+        "repo:008"
+      ],
+      "pitfall": "Ignore the defect, claim Contributor 01 discovered it unaided, or treat the correction as proof the original design had no problem.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Adapted to device retention constraints",
+      "criterion": "Conclude that Contributor 01 responded to the firmware storage limit by narrowing claims to two-hour outages, requesting age telemetry and documenting queue depth as a temporary signal; firmware delivery remained Contributor 06's work.",
+      "anchors": [
+        "chat:003",
+        "chat:004",
+        "chat:005",
+        "docs:007",
+        "repo:013"
+      ],
+      "pitfall": "Credit Contributor 01 with implementing firmware telemetry or imply that the missing signal blocked all piloting.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Found and fixed a pilot-scale performance risk",
+      "criterion": "Identify that Contributor 01's rehearsal exposed an unsafe backlog, after which they implemented incremental reconciliation and contention tests; approval was explicitly limited to the modeled 20-device pilot scale.",
+      "anchors": [
+        "chat:007",
+        "repo:009",
+        "repo:010"
+      ],
+      "pitfall": "Claim general scalability or omit that the initial build was unsafe before correction.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Shared console and operational delivery",
+      "criterion": "Distinguish Contributor 01's API contract, state definitions, sample payloads and initial runbook from Contributor 08's console implementation and Contributor 03's operational procedure, training and rollout.",
+      "anchors": [
+        "docs:005",
+        "repo:005",
+        "docs:007",
+        "docs:008",
+        "repo:011"
+      ],
+      "pitfall": "Credit Contributor 01 with building the console or independently delivering training and rollout.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-08",
+      "name": "Pilot recovered a short outage with bounded evidence",
+      "criterion": "Report that Venue A queued and uploaded 1,842 events during a 17-minute outage, recorded 31 repeated uploads and six manually checked conflicts, and logged no confirmed double admission; Venue B had no outage.",
+      "anchors": [
+        "docs:009",
+        "chat:010"
+      ],
+      "pitfall": "Generalize from one observed outage to universal reliability, equate no reported double admission with proof none occurred, or count Venue B as an offline recovery test.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-09",
+      "name": "Wording caused confusion and was revised",
+      "criterion": "Explain that one supervisor mistook 'accepted' for proof of arrival order, after which Contributor 01 changed the exposed wording to 'selected by system' without changing reconciliation logic; later limited feedback said it was clearer.",
+      "anchors": [
+        "docs:010",
+        "docs:011",
+        "repo:012",
+        "chat:010"
+      ],
+      "pitfall": "Hide the misunderstanding, claim the algorithm changed, or infer broad usability success from two online cases.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Controlled expansion produced encouraging but limited results",
+      "criterion": "State that three additional small venues were enabled after telemetry shipped; two brief outages queued 2,406 events and completed uploads without operator intervention, with four checked conflicts and no confirmed double admissions logged.",
+      "anchors": [
+        "docs:012",
+        "repo:013",
+        "chat:012",
+        "docs:013"
+      ],
+      "pitfall": "Describe this as estate-wide adoption, a large-venue launch or definitive prevention of duplicate admission.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-11",
+      "name": "Residual telemetry defect and unresolved scale",
+      "criterion": "Retain the uncertainty that queue-age telemetry could become stale after device sleep, the two-hour fallback remained, and larger-venue adoption was undecided through the horizon.",
+      "anchors": [
+        "docs:013",
+        "repo:014"
+      ],
+      "pitfall": "Treat the telemetry defect as a failed upload system, assume it was resolved, or use the post-horizon trial approval as an outcome within scope.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-12",
+      "name": "Background trigger and unrelated records",
+      "criterion": "Recognize the older foyer restart report as relevant motivation while excluding fridge, expense-export and book-club items from the substantive account.",
+      "anchors": [
+        "chat:001",
+        "chat:006",
+        "chat:008",
+        "chat:011"
+      ],
+      "pitfall": "Miss the relevant older context or weave unrelated operational notices into the project narrative.",
+      "importance": "secondary"
+    }
+  ],
+  "author_note": "This is a wholly synthetic case. The corpus supports conclusions about recorded work and bounded pilot observations, not unlogged behaviour, guest-level ground truth or performance at large venues. One referenced pilot workbook is intentionally unavailable, but the accessible pilot logs and review contain the facts required by the rubric; the July record is intentionally outside the follow-up horizon."
+}

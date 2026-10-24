@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 do on Meridian, and what happened afterwards?",
+  "query": "Meridian",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2030-01-01",
+  "end": "2030-03-31",
+  "horizon": "2030-04-30",
+  "timezone": "UTC"
+}

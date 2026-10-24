@@ -1,0 +1,20 @@
+[
+  {
+    "id": "attachment:walkthrough-photos",
+    "source": "docs",
+    "title": "Bench walkthrough photographs",
+    "body": "",
+    "unavailable": true,
+    "read_by_researcher": false,
+    "observed_result": "Evaluator copy; not checked during research."
+  },
+  {
+    "id": "attachment:audit-export",
+    "source": "docs",
+    "title": "Month-one audit sample export",
+    "body": "Synthetic audit extract listing 40 reviewed record identifiers, reviewer outcomes, and no observed dilution-rule breaches. It contains no evidence about the remaining 86 entries.",
+    "unavailable": false,
+    "read_by_researcher": false,
+    "observed_result": "Evaluator copy; not checked during research."
+  }
+]

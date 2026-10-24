@@ -1,0 +1,738 @@
+{
+  "synthetic": true,
+  "snapshot": "2031-07-20",
+  "sources": [
+    {
+      "id": "chat",
+      "platform": "FableChat",
+      "enumeration": true,
+      "inventory": "All accessible public channels and enumerated direct-message conversations involving Contributor 01, from 2031-01-01 through the snapshot.",
+      "read_only": true
+    },
+    {
+      "id": "docs",
+      "platform": "Papertrail Docs",
+      "enumeration": true,
+      "inventory": "Enumerated project documents, comments, decision notes and meeting records accessible to the research account.",
+      "read_only": true
+    },
+    {
+      "id": "repo",
+      "platform": "Forge Repository",
+      "enumeration": true,
+      "inventory": "Enumerated issues, pull requests, reviews and release discussions in the relevant product repositories.",
+      "read_only": true
+    }
+  ],
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2031-01-19",
+      "author": "Contributor 04",
+      "container": "#venue-operations",
+      "body": "Saturday's matinee had another cluster of duplicate-looking scans after the foyer access point restarted. The door team reverted to paper counts. Logging here before I forget.",
+      "parent": null,
+      "links": [],
+      "title": "Foyer restart report",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2031-02-03",
+      "author": "Contributor 01",
+      "container": "#project-lantern-gate",
+      "body": "I can take the offline reconciliation slice: define what the scanner stores, build the merge path, and give operations a way to see conflicts. I will need someone from device engineering for the retry behaviour.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:001"
+        }
+      ],
+      "title": "Proposed ownership",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2031-02-04",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Project brief",
+      "body": "Goal: keep ticket validation usable during short connectivity gaps without admitting the same ticket twice. Pilot at two small venues in April. Contributor 01 owns reconciliation design and service implementation; Contributor 06 owns scanner firmware; Contributor 03 owns rollout and training.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:002"
+        }
+      ],
+      "title": "Lantern Gate project brief",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2031-02-06",
+      "author": "Contributor 01",
+      "container": "Lantern Gate / Reconciliation notes",
+      "body": "Draft model: each scan receives a device event ID and local timestamp. The service accepts repeated uploads idempotently, but two different devices can still produce competing admits. Proposed first rule is earliest server-received event wins, with both events retained for audit.",
+      "parent": null,
+      "links": [],
+      "title": "Offline reconciliation notes",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2031-02-07",
+      "author": "Contributor 05",
+      "container": "Lantern Gate / Reconciliation notes",
+      "body": "Server receipt order may reward whichever device reconnects first rather than the first door interaction. Can we use device time, assuming drift is bounded?",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Comment on ordering",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2031-02-08",
+      "author": "Contributor 01",
+      "container": "Lantern Gate / Reconciliation notes",
+      "body": "Agreed that receipt order is not historical truth. Device clocks have shown multi-minute drift, so I suggest receipt order only as a deterministic admission rule, labelled as such. We should not display it as 'first scan'. I will add clock-offset telemetry for later analysis.",
+      "parent": "docs:003",
+      "links": [],
+      "title": "Ordering clarification",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2031-02-10",
+      "author": "Contributor 01",
+      "container": "gate-service issue 184",
+      "body": "Implement an idempotent upload endpoint keyed by venue, device and event ID. Preserve the raw payload and return the prior result on retry. Separate duplicate upload from cross-device ticket conflict.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "Idempotent offline upload",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2031-02-14",
+      "author": "Contributor 01",
+      "container": "gate-service PR 191",
+      "body": "Adds the event ledger, idempotency key and replay-safe response. Includes migration and tests for repeated batches and interrupted requests. Conflict selection is deliberately not included.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Add replay-safe event ledger",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2031-02-15",
+      "author": "Contributor 07",
+      "container": "gate-service PR 191",
+      "body": "The unique constraint and transaction boundary look right. Please add a test where the same event arrives in two overlapping batches.",
+      "parent": "repo:002",
+      "links": [],
+      "title": "Review request",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2031-02-16",
+      "author": "Contributor 01",
+      "container": "gate-service PR 191",
+      "body": "Added the overlapping-batch test and moved response reconstruction inside the transaction. Test fails without the constraint and passes with it.",
+      "parent": "repo:003",
+      "links": [],
+      "title": "Review update",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2031-02-18",
+      "author": "Contributor 06",
+      "container": "Direct message: Contributor 06 / Contributor 01",
+      "body": "Firmware can persist events, but storage is smaller than the brief assumes. At a busy door we have roughly three hours before old events rotate.",
+      "parent": null,
+      "links": [],
+      "title": "Device storage limit",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2031-02-18",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 06 / Contributor 01",
+      "body": "Three hours covers the stated short outages but makes silent overnight retention unsafe. I will cap service claims at two hours and add a backlog-age warning. Could you expose oldest queued event age?",
+      "parent": "chat:003",
+      "links": [],
+      "title": "Response to storage limit",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2031-02-19",
+      "author": "Contributor 06",
+      "container": "Direct message: Contributor 06 / Contributor 01",
+      "body": "Yes, but not in the first firmware build. I can expose queue depth now and age in the next sprint.",
+      "parent": "chat:004",
+      "links": [],
+      "title": "Telemetry sequencing",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2031-02-21",
+      "author": "Contributor 01",
+      "container": "Lantern Gate / Operator states",
+      "body": "Conflict screen draft: accepted, duplicate upload, competing device scan and unresolved. It must show that ordering is a system decision, not proof of which guest arrived first. Suggested action for a competing scan is supervisor verification, not automatic accusation.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:004"
+        }
+      ],
+      "title": "Operator conflict states",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2031-02-23",
+      "author": "Contributor 08",
+      "container": "gate-console issue 77",
+      "body": "Build conflict list and event detail using the service states from the operator note. Contributor 08 will implement the console; Contributor 01 will provide the API contract and sample payloads.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "Conflict console",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2031-02-25",
+      "author": "Contributor 01",
+      "container": "gate-service PR 198",
+      "body": "Adds cross-device conflict classification, deterministic receipt-order selection, clock-offset capture and the console API. Sample payloads include ambiguous cases and avoid the phrase 'first scan'.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        }
+      ],
+      "title": "Classify competing scans",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2031-02-26",
+      "author": "Contributor 05",
+      "container": "gate-service PR 198",
+      "body": "Blocking concern: events with an unknown ticket currently become conflicts, but they should remain invalid scans. Otherwise the pilot report will inflate conflict counts.",
+      "parent": "repo:006",
+      "links": [],
+      "title": "Invalid-ticket classification review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2031-02-27",
+      "author": "Contributor 01",
+      "container": "gate-service PR 198",
+      "body": "Fixed by checking ticket validity before conflict grouping, and added the fixture you supplied. I also split invalid, repeated-upload and competing-admit metrics.",
+      "parent": "repo:007",
+      "links": [],
+      "title": "Classification correction",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:006",
+      "source": "chat",
+      "date": "2031-03-02",
+      "author": "Contributor 09",
+      "container": "#social",
+      "body": "The communal lunch fridge is being cleaned Thursday at 16:00. Anything unlabelled will be discarded.",
+      "parent": null,
+      "links": [],
+      "title": "Fridge cleaning",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2031-03-04",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Pilot readiness",
+      "body": "Service ledger is in staging. Console shell is usable. Firmware uploads survive a restart, but queue-age telemetry is deferred. Training wording and a load rehearsal remain open.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:002"
+        },
+        {
+          "source": "repo",
+          "id": "repo:006"
+        }
+      ],
+      "title": "Pilot readiness checkpoint",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2031-03-07",
+      "author": "Contributor 01",
+      "container": "#project-lantern-gate",
+      "body": "Load rehearsal at 20 devices found the reconciliation worker falling behind because each event recalculates the full ticket history. I am changing it to incrementally update the current decision. Pilot-sized traffic is not safe on today's build.",
+      "parent": null,
+      "links": [],
+      "title": "Load rehearsal result",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2031-03-09",
+      "author": "Contributor 01",
+      "container": "gate-service PR 207",
+      "body": "Replaces full-history recalculation with a locked current-decision row. Rehearsal script improves from a 14-minute drain to under 90 seconds for the agreed pilot batch. Adds contention tests.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:007"
+        }
+      ],
+      "title": "Incremental reconciliation worker",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2031-03-10",
+      "author": "Contributor 07",
+      "container": "gate-service PR 207",
+      "body": "Approved for the pilot scale. This does not establish capacity for the largest venues; the script models 20 devices and one reconnect wave.",
+      "parent": "repo:009",
+      "links": [],
+      "title": "Scale-qualified approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2031-03-12",
+      "author": "Contributor 01",
+      "container": "Lantern Gate / Runbook",
+      "body": "Draft runbook covers outage entry, reconnect monitoring, conflict meanings, manual verification and rollback. The backlog-age field is marked unavailable in firmware build A; queue depth is the temporary signal.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:005"
+        }
+      ],
+      "title": "Pilot operations runbook",
+      "attachments": [
+        "att:runbook-diagram"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2031-03-13",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Runbook",
+      "body": "I rewrote the door-team steps and added the escalation phone tree. Contributor 01's state definitions remain, but operations owns the procedure and delivery.",
+      "parent": "docs:007",
+      "links": [],
+      "title": "Operations edit",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2031-03-17",
+      "author": "Contributor 02",
+      "container": "#finance-systems",
+      "body": "Month-end expense exports are delayed while the tax-code mapping is corrected. This does not affect ticket settlement.",
+      "parent": null,
+      "links": [],
+      "title": "Expense export delay",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:011",
+      "source": "repo",
+      "date": "2031-03-20",
+      "author": "Contributor 08",
+      "container": "gate-console PR 84",
+      "body": "Implements the conflict list, filters and detail panel. Uses Contributor 01's API and copy, with layout and accessibility changes from console review.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        },
+        {
+          "source": "repo",
+          "id": "repo:006"
+        }
+      ],
+      "title": "Conflict console implementation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2031-03-24",
+      "author": "Contributor 03",
+      "container": "#project-lantern-gate",
+      "body": "Go/no-go: service and console pass the pilot checklist. Device build still lacks oldest-event age, so outages beyond two hours require reverting to the existing manual procedure. April pilot remains on.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:006"
+        },
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "Pilot go decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2031-04-08",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Venue A pilot log",
+      "body": "During a 17-minute network interruption, 1,842 scan events queued across 12 devices and later uploaded. Door validation continued. The ledger recorded 31 repeated uploads and six competing-device scans; staff manually checked all six. No confirmed double admission was reported in the shift log.",
+      "parent": null,
+      "links": [],
+      "title": "Venue A pilot log",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:010",
+      "source": "docs",
+      "date": "2031-04-09",
+      "author": "Contributor 10",
+      "container": "Lantern Gate / Venue A pilot log",
+      "body": "One supervisor initially read 'accepted' as proof that the guest had arrived first. Training corrected this, and we should make the label more explicit before Venue B.",
+      "parent": "docs:009",
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "Label confusion",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:011",
+      "source": "docs",
+      "date": "2031-04-10",
+      "author": "Contributor 01",
+      "container": "Lantern Gate / Venue A pilot log",
+      "body": "I will change the API display text to 'selected by system' and add the ordering explanation inline. This is a presentation fix; the stored decision and audit events do not change.",
+      "parent": "docs:010",
+      "links": [],
+      "title": "Label response",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:012",
+      "source": "repo",
+      "date": "2031-04-11",
+      "author": "Contributor 01",
+      "container": "gate-service PR 219",
+      "body": "Changes accepted-state display text to 'selected by system' and exposes a short receipt-order explanation for the console. No reconciliation logic change.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:011"
+        }
+      ],
+      "title": "Clarify decision wording",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:010",
+      "source": "chat",
+      "date": "2031-04-15",
+      "author": "Contributor 11",
+      "container": "#project-lantern-gate",
+      "body": "Venue B did not experience an outage, so it tells us little about offline recovery. Staff did use the conflict screen for two online cross-device scans and said the revised wording was clearer.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:012"
+        }
+      ],
+      "title": "Venue B observation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:012",
+      "source": "docs",
+      "date": "2031-04-22",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Pilot review",
+      "body": "Recommendation: retain the feature at Venues A and B and expand to three similarly sized venues after queue-age telemetry ships. Evidence supports short interruptions at pilot scale, not estate-wide replacement of manual fallback. Service implementation was led by Contributor 01; firmware, console and operational rollout were separate owners.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:009"
+        },
+        {
+          "source": "chat",
+          "id": "chat:010"
+        }
+      ],
+      "title": "Pilot review",
+      "attachments": [
+        "att:pilot-metrics"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2031-05-03",
+      "author": "Contributor 12",
+      "container": "#book-club",
+      "body": "Next discussion is moving to Wednesday. The spare copies are in the blue cabinet.",
+      "parent": null,
+      "links": [],
+      "title": "Book club schedule",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:013",
+      "source": "repo",
+      "date": "2031-05-06",
+      "author": "Contributor 06",
+      "container": "scanner-firmware PR 63",
+      "body": "Adds oldest queued event age to heartbeat telemetry. Contributor 01 reviewed the field shape against the service contract; firmware implementation and device tests are mine.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:005"
+        }
+      ],
+      "title": "Expose oldest queued event age",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2031-05-14",
+      "author": "Contributor 03",
+      "container": "#project-lantern-gate",
+      "body": "Three additional small venues are now enabled. This is a controlled extension, not the large-hall rollout; support will review after four weeks.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:012"
+        },
+        {
+          "source": "repo",
+          "id": "repo:013"
+        }
+      ],
+      "title": "Controlled extension",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:013",
+      "source": "docs",
+      "date": "2031-06-18",
+      "author": "Contributor 03",
+      "container": "Lantern Gate / Extension review",
+      "body": "Across the three added venues, two brief outages produced 2,406 queued events. Upload completed without operator intervention; four conflicts were manually checked and no confirmed double admissions were logged. One device showed a stale queue-age value after sleep, so support kept the two-hour fallback and opened a firmware defect. Larger-venue adoption remains undecided.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:012"
+        },
+        {
+          "source": "repo",
+          "id": "repo:013"
+        }
+      ],
+      "title": "Four-week extension review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:014",
+      "source": "repo",
+      "date": "2031-06-19",
+      "author": "Contributor 06",
+      "container": "scanner-firmware issue 71",
+      "body": "Queue-age heartbeat can remain stale after deep sleep until a new scan occurs. This affects warning accuracy, not retention or upload itself. Investigating wake-triggered refresh.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:013"
+        }
+      ],
+      "title": "Stale queue-age telemetry",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2031-07-09",
+      "author": "Contributor 03",
+      "container": "#project-lantern-gate",
+      "body": "After the summer event, leadership approved a separate large-hall capacity trial. It has not started, and its results should not be folded into the spring follow-up.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:013"
+        }
+      ],
+      "title": "Later capacity trial approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "attachments": [
+    {
+      "id": "att:runbook-diagram",
+      "source": "docs",
+      "title": "Reconnect decision diagram",
+      "body": "Diagram showing queue-depth checks, service health and manual fallback branches.",
+      "unavailable": false
+    },
+    {
+      "id": "att:pilot-metrics",
+      "source": "docs",
+      "title": "Pilot metrics workbook",
+      "body": "",
+      "unavailable": true
+    }
+  ]
+}

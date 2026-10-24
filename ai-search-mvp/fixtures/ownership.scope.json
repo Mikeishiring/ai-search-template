@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 personally contribute to Project Lantern Gate between 2031-02-01 and 2031-03-31, and what happened afterwards?",
+  "query": "Project Lantern Gate Contributor 01 contributions outcomes follow-up",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2031-02-01",
+  "end": "2031-03-31",
+  "horizon": "2031-06-30",
+  "timezone": "Europe/London"
+}

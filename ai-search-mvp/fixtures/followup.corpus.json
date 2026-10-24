@@ -1,0 +1,697 @@
+{
+  "synthetic": true,
+  "snapshot": "2028-09-20",
+  "sources": [
+    {
+      "id": "chat",
+      "platform": "Fictional workplace chat",
+      "enumeration": true,
+      "inventory": "All accessible public channels, project channels, and retained direct-message threads in the synthetic workspace.",
+      "read_only": true
+    },
+    {
+      "id": "docs",
+      "platform": "Fictional document workspace",
+      "enumeration": true,
+      "inventory": "All accessible pages, comments, and nested blocks in the synthetic workspace.",
+      "read_only": true
+    },
+    {
+      "id": "repo",
+      "platform": "Fictional code and issue repository",
+      "enumeration": true,
+      "inventory": "All accessible commits, pull requests, issues, reviews, and discussions in the synthetic workspace.",
+      "read_only": true
+    }
+  ],
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2028-01-26",
+      "author": "Contributor 04",
+      "container": "#warehouse-ops",
+      "body": "The overnight inventory export still lands after the first picking wave on Mondays. Mentioning it here because the route board gets blamed whenever counts are stale.",
+      "parent": null,
+      "links": [],
+      "title": "Monday export timing",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2028-01-29",
+      "author": "Contributor 07",
+      "container": "Operations notes / Cycle counts",
+      "body": "Current process: supervisors print a full exception list, assign aisles manually, then reconcile marked sheets. North Depot averages two recount rounds. The note does not separate scanner errors from late inventory imports.",
+      "parent": null,
+      "links": [],
+      "title": "Cycle-count baseline",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2028-02-03",
+      "author": "Contributor 01",
+      "container": "#project-harborlight",
+      "body": "I can take the scanner-side prototype: cache the morning exception list, order stops by zone, and record why an item was skipped. I am not proposing automatic stock corrections.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "Prototype scope",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2028-02-03",
+      "author": "Contributor 03",
+      "container": "#project-harborlight",
+      "body": "Works for me. I will handle the export endpoint and the warehouse permission check. Contributor 06 can help with the trial design.",
+      "parent": "chat:002",
+      "links": [],
+      "title": "Ownership split",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2028-02-06",
+      "author": "Contributor 01",
+      "container": "Harborlight / Design",
+      "body": "Proposal: download a signed morning snapshot, group exceptions by zone, and suggest a nearest-next route within each zone. Every skip requires one of four reasons. Success means fewer backtracks without increasing unresolved exceptions. Pilot only at North Depot.",
+      "parent": null,
+      "links": [],
+      "title": "Offline route proposal",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2028-02-07",
+      "author": "Contributor 06",
+      "container": "Harborlight / Design",
+      "body": "Trial notes: compare six ordinary morning shifts with six trial shifts. Record walking time, completed checks, unresolved exceptions, and export age. Staffing and workload will vary, so this is directional rather than a controlled experiment.",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Measurement block",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2028-02-08",
+      "author": "Contributor 05",
+      "container": "Harborlight / Design",
+      "body": "Comment: nearest-next may send staff through the forklift crossing repeatedly. Please treat the crossing as a penalty between 08:00 and 10:00, not merely another grid edge.",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Safety-routing comment",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2028-02-09",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01 / Contributor 05",
+      "body": "Good catch on the crossing. I had modeled distance only. I will add a time-window penalty and expose the rule in the route explanation rather than silently changing the order.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:004"
+        }
+      ],
+      "title": "Crossing correction",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2028-02-12",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile PR-18",
+      "body": "Adds encrypted snapshot storage, zone grouping, deterministic nearest-next ordering, skip-reason capture, and unit tests. The crossing penalty is configured for the morning window. Stock mutation is deliberately absent.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "PR-18 Offline route prototype",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2028-02-13",
+      "author": "Contributor 02",
+      "container": "harborlight/mobile PR-18",
+      "body": "Review: route behavior looks understandable, but a failed snapshot verification leaves yesterday's list visible with no warning. Please block the route and show the snapshot date.",
+      "parent": "repo:001",
+      "links": [],
+      "title": "Stale-data review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2028-02-14",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile PR-18",
+      "body": "Updated: verification failure now opens a blocking stale-data screen; route rows show snapshot time. Added tests for expired signatures and device-clock drift.",
+      "parent": "repo:001",
+      "links": [],
+      "title": "Verification fix",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2028-02-15",
+      "author": "Contributor 03",
+      "container": "harborlight/mobile PR-18",
+      "body": "Approved after retest. The endpoint contract is still represented by a fixture until service PR-22 lands.",
+      "parent": "repo:001",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        }
+      ],
+      "title": "PR-18 approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2028-02-17",
+      "author": "Contributor 03",
+      "container": "harborlight/service PR-22",
+      "body": "Implements signed snapshot endpoint and depot-scoped authorization. Contributor 01 supplied the fixture shape and reviewed the mobile compatibility note; service implementation is mine.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "PR-22 Snapshot service",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2028-02-20",
+      "author": "Contributor 09",
+      "container": "#general",
+      "body": "Kitchen refrigerator is being defrosted Friday. Anything unlabeled will be discarded at 16:00.",
+      "parent": null,
+      "links": [],
+      "title": "Kitchen notice",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2028-02-22",
+      "author": "Contributor 08",
+      "container": "harborlight/mobile issue-31",
+      "body": "On the older S4 scanners, reopening after sleep sometimes shows a blank route until the app is restarted. Seen twice during bench testing.",
+      "parent": null,
+      "links": [],
+      "title": "Blank route after sleep",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2028-02-23",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile issue-31",
+      "body": "Cause appears to be the operating system reclaiming the in-memory route index while leaving the activity alive. I can persist the derived index, but want device logs before choosing that over rebuilding it.",
+      "parent": "repo:006",
+      "links": [],
+      "title": "Initial diagnosis",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:006",
+      "source": "chat",
+      "date": "2028-02-25",
+      "author": "Contributor 08",
+      "container": "#device-lab",
+      "body": "Uploaded the S4 sleep logs requested in issue 31. One capture is incomplete because the bench cable disconnected.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:006"
+        }
+      ],
+      "title": "Device logs uploaded",
+      "attachments": [
+        "att:001"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2028-02-27",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile PR-27",
+      "body": "Rebuilds the route index from the encrypted snapshot after process recreation and adds an S4 lifecycle regression test. I chose rebuilding to avoid a second persisted representation.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:006"
+        }
+      ],
+      "title": "PR-27 Lifecycle recovery",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2028-02-28",
+      "author": "Contributor 08",
+      "container": "harborlight/mobile PR-27",
+      "body": "Bench-tested 20 sleep/wake cycles on each of two S4 devices; no blank route. Approved. This does not reproduce field battery conditions.",
+      "parent": "repo:008",
+      "links": [],
+      "title": "S4 bench retest",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2028-03-01",
+      "author": "Contributor 06",
+      "container": "Harborlight / Pilot runbook",
+      "body": "North Depot trial: eight scanners, morning cycle-count team, 4–15 March. Supervisors may return to paper at any time. Contributor 01 owns mobile support; Contributor 03 owns snapshot service; Contributor 06 owns measurement and interviews.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        }
+      ],
+      "title": "Pilot runbook",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2028-03-05",
+      "author": "Contributor 05",
+      "container": "#project-harborlight",
+      "body": "First shift finished. Five people stayed in the app; three switched to paper after the loading-bay Wi-Fi dropped, although the route itself should work offline. We need to learn whether the login refresh or user expectation caused that.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "First-shift report",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2028-03-05",
+      "author": "Contributor 01",
+      "container": "#project-harborlight",
+      "body": "The app logs show two expired sessions at launch, not route fetch failures. I will change the message to say the downloaded route remains usable and add a retry for session refresh. That explains two devices; the third has no retained log.",
+      "parent": "chat:007",
+      "links": [],
+      "title": "Wi-Fi incident triage",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2028-03-06",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile PR-34",
+      "body": "Clarifies offline availability during session-refresh failure and adds one automatic retry. No change to authentication rules. Includes instrumentation distinguishing refresh failure from snapshot failure.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:007"
+        }
+      ],
+      "title": "PR-34 Offline message and retry",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:011",
+      "source": "repo",
+      "date": "2028-03-06",
+      "author": "Contributor 10",
+      "container": "harborlight/mobile PR-34",
+      "body": "Approved copy and retry behavior. Suggest leaving the instrumentation through the pilot; it contains depot and device class but no item identifiers.",
+      "parent": "repo:010",
+      "links": [],
+      "title": "PR-34 review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2028-03-09",
+      "author": "Contributor 05",
+      "container": "#project-harborlight",
+      "body": "Route order is quicker in zones C and D, but staff are skipping bulky items and selecting “blocked” because there is no “needs two people” option. The completion number will look better than the work actually is.",
+      "parent": null,
+      "links": [],
+      "title": "Skip-reason gap",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:010",
+      "source": "chat",
+      "date": "2028-03-09",
+      "author": "Contributor 01",
+      "container": "#project-harborlight",
+      "body": "Agreed. That is a category-design mistake, not operator misuse. I can add “assistance required” today, but changing categories mid-trial complicates comparison. Contributor 06, please mark the break in the analysis.",
+      "parent": "chat:009",
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "Category correction",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2028-03-10",
+      "author": "Contributor 06",
+      "container": "Harborlight / Pilot analysis",
+      "body": "Analysis note: skip categories changed after shift four, so reason distributions before and after are not directly comparable. Completed checks remain comparable, but “blocked” cannot be interpreted consistently.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:009"
+        }
+      ],
+      "title": "Category discontinuity",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:012",
+      "source": "repo",
+      "date": "2028-03-10",
+      "author": "Contributor 01",
+      "container": "harborlight/mobile commit-8c41",
+      "body": "Adds “assistance required” as a skip reason and preserves existing codes for prior records. Released to the eight pilot scanners.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:010"
+        }
+      ],
+      "title": "Add assistance reason",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2028-03-19",
+      "author": "Contributor 06",
+      "container": "Harborlight / Pilot analysis",
+      "body": "Across six baseline and six trial mornings at North Depot, median walking time per completed check fell from 3.8 to 3.1 minutes. Completed checks rose from 412 to 463. Unresolved exceptions were 37 versus 35. Trial mornings had 6% fewer assigned items and one extra experienced operator on two shifts; export age ranged from 12 to 71 minutes.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        },
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "Pilot results",
+      "attachments": [
+        "att:002"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2028-03-20",
+      "author": "Contributor 06",
+      "container": "Harborlight / Pilot analysis",
+      "body": "Interpretation: results support continuing the North Depot trial, not a precise productivity claim. Route ordering and clearer skip capture likely helped, while staffing, workload mix, novelty, and export freshness remain competing explanations.",
+      "parent": "docs:007",
+      "links": [],
+      "title": "Interpretation block",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2028-03-22",
+      "author": "Contributor 04",
+      "container": "#warehouse-ops",
+      "body": "Supervisors want to keep Harborlight on the eight North devices for April. East Depot is interested, but its mezzanine map and union break rules differ, so please do not call this a rollout yet.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "North extension",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2028-04-02",
+      "author": "Contributor 01",
+      "container": "Harborlight / Handover",
+      "body": "Mobile handover covers snapshot validation, route-rule configuration, lifecycle recovery, analytics fields, and rollback. Open items: configurable crossing windows, localization of skip reasons, and an administrator view. Service ownership remains with Contributor 03; trial reporting remains with Contributor 06.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        },
+        {
+          "source": "repo",
+          "id": "repo:008"
+        },
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Mobile handover",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:013",
+      "source": "repo",
+      "date": "2028-04-08",
+      "author": "Contributor 02",
+      "container": "harborlight/mobile issue-48",
+      "body": "Proposal to make route penalties depot-configurable before any second-site trial. Current morning crossing window is embedded in the North configuration bundle, not hard-coded in route logic.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:009"
+        }
+      ],
+      "title": "Configurable depot rules",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2028-04-11",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01 / Contributor 02",
+      "body": "I agree issue 48 should block East, but I cannot take it this month. The configuration seam is already there; the missing pieces are schema validation and an admin workflow. Please do not treat my handover note as a commitment to deliver those.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:013"
+        }
+      ],
+      "title": "Issue 48 capacity note",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2028-05-17",
+      "author": "Contributor 04",
+      "container": "#warehouse-ops",
+      "body": "April North summary: seven of eight devices were used on at least 14 of 18 count mornings. One device stayed in repair. Supervisors report fewer route printouts, but paper remained the fallback and we did not measure total shift duration consistently.",
+      "parent": "chat:011",
+      "links": [],
+      "title": "April usage summary",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:014",
+      "source": "repo",
+      "date": "2028-06-03",
+      "author": "Contributor 02",
+      "container": "harborlight/mobile issue-48",
+      "body": "Schema validation merged under PR-61, implemented by Contributor 02. Admin workflow is deferred. East can use a reviewed configuration file for a small trial, but operations has not scheduled one.",
+      "parent": "repo:013",
+      "links": [],
+      "title": "Depot-rule follow-up",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:010",
+      "source": "docs",
+      "date": "2028-08-21",
+      "author": "Contributor 06",
+      "container": "Harborlight / Follow-up",
+      "body": "North still uses the route tool on cycle-count mornings, currently six working devices. No other depot has started. There has been no repeat time study, and inventory accuracy was not evaluated because Harborlight does not write stock values.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:013"
+        },
+        {
+          "source": "repo",
+          "id": "repo:014"
+        }
+      ],
+      "title": "Five-month follow-up",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:014",
+      "source": "chat",
+      "date": "2028-09-12",
+      "author": "Contributor 04",
+      "container": "#warehouse-ops",
+      "body": "East Depot ran its first two-device practice session yesterday. Early comment was that mezzanine routing needs tuning; no operational results yet.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:014"
+        }
+      ],
+      "title": "East practice session",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "attachments": [
+    {
+      "id": "att:001",
+      "source": "chat",
+      "title": "S4 sleep logs archive",
+      "body": "",
+      "unavailable": true
+    },
+    {
+      "id": "att:002",
+      "source": "docs",
+      "title": "North Depot pilot shift table",
+      "body": "Twelve summarized shift rows supporting the totals and medians stated in docs:007; contains no additional depot comparison or attribution.",
+      "unavailable": false
+    }
+  ]
+}

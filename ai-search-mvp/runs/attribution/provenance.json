@@ -1,0 +1,320 @@
+{
+  "valid": false,
+  "errors": [
+    "C7: quote missing or ambiguous in chat:012",
+    "Unknown or duplicate disposition record: attachment:raw-lane-export",
+    "Unknown or duplicate disposition record: attachment:trial-sheet-template"
+  ],
+  "claims": [
+    {
+      "id": "C1",
+      "category": "origin",
+      "statement": "The underlying offline-return problem pre-dated Lantern: south-depot staff used paper when the tablet lost signal, delaying the weekly loss figure.",
+      "limits": "The bounded earlier sweep covers 3 November 2027\u201331 January 2028; it found one retained earlier chat record and no earlier docs or repo roots. This establishes a pre-existing condition, not Lantern\u2019s original sponsor or full history.",
+      "evidence": [
+        {
+          "record_id": "chat:001",
+          "quote": "The south depot still records tote returns on paper when the loading-bay tablet loses signal. That makes the weekly loss figure arrive two or three days late.",
+          "start": 0,
+          "end": 158,
+          "record_hash": "0dc88b3951a8bd5786cfe50fe34855a14cc9981ff953b4aa94c43c849b606166"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C2",
+      "category": "contribution",
+      "statement": "Contributor 01 took the tablet event-flow slice, defined scan states, specified and implemented a persistent offline queue with tablet-generated event IDs, retry state and an unsent indicator, and supplied fixtures and pairing support for the service contract test; Contributor 02 separately owned the service implementation and migration.",
+      "limits": "This was shared delivery. Contributor 03 supplied the firmware constraint; Contributor 02 owned the endpoint, reporting table, service code and migration. The evidence supports tablet-side implementation and service-test assistance, not sole ownership of Lantern.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "quote": "I can take the event-flow slice: define the scan states, build the offline queue in the tablet app, and draft the depot trial checklist. I will need Contributor 03 for the handheld firmware behavior and Operations to choose trial lanes.",
+          "start": 0,
+          "end": 236,
+          "record_hash": "f06271804657e7032706df4af61828c61968db7b12089e51029c5284cdfa46ec"
+        },
+        {
+          "record_id": "chat:003",
+          "quote": "I will own the service endpoint and reporting table. Contributor 05 has the physical labels and supplier conversations.",
+          "start": 14,
+          "end": 133,
+          "record_hash": "805a1cecd2e80eb6a239aa3c17effc07487e9efe291227844fe15b8fa8575ebd"
+        },
+        {
+          "record_id": "docs:001",
+          "quote": "Draft flow: issued \u2192 loaded \u2192 delivered \u2192 collected \u2192 washed \u2192 available. Scans may be stored locally and replayed with a device-generated event ID.",
+          "start": 0,
+          "end": 148,
+          "record_hash": "62e89a31f96e8be12bde6306aed4afceca6f75252052658700410997720e6eb3"
+        },
+        {
+          "record_id": "docs:002",
+          "quote": "It cannot generate the proposed event ID until the next firmware train, so the tablet must do that for this trial.",
+          "start": 71,
+          "end": 185,
+          "record_hash": "93d14b094f39ac7f59acedd6c320528f92d07ef28bb2d5a876a08595c953bcef"
+        },
+        {
+          "record_id": "repo:001",
+          "quote": "Implement a persistent offline event queue with device event IDs, original scan time, retry state, and a visible unsent count.",
+          "start": 0,
+          "end": 126,
+          "record_hash": "914b6d8a08607639a132e8b5e744be7eb3bee934280e4058c1b62307619071fe"
+        },
+        {
+          "record_id": "repo:002",
+          "quote": "Adds the local queue, event-ID generation, exponential retry, and an unsent badge. Includes tests for restart persistence and repeated acknowledgements.",
+          "start": 0,
+          "end": 152,
+          "record_hash": "e33c04f190d6f350a7e3e5bd32e3579b40a07dd29bc42b3bca118abc3f83d288"
+        },
+        {
+          "record_id": "repo:006",
+          "quote": "Contributor 01 supplied tablet fixtures and paired on the reconnect contract test; service implementation and migration are mine.",
+          "start": 92,
+          "end": 221,
+          "record_hash": "0603d0b651b0630544cc09b070d376724721a64820e3613de09d6bb62f93acb0"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C3",
+      "category": "correction",
+      "statement": "Contributor 01\u2019s initial queue used an uncapped retry loop; after Contributor 06 identified battery drain on an older tablet, Contributor 01 added a ten-minute ceiling, manual retry and a permanent-rejection test, after which Contributor 06 approved the tablet behavior.",
+      "limits": "Approval covered tablet behavior only, not the service repository\u2019s endpoint contract.",
+      "evidence": [
+        {
+          "record_id": "repo:003",
+          "quote": "Please cap retries; the current loop continues all shift against a rejected event and drains the older tablet battery.",
+          "start": 21,
+          "end": 139,
+          "record_hash": "69bb02d14926ed31af3281613adec50b0abb62516fe4fbbb2f6b286c2dc05663"
+        },
+        {
+          "record_id": "repo:004",
+          "quote": "Added a ten-minute ceiling with manual retry after that, plus a test for permanent rejection.",
+          "start": 0,
+          "end": 93,
+          "record_hash": "51dfa79aad629295ed4e5c43da62a213c2328498c3b1ec8478cb975dc8d75509"
+        },
+        {
+          "record_id": "repo:005",
+          "quote": "Approved after the retry change. The endpoint contract test is maintained in the service repository, so this approval only covers the tablet behavior.",
+          "start": 0,
+          "end": 150,
+          "record_hash": "ec4b1a1e812779e612af8470645b3e8a5e3e0cb45f6dacb781f6a9a6febc0f21"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C4",
+      "category": "correction",
+      "statement": "Contributor 07 surfaced operator confusion with the grey waiting badge; Contributor 01 changed it to amber \u201csaved on device,\u201d updated the shift card and tests, and supervisors later reported that immediate rescans stopped in the observed two lanes and three shifts.",
+      "limits": "The follow-up was a supervisor report over two lanes and three shifts, not a depot-wide or controlled usability measure.",
+      "evidence": [
+        {
+          "record_id": "chat:007",
+          "quote": "Two operators thought the grey \u201cwaiting\u201d badge meant the scan had failed and rescanned.",
+          "start": 76,
+          "end": 163,
+          "record_hash": "530007b2547d95cb4b52154f00b0e882eeca970fcd0b57d3631ed8652372fedc"
+        },
+        {
+          "record_id": "chat:008",
+          "quote": "I will change the waiting state to amber with \u201csaved on device\u201d and add that phrase to the shift card.",
+          "start": 0,
+          "end": 102,
+          "record_hash": "d46c5fc62e966fea55e5cc93d2b9a4c314efd3aecccce6319b92d84134bd126f"
+        },
+        {
+          "record_id": "repo:007",
+          "quote": "Changes queued-state wording to \u201csaved on device,\u201d uses the existing amber status style, and adds the wording to the printable shift card. Snapshot and accessibility-label tests updated.",
+          "start": 0,
+          "end": 186,
+          "record_hash": "23d0c5ea1ed188df8743222e5bf355e0ad27f8a042d050607c8edde1c254316e"
+        },
+        {
+          "record_id": "chat:009",
+          "quote": "After Friday\u2019s wording update, both lane supervisors said staff stopped doing immediate rescans. That is two lanes and three shifts, not a depot-wide measure.",
+          "start": 0,
+          "end": 158,
+          "record_hash": "0765f97a9eb0614a43c246c9f198f19330f28f72cf01cf32c96f74fdd06182d0"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C5",
+      "category": "contribution",
+      "statement": "Contributor 01 drafted the trial checklist and observation method, then recorded week-one operational counts: 612 accepted events, 47 uploads after offline intervals, four suppressed same-device repeats and 11 journeys lacking a collection scan.",
+      "limits": "Operations selected non-random lanes 2 and 4 and supervisors trained shifts. Staffing and briefing differences weakened comparisons with paper; missing collection scans could not be classified; the raw-lane-export attachment was unavailable.",
+      "evidence": [
+        {
+          "record_id": "docs:003",
+          "quote": "Before each lane starts: confirm label contrast, run one online and one offline scan, photograph the unsent count, reconnect, and verify the service shows the original scan time.",
+          "start": 0,
+          "end": 178,
+          "record_hash": "a580f71828bc37770f48f47ca6d2f61fd678b01324a84993be57c6d586dbd476"
+        },
+        {
+          "record_id": "docs:004",
+          "quote": "Operations selected south lanes 2 and 4 for five weekdays. Lane 4 handles more chilled orders, so results should not be treated as a random depot sample. Supervisors, not the product team, will train each shift.",
+          "start": 0,
+          "end": 211,
+          "record_hash": "2f57c9877c7da9eabeada6bee070ac355aa97a42ee5dc6b57698b1f8434b0369"
+        },
+        {
+          "record_id": "docs:005",
+          "quote": "Across the two trial lanes, 612 scan events were accepted and 47 were uploaded after an offline interval. Four same-device repeats were suppressed. Eleven tote journeys lack a collection scan; observation cannot distinguish missed scans from totes still at customers.",
+          "start": 0,
+          "end": 267,
+          "record_hash": "7a12d526abbbc263b8395d22725e5a9d3f54f57ede5faaf13259200231010323"
+        },
+        {
+          "record_id": "docs:006",
+          "quote": "The counts are useful for finding workflow problems, but comparisons with the old paper process would be weak.",
+          "start": 108,
+          "end": 218,
+          "record_hash": "7fdc6869b2928c64aa2259bdb87f8719abe49cf9c190b5c51ca994d9a52b84eb"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C6",
+      "category": "constraint",
+      "statement": "Contributor 04 found that equivalent offline scans from two devices received different IDs and produced conflicting collection events. Contributor 01 acknowledged that this lay outside event-ID deduplication, rejected automatic discard as unsafe, and left a conflict banner blocked on Contributor 02\u2019s service design; the banner was still open at the horizon.",
+      "limits": "Contributor 01 assessed the behavior and later reviewed a response shape but did not implement the banner. Operations had not defined who should resolve flags by 31 July.",
+      "evidence": [
+        {
+          "record_id": "repo:008",
+          "quote": "When two devices scan the same tote while offline, both events have different IDs and are accepted. This produced conflicting \u201ccollected\u201d events during a handover.",
+          "start": 0,
+          "end": 163,
+          "record_hash": "0e03d815c8cc22bce18f82ff41ac5fb73b0642f2fc1b98da9a67d9aff68bffaf"
+        },
+        {
+          "record_id": "repo:009",
+          "quote": "Automatic discard could hide a legitimate second collection after a reversal. I can add a server-returned conflict banner, but Contributor 02\u2019s service must first identify the pair. Marking blocked on service design.",
+          "start": 47,
+          "end": 263,
+          "record_hash": "7b92762a060663da85ced4c69bb0ae22a9b5700621931f8b186bfce9e707057a"
+        },
+        {
+          "record_id": "chat:017",
+          "quote": "Contributor 01 reviewed the proposed response shape, but has not implemented the tablet banner. We still need Operations to decide who resolves a flag.",
+          "start": 96,
+          "end": 247,
+          "record_hash": "3d25bd9c72b7d71c83f88f017e2b95f3aba8841a3212438327d762e8d551d9dd"
+        },
+        {
+          "record_id": "repo:010",
+          "quote": "Cross-device conflict banner remains open pending an operations workflow.",
+          "start": 80,
+          "end": 153,
+          "record_hash": "3f4710592ad157130dc3c8ad28bc7b4f778638e772185fa97dc95b8261585762"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C7",
+      "category": "mandate",
+      "statement": "Contributor 01 proposed expanding the trial, but Contributor 07 deferred it for lack of supervisor training capacity; Operations continued only lanes 2 and 4 through May, replaced defective labels and postponed depot-wide rollout.",
+      "limits": "Contributor 01 proposed rather than authorized expansion. Label failure was a physical-supply issue outside Contributor 01\u2019s queue work. The trial was not a depot-wide launch.",
+      "evidence": [
+        {
+          "record_id": "chat:011",
+          "quote": "Could we extend to all south lanes next week if replacement labels arrive?",
+          "start": 0,
+          "end": 74,
+          "record_hash": "f9e1c06f3e8a5a6e93670dfaccf02109077e51ce8a742e8a6ae2ed777d58a012"
+        },
+        {
+          "record_id": "docs:007",
+          "quote": "Decision: continue the two-lane trial through May, replace the defective labels, and postpone depot-wide rollout.",
+          "start": 0,
+          "end": 113,
+          "record_hash": "cccf9a05c3923057e68c5fc120c3dda6cdfc79c026e77bb9b447e2a3e4609365"
+        },
+        {
+          "record_id": "chat:013",
+          "quote": "Lantern remains a limited trial on south lanes 2 and 4. Please do not describe it as launched across the depot.",
+          "start": 0,
+          "end": 111,
+          "record_hash": "c00b5ca26b6151b082b893ac72da08c6f8d4a1ca81b04f0f1cb5e34aabf6f0cd"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C8",
+      "category": "shared_ownership",
+      "statement": "Contributor 01 documented queue diagnostics, badge meanings and the unresolved two-device limitation, then transferred routine tablet-release ownership to Contributor 04 for May while remaining available for defects; Contributor 04 subsequently used that runbook for a routine release.",
+      "limits": "This was a maintenance handover, not evidence that Contributor 01 left all project involvement or that the May release changed Lantern behavior.",
+      "evidence": [
+        {
+          "record_id": "docs:008",
+          "quote": "Known limitation: event IDs prevent replay duplicates from one stored event, not equivalent scans created by different devices. Routine release owner from May: Contributor 04.",
+          "start": 123,
+          "end": 298,
+          "record_hash": "ac9ba0ef7069ed7fd1e382c53b1438eec5a3ede12081bf4c2d12b5185a2e551b"
+        },
+        {
+          "record_id": "chat:014",
+          "quote": "I will stay available for defects, but Contributor 04 can handle routine tablet releases during my May rotation.",
+          "start": 110,
+          "end": 222,
+          "record_hash": "848a723b794d09596e5ebe14631fe1854add59c05473246f69944093a4e96a95"
+        },
+        {
+          "record_id": "chat:015",
+          "quote": "Released the tablet dependency update using Contributor 01\u2019s runbook. Queue age and reconnect checks passed. No Lantern behavior changed.",
+          "start": 0,
+          "end": 137,
+          "record_hash": "5983b3e374fe87601107ed9ed47913b9a7dd831c3edec155233841dafe5d5825"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "C9",
+      "category": "outcome",
+      "statement": "After the window, the two trial lanes continued operating with a temporary paper fallback; May review figures rose from 34 of 40 to 38 of 41, but the reviewer could not attribute the difference to Lantern. Operations approved adding two south lanes in August because of stable queue operation, replacement labels and trainer availability, while collection impact remained uncertain.",
+      "limits": "Continued use was limited and imperfect. The figures are observational, cover only lanes 2 and 4, mix paper fallback with Lantern and do not establish causality or Contributor 01\u2019s personal impact. The August activity falls beyond the horizon and was only a decision by 31 July, not observed use.",
+      "evidence": [
+        {
+          "record_id": "chat:016",
+          "quote": "Lanes 2 and 4 are still scanning, though Friday night reverted to paper for half a shift when the shared tablet was borrowed for inventory.",
+          "start": 72,
+          "end": 211,
+          "record_hash": "cb68f0db259d4b94a26d85f3a0a80187fba774f2764145371a568e50181768e6"
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "For lanes 2 and 4, 38 of 41 dispatched totes had a recorded collection or an open-customer exception by the seven-day review point. The previous month had 34 of 40. Different dispatch mixes and the continuing paper fallback prevent attributing the change to Lantern.",
+          "start": 0,
+          "end": 266,
+          "record_hash": "c83796566d2382bbe554b64b19c8d828b6aa6bc18e4c949a5c0c476d14779573"
+        },
+        {
+          "record_id": "chat:019",
+          "quote": "We will add two more south lanes in August with supervisor-led training. This is an expanded trial, not approval for the west depot. The decision reflects stable queue operation, replacement labels, and available trainers; collection impact is still uncertain.",
+          "start": 0,
+          "end": 260,
+          "record_hash": "c4fe452a5034dce29845b9bf1c6259362c3caedd0a8ad3abe9f3cef2eb253ca3"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 32,
+  "meaning_validated": false,
+  "disposition_records": 35,
+  "attribution_chains": 7,
+  "structural_only": true
+}

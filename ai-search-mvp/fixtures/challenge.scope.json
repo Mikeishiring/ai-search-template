@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 do on Harbor, and what happened afterwards?",
+  "query": "Harbor",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2032-01-01",
+  "end": "2032-03-31",
+  "horizon": "2032-04-30",
+  "timezone": "UTC"
+}

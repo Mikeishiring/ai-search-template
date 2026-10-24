@@ -1,0 +1,2182 @@
+{
+  "account": "Lantern Gate followed an earlier venue incident in which duplicate-looking scans appeared after an access-point restart and door staff reverted to paper counts. That report was observational and did not establish the restart as the cause.\n\nContributor 01 first offered to own offline reconciliation, then the brief assigned them reconciliation design and service implementation; Contributor 06 owned firmware and Contributor 03 owned rollout and training. The offer and assignment establish scope, not delivery, and Contributor 01 explicitly depended on device engineering for retry behaviour.\n\nContributor 01 designed the reconciliation model around device event IDs, idempotent repeated uploads, retained audit events and deterministic server-receipt ordering, then corrected the wording so receipt order was not presented as historical truth and drafted operator states requiring supervisor verification rather than accusation. Device clocks had multi-minute drift; receipt order was only a deterministic admission rule, not proof of who arrived first.\n\nContributor 01 implemented the replay-safe event ledger, idempotency key, migration and repeated/interrupted-request tests, then added the reviewer-requested overlapping-batch test and moved response reconstruction inside the transaction. That first service change deliberately excluded conflict selection; the overlapping-batch test only established behaviour around the tested constraint.\n\nAfter Contributor 05 found that unknown tickets would be misclassified and inflate conflict counts, Contributor 01 fixed validity checking, added the supplied fixture, split invalid/repeated-upload/competing-admit metrics, and delivered conflict classification, clock-offset capture and the console API. Contributor 05 supplied the diagnosis; Contributor 01 supplied the correction and service-side implementation.\n\nWhen Contributor 06 reported roughly three hours of busy-door retention, Contributor 01 capped claims at two hours, requested oldest-event-age telemetry, and documented queue depth as the temporary signal in a draft runbook covering outage, reconnect, verification and rollback. Event-age telemetry was not in the first firmware build; Contributor 01's cap and warning were initially plans, and operations later owned the final procedure and delivery.\n\nContributor 01 diagnosed a 20-device load rehearsal bottleneck, replaced full-history recalculation with a locked current-decision row, added contention tests, and reduced the agreed pilot-batch drain from 14 minutes to under 90 seconds. Contributor 07 approved this only for pilot scale: 20 devices and one reconnect wave did not establish large-venue capacity. Evaluation source was written by Contributor 01.\n\nContributor 08 implemented the conflict-list UI, filters and detail panel using Contributor 01's API and copy; Contributor 01 did not build the console UI, and Contributor 03 owned operational procedure and delivery. Layout and accessibility changes also came from console review, so the visible console was shared work.\n\nIn Venue A's 17-minute outage, 1,842 events queued across 12 devices and later uploaded while validation continued; the ledger recorded 31 repeated uploads and six competing-device scans, staff checked all six, and the shift log reported no confirmed double admission. This was one pilot shift; absence from the shift log does not prove no double admission occurred. Evaluation source was written by Contributor 03.\n\nAfter a Venue A supervisor mistook 'accepted' for arrival-order proof, Contributor 01 completed a presentation-only change to 'selected by system' and added an inline receipt-order explanation; Venue B staff later used it for two online cross-device scans and said the wording was clearer. Venue B had no outage, so this follow-up says little about offline recovery; the change did not alter reconciliation logic. Evaluation sources were written by Contributor 10, Contributor 11.\n\nThe pilot review credited Contributor 01 with leading service implementation, recommended retaining the feature at Venues A and B, and the project later enabled three additional small venues after Contributor 06 shipped oldest-event-age telemetry, which Contributor 01 reviewed against the service contract. Firmware implementation and device tests were Contributor 06's; this was a controlled small-venue extension, not a large-hall or estate-wide rollout. Evaluation source was written by Contributor 03.\n\nAcross the three added venues, two brief outages produced 2,406 queued events; uploads completed without operator intervention, four conflicts were manually checked, and no confirmed double admissions were logged. One device's queue-age value went stale after sleep, so support retained the two-hour fallback; the defect affected warning accuracy rather than retention or upload, remained under investigation, and larger-venue adoption was undecided at the horizon. Evaluation source was written by Contributor 03.",
+  "claims": [
+    {
+      "id": "c1",
+      "category": "origin",
+      "statement": "Lantern Gate followed an earlier venue incident in which duplicate-looking scans appeared after an access-point restart and door staff reverted to paper counts.",
+      "limits": "That report was observational and did not establish the restart as the cause.",
+      "evidence": [
+        {
+          "record_id": "chat:001",
+          "quote": "Saturday's matinee had another cluster of duplicate-looking scans after the foyer access point restarted."
+        },
+        {
+          "record_id": "chat:001",
+          "quote": "The door team reverted to paper counts."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "category": "mandate",
+      "statement": "Contributor 01 first offered to own offline reconciliation, then the brief assigned them reconciliation design and service implementation; Contributor 06 owned firmware and Contributor 03 owned rollout and training.",
+      "limits": "The offer and assignment establish scope, not delivery, and Contributor 01 explicitly depended on device engineering for retry behaviour.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "quote": "I can take the offline reconciliation slice: define what the scanner stores, build the merge path, and give operations a way to see conflicts."
+        },
+        {
+          "record_id": "chat:002",
+          "quote": "I will need someone from device engineering for the retry behaviour."
+        },
+        {
+          "record_id": "docs:001",
+          "quote": "Contributor 01 owns reconciliation design and service implementation; Contributor 06 owns scanner firmware; Contributor 03 owns rollout and training."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "category": "contribution",
+      "statement": "Contributor 01 designed the reconciliation model around device event IDs, idempotent repeated uploads, retained audit events and deterministic server-receipt ordering, then corrected the wording so receipt order was not presented as historical truth and drafted operator states requiring supervisor verification rather than accusation.",
+      "limits": "Device clocks had multi-minute drift; receipt order was only a deterministic admission rule, not proof of who arrived first.",
+      "evidence": [
+        {
+          "record_id": "docs:002",
+          "quote": "Draft model: each scan receives a device event ID and local timestamp."
+        },
+        {
+          "record_id": "docs:002",
+          "quote": "The service accepts repeated uploads idempotently, but two different devices can still produce competing admits."
+        },
+        {
+          "record_id": "docs:002",
+          "quote": "Proposed first rule is earliest server-received event wins, with both events retained for audit."
+        },
+        {
+          "record_id": "docs:004",
+          "quote": "Agreed that receipt order is not historical truth."
+        },
+        {
+          "record_id": "docs:004",
+          "quote": "Device clocks have shown multi-minute drift, so I suggest receipt order only as a deterministic admission rule, labelled as such."
+        },
+        {
+          "record_id": "docs:004",
+          "quote": "We should not display it as 'first scan'."
+        },
+        {
+          "record_id": "docs:005",
+          "quote": "Conflict screen draft: accepted, duplicate upload, competing device scan and unresolved."
+        },
+        {
+          "record_id": "docs:005",
+          "quote": "It must show that ordering is a system decision, not proof of which guest arrived first."
+        },
+        {
+          "record_id": "docs:005",
+          "quote": "Suggested action for a competing scan is supervisor verification, not automatic accusation."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "category": "contribution",
+      "statement": "Contributor 01 implemented the replay-safe event ledger, idempotency key, migration and repeated/interrupted-request tests, then added the reviewer-requested overlapping-batch test and moved response reconstruction inside the transaction.",
+      "limits": "That first service change deliberately excluded conflict selection; the overlapping-batch test only established behaviour around the tested constraint.",
+      "evidence": [
+        {
+          "record_id": "repo:002",
+          "quote": "Adds the event ledger, idempotency key and replay-safe response."
+        },
+        {
+          "record_id": "repo:002",
+          "quote": "Includes migration and tests for repeated batches and interrupted requests."
+        },
+        {
+          "record_id": "repo:002",
+          "quote": "Conflict selection is deliberately not included."
+        },
+        {
+          "record_id": "repo:004",
+          "quote": "Added the overlapping-batch test and moved response reconstruction inside the transaction."
+        },
+        {
+          "record_id": "repo:004",
+          "quote": "Test fails without the constraint and passes with it."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "category": "correction",
+      "statement": "After Contributor 05 found that unknown tickets would be misclassified and inflate conflict counts, Contributor 01 fixed validity checking, added the supplied fixture, split invalid/repeated-upload/competing-admit metrics, and delivered conflict classification, clock-offset capture and the console API.",
+      "limits": "Contributor 05 supplied the diagnosis; Contributor 01 supplied the correction and service-side implementation.",
+      "evidence": [
+        {
+          "record_id": "repo:007",
+          "quote": "Blocking concern: events with an unknown ticket currently become conflicts, but they should remain invalid scans."
+        },
+        {
+          "record_id": "repo:007",
+          "quote": "Otherwise the pilot report will inflate conflict counts."
+        },
+        {
+          "record_id": "repo:008",
+          "quote": "Fixed by checking ticket validity before conflict grouping, and added the fixture you supplied."
+        },
+        {
+          "record_id": "repo:008",
+          "quote": "I also split invalid, repeated-upload and competing-admit metrics."
+        },
+        {
+          "record_id": "repo:006",
+          "quote": "Adds cross-device conflict classification, deterministic receipt-order selection, clock-offset capture and the console API."
+        },
+        {
+          "record_id": "repo:006",
+          "quote": "Sample payloads include ambiguous cases and avoid the phrase 'first scan'."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "category": "constraint",
+      "statement": "When Contributor 06 reported roughly three hours of busy-door retention, Contributor 01 capped claims at two hours, requested oldest-event-age telemetry, and documented queue depth as the temporary signal in a draft runbook covering outage, reconnect, verification and rollback.",
+      "limits": "Event-age telemetry was not in the first firmware build; Contributor 01's cap and warning were initially plans, and operations later owned the final procedure and delivery.",
+      "evidence": [
+        {
+          "record_id": "chat:003",
+          "quote": "Firmware can persist events, but storage is smaller than the brief assumes."
+        },
+        {
+          "record_id": "chat:003",
+          "quote": "At a busy door we have roughly three hours before old events rotate."
+        },
+        {
+          "record_id": "chat:004",
+          "quote": "Three hours covers the stated short outages but makes silent overnight retention unsafe."
+        },
+        {
+          "record_id": "chat:004",
+          "quote": "I will cap service claims at two hours and add a backlog-age warning."
+        },
+        {
+          "record_id": "chat:004",
+          "quote": "Could you expose oldest queued event age?"
+        },
+        {
+          "record_id": "chat:005",
+          "quote": "Yes, but not in the first firmware build."
+        },
+        {
+          "record_id": "chat:005",
+          "quote": "I can expose queue depth now and age in the next sprint."
+        },
+        {
+          "record_id": "docs:007",
+          "quote": "Draft runbook covers outage entry, reconnect monitoring, conflict meanings, manual verification and rollback."
+        },
+        {
+          "record_id": "docs:007",
+          "quote": "The backlog-age field is marked unavailable in firmware build A; queue depth is the temporary signal."
+        },
+        {
+          "record_id": "docs:008",
+          "quote": "I rewrote the door-team steps and added the escalation phone tree."
+        },
+        {
+          "record_id": "docs:008",
+          "quote": "Contributor 01's state definitions remain, but operations owns the procedure and delivery."
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "category": "contribution",
+      "statement": "Contributor 01 diagnosed a 20-device load rehearsal bottleneck, replaced full-history recalculation with a locked current-decision row, added contention tests, and reduced the agreed pilot-batch drain from 14 minutes to under 90 seconds.",
+      "limits": "Contributor 07 approved this only for pilot scale: 20 devices and one reconnect wave did not establish large-venue capacity.",
+      "evidence": [
+        {
+          "record_id": "chat:007",
+          "quote": "Load rehearsal at 20 devices found the reconciliation worker falling behind because each event recalculates the full ticket history."
+        },
+        {
+          "record_id": "chat:007",
+          "quote": "Pilot-sized traffic is not safe on today's build."
+        },
+        {
+          "record_id": "repo:009",
+          "quote": "Replaces full-history recalculation with a locked current-decision row."
+        },
+        {
+          "record_id": "repo:009",
+          "quote": "Rehearsal script improves from a 14-minute drain to under 90 seconds for the agreed pilot batch."
+        },
+        {
+          "record_id": "repo:009",
+          "quote": "Adds contention tests."
+        },
+        {
+          "record_id": "repo:010",
+          "quote": "Approved for the pilot scale."
+        },
+        {
+          "record_id": "repo:010",
+          "quote": "This does not establish capacity for the largest venues; the script models 20 devices and one reconnect wave."
+        }
+      ]
+    },
+    {
+      "id": "c8",
+      "category": "shared_ownership",
+      "statement": "Contributor 08 implemented the conflict-list UI, filters and detail panel using Contributor 01's API and copy; Contributor 01 did not build the console UI, and Contributor 03 owned operational procedure and delivery.",
+      "limits": "Layout and accessibility changes also came from console review, so the visible console was shared work.",
+      "evidence": [
+        {
+          "record_id": "repo:011",
+          "quote": "Implements the conflict list, filters and detail panel."
+        },
+        {
+          "record_id": "repo:011",
+          "quote": "Uses Contributor 01's API and copy, with layout and accessibility changes from console review."
+        },
+        {
+          "record_id": "docs:008",
+          "quote": "Contributor 01's state definitions remain, but operations owns the procedure and delivery."
+        }
+      ]
+    },
+    {
+      "id": "c9",
+      "category": "outcome",
+      "statement": "In Venue A's 17-minute outage, 1,842 events queued across 12 devices and later uploaded while validation continued; the ledger recorded 31 repeated uploads and six competing-device scans, staff checked all six, and the shift log reported no confirmed double admission.",
+      "limits": "This was one pilot shift; absence from the shift log does not prove no double admission occurred.",
+      "evidence": [
+        {
+          "record_id": "docs:009",
+          "quote": "During a 17-minute network interruption, 1,842 scan events queued across 12 devices and later uploaded."
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "Door validation continued."
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "The ledger recorded 31 repeated uploads and six competing-device scans; staff manually checked all six."
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "No confirmed double admission was reported in the shift log."
+        }
+      ]
+    },
+    {
+      "id": "c10",
+      "category": "correction",
+      "statement": "After a Venue A supervisor mistook 'accepted' for arrival-order proof, Contributor 01 completed a presentation-only change to 'selected by system' and added an inline receipt-order explanation; Venue B staff later used it for two online cross-device scans and said the wording was clearer.",
+      "limits": "Venue B had no outage, so this follow-up says little about offline recovery; the change did not alter reconciliation logic.",
+      "evidence": [
+        {
+          "record_id": "docs:010",
+          "quote": "One supervisor initially read 'accepted' as proof that the guest had arrived first."
+        },
+        {
+          "record_id": "docs:010",
+          "quote": "Training corrected this, and we should make the label more explicit before Venue B."
+        },
+        {
+          "record_id": "repo:012",
+          "quote": "Changes accepted-state display text to 'selected by system' and exposes a short receipt-order explanation for the console."
+        },
+        {
+          "record_id": "repo:012",
+          "quote": "No reconciliation logic change."
+        },
+        {
+          "record_id": "chat:010",
+          "quote": "Venue B did not experience an outage, so it tells us little about offline recovery."
+        },
+        {
+          "record_id": "chat:010",
+          "quote": "Staff did use the conflict screen for two online cross-device scans and said the revised wording was clearer."
+        }
+      ]
+    },
+    {
+      "id": "c11",
+      "category": "use",
+      "statement": "The pilot review credited Contributor 01 with leading service implementation, recommended retaining the feature at Venues A and B, and the project later enabled three additional small venues after Contributor 06 shipped oldest-event-age telemetry, which Contributor 01 reviewed against the service contract.",
+      "limits": "Firmware implementation and device tests were Contributor 06's; this was a controlled small-venue extension, not a large-hall or estate-wide rollout.",
+      "evidence": [
+        {
+          "record_id": "docs:012",
+          "quote": "Recommendation: retain the feature at Venues A and B and expand to three similarly sized venues after queue-age telemetry ships."
+        },
+        {
+          "record_id": "docs:012",
+          "quote": "Evidence supports short interruptions at pilot scale, not estate-wide replacement of manual fallback."
+        },
+        {
+          "record_id": "docs:012",
+          "quote": "Service implementation was led by Contributor 01; firmware, console and operational rollout were separate owners."
+        },
+        {
+          "record_id": "repo:013",
+          "quote": "Adds oldest queued event age to heartbeat telemetry."
+        },
+        {
+          "record_id": "repo:013",
+          "quote": "Contributor 01 reviewed the field shape against the service contract; firmware implementation and device tests are mine."
+        },
+        {
+          "record_id": "chat:012",
+          "quote": "Three additional small venues are now enabled."
+        },
+        {
+          "record_id": "chat:012",
+          "quote": "This is a controlled extension, not the large-hall rollout; support will review after four weeks."
+        }
+      ]
+    },
+    {
+      "id": "c12",
+      "category": "outcome",
+      "statement": "Across the three added venues, two brief outages produced 2,406 queued events; uploads completed without operator intervention, four conflicts were manually checked, and no confirmed double admissions were logged.",
+      "limits": "One device's queue-age value went stale after sleep, so support retained the two-hour fallback; the defect affected warning accuracy rather than retention or upload, remained under investigation, and larger-venue adoption was undecided at the horizon.",
+      "evidence": [
+        {
+          "record_id": "docs:013",
+          "quote": "Across the three added venues, two brief outages produced 2,406 queued events."
+        },
+        {
+          "record_id": "docs:013",
+          "quote": "Upload completed without operator intervention; four conflicts were manually checked and no confirmed double admissions were logged."
+        },
+        {
+          "record_id": "docs:013",
+          "quote": "One device showed a stale queue-age value after sleep, so support kept the two-hour fallback and opened a firmware defect."
+        },
+        {
+          "record_id": "docs:013",
+          "quote": "Larger-venue adoption remains undecided."
+        },
+        {
+          "record_id": "repo:014",
+          "quote": "Queue-age heartbeat can remain stale after deep sleep until a new scan occurs."
+        },
+        {
+          "record_id": "repo:014",
+          "quote": "This affects warning accuracy, not retention or upload itself."
+        },
+        {
+          "record_id": "repo:014",
+          "quote": "Investigating wake-triggered refresh."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "The two surfaced attachments (pilot metrics and runbook diagram) could not be read because the 45-call source budget was exhausted; their contents remain unknown.",
+    "Larger-venue capacity and adoption remained undecided by 2031-06-30."
+  ],
+  "rejected_conclusions": [
+    {
+      "statement": "Contributor 01 single-handedly delivered Lantern Gate or proved it safe estate-wide.",
+      "reason": "The evidence assigns firmware, console, rollout and operations to other contributors, and measurements cover only short interruptions at pilot or small-venue scale.",
+      "record_ids": [
+        "docs:001",
+        "docs:008",
+        "docs:012",
+        "repo:010",
+        "repo:011",
+        "repo:013"
+      ]
+    }
+  ],
+  "attribution_chains": [
+    {
+      "intervention": "Lantern Gate followed an earlier venue incident in which duplicate-looking scans appeared after an access-point restart and door staff reverted to paper counts.",
+      "roles": [
+        {
+          "actor": "Contributor 04",
+          "role": "reported: reported duplicate-looking scans and paper fallback",
+          "record_ids": [
+            "chat:001"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c1"
+      ],
+      "limits": "That report was observational and did not establish the restart as the cause."
+    },
+    {
+      "intervention": "Contributor 01 first offered to own offline reconciliation, then the brief assigned them reconciliation design and service implementation; Contributor 06 owned firmware and Contributor 03 owned rollout and training.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "offered: take ownership of the offline reconciliation slice",
+          "record_ids": [
+            "chat:002"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "requested: requested device-engineering support for retry behavior",
+          "record_ids": [
+            "chat:002"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "reported: assigned reconciliation design and service implementation to Contributor 01",
+          "record_ids": [
+            "docs:001"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c2"
+      ],
+      "limits": "The offer and assignment establish scope, not delivery, and Contributor 01 explicitly depended on device engineering for retry behaviour."
+    },
+    {
+      "intervention": "Contributor 01 designed the reconciliation model around device event IDs, idempotent repeated uploads, retained audit events and deterministic server-receipt ordering, then corrected the wording so receipt order was not presented as historical truth and drafted operator states requiring supervisor verification rather than accusation.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "completed: drafted the offline reconciliation model",
+          "record_ids": [
+            "docs:002"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: corrected and relabelled the receipt-order design",
+          "record_ids": [
+            "docs:004"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: drafted operator conflict states and guidance",
+          "record_ids": [
+            "docs:005"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c3"
+      ],
+      "limits": "Device clocks had multi-minute drift; receipt order was only a deterministic admission rule, not proof of who arrived first."
+    },
+    {
+      "intervention": "Contributor 01 implemented the replay-safe event ledger, idempotency key, migration and repeated/interrupted-request tests, then added the reviewer-requested overlapping-batch test and moved response reconstruction inside the transaction.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "completed: implemented the replay-safe event ledger",
+          "record_ids": [
+            "repo:002"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: implemented and tested the overlapping-batch correction",
+          "record_ids": [
+            "repo:004"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c4"
+      ],
+      "limits": "That first service change deliberately excluded conflict selection; the overlapping-batch test only established behaviour around the tested constraint."
+    },
+    {
+      "intervention": "After Contributor 05 found that unknown tickets would be misclassified and inflate conflict counts, Contributor 01 fixed validity checking, added the supplied fixture, split invalid/repeated-upload/competing-admit metrics, and delivered conflict classification, clock-offset capture and the console API.",
+      "roles": [
+        {
+          "actor": "Contributor 05",
+          "role": "completed: diagnosed invalid-ticket misclassification",
+          "record_ids": [
+            "repo:007"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: corrected invalid-ticket classification and metrics",
+          "record_ids": [
+            "repo:008"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: implemented conflict classification and console API",
+          "record_ids": [
+            "repo:006"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c5"
+      ],
+      "limits": "Contributor 05 supplied the diagnosis; Contributor 01 supplied the correction and service-side implementation."
+    },
+    {
+      "intervention": "When Contributor 06 reported roughly three hours of busy-door retention, Contributor 01 capped claims at two hours, requested oldest-event-age telemetry, and documented queue depth as the temporary signal in a draft runbook covering outage, reconnect, verification and rollback.",
+      "roles": [
+        {
+          "actor": "Contributor 06",
+          "role": "reported: reported the firmware storage limit",
+          "record_ids": [
+            "chat:003"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "planned: cap service claims at two hours and add a backlog-age warning",
+          "record_ids": [
+            "chat:004"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "requested: requested oldest queued event age telemetry",
+          "record_ids": [
+            "chat:004"
+          ]
+        },
+        {
+          "actor": "Contributor 06",
+          "role": "offered: expose queue depth now and event age in the next sprint",
+          "record_ids": [
+            "chat:005"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: drafted the pilot operations runbook",
+          "record_ids": [
+            "docs:007"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "completed: rewrote operations steps and added escalation contacts",
+          "record_ids": [
+            "docs:008"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "reported: reported operations ownership of procedure and delivery",
+          "record_ids": [
+            "docs:008"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c6"
+      ],
+      "limits": "Event-age telemetry was not in the first firmware build; Contributor 01's cap and warning were initially plans, and operations later owned the final procedure and delivery."
+    },
+    {
+      "intervention": "Contributor 01 diagnosed a 20-device load rehearsal bottleneck, replaced full-history recalculation with a locked current-decision row, added contention tests, and reduced the agreed pilot-batch drain from 14 minutes to under 90 seconds.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "reported: diagnosed the reconciliation bottleneck",
+          "record_ids": [
+            "chat:007"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: implemented and tested incremental reconciliation",
+          "record_ids": [
+            "repo:009"
+          ]
+        },
+        {
+          "actor": "Contributor 07",
+          "role": "completed: approved the worker for pilot scale",
+          "record_ids": [
+            "repo:010"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c7"
+      ],
+      "limits": "Contributor 07 approved this only for pilot scale: 20 devices and one reconnect wave did not establish large-venue capacity."
+    },
+    {
+      "intervention": "Contributor 08 implemented the conflict-list UI, filters and detail panel using Contributor 01's API and copy; Contributor 01 did not build the console UI, and Contributor 03 owned operational procedure and delivery.",
+      "roles": [
+        {
+          "actor": "Contributor 08",
+          "role": "completed: implemented the conflict console",
+          "record_ids": [
+            "repo:011"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: provided the API and copy used by the console",
+          "record_ids": [
+            "repo:011"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "reported: reported operations ownership of procedure and delivery",
+          "record_ids": [
+            "docs:008"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c8"
+      ],
+      "limits": "Layout and accessibility changes also came from console review, so the visible console was shared work."
+    },
+    {
+      "intervention": "In Venue A's 17-minute outage, 1,842 events queued across 12 devices and later uploaded while validation continued; the ledger recorded 31 repeated uploads and six competing-device scans, staff checked all six, and the shift log reported no confirmed double admission.",
+      "roles": [
+        {
+          "actor": "Contributor 03",
+          "role": "reported: reported the Venue A pilot outcome",
+          "record_ids": [
+            "docs:009"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c9"
+      ],
+      "limits": "This was one pilot shift; absence from the shift log does not prove no double admission occurred."
+    },
+    {
+      "intervention": "After a Venue A supervisor mistook 'accepted' for arrival-order proof, Contributor 01 completed a presentation-only change to 'selected by system' and added an inline receipt-order explanation; Venue B staff later used it for two online cross-device scans and said the wording was clearer.",
+      "roles": [
+        {
+          "actor": "Contributor 10",
+          "role": "reported: reported label confusion and correction through training",
+          "record_ids": [
+            "docs:010"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: implemented clearer decision wording",
+          "record_ids": [
+            "repo:012"
+          ]
+        },
+        {
+          "actor": "Contributor 11",
+          "role": "reported: reported Venue B observations",
+          "record_ids": [
+            "chat:010"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c10"
+      ],
+      "limits": "Venue B had no outage, so this follow-up says little about offline recovery; the change did not alter reconciliation logic."
+    },
+    {
+      "intervention": "The pilot review credited Contributor 01 with leading service implementation, recommended retaining the feature at Venues A and B, and the project later enabled three additional small venues after Contributor 06 shipped oldest-event-age telemetry, which Contributor 01 reviewed against the service contract.",
+      "roles": [
+        {
+          "actor": "Contributor 03",
+          "role": "reported: authored the pilot review and recommendation",
+          "record_ids": [
+            "docs:012"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: led service implementation",
+          "record_ids": [
+            "docs:012"
+          ]
+        },
+        {
+          "actor": "Contributor 06",
+          "role": "completed: implemented and tested oldest-event-age telemetry",
+          "record_ids": [
+            "repo:013"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "completed: reviewed the telemetry field shape",
+          "record_ids": [
+            "repo:013"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "reported: reported the controlled three-venue extension",
+          "record_ids": [
+            "chat:012"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c11"
+      ],
+      "limits": "Firmware implementation and device tests were Contributor 06's; this was a controlled small-venue extension, not a large-hall or estate-wide rollout."
+    },
+    {
+      "intervention": "Across the three added venues, two brief outages produced 2,406 queued events; uploads completed without operator intervention, four conflicts were manually checked, and no confirmed double admissions were logged.",
+      "roles": [
+        {
+          "actor": "Contributor 03",
+          "role": "reported: authored the extension outcome report",
+          "record_ids": [
+            "docs:013"
+          ]
+        },
+        {
+          "actor": "Contributor 06",
+          "role": "in_progress: investigate wake-triggered telemetry refresh",
+          "record_ids": [
+            "repo:014"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c12"
+      ],
+      "limits": "One device's queue-age value went stale after sleep, so support retained the two-hour fallback; the defect affected warning accuracy rather than retention or upload, remained under investigation, and larger-venue adoption was undecided at the horizon."
+    }
+  ],
+  "evidence_dispositions": [
+    {
+      "record_ids": [
+        "chat:001"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c1"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:002"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c2"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:003"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:004"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:005"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:006"
+      ],
+      "disposition": "irrelevant",
+      "claim_ids": [],
+      "reason": "Social fridge-cleaning notice is unrelated to Lantern Gate."
+    },
+    {
+      "record_ids": [
+        "chat:007"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c7"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:008"
+      ],
+      "disposition": "irrelevant",
+      "claim_ids": [],
+      "reason": "Finance export delay explicitly did not affect ticket settlement and is unrelated to the project question."
+    },
+    {
+      "record_ids": [
+        "chat:009"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The go decision is reflected by the subsequent pilot outcome, while its two-hour manual fallback constraint is preserved in claims c6 and c12."
+    },
+    {
+      "record_ids": [
+        "chat:010"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c10"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:011"
+      ],
+      "disposition": "irrelevant",
+      "claim_ids": [],
+      "reason": "Book-club scheduling is unrelated."
+    },
+    {
+      "record_ids": [
+        "chat:012"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c11"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:001"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c2"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:002"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:003"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The claim preserves the resulting semantic correction; this comment's alternative device-time question was not separately narrated because later evidence rejects clocks as reliable."
+    },
+    {
+      "record_ids": [
+        "docs:004"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:005"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:006"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "Readiness checkpoint is represented through later, stronger completion and constraint evidence; its staging snapshot adds no distinct final outcome."
+    },
+    {
+      "record_ids": [
+        "docs:007"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:008"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6",
+        "c8"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:009"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c9"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:010"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c10"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:011"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The planned wording fix is represented by its completed implementation in repo:012."
+    },
+    {
+      "record_ids": [
+        "docs:012"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c11"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:013"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c12"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:001"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The issue specification is represented by the implemented ledger claim; it was not separately narrated to avoid confusing specification with delivery."
+    },
+    {
+      "record_ids": [
+        "repo:002"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c4"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:003"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The review request is represented through Contributor 01's completed response in repo:004."
+    },
+    {
+      "record_ids": [
+        "repo:004"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c4"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:005"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "The planned console ownership split is represented through the completed shared-ownership evidence in repo:011."
+    },
+    {
+      "record_ids": [
+        "repo:006"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c5"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:007"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c5"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:008"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c5"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:009"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c7"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:010"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c7"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:011"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c8"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:012"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c10"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:013"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c11"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:014"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c12"
+      ],
+      "reason": "Derived from selected source spans."
+    }
+  ],
+  "stop_receipt_id": "b9bd1b4f8aff0a8e34ac6506f32168460f50f09c21e30c493407fa0e10d6a7a0",
+  "attachment_dispositions": [],
+  "research_choices": [
+    "Enumerated all earlier, primary and follow-up roots across chat, docs and repo; followed every nested reply and linked record before unrelated standalones.",
+    "Used the full 45 source-call budget to read all 39 surfaced original records. Two attachments remained unchecked after the budget was exhausted; this is preserved as an unknown rather than inferred.",
+    "Treated release, observed use, controlled extension and large-venue adoption as distinct states, and retained denominators and event definitions for measured outcomes."
+  ],
+  "story_order": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11",
+    "c12"
+  ],
+  "evidence_notes": [
+    {
+      "record_id": "chat:001",
+      "relevance": "material",
+      "source_kind": "discussion",
+      "finding": "Earlier venue incident: duplicate-looking scans followed an access-point restart and door staff reverted to paper counts; this motivated the later work but does not identify root cause.",
+      "span_ids": [
+        "chat:001:d20f96adf62d:0",
+        "chat:001:d20f96adf62d:106"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 04",
+          "action": "reported duplicate-looking scans and paper fallback",
+          "state": "reported",
+          "span_ids": [
+            "chat:001:d20f96adf62d:0",
+            "chat:001:d20f96adf62d:106"
+          ]
+        }
+      ],
+      "attribution_limits": "Report is observational and does not diagnose cause."
+    },
+    {
+      "record_id": "chat:002",
+      "relevance": "material",
+      "source_kind": "discussion",
+      "finding": "Contributor 01 offered to own offline reconciliation definition, merge path, and conflict visibility, while explicitly depending on device engineering for retry behavior.",
+      "span_ids": [
+        "chat:002:ef88a6c67a23:0",
+        "chat:002:ef88a6c67a23:143"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "take ownership of the offline reconciliation slice",
+          "state": "offered",
+          "span_ids": [
+            "chat:002:ef88a6c67a23:0"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "requested device-engineering support for retry behavior",
+          "state": "requested",
+          "span_ids": [
+            "chat:002:ef88a6c67a23:143"
+          ]
+        }
+      ],
+      "attribution_limits": "Offer is not proof of delivery."
+    },
+    {
+      "record_id": "chat:003",
+      "relevance": "material",
+      "source_kind": "discussion",
+      "finding": "Contributor 06 reported firmware retention of roughly three hours at a busy door, smaller than assumed.",
+      "span_ids": [
+        "chat:003:71fff21231df:0",
+        "chat:003:71fff21231df:76"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 06",
+          "action": "reported the firmware storage limit",
+          "state": "reported",
+          "span_ids": [
+            "chat:003:71fff21231df:0",
+            "chat:003:71fff21231df:76"
+          ]
+        }
+      ],
+      "attribution_limits": "Approximate busy-door estimate."
+    },
+    {
+      "record_id": "chat:004",
+      "relevance": "material",
+      "source_kind": "discussion",
+      "finding": "Contributor 01 interpreted the three-hour retention as unsafe overnight, planned to cap claims at two hours and add a backlog-age warning, and requested oldest-queued-event telemetry.",
+      "span_ids": [
+        "chat:004:a298f374bb5c:0",
+        "chat:004:a298f374bb5c:89",
+        "chat:004:a298f374bb5c:159"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "cap service claims at two hours and add a backlog-age warning",
+          "state": "planned",
+          "span_ids": [
+            "chat:004:a298f374bb5c:89"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "requested oldest queued event age telemetry",
+          "state": "requested",
+          "span_ids": [
+            "chat:004:a298f374bb5c:159"
+          ]
+        }
+      ],
+      "attribution_limits": "This record plans mitigation; later evidence is required for delivery."
+    },
+    {
+      "record_id": "chat:005",
+      "relevance": "material",
+      "source_kind": "discussion",
+      "finding": "Contributor 06 offered queue depth immediately and event age in the next sprint, not in the first firmware build.",
+      "span_ids": [
+        "chat:005:a041d0b295f0:0",
+        "chat:005:a041d0b295f0:42"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 06",
+          "action": "expose queue depth now and event age in the next sprint",
+          "state": "offered",
+          "span_ids": [
+            "chat:005:a041d0b295f0:42"
+          ]
+        }
+      ],
+      "attribution_limits": "Offer, not completion; event age was explicitly deferred."
+    },
+    {
+      "record_id": "chat:006",
+      "relevance": "irrelevant",
+      "finding": "Social fridge-cleaning notice is unrelated to Lantern Gate.",
+      "span_ids": [],
+      "attributions": [],
+      "source_kind": "other",
+      "attribution_limits": "No project attribution."
+    },
+    {
+      "record_id": "chat:007",
+      "relevance": "material",
+      "finding": "A 20-device rehearsal exposed full-history recalculation as too slow and unsafe for pilot traffic; Contributor 01 reported they were changing it to incremental current-decision updates.",
+      "span_ids": [
+        "chat:007:c0922e1949c7:0",
+        "chat:007:c0922e1949c7:133",
+        "chat:007:c0922e1949c7:196"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "diagnosed the reconciliation bottleneck",
+          "state": "reported",
+          "span_ids": [
+            "chat:007:c0922e1949c7:0",
+            "chat:007:c0922e1949c7:196"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "change reconciliation to incremental current-decision updates",
+          "state": "in_progress",
+          "span_ids": [
+            "chat:007:c0922e1949c7:133"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Diagnosis and work in progress; completion appears later."
+    },
+    {
+      "record_id": "chat:008",
+      "relevance": "irrelevant",
+      "finding": "Finance export delay explicitly did not affect ticket settlement and is unrelated to the project question.",
+      "span_ids": [],
+      "attributions": [],
+      "source_kind": "other",
+      "attribution_limits": "No relevant actor event."
+    },
+    {
+      "record_id": "chat:009",
+      "relevance": "material",
+      "finding": "Contributor 03 kept the April pilot on after service and console passed, but required manual fallback beyond two hours because oldest-event age was still absent.",
+      "span_ids": [
+        "chat:009:37e2825ad1c3:0",
+        "chat:009:37e2825ad1c3:56",
+        "chat:009:37e2825ad1c3:179"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "approved continuation of the April pilot with a two-hour fallback constraint",
+          "state": "completed",
+          "span_ids": [
+            "chat:009:37e2825ad1c3:0",
+            "chat:009:37e2825ad1c3:56",
+            "chat:009:37e2825ad1c3:179"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Decision-maker, not implementer."
+    },
+    {
+      "record_id": "chat:010",
+      "relevance": "material",
+      "finding": "Venue B had no outage, so it did not test offline recovery; staff used the conflict screen for two online cross-device scans and found revised wording clearer.",
+      "span_ids": [
+        "chat:010:601650865889:0",
+        "chat:010:601650865889:84"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 11",
+          "action": "reported Venue B observations",
+          "state": "reported",
+          "span_ids": [
+            "chat:010:601650865889:0",
+            "chat:010:601650865889:84"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Small observational use; no offline-recovery evidence."
+    },
+    {
+      "record_id": "chat:011",
+      "relevance": "irrelevant",
+      "finding": "Book-club scheduling is unrelated.",
+      "span_ids": [],
+      "attributions": [],
+      "source_kind": "other",
+      "attribution_limits": "No relevant attribution."
+    },
+    {
+      "record_id": "chat:012",
+      "relevance": "material",
+      "finding": "Three additional small venues were enabled in May as a controlled extension, explicitly not a large-hall rollout, with a four-week support review planned.",
+      "span_ids": [
+        "chat:012:cfe18830578a:0",
+        "chat:012:cfe18830578a:47"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "reported the controlled three-venue extension",
+          "state": "reported",
+          "span_ids": [
+            "chat:012:cfe18830578a:0",
+            "chat:012:cfe18830578a:47"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Report does not attribute enablement implementation."
+    },
+    {
+      "record_id": "docs:001",
+      "relevance": "material",
+      "finding": "The brief assigned Contributor 01 reconciliation design and service implementation, Contributor 06 firmware, and Contributor 03 rollout/training for a two-small-venue April pilot.",
+      "span_ids": [
+        "docs:001:48b05f6537ba:0",
+        "docs:001:48b05f6537ba:108",
+        "docs:001:48b05f6537ba:144"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "assigned reconciliation design and service implementation to Contributor 01",
+          "state": "reported",
+          "span_ids": [
+            "docs:001:48b05f6537ba:144"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Mandate, not completion."
+    },
+    {
+      "record_id": "docs:002",
+      "relevance": "material",
+      "finding": "Contributor 01 drafted the event-ID/local-time model, idempotent repeated upload handling, competing-admit distinction, and server-receipt-order rule with retained audit events.",
+      "span_ids": [
+        "docs:002:690823b3c0cb:0",
+        "docs:002:690823b3c0cb:71",
+        "docs:002:690823b3c0cb:184"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "drafted the offline reconciliation model",
+          "state": "completed",
+          "span_ids": [
+            "docs:002:690823b3c0cb:0",
+            "docs:002:690823b3c0cb:71",
+            "docs:002:690823b3c0cb:184"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Design document, not proof all logic shipped."
+    },
+    {
+      "record_id": "docs:003",
+      "relevance": "material",
+      "finding": "Contributor 05 challenged receipt order because reconnect order may not reflect door order and proposed device time if drift were bounded.",
+      "span_ids": [
+        "docs:003:a72986488a86:0",
+        "docs:003:a72986488a86:106"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 05",
+          "action": "challenged receipt-order semantics and proposed device time",
+          "state": "completed",
+          "span_ids": [
+            "docs:003:a72986488a86:0",
+            "docs:003:a72986488a86:106"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Question/correction, not implementation."
+    },
+    {
+      "record_id": "docs:004",
+      "relevance": "material",
+      "finding": "Contributor 01 corrected the semantics: receipt order is deterministic, not historical truth; device clocks drift, 'first scan' should not be shown, and clock-offset telemetry was planned.",
+      "span_ids": [
+        "docs:004:c09293d35ded:0",
+        "docs:004:c09293d35ded:51",
+        "docs:004:c09293d35ded:181",
+        "docs:004:c09293d35ded:223"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "corrected and relabelled the receipt-order design",
+          "state": "completed",
+          "span_ids": [
+            "docs:004:c09293d35ded:0",
+            "docs:004:c09293d35ded:51",
+            "docs:004:c09293d35ded:181"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "add clock-offset telemetry",
+          "state": "planned",
+          "span_ids": [
+            "docs:004:c09293d35ded:223"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Telemetry completion requires later evidence."
+    },
+    {
+      "record_id": "docs:005",
+      "relevance": "material",
+      "finding": "Contributor 01 drafted operator conflict states and humane guidance: ordering is a system decision, and competing scans require supervisor verification rather than accusation.",
+      "span_ids": [
+        "docs:005:9933619d20e4:0",
+        "docs:005:9933619d20e4:89",
+        "docs:005:9933619d20e4:178"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "drafted operator conflict states and guidance",
+          "state": "completed",
+          "span_ids": [
+            "docs:005:9933619d20e4:0",
+            "docs:005:9933619d20e4:89",
+            "docs:005:9933619d20e4:178"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Draft later used by console team."
+    },
+    {
+      "record_id": "docs:006",
+      "relevance": "material",
+      "finding": "Readiness checkpoint: ledger in staging, console usable, firmware restart upload working; queue-age telemetry deferred and training/load rehearsal open.",
+      "span_ids": [
+        "docs:006:7599e7e82545:0",
+        "docs:006:7599e7e82545:30",
+        "docs:006:7599e7e82545:55",
+        "docs:006:7599e7e82545:128"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "reported pilot readiness gaps",
+          "state": "reported",
+          "span_ids": [
+            "docs:006:7599e7e82545:0",
+            "docs:006:7599e7e82545:30",
+            "docs:006:7599e7e82545:55",
+            "docs:006:7599e7e82545:128"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Checkpoint does not allocate implementation credit."
+    },
+    {
+      "record_id": "docs:007",
+      "relevance": "material",
+      "finding": "Contributor 01 drafted a runbook covering outage/reconnect/conflict/manual verification/rollback and documented queue depth as the temporary signal because backlog age was unavailable.",
+      "span_ids": [
+        "docs:007:f237d8d810a1:0",
+        "docs:007:f237d8d810a1:110"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "drafted the pilot operations runbook",
+          "state": "completed",
+          "span_ids": [
+            "docs:007:f237d8d810a1:0",
+            "docs:007:f237d8d810a1:110"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Operations later rewrote delivery procedure."
+    },
+    {
+      "record_id": "docs:008",
+      "relevance": "material",
+      "finding": "Contributor 03 rewrote door-team steps and added escalation contacts; operations owned procedure and delivery, while Contributor 01's state definitions remained.",
+      "span_ids": [
+        "docs:008:31763a95e0d7:0",
+        "docs:008:31763a95e0d7:67"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "rewrote operations steps and added escalation contacts",
+          "state": "completed",
+          "span_ids": [
+            "docs:008:31763a95e0d7:0"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "action": "reported operations ownership of procedure and delivery",
+          "state": "reported",
+          "span_ids": [
+            "docs:008:31763a95e0d7:67"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Explicit responsibility boundary."
+    },
+    {
+      "record_id": "docs:009",
+      "relevance": "material",
+      "finding": "Venue A's 17-minute outage queued and later uploaded 1,842 events across 12 devices while validation continued; 31 repeated uploads and six competing-device scans were recorded, all six manually checked, with no confirmed double admission in the shift log.",
+      "span_ids": [
+        "docs:009:ac5d68f01832:0",
+        "docs:009:ac5d68f01832:104",
+        "docs:009:ac5d68f01832:131",
+        "docs:009:ac5d68f01832:235"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "reported the Venue A pilot outcome",
+          "state": "reported",
+          "span_ids": [
+            "docs:009:ac5d68f01832:0",
+            "docs:009:ac5d68f01832:104",
+            "docs:009:ac5d68f01832:131",
+            "docs:009:ac5d68f01832:235"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Single shift; no confirmed report is not proof none occurred."
+    },
+    {
+      "record_id": "docs:010",
+      "relevance": "material",
+      "finding": "A supervisor misread 'accepted' as arrival-order proof; training corrected it and clearer labeling was requested.",
+      "span_ids": [
+        "docs:010:b2a32c89827d:0",
+        "docs:010:b2a32c89827d:84"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 10",
+          "action": "reported label confusion and correction through training",
+          "state": "reported",
+          "span_ids": [
+            "docs:010:b2a32c89827d:0",
+            "docs:010:b2a32c89827d:84"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Observation from one supervisor."
+    },
+    {
+      "record_id": "docs:011",
+      "relevance": "material",
+      "finding": "Contributor 01 planned a presentation-only change to 'selected by system' plus inline explanation, without changing decisions or audit events.",
+      "span_ids": [
+        "docs:011:3c9906967b0a:0",
+        "docs:011:3c9906967b0a:100"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "change the API label and add an ordering explanation",
+          "state": "planned",
+          "span_ids": [
+            "docs:011:3c9906967b0a:0"
+          ]
+        }
+      ],
+      "source_kind": "discussion",
+      "attribution_limits": "Plan only; completion appears in repo:012."
+    },
+    {
+      "record_id": "docs:012",
+      "relevance": "material",
+      "finding": "Pilot review recommended retention at A/B and three similarly sized venues after telemetry; evidence only supported short interruptions at pilot scale. It credited Contributor 01 with service implementation leadership and separated firmware, console and rollout ownership.",
+      "span_ids": [
+        "docs:012:0b7198d82382:0",
+        "docs:012:0b7198d82382:129",
+        "docs:012:0b7198d82382:231"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "authored the pilot review and recommendation",
+          "state": "reported",
+          "span_ids": [
+            "docs:012:0b7198d82382:0",
+            "docs:012:0b7198d82382:129",
+            "docs:012:0b7198d82382:231"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "led service implementation",
+          "state": "completed",
+          "span_ids": [
+            "docs:012:0b7198d82382:231"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Report author is not owner of measured work; recommendation is not rollout."
+    },
+    {
+      "record_id": "docs:013",
+      "relevance": "material",
+      "finding": "At three added venues, two brief outages yielded 2,406 queued events; uploads completed without intervention, four conflicts were checked, and no confirmed double admissions were logged. A stale queue-age value kept the two-hour fallback; larger venues remained undecided.",
+      "span_ids": [
+        "docs:013:f9ac86d6285b:0",
+        "docs:013:f9ac86d6285b:79",
+        "docs:013:f9ac86d6285b:212",
+        "docs:013:f9ac86d6285b:335"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 03",
+          "action": "authored the extension outcome report",
+          "state": "reported",
+          "span_ids": [
+            "docs:013:f9ac86d6285b:0",
+            "docs:013:f9ac86d6285b:79",
+            "docs:013:f9ac86d6285b:212",
+            "docs:013:f9ac86d6285b:335"
+          ]
+        }
+      ],
+      "source_kind": "evaluation",
+      "attribution_limits": "Only three added small venues and two brief outages; no confirmed logs do not prove absence."
+    },
+    {
+      "record_id": "repo:001",
+      "relevance": "material",
+      "finding": "Contributor 01 specified an idempotent upload endpoint keyed by venue/device/event, raw-payload retention, replay response, and separate duplicate-vs-conflict classification.",
+      "span_ids": [
+        "repo:001:986d101673f0:0",
+        "repo:001:986d101673f0:77",
+        "repo:001:986d101673f0:140"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "specified the idempotent upload endpoint",
+          "state": "completed",
+          "span_ids": [
+            "repo:001:986d101673f0:0",
+            "repo:001:986d101673f0:77",
+            "repo:001:986d101673f0:140"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Issue specification, not implementation."
+    },
+    {
+      "record_id": "repo:002",
+      "relevance": "material",
+      "finding": "Contributor 01 implemented the event ledger, idempotency and replay-safe response with migration and tests; conflict selection was explicitly excluded.",
+      "span_ids": [
+        "repo:002:3ead30c13cc8:0",
+        "repo:002:3ead30c13cc8:65",
+        "repo:002:3ead30c13cc8:141"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "implemented the replay-safe event ledger",
+          "state": "completed",
+          "span_ids": [
+            "repo:002:3ead30c13cc8:0",
+            "repo:002:3ead30c13cc8:65"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "PR scope explicitly excludes conflict selection."
+    },
+    {
+      "record_id": "repo:003",
+      "relevance": "material",
+      "finding": "Contributor 07 approved the core transaction approach but requested an overlapping-batch test.",
+      "span_ids": [
+        "repo:003:ff5e155fb34a:0",
+        "repo:003:ff5e155fb34a:59"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 07",
+          "action": "reviewed the transaction design and requested an overlapping-batch test",
+          "state": "completed",
+          "span_ids": [
+            "repo:003:ff5e155fb34a:0",
+            "repo:003:ff5e155fb34a:59"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Reviewer contribution."
+    },
+    {
+      "record_id": "repo:004",
+      "relevance": "material",
+      "finding": "Contributor 01 added the requested overlapping-batch test, moved response reconstruction inside the transaction, and reported the test failed without and passed with the constraint.",
+      "span_ids": [
+        "repo:004:03b066804d33:0",
+        "repo:004:03b066804d33:91"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "implemented and tested the overlapping-batch correction",
+          "state": "completed",
+          "span_ids": [
+            "repo:004:03b066804d33:0",
+            "repo:004:03b066804d33:91"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Test evidence is scoped to this constraint."
+    },
+    {
+      "record_id": "repo:005",
+      "relevance": "material",
+      "finding": "Work split: Contributor 08 would implement the console; Contributor 01 would supply its API contract and sample payloads.",
+      "span_ids": [
+        "repo:005:eec23c2df586:0",
+        "repo:005:eec23c2df586:86"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 08",
+          "action": "implement the conflict console",
+          "state": "planned",
+          "span_ids": [
+            "repo:005:eec23c2df586:86"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "provide the API contract and sample payloads",
+          "state": "planned",
+          "span_ids": [
+            "repo:005:eec23c2df586:86"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Planned split; later records establish completion."
+    },
+    {
+      "record_id": "repo:006",
+      "relevance": "material",
+      "finding": "Contributor 01 implemented cross-device conflict classification, deterministic receipt-order selection, clock-offset capture, console API, and ambiguity-aware samples.",
+      "span_ids": [
+        "repo:006:37752722ca07:0",
+        "repo:006:37752722ca07:124"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "implemented conflict classification and console API",
+          "state": "completed",
+          "span_ids": [
+            "repo:006:37752722ca07:0",
+            "repo:006:37752722ca07:124"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Receipt order is deterministic, not arrival truth."
+    },
+    {
+      "record_id": "repo:007",
+      "relevance": "material",
+      "finding": "Contributor 05 found that unknown tickets were wrongly counted as conflicts, which would inflate pilot conflict counts.",
+      "span_ids": [
+        "repo:007:e7fd52a4334a:0",
+        "repo:007:e7fd52a4334a:114"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 05",
+          "action": "diagnosed invalid-ticket misclassification",
+          "state": "completed",
+          "span_ids": [
+            "repo:007:e7fd52a4334a:0",
+            "repo:007:e7fd52a4334a:114"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Review diagnosis."
+    },
+    {
+      "record_id": "repo:008",
+      "relevance": "material",
+      "finding": "Contributor 01 fixed validity ordering, added the supplied fixture, and split invalid, repeated-upload, and competing-admit metrics.",
+      "span_ids": [
+        "repo:008:a5dc412aeb21:0",
+        "repo:008:a5dc412aeb21:96"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "corrected invalid-ticket classification and metrics",
+          "state": "completed",
+          "span_ids": [
+            "repo:008:a5dc412aeb21:0",
+            "repo:008:a5dc412aeb21:96"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Correction followed Contributor 05's review."
+    },
+    {
+      "record_id": "repo:009",
+      "relevance": "material",
+      "finding": "Contributor 01 implemented a locked current-decision row and contention tests; the agreed pilot batch drain improved from 14 minutes to under 90 seconds.",
+      "span_ids": [
+        "repo:009:2af0343f9d31:0",
+        "repo:009:2af0343f9d31:72",
+        "repo:009:2af0343f9d31:169"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "implemented and tested incremental reconciliation",
+          "state": "completed",
+          "span_ids": [
+            "repo:009:2af0343f9d31:0",
+            "repo:009:2af0343f9d31:72",
+            "repo:009:2af0343f9d31:169"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Performance result is for agreed pilot batch."
+    },
+    {
+      "record_id": "repo:010",
+      "relevance": "material",
+      "finding": "Contributor 07 approved the worker only for pilot scale; the test modeled 20 devices and one reconnect wave, not largest venues.",
+      "span_ids": [
+        "repo:010:52ff77da8d70:0",
+        "repo:010:52ff77da8d70:30"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 07",
+          "action": "approved the worker for pilot scale",
+          "state": "completed",
+          "span_ids": [
+            "repo:010:52ff77da8d70:0",
+            "repo:010:52ff77da8d70:30"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Explicit scale limitation."
+    },
+    {
+      "record_id": "repo:011",
+      "relevance": "material",
+      "finding": "Contributor 08 implemented the console UI using Contributor 01's API and copy; layout/accessibility changes came from console review.",
+      "span_ids": [
+        "repo:011:2645bb7a0fdb:0",
+        "repo:011:2645bb7a0fdb:56"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 08",
+          "action": "implemented the conflict console",
+          "state": "completed",
+          "span_ids": [
+            "repo:011:2645bb7a0fdb:0",
+            "repo:011:2645bb7a0fdb:56"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "provided the API and copy used by the console",
+          "state": "completed",
+          "span_ids": [
+            "repo:011:2645bb7a0fdb:56"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Contributor 01 did not implement the UI."
+    },
+    {
+      "record_id": "repo:012",
+      "relevance": "material",
+      "finding": "After pilot confusion, Contributor 01 completed the display-text change to 'selected by system' and exposed an explanation; logic did not change.",
+      "span_ids": [
+        "repo:012:3a3e20baba66:0",
+        "repo:012:3a3e20baba66:123"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 01",
+          "action": "implemented clearer decision wording",
+          "state": "completed",
+          "span_ids": [
+            "repo:012:3a3e20baba66:0",
+            "repo:012:3a3e20baba66:123"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Presentation fix only."
+    },
+    {
+      "record_id": "repo:013",
+      "relevance": "material",
+      "finding": "Contributor 06 implemented and tested oldest-event-age firmware telemetry; Contributor 01 only reviewed the field shape against the service contract.",
+      "span_ids": [
+        "repo:013:c55305f30d62:0",
+        "repo:013:c55305f30d62:53"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 06",
+          "action": "implemented and tested oldest-event-age telemetry",
+          "state": "completed",
+          "span_ids": [
+            "repo:013:c55305f30d62:0",
+            "repo:013:c55305f30d62:53"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "action": "reviewed the telemetry field shape",
+          "state": "completed",
+          "span_ids": [
+            "repo:013:c55305f30d62:53"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Explicit ownership boundary."
+    },
+    {
+      "record_id": "repo:014",
+      "relevance": "material",
+      "finding": "A deep-sleep defect could leave queue age stale until a new scan; it affected warning accuracy, not retention/upload, and Contributor 06 was investigating refresh.",
+      "span_ids": [
+        "repo:014:4dbebe83dcbc:0",
+        "repo:014:4dbebe83dcbc:79",
+        "repo:014:4dbebe83dcbc:142"
+      ],
+      "attributions": [
+        {
+          "actor": "Contributor 06",
+          "action": "investigate wake-triggered telemetry refresh",
+          "state": "in_progress",
+          "span_ids": [
+            "repo:014:4dbebe83dcbc:142"
+          ]
+        }
+      ],
+      "source_kind": "work",
+      "attribution_limits": "Defect unresolved by horizon."
+    }
+  ],
+  "omitted_material": [
+    {
+      "record_id": "docs:003",
+      "reason": "The claim preserves the resulting semantic correction; this comment's alternative device-time question was not separately narrated because later evidence rejects clocks as reliable."
+    },
+    {
+      "record_id": "docs:006",
+      "reason": "Readiness checkpoint is represented through later, stronger completion and constraint evidence; its staging snapshot adds no distinct final outcome."
+    },
+    {
+      "record_id": "repo:001",
+      "reason": "The issue specification is represented by the implemented ledger claim; it was not separately narrated to avoid confusing specification with delivery."
+    },
+    {
+      "record_id": "repo:003",
+      "reason": "The review request is represented through Contributor 01's completed response in repo:004."
+    },
+    {
+      "record_id": "repo:005",
+      "reason": "The planned console ownership split is represented through the completed shared-ownership evidence in repo:011."
+    },
+    {
+      "record_id": "docs:011",
+      "reason": "The planned wording fix is represented by its completed implementation in repo:012."
+    },
+    {
+      "record_id": "chat:009",
+      "reason": "The go decision is reflected by the subsequent pilot outcome, while its two-hour manual fallback constraint is preserved in claims c6 and c12."
+    }
+  ],
+  "source_credits": {
+    "c1": [],
+    "c2": [],
+    "c3": [],
+    "c4": [],
+    "c5": [],
+    "c6": [],
+    "c7": [
+      {
+        "record_id": "chat:007",
+        "author": "Contributor 01",
+        "basis": "source author metadata; not proof of sole measurement work"
+      }
+    ],
+    "c8": [],
+    "c9": [
+      {
+        "record_id": "docs:009",
+        "author": "Contributor 03",
+        "basis": "source author metadata; not proof of sole measurement work"
+      }
+    ],
+    "c10": [
+      {
+        "record_id": "chat:010",
+        "author": "Contributor 11",
+        "basis": "source author metadata; not proof of sole measurement work"
+      },
+      {
+        "record_id": "docs:010",
+        "author": "Contributor 10",
+        "basis": "source author metadata; not proof of sole measurement work"
+      }
+    ],
+    "c11": [
+      {
+        "record_id": "docs:012",
+        "author": "Contributor 03",
+        "basis": "source author metadata; not proof of sole measurement work"
+      }
+    ],
+    "c12": [
+      {
+        "record_id": "docs:013",
+        "author": "Contributor 03",
+        "basis": "source author metadata; not proof of sole measurement work"
+      }
+    ]
+  },
+  "coverage_notes": [
+    {
+      "record_id": "docs:003",
+      "reason": "The claim preserves the resulting semantic correction; this comment's alternative device-time question was not separately narrated because later evidence rejects clocks as reliable."
+    },
+    {
+      "record_id": "docs:006",
+      "reason": "Readiness checkpoint is represented through later, stronger completion and constraint evidence; its staging snapshot adds no distinct final outcome."
+    },
+    {
+      "record_id": "repo:001",
+      "reason": "The issue specification is represented by the implemented ledger claim; it was not separately narrated to avoid confusing specification with delivery."
+    },
+    {
+      "record_id": "repo:003",
+      "reason": "The review request is represented through Contributor 01's completed response in repo:004."
+    },
+    {
+      "record_id": "repo:005",
+      "reason": "The planned console ownership split is represented through the completed shared-ownership evidence in repo:011."
+    },
+    {
+      "record_id": "docs:011",
+      "reason": "The planned wording fix is represented by its completed implementation in repo:012."
+    },
+    {
+      "record_id": "chat:009",
+      "reason": "The go decision is reflected by the subsequent pilot outcome, while its two-hour manual fallback constraint is preserved in claims c6 and c12."
+    }
+  ],
+  "partial_coverage_notes": []
+}

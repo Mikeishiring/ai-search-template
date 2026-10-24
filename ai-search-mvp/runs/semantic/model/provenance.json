@@ -1,0 +1,244 @@
+{
+  "valid": true,
+  "errors": [],
+  "claims": [
+    {
+      "id": "c01",
+      "category": "origin",
+      "statement": "Before the review period, Contributor 01 said nobody had assigned the work: after seeing recurring caption errors, they made a small comparison sheet and proposed trying Folio.",
+      "limits": "This is Contributor 01's retrospective account dated 18 November 2033; it establishes an unsolicited prototype and request, not approval or completed delivery.",
+      "evidence": [
+        {
+          "record_id": "chat:s01",
+          "quote": "Nobody put this on my list. After watching the same caption errors return, I made a small comparison sheet and asked whether we could try something called Folio.",
+          "start": 0,
+          "end": 161,
+          "record_hash": "7148c7c29ff4508804236c9427a99a65b8d1d76e051967f3f011e7a75fda38d5"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c02",
+      "category": "constraint",
+      "statement": "The April brief limited Folio to handwritten labels in the east collection as a learning exercise, not a museum-wide service.",
+      "limits": "This was the stated pilot boundary; it does not establish later organisation-wide approval.",
+      "evidence": [
+        {
+          "record_id": "chat:s02",
+          "quote": "Keep it to the handwritten labels in the east collection. We are buying a learning exercise, not signing off a museum-wide service.",
+          "start": 0,
+          "end": 131,
+          "record_hash": "c1a9dd523c37c3ea28c9597e21bad1839e3609e87c24fbc50daaff9c0dfacf75"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c03",
+      "category": "mandate",
+      "statement": "Contributor 01 was assigned to make the comparison screen and teach two catalogue staff to check results; text extraction belonged to Contributor 02, and only the curator could approve another collection.",
+      "limits": "This records the agreed division of responsibility and approval authority, not proof that every assigned task had yet been completed.",
+      "evidence": [
+        {
+          "record_id": "docs:s02",
+          "quote": "Contributor 01 will make the comparison screen and teach two catalogue staff to check results. Text extraction belongs to Contributor 02. The curator alone decides whether another collection joins.",
+          "start": 0,
+          "end": 197,
+          "record_hash": "08b8287b11443e9adbfb10fef13c78ab5ca69bf307528336a06ae4a6c1beb067"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c04",
+      "category": "contribution",
+      "statement": "Contributor 01 supplied the comparison screen and linked each result to its scanned label; Contributor 02 separately supplied the text-extraction module.",
+      "limits": "The evidence supports a shared implementation with distinct components, not sole authorship by Contributor 01.",
+      "evidence": [
+        {
+          "record_id": "repo:s01",
+          "quote": "I supplied the text-extraction module. Contributor 01 supplied the comparison screen and linked each result back to its scanned label.",
+          "start": 0,
+          "end": 134,
+          "record_hash": "868e96002aeab78a739ca5e7c3252b4d96a31cc14b5a571137b9dde3fc3760de"
+        },
+        {
+          "record_id": "chat:s11",
+          "quote": "That was sloppy wording: Contributor 02 supplied the extraction module. My part was the screen, the teaching and collecting the staff feedback.",
+          "start": 0,
+          "end": 143,
+          "record_hash": "9703f5a7fbd2c640e2c4ea993a120febd560de6b7e4f0990607333db2cf63e37"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c05",
+      "category": "contribution",
+      "statement": "Contributor 01 reported that the screen changes were merged and that they conducted the first walkthrough with the two catalogue staff, teaching them to question proposed matches rather than accept them automatically.",
+      "limits": "The merge and walkthrough are reported by Contributor 01; the record does not describe the exact code changes or duration of the session.",
+      "evidence": [
+        {
+          "record_id": "repo:s02",
+          "quote": "The screen changes are merged. I sat with the two catalogue staff for the first walkthrough; the exercise was to question the proposed matches, not accept them automatically.",
+          "start": 0,
+          "end": 174,
+          "record_hash": "f1e4864599c75c603b175125da44cb090cab5a1ecb503d130eb352ca0c36279b"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c06",
+      "category": "constraint",
+      "statement": "Contributor 01 had an accession audit and evening-desk rota in April, so they could teach the first session but said the second had to wait until the audit closed.",
+      "limits": "This is a scheduling constraint and planned timing, not evidence that the second session occurred in April.",
+      "evidence": [
+        {
+          "record_id": "chat:s03",
+          "quote": "I also have the accession audit and the evening desk rota this month. I can teach the first session on Thursday; the second needs to wait until the audit closes.",
+          "start": 0,
+          "end": 161,
+          "record_hash": "454258f6a793fdd82137c17d3691e851d7bfc46935f19e448d7de5513e354eab"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c07",
+      "category": "correction",
+      "statement": "Contributor 01 corrected their initial claim that they had built the whole tool, specifying that Contributor 02 supplied extraction while their own work was the screen, teaching and staff-feedback collection.",
+      "limits": "The later correction controls the attribution; the original statement should not be read as sole authorship.",
+      "evidence": [
+        {
+          "record_id": "chat:s10",
+          "quote": "Folio is ready for the east collection. I built the whole thing over the last few weeks.",
+          "start": 0,
+          "end": 88,
+          "record_hash": "45f781d627e45083b876294ffce502eee2abe128d4eb3031f53010929757d7c8"
+        },
+        {
+          "record_id": "chat:s11",
+          "quote": "That was sloppy wording: Contributor 02 supplied the extraction module. My part was the screen, the teaching and collecting the staff feedback.",
+          "start": 0,
+          "end": 143,
+          "record_hash": "9703f5a7fbd2c640e2c4ea993a120febd560de6b7e4f0990607333db2cf63e37"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c08",
+      "category": "contribution",
+      "statement": "After a staff member found labels with the same shelf number being mixed together, Contributor 01 reproduced the problem with them and documented the steps for the extraction author.",
+      "limits": "Contributor 01 diagnosed and communicated a reproduction; the extraction defect and its code fix belonged to Contributor 02.",
+      "evidence": [
+        {
+          "record_id": "chat:s13",
+          "quote": "I noticed that two labels with the same shelf number were being mixed together. Contributor 01 reproduced it with me and wrote down the steps for the extraction author.",
+          "start": 0,
+          "end": 168,
+          "record_hash": "d3a1cf53cca4c1a4b8843bd9b81d4a4e6883cc0218e2e4e37a0db990af4b0ada"
+        },
+        {
+          "record_id": "repo:s03",
+          "quote": "The failure came from my extraction module, not the comparison screen. Contributor 01 sent the reproduction and checked the revised output with the staff.",
+          "start": 65,
+          "end": 219,
+          "record_hash": "bb6e99b23404ed0210a74e7651fdab314952a9b9a646feb796cda6542ce53c81"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c09",
+      "category": "correction",
+      "statement": "Contributor 02 changed the extraction key to include the collection identifier, while Contributor 01 checked the revised output with staff.",
+      "limits": "The code correction was Contributor 02's; Contributor 01's role was reproduction and verification.",
+      "evidence": [
+        {
+          "record_id": "repo:s03",
+          "quote": "Changed the extraction key to include the collection identifier. The failure came from my extraction module, not the comparison screen. Contributor 01 sent the reproduction and checked the revised output with the staff.",
+          "start": 0,
+          "end": 219,
+          "record_hash": "bb6e99b23404ed0210a74e7651fdab314952a9b9a646feb796cda6542ce53c81"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c10",
+      "category": "use",
+      "statement": "Staff used Caption Desk for pottery labels and manually checked every suggestion before catalogue entry; they said Contributor 01's screen made the source scan easy to find.",
+      "limits": "This establishes use for one batch with human review, not autonomous processing or organisation-wide adoption.",
+      "evidence": [
+        {
+          "record_id": "docs:s01",
+          "quote": "Folio working agreement. Staff also call the interface Caption Desk.",
+          "start": 0,
+          "end": 68,
+          "record_hash": "c105dab273d9c3463891acd4e0ce5ee7ebc79583b5b632aab581570d7cd264bf"
+        },
+        {
+          "record_id": "chat:s12",
+          "quote": "Caption Desk got us through the pottery labels on Tuesday. We checked every suggestion before putting it in the catalogue. The screen made the source scan easy to find.",
+          "start": 0,
+          "end": 168,
+          "record_hash": "2fca6f4d8b39b132f3589c910160b1aec788f3c8fe253ce752e9db9721c309f4"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c11",
+      "category": "use",
+      "statement": "By 19 June, staff had also taken Caption Desk through textile labels, and the second batch entered the catalogue after the same manual checks.",
+      "limits": "The 20 June repost repeats the same event and is not evidence of an additional batch.",
+      "evidence": [
+        {
+          "record_id": "chat:s14",
+          "quote": "We took Caption Desk through the textile labels as well this week. The second batch went into the catalogue after the same manual checks.",
+          "start": 0,
+          "end": 137,
+          "record_hash": "74e36ad417e06faa7ce64978d62b2bed95d1be1e9e78873b62a852403099bece"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c12",
+      "category": "outcome",
+      "statement": "On 5 July, Contributor 01 reported that the accession audit had closed, the second teaching session was complete, and staff still contacted them about the screen while extraction questions went to Contributor 02.",
+      "limits": "This is a self-reported status within the stated horizon; it preserves the division between screen support and extraction support.",
+      "evidence": [
+        {
+          "record_id": "chat:s17",
+          "quote": "The accession audit is closed and the second teaching session is now done. I am still the person staff contact about the screen; extraction questions go to Contributor 02.",
+          "start": 0,
+          "end": 171,
+          "record_hash": "a186d075642623272175b70e362029e3cc158b0446cc6892316f410f0cf45ef4"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c13",
+      "category": "outcome",
+      "statement": "On 4 July, management directed that other collections remain unchanged because their staff were being moved to an exhibition opening; the east-collection arrangement was to continue and expansion could be reconsidered later.",
+      "limits": "Expansion was deferred for a staffing priority, not rejected because of Contributor 01's performance or a demonstrated tool failure.",
+      "evidence": [
+        {
+          "record_id": "chat:s16",
+          "quote": "Leave the other collections where they are. Their staff are being moved onto the exhibition opening. Keep the east collection arrangement running; the curator can revisit expansion afterwards.",
+          "start": 0,
+          "end": 192,
+          "record_hash": "da907ddb09f538e20ce2f645e3bd62566dd907291441353ad8cf9c1d5353afd7"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 17,
+  "meaning_validated": false
+}

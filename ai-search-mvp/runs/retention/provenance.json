@@ -1,0 +1,707 @@
+{
+  "valid": false,
+  "errors": [
+    "Invalid material omission: docs:010"
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "category": "mandate",
+      "statement": "Before the window, Project Lanternleaf was framed as a two-imprint pilot, with Contributor 01 assigned the exception rules and prototype while Contributor 07 owned the source export.",
+      "limits": "The system produced advisory flags only, did not place payment holds, and left decisions with Publishing Operations.",
+      "evidence": [
+        {
+          "record_id": "chat:001",
+          "span_id": "chat:001:2cf5e788de42:140",
+          "start": 140,
+          "end": 238,
+          "quote": "Contributor 01 is taking the exception rules and prototype; Contributor 07 owns the source export."
+        },
+        {
+          "record_id": "chat:001",
+          "span_id": "chat:001:2cf5e788de42:239",
+          "start": 239,
+          "end": 266,
+          "quote": "Pilot is two imprints only."
+        },
+        {
+          "record_id": "docs:001",
+          "span_id": "docs:001:c15e8b7450e5:122",
+          "start": 122,
+          "end": 185,
+          "quote": "Scope: two imprints, quarterly statements, advisory flags only."
+        },
+        {
+          "record_id": "docs:001",
+          "span_id": "docs:001:c15e8b7450e5:186",
+          "start": 186,
+          "end": 213,
+          "quote": "No automatic payment holds."
+        },
+        {
+          "record_id": "docs:001",
+          "span_id": "docs:001:c15e8b7450e5:290",
+          "start": 290,
+          "end": 334,
+          "quote": "Decisions remain with Publishing Operations."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c2",
+      "category": "contribution",
+      "statement": "Contributor 01 requested currency and reversal-reference fields, designed a four-part exception taxonomy with plain-language reasons, and implemented four advisory rules, fixture tests, configurable outlier thresholds and a test queue exposing filters and source fields.",
+      "limits": "Thresholds were provisional; reversal matching fell back to amount-and-date heuristics when references were absent, and the prototype did not update payment status.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "span_id": "chat:002:07f817e5655c:0",
+          "start": 0,
+          "end": 80,
+          "quote": "Could you include contract currency and reversal reference in the sample export?"
+        },
+        {
+          "record_id": "docs:002",
+          "span_id": "docs:002:76c22814694a:0",
+          "start": 0,
+          "end": 111,
+          "quote": "Draft taxonomy: exact duplicate, probable reversal pair, negative without visible pair, and high-value outlier."
+        },
+        {
+          "record_id": "docs:002",
+          "span_id": "docs:002:76c22814694a:112",
+          "start": 112,
+          "end": 175,
+          "quote": "Proposed output includes rule code and a plain-language reason."
+        },
+        {
+          "record_id": "repo:001",
+          "span_id": "repo:001:fd4d2b9c35fd:0",
+          "start": 0,
+          "end": 80,
+          "quote": "Implements four advisory exception rules, reason codes, and fixture-based tests."
+        },
+        {
+          "record_id": "repo:001",
+          "span_id": "repo:001:fd4d2b9c35fd:191",
+          "start": 191,
+          "end": 242,
+          "quote": "Outlier threshold is configuration, not hard-coded."
+        },
+        {
+          "record_id": "chat:004",
+          "span_id": "chat:004:0c24579df4b5:42",
+          "start": 42,
+          "end": 141,
+          "quote": "Filters are imprint, quarter, and reason; selecting a row shows the source fields used by the rule."
+        },
+        {
+          "record_id": "chat:004",
+          "span_id": "chat:004:0c24579df4b5:142",
+          "start": 142,
+          "end": 176,
+          "quote": "It does not update payment status."
+        },
+        {
+          "record_id": "docs:002",
+          "span_id": "docs:002:76c22814694a:176",
+          "start": 176,
+          "end": 236,
+          "quote": "Thresholds are provisional until Operations labels a sample."
+        },
+        {
+          "record_id": "docs:002",
+          "span_id": "docs:002:76c22814694a:237",
+          "start": 237,
+          "end": 347,
+          "quote": "Known limitation: reversal matching depends on an optional reference or, failing that, amount/date heuristics."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c3",
+      "category": "correction",
+      "statement": "After Contributor 06 identified title-level duplicate false alarms and Contributor 09 found cross-currency reversal pairing, Contributor 01 revised the duplicate key, added an insufficient-fields result, required equal currencies, and added mixed-currency fixtures; Contributor 09 retested and approved the fix.",
+      "limits": "Approval retained concern that the original 45-day reference-free reversal window might be too permissive until labelled data existed.",
+      "evidence": [
+        {
+          "record_id": "docs:003",
+          "span_id": "docs:003:802b2f45542d:0",
+          "start": 0,
+          "end": 84,
+          "quote": "Comment: please separate a true duplicate from two editions earning the same amount."
+        },
+        {
+          "record_id": "docs:004",
+          "span_id": "docs:004:949a6586d17d:8",
+          "start": 8,
+          "end": 100,
+          "quote": "Revised duplicate key is contract, edition, territory, period, amount, and transaction type."
+        },
+        {
+          "record_id": "docs:004",
+          "span_id": "docs:004:949a6586d17d:146",
+          "start": 146,
+          "end": 212,
+          "quote": "I also added an \u201cinsufficient fields\u201d reason rather than guessing."
+        },
+        {
+          "record_id": "repo:002",
+          "span_id": "repo:002:7287bb901230:0",
+          "start": 0,
+          "end": 99,
+          "quote": "The fallback pairs across currencies because the comparison normalises neither currency nor amount."
+        },
+        {
+          "record_id": "repo:003",
+          "span_id": "repo:003:e49c4d0be284:0",
+          "start": 0,
+          "end": 96,
+          "quote": "Fixed by requiring equal currency before inverse-amount matching; added mixed-currency fixtures."
+        },
+        {
+          "record_id": "repo:003",
+          "span_id": "repo:003:e49c4d0be284:97",
+          "start": 97,
+          "end": 155,
+          "quote": "I also made missing currency return \u201cinsufficient fields.\u201d"
+        },
+        {
+          "record_id": "repo:004",
+          "span_id": "repo:004:f9305bd3c98e:10",
+          "start": 10,
+          "end": 42,
+          "quote": "Mixed currencies no longer pair."
+        },
+        {
+          "record_id": "repo:004",
+          "span_id": "repo:004:f9305bd3c98e:43",
+          "start": 43,
+          "end": 140,
+          "quote": "Approved, with the broader concern that 45 days may be too permissive until we see labelled data."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c4",
+      "category": "contribution",
+      "statement": "When a reviewer found 11 technically correct but individually unhelpful flags from one correction batch, Contributor 01 proposed and implemented accessible expandable grouping by contract, posting date and reason while preserving every underlying flag; Contributor 01 later fixed a keyboard-focus regression and added a keyboard test.",
+      "limits": "Contributor 07 advised view-level grouping because batch identifiers were not guaranteed in the scheduled feed; the implementation suppressed no rules.",
+      "evidence": [
+        {
+          "record_id": "chat:006",
+          "span_id": "chat:006:7715cef6f6e9:59",
+          "start": 59,
+          "end": 206,
+          "quote": "Eleven \u201cnegative without pair\u201d flags are all from the same backdated correction batch, so they are technically correct but not useful individually."
+        },
+        {
+          "record_id": "chat:007",
+          "span_id": "chat:007:56b9448f968b:73",
+          "start": 73,
+          "end": 194,
+          "quote": "Otherwise I can suppress identical contract/date reasons into one expandable group without changing the underlying flags."
+        },
+        {
+          "record_id": "chat:008",
+          "span_id": "chat:008:aa2e0c1ebea5:0",
+          "start": 0,
+          "end": 83,
+          "quote": "Batch ID is stable in the one-off extract but not guaranteed in the scheduled feed."
+        },
+        {
+          "record_id": "repo:005",
+          "span_id": "repo:005:51f8e75a6640:0",
+          "start": 0,
+          "end": 111,
+          "quote": "Groups repeated flags by contract, posting date, and reason in the queue while preserving each underlying line."
+        },
+        {
+          "record_id": "repo:005",
+          "span_id": "repo:005:51f8e75a6640:112",
+          "start": 112,
+          "end": 163,
+          "quote": "Adds expand/collapse and an accessible group count."
+        },
+        {
+          "record_id": "repo:005",
+          "span_id": "repo:005:51f8e75a6640:164",
+          "start": 164,
+          "end": 184,
+          "quote": "No rule suppression."
+        },
+        {
+          "record_id": "repo:006",
+          "span_id": "repo:006:7bbd0119aaa5:0",
+          "start": 0,
+          "end": 51,
+          "quote": "Keyboard focus disappears after collapsing a group."
+        },
+        {
+          "record_id": "repo:007",
+          "span_id": "repo:007:55173d40b589:0",
+          "start": 0,
+          "end": 82,
+          "quote": "Updated collapse behavior to retain focus on the header and added a keyboard test."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c5",
+      "category": "outcome",
+      "statement": "In the labelled pilot sample, four reviewers classified 63 flags as 45 useful, 12 incorrect and 6 unclear; most incorrect flags were heuristic reversal matches lacking references.",
+      "limits": "These were combined reviewer labels, not an independent missed-exception audit; exact duplicates had no incorrect labels in this sample only.",
+      "evidence": [
+        {
+          "record_id": "docs:005",
+          "span_id": "docs:005:64ca620ea6ec:22",
+          "start": 22,
+          "end": 121,
+          "quote": "Reviewers should label each sampled flag as useful, incorrect, or unclear and record minutes spent."
+        },
+        {
+          "record_id": "docs:007",
+          "span_id": "docs:007:c8f6fe760af3:0",
+          "start": 0,
+          "end": 67,
+          "quote": "Label review: 63 flags checked; 45 useful, 12 incorrect, 6 unclear."
+        },
+        {
+          "record_id": "docs:007",
+          "span_id": "docs:007:c8f6fe760af3:68",
+          "start": 68,
+          "end": 158,
+          "quote": "Most incorrect flags came from heuristic reversal matching where the reference was absent."
+        },
+        {
+          "record_id": "docs:007",
+          "span_id": "docs:007:c8f6fe760af3:159",
+          "start": 159,
+          "end": 215,
+          "quote": "Exact duplicates had no incorrect labels in this sample."
+        },
+        {
+          "record_id": "docs:007",
+          "span_id": "docs:007:c8f6fe760af3:216",
+          "start": 216,
+          "end": 279,
+          "quote": "Counts combine four reviewers and are not an independent audit."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c6",
+      "category": "contribution",
+      "statement": "Using those labels, Contributor 01 proposed a 14-day confident-reversal window and match-basis display, then responded to Contributor 06's late-adjustment concern with three states: up to 14 days confident, 15\u201345 days visible as possible late reversals, and beyond 45 days unmatched.",
+      "limits": "Contributor 10\u2014not Contributor 01\u2014performed the production implementation and resolved integration conflicts, using Contributor 01's design and tests; Contributor 01 reviewed the final change.",
+      "evidence": [
+        {
+          "record_id": "repo:008",
+          "span_id": "repo:008:feafc3ca9853:0",
+          "start": 0,
+          "end": 130,
+          "quote": "Proposal based on pilot labels: shorten reference-free reversal window from 45 to 14 days and expose the match basis in the queue."
+        },
+        {
+          "record_id": "repo:008",
+          "span_id": "repo:008:feafc3ca9853:131",
+          "start": 131,
+          "end": 214,
+          "quote": "This reduces questionable pairings but may leave legitimate late reversals flagged."
+        },
+        {
+          "record_id": "repo:009",
+          "span_id": "repo:009:1f629d0814cb:0",
+          "start": 0,
+          "end": 99,
+          "quote": "Fourteen days fits the sampled correction batches, but annual adjustments can arrive after a month."
+        },
+        {
+          "record_id": "repo:009",
+          "span_id": "repo:009:1f629d0814cb:100",
+          "start": 100,
+          "end": 179,
+          "quote": "Could those remain \u201cuncertain\u201d instead of being treated as unmatched negatives?"
+        },
+        {
+          "record_id": "repo:010",
+          "span_id": "repo:010:09c841fdcbc3:5",
+          "start": 5,
+          "end": 126,
+          "quote": "Revised plan: confident pairs within 14 days; 15\u201345 day inverse matches become \u201cpossible late reversal\u201d and stay visible."
+        },
+        {
+          "record_id": "repo:010",
+          "span_id": "repo:010:09c841fdcbc3:127",
+          "start": 127,
+          "end": 160,
+          "quote": "Beyond 45 days remains unmatched."
+        },
+        {
+          "record_id": "repo:011",
+          "span_id": "repo:011:dc0ccc1acea8:0",
+          "start": 0,
+          "end": 140,
+          "quote": "Implemented Issue 31\u2019s three-state reversal handling and match-basis display, using Contributor 01\u2019s design and tests from the issue branch."
+        },
+        {
+          "record_id": "repo:011",
+          "span_id": "repo:011:dc0ccc1acea8:141",
+          "start": 141,
+          "end": 230,
+          "quote": "Contributor 01 reviewed the final change; I handled the production integration conflicts."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c7",
+      "category": "outcome",
+      "statement": "A timed comparison across 24 statements already suspected to contain exceptions, spanning the two pilot imprints and four reviewers, recorded a current-process median of 19 minutes and a Lanternleaf-assisted median of 12 minutes.",
+      "limits": "The selected statements were not representative of general workload, so this bounded comparison does not establish a population-wide causal effect.",
+      "evidence": [
+        {
+          "record_id": "docs:006",
+          "span_id": "docs:006:fbaee46fff5a:0",
+          "start": 0,
+          "end": 145,
+          "quote": "Timed comparison, 24 sampled statements across the two pilot imprints: current process median 19 minutes; Lanternleaf-assisted median 12 minutes."
+        },
+        {
+          "record_id": "docs:006",
+          "span_id": "docs:006:fbaee46fff5a:146",
+          "start": 146,
+          "end": 174,
+          "quote": "Four reviewers participated."
+        },
+        {
+          "record_id": "docs:006",
+          "span_id": "docs:006:fbaee46fff5a:175",
+          "start": 175,
+          "end": 297,
+          "quote": "Samples were selected from statements already suspected to contain exceptions, so this is not a general workload estimate."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c8",
+      "category": "contribution",
+      "statement": "After Contributor 04 authorized continuation through April, Contributor 01 authored the monitoring and rollback runbook and delivered a 35-minute staged walkthrough to both shift leads covering grouped flags, match basis and spreadsheet fallback.",
+      "limits": "The tool remained advisory, wider-imprint rollout was not approved, and ordinary reviewers were not trained in that session.",
+      "evidence": [
+        {
+          "record_id": "chat:009",
+          "span_id": "chat:009:06d3c14eb047:0",
+          "start": 0,
+          "end": 51,
+          "quote": "Decision: continue through the April statement run."
+        },
+        {
+          "record_id": "chat:009",
+          "span_id": "chat:009:06d3c14eb047:52",
+          "start": 52,
+          "end": 125,
+          "quote": "Contributor 01, please document monitoring and train the two shift leads."
+        },
+        {
+          "record_id": "chat:009",
+          "span_id": "chat:009:06d3c14eb047:126",
+          "start": 126,
+          "end": 255,
+          "quote": "Wider imprint rollout is not approved yet; Finance still needs to decide whether reversal reference can enter the scheduled feed."
+        },
+        {
+          "record_id": "docs:008",
+          "span_id": "docs:008:ab471cdc8857:0",
+          "start": 0,
+          "end": 131,
+          "quote": "Runbook: load validation, rule-version check, queue health checks, rollback to spreadsheet review, and escalation contacts by role."
+        },
+        {
+          "record_id": "docs:008",
+          "span_id": "docs:008:ab471cdc8857:132",
+          "start": 132,
+          "end": 229,
+          "quote": "Daily checks cover missing currency, unexpected flag-volume changes, and stale source timestamps."
+        },
+        {
+          "record_id": "docs:008",
+          "span_id": "docs:008:ab471cdc8857:230",
+          "start": 230,
+          "end": 256,
+          "quote": "The tool remains advisory."
+        },
+        {
+          "record_id": "docs:009",
+          "span_id": "docs:009:f7e801f2db19:0",
+          "start": 0,
+          "end": 104,
+          "quote": "Training note: Contributor 01 ran a 35-minute walkthrough for both shift leads using a staged statement."
+        },
+        {
+          "record_id": "docs:009",
+          "span_id": "docs:009:f7e801f2db19:105",
+          "start": 105,
+          "end": 200,
+          "quote": "We practised expanding grouped flags, reading match basis, and falling back to the spreadsheet."
+        },
+        {
+          "record_id": "docs:009",
+          "span_id": "docs:009:f7e801f2db19:201",
+          "start": 201,
+          "end": 288,
+          "quote": "Both leads completed the exercise; ordinary reviewers were not trained in this session."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c9",
+      "category": "correction",
+      "statement": "On 3 April, an export type change caused a silent zero-row load and about a two-hour delay; Contributor 01 acknowledged missing type validation, then implemented fail-closed checks, visible received-versus-expected types and a regression fixture.",
+      "limits": "The cause was shared: Contributor 07 owned the unannounced export change, while Contributor 01 owned the validation omission; the runbook's spreadsheet fallback limited the delay.",
+      "evidence": [
+        {
+          "record_id": "repo:012",
+          "span_id": "repo:012:42e45af0e890:0",
+          "start": 0,
+          "end": 116,
+          "quote": "After the source export changed `statement_period` from text to a date, the queue loaded zero rows without an error."
+        },
+        {
+          "record_id": "repo:012",
+          "span_id": "repo:012:42e45af0e890:117",
+          "start": 117,
+          "end": 203,
+          "quote": "April processing was delayed for about two hours while we reverted to the spreadsheet."
+        },
+        {
+          "record_id": "repo:013",
+          "span_id": "repo:013:25b783c5cd3d:0",
+          "start": 0,
+          "end": 97,
+          "quote": "I assumed the pilot schema would remain fixed and validated required columns but not their types."
+        },
+        {
+          "record_id": "repo:013",
+          "span_id": "repo:013:25b783c5cd3d:98",
+          "start": 98,
+          "end": 226,
+          "quote": "I\u2019m adding type checks and a visible stop condition; the runbook fallback limited the delay, but the silent success was my miss."
+        },
+        {
+          "record_id": "repo:014",
+          "span_id": "repo:014:e62a9484fad8:0",
+          "start": 0,
+          "end": 103,
+          "quote": "The export change was mine and I did not notify the pilot channel because the field name was unchanged."
+        },
+        {
+          "record_id": "repo:014",
+          "span_id": "repo:014:e62a9484fad8:104",
+          "start": 104,
+          "end": 172,
+          "quote": "Type validation is still needed, but change notice also failed here."
+        },
+        {
+          "record_id": "repo:015",
+          "span_id": "repo:015:792b6a413923:0",
+          "start": 0,
+          "end": 118,
+          "quote": "Adds schema type validation, blocks processing on incompatible fields, and displays the received versus expected type."
+        },
+        {
+          "record_id": "repo:015",
+          "span_id": "repo:015:792b6a413923:119",
+          "start": 119,
+          "end": 175,
+          "quote": "Includes the April export shape as a regression fixture."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c10",
+      "category": "outcome",
+      "statement": "The April run resumed after the schema fix with no further load failures, and reviewers said grouping made the correction batch manageable.",
+      "limits": "The spreadsheet remained open for the first hour and one lead still exported rows for annotations; the close recommendation was limited continuation, not general rollout.",
+      "evidence": [
+        {
+          "record_id": "chat:010",
+          "span_id": "chat:010:24772e1bda69:20",
+          "start": 20,
+          "end": 108,
+          "quote": "We used the queue after the schema fix and kept the spreadsheet open for the first hour."
+        },
+        {
+          "record_id": "chat:010",
+          "span_id": "chat:010:24772e1bda69:109",
+          "start": 109,
+          "end": 134,
+          "quote": "No further load failures."
+        },
+        {
+          "record_id": "chat:010",
+          "span_id": "chat:010:24772e1bda69:135",
+          "start": 135,
+          "end": 239,
+          "quote": "The grouping made the correction batch manageable, though one lead still exported rows to annotate them."
+        },
+        {
+          "record_id": "docs:010",
+          "span_id": "docs:010:7a9ed38f6407:328",
+          "start": 328,
+          "end": 386,
+          "quote": "Recommendation: limited continuation, not general rollout."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c11",
+      "category": "outcome",
+      "statement": "In May, across the same two imprints, Lanternleaf was available for 41 statements: 34 were reviewed primarily in the queue and 7 primarily in spreadsheets; the recorded median review time was 13 minutes.",
+      "limits": "Eight statements lacked usable timing entries and no missed-exception audit was conducted.",
+      "evidence": [
+        {
+          "record_id": "docs:011",
+          "span_id": "docs:011:eb35a8f15cfd:0",
+          "start": 0,
+          "end": 158,
+          "quote": "May follow-up, same two imprints: 41 statements processed with Lanternleaf available; 34 were reviewed primarily in the queue and 7 primarily in spreadsheets."
+        },
+        {
+          "record_id": "docs:011",
+          "span_id": "docs:011:eb35a8f15cfd:159",
+          "start": 159,
+          "end": 253,
+          "quote": "Median recorded review time was 13 minutes, but eight statements lacked usable timing entries."
+        },
+        {
+          "record_id": "docs:011",
+          "span_id": "docs:011:eb35a8f15cfd:254",
+          "start": 254,
+          "end": 294,
+          "quote": "No missed-exception audit was performed."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c12",
+      "category": "use",
+      "statement": "By June, both shift leads still used Lanternleaf and 2 of 6 ordinary reviewers opened the queue themselves; the other four received exports or stayed in spreadsheets.",
+      "limits": "This was continuing local use, not rollout to other imprints.",
+      "evidence": [
+        {
+          "record_id": "chat:012",
+          "span_id": "chat:012:16073d26b7cc:0",
+          "start": 0,
+          "end": 36,
+          "quote": "Both shift leads are still using it."
+        },
+        {
+          "record_id": "chat:012",
+          "span_id": "chat:012:16073d26b7cc:37",
+          "start": 37,
+          "end": 152,
+          "quote": "Two of six ordinary reviewers now open the queue themselves; the others receive exports or stay in the spreadsheet."
+        },
+        {
+          "record_id": "chat:012",
+          "span_id": "chat:012:16073d26b7cc:153",
+          "start": 153,
+          "end": 206,
+          "quote": "That is local use, not rollout to the other imprints."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c13",
+      "category": "constraint",
+      "statement": "Afterwards, Finance deferred adding reversal references to the scheduled feed until its autumn planning round, leaving false-alert performance dependent on heuristic matching and no owner or date for broader rollout.",
+      "limits": "The pilot could continue with confidence states, but that did not resolve the external feed dependency.",
+      "evidence": [
+        {
+          "record_id": "chat:003",
+          "span_id": "chat:003:f9a53348a411:23",
+          "start": 23,
+          "end": 160,
+          "quote": "Reversal reference is not in the scheduled feed; I can add it to the one-off pilot extract, but production needs a finance-system change."
+        },
+        {
+          "record_id": "docs:012",
+          "span_id": "docs:012:e476c0d4b501:0",
+          "start": 0,
+          "end": 101,
+          "quote": "Finance has deferred adding reversal reference to the scheduled feed until its autumn planning round."
+        },
+        {
+          "record_id": "docs:012",
+          "span_id": "docs:012:e476c0d4b501:102",
+          "start": 102,
+          "end": 217,
+          "quote": "The pilot can continue with confidence states, but false-alert performance remains dependent on heuristic matching."
+        },
+        {
+          "record_id": "docs:012",
+          "span_id": "docs:012:e476c0d4b501:218",
+          "start": 218,
+          "end": 262,
+          "quote": "No owner or date exists for broader rollout."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c14",
+      "category": "constraint",
+      "statement": "By July, bulk notes for grouped flags remained in the backlog, so annotations still lived in spreadsheet exports.",
+      "limits": "The issue was classified as an inconvenience rather than a processing blocker.",
+      "evidence": [
+        {
+          "record_id": "repo:016",
+          "span_id": "repo:016:6907e2a7b828:0",
+          "start": 0,
+          "end": 58,
+          "quote": "Request from one shift lead: bulk notes for grouped flags."
+        },
+        {
+          "record_id": "repo:016",
+          "span_id": "repo:016:6907e2a7b828:59",
+          "start": 59,
+          "end": 143,
+          "quote": "Marking as backlog because current annotations still live in the spreadsheet export."
+        },
+        {
+          "record_id": "repo:016",
+          "span_id": "repo:016:6907e2a7b828:144",
+          "start": 144,
+          "end": 195,
+          "quote": "This is an inconvenience, not a processing blocker."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 80,
+  "meaning_validated": false,
+  "disposition_records": 41,
+  "attribution_chains": 9,
+  "structural_only": true,
+  "completion_receipt_valid": true,
+  "attachment_dispositions": 0,
+  "span_resolution": true,
+  "bookkeeping_derived": true,
+  "narrative_compiled": true,
+  "rejection_only_records": [],
+  "material_notes": 38,
+  "material_notes_represented": 38
+}

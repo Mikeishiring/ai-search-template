@@ -1,0 +1,21 @@
+{
+  "synthetic_only": true,
+  "source_call_budget": 45,
+  "page_size": 3,
+  "author": "Separate isolated Codex invocation; no old corpus, implementation or research prompt supplied",
+  "researcher": "Separate fresh Codex invocation with only scope and read-only source tools",
+  "assessment": "Source/quotation validation plus manual comparison against author rubric; no automatic semantic grading",
+  "stop": "One substantive research attempt, up to 45 source calls or 15 minutes; no hints or retuning after observation",
+  "limitations": [
+    "Separate AI author, not an independently recruited human author.",
+    "Author and researcher use the same provider/default model family; errors may be correlated."
+  ],
+  "freeze": {
+    "model/independent-author.txt": "8678e028f9d92c630f845bd1015004a96adc79b4da79c362c1375bb3af267520",
+    "model/autonomous-researcher.txt": "3ec41fc9855ab662f3219a08e9c315eadc2ddbe6aea0358e63f090df4676d66b",
+    "model/author.schema.json": "4118bbc8ec7114ea0e5e1458e1e1db24723435a8feb35b03bd90a8ba686450ec",
+    "model/review.schema.json": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+    "autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "independent_experiment.py": "54e24ed382d8ddf2014369be7e0d1e2ba16dcf82a3f803be7638939231d4c7a7"
+  }
+}

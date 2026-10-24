@@ -1,0 +1,185 @@
+{
+  "label": "Harborlight contribution-and-outcomes evaluation",
+  "expected_records": [
+    "chat:001",
+    "docs:001",
+    "chat:002",
+    "chat:003",
+    "docs:002",
+    "docs:003",
+    "docs:004",
+    "chat:004",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "repo:005",
+    "chat:005",
+    "repo:006",
+    "repo:007",
+    "chat:006",
+    "repo:008",
+    "repo:009",
+    "docs:005",
+    "chat:007",
+    "chat:008",
+    "repo:010",
+    "repo:011",
+    "chat:009",
+    "chat:010",
+    "docs:006",
+    "repo:012",
+    "docs:007",
+    "docs:008",
+    "chat:011",
+    "docs:009",
+    "repo:013",
+    "chat:012",
+    "chat:013",
+    "repo:014",
+    "docs:010"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personally owned mobile prototype",
+      "criterion": "Conclude that Contributor 01 proposed and implemented the scanner-side offline prototype: cached signed snapshots, zone grouping, deterministic route ordering, skip reasons, route explanations, and tests, while explicitly excluding automatic stock correction.",
+      "anchors": [
+        "chat:002",
+        "docs:002",
+        "repo:001"
+      ],
+      "pitfall": "Attributing the entire Harborlight system or stock-correction capability to Contributor 01.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "Shared ownership boundaries",
+      "criterion": "Distinguish Contributor 01's mobile ownership from Contributor 03's snapshot service and Contributor 06's trial design, measurement, and interviews; Contributor 01 supplied a fixture shape and compatibility review but did not implement the service.",
+      "anchors": [
+        "chat:003",
+        "repo:005",
+        "docs:005",
+        "docs:009"
+      ],
+      "pitfall": "Crediting Contributor 01 with the backend, experimental design, or pilot analysis.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-03",
+      "name": "Safety feedback incorporated",
+      "criterion": "State that Contributor 05 identified the forklift-crossing risk and Contributor 01 acknowledged the distance-only mistake, then added a visible time-window routing penalty.",
+      "anchors": [
+        "docs:004",
+        "chat:004",
+        "repo:001"
+      ],
+      "pitfall": "Presenting the safety rule as Contributor 01's original insight, or omitting the initial modeling gap.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-04",
+      "name": "Stale-data safeguard and lifecycle repair",
+      "criterion": "Report that review exposed an unsafe stale-list state, which Contributor 01 fixed with blocking verification messaging and timestamps; Contributor 01 also diagnosed and repaired S4 route loss after sleep, with limited bench validation.",
+      "anchors": [
+        "repo:002",
+        "repo:003",
+        "repo:006",
+        "repo:007",
+        "repo:008",
+        "repo:009"
+      ],
+      "pitfall": "Saying the prototype was safe and reliable from the outset, or treating bench tests as proof under all field conditions.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Pilot incident response",
+      "criterion": "Explain that after three users returned to paper during a Wi-Fi drop, Contributor 01 used logs to identify two launch-session failures, noted the third was unknown, and shipped clearer offline messaging, a retry, and diagnostic instrumentation without weakening authentication.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Claiming all three failures were diagnosed, that routing itself required connectivity, or that Contributor 01 changed authentication policy.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Skip taxonomy mistake and correction",
+      "criterion": "Conclude that the original categories omitted assistance-required work; Contributor 01 accepted responsibility for the category-design error, added the reason, and asked that the mid-trial discontinuity be documented.",
+      "anchors": [
+        "chat:009",
+        "chat:010",
+        "docs:006",
+        "repo:012"
+      ],
+      "pitfall": "Blaming operators, implying the correction made pre/post reason data comparable, or treating the correction as absolving the initial measurement flaw.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Directional pilot outcome",
+      "criterion": "Report the bounded North Depot result: walking time per completed check fell from 3.8 to 3.1 minutes, completed checks rose from 412 to 463, and unresolved exceptions changed from 37 to 35 across six baseline and six trial mornings, with workload, staffing, novelty, and export freshness as competing explanations.",
+      "anchors": [
+        "docs:003",
+        "docs:007",
+        "docs:008"
+      ],
+      "pitfall": "Making a causal productivity, accuracy, or company-wide efficiency claim from the small non-controlled pilot.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-08",
+      "name": "Limited continued use, not general rollout",
+      "criterion": "State that North retained the tool on eight devices for April, seven were used on at least 14 of 18 mornings, and six working devices remained in use by August; paper remained a fallback, total shift duration was inconsistently measured, and no repeat time study occurred.",
+      "anchors": [
+        "chat:011",
+        "chat:013",
+        "docs:010"
+      ],
+      "pitfall": "Calling this broad adoption, full replacement of paper, or sustained quantified productivity improvement.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-09",
+      "name": "Handover and second-site dependency",
+      "criterion": "Describe Contributor 01's documented mobile handover and open items, including configurable depot rules; Contributor 01 declined to own issue 48 that month, and Contributor 02 later delivered schema validation while the admin workflow remained deferred.",
+      "anchors": [
+        "docs:009",
+        "repo:013",
+        "chat:012",
+        "repo:014"
+      ],
+      "pitfall": "Crediting Contributor 01 with later schema validation or framing the capacity boundary as abandonment or project failure.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Outcome boundaries and unknowns",
+      "criterion": "Note that by the follow-up horizon no other depot had started, inventory accuracy was not evaluated, Harborlight did not write stock values, one early device lacked logs, and no evidence resolves how much of the observed improvement came from routing versus confounders.",
+      "anchors": [
+        "chat:008",
+        "docs:007",
+        "docs:008",
+        "docs:010"
+      ],
+      "pitfall": "Inferring inventory accuracy gains, universal reliability, a failed expansion, or a definitive causal effect from absent evidence.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-11",
+      "name": "Pre-existing export problem",
+      "criterion": "Recognize that stale or late source exports predated Harborlight and remained a contextual limitation outside Contributor 01's mobile contribution.",
+      "anchors": [
+        "chat:001",
+        "docs:001",
+        "docs:007"
+      ],
+      "pitfall": "Attributing export freshness problems to Contributor 01 or claiming the mobile tool fixed them.",
+      "importance": "secondary"
+    }
+  ],
+  "author_note": "This is a wholly fictional, frozen synthetic case. It intentionally combines authored work, review-driven corrections, shared ownership, limited operational measurements, and unresolved causal questions. The unavailable device-log attachment is not needed because accessible records describe the relevant diagnosis and its limits; the East Depot practice session falls outside the declared follow-up horizon."
+}

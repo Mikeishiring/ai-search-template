@@ -1,0 +1,573 @@
+{
+  "headline": "Earlier context survived. The stopping decision did not.",
+  "summary": "The story now names who found problems, who corrected them and who owned later work. Repeated requests used the cache. But the researcher dismissed a relevant supplier notice and incorrectly said the budget forced it to stop.",
+  "scope_limit": "One unchanged story from a separate AI author; one uncoached research attempt. Nine of eleven themes fully met and two partly met. This is not a clean pass: one quotation is not verbatim, and the frozen validator flags two attachment dispositions.",
+  "expected_records": 38,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal implementation scope",
+      "criterion": "Conclude that Contributor 01 owned the tablet event-flow slice and implemented the persistent offline queue, device event IDs, retry behavior, visible pending state, and tests; do not attribute the service or labels to them.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "repo:001",
+        "repo:002",
+        "repo:006"
+      ],
+      "pitfall": "Calling Contributor 01 the sole creator of Lantern or crediting them with the service endpoint, reporting table, labels, or firmware.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C2"
+      ],
+      "assessment": "Separates the subject’s tablet queue, tests and service-test assistance from the endpoint, migration, firmware and physical labels. The final account preserves those ownership boundaries.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "State model and constraint adaptation",
+      "criterion": "Identify Contributor 01’s scan-state draft and their adaptation to the handheld limitation by moving event-ID generation to the tablet, while recognizing Contributor 03 surfaced the constraint and Contributor 02 added server uniqueness.",
+      "anchors": [
+        "docs:001",
+        "docs:002",
+        "chat:004",
+        "chat:005"
+      ],
+      "pitfall": "Presenting the design as entirely unilateral or claiming the handheld generated event IDs during the trial.",
+      "importance": "secondary",
+      "status": "partial",
+      "claim_ids": [
+        "C2"
+      ],
+      "assessment": "Carries Contributor 03’s firmware constraint and the subject’s tablet-side adaptation into the account. It does not explicitly carry Contributor 02’s server uniqueness guard into the claim or narrative. The DM pair was read and labeled contextual; generic service ownership loses that specific joint design decision.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-03",
+      "name": "Review-driven retry correction",
+      "criterion": "Note that the initial retry implementation risked battery drain and Contributor 01 corrected it after Contributor 06’s review by capping automatic retries and adding a permanent-rejection test.",
+      "anchors": [
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005"
+      ],
+      "pitfall": "Omitting the initial defect or treating the correction as proof that no operational risk remained.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C3"
+      ],
+      "assessment": "The final story names Contributor 06 as the reviewer who found the battery-draining retry behavior, preserves the initial defect, and credits the subject with the ceiling, manual retry and rejection test. It limits approval to tablet behavior.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-04",
+      "name": "Trial preparation and execution evidence",
+      "criterion": "Credit Contributor 01 with drafting the trial checklist and documenting week-one observations, while preserving the non-random two-lane scope, weak comparison basis, and unavailable raw export.",
+      "anchors": [
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "docs:006"
+      ],
+      "pitfall": "Generalizing the 612 accepted events or 47 delayed uploads to the whole depot, or claiming the inaccessible export independently verifies more than the retained notes.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C5"
+      ],
+      "assessment": "Credits checklist preparation and week-one observation without turning 612 accepted events or 47 delayed uploads into whole-depot outcomes. Preserves non-random lanes, weak comparisons, ambiguous missing collection scans and the unavailable raw export.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-05",
+      "name": "Operator wording response",
+      "criterion": "Conclude that Contributor 01 responded to observed rescan confusion by changing the queued-state wording and shift card; supervisors later reported improvement only across two lanes and three shifts.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:007",
+        "chat:009"
+      ],
+      "pitfall": "Claiming a depot-wide usability improvement or confusing suppressed same-device replays with all duplicate scans.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C4"
+      ],
+      "assessment": "Names Contributor 07 as the source of operator feedback and the subject as the implementer of wording and shift-card changes. The claim keeps the later supervisor report bounded to two lanes and three shifts.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-06",
+      "name": "Shared causes and rollout deferral",
+      "criterion": "Distinguish the supplier label failure and training-capacity constraint from tablet behavior; Contributor 01 proposed expansion, but Operations deferred it and retained a limited trial.",
+      "anchors": [
+        "chat:010",
+        "chat:011",
+        "chat:012",
+        "docs:007",
+        "chat:013"
+      ],
+      "pitfall": "Blaming Contributor 01 for every delay, or saying their proposal itself caused a rollout.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C7"
+      ],
+      "assessment": "The account distinguishes a proposed expansion from Operations’ training-capacity deferral and a continued two-lane trial. The claim identifies label defects as outside queue work. However, the model wrongly dismissed the supplier notice as irrelevant, and one supporting quotation changes source punctuation; both failures are reported separately.",
+      "unread_anchors": [
+        "chat:010"
+      ]
+    },
+    {
+      "id": "theme-07",
+      "name": "Known cross-device gap",
+      "criterion": "State that event-ID deduplication did not prevent equivalent scans from separate devices. Contributor 01 analyzed the tradeoff and proposed a banner but left implementation blocked on service design and an operations resolution workflow.",
+      "anchors": [
+        "repo:008",
+        "repo:009",
+        "chat:017",
+        "repo:010"
+      ],
+      "pitfall": "Claiming Contributor 01 fixed cross-device conflicts, or treating the unresolved item as evidence that the entire queue failed.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C6"
+      ],
+      "assessment": "Names the person who found the cross-device problem, preserves the subject’s analysis and service dependency, and states that the banner remained unimplemented. Does not turn the service prototype or review of its response shape into the subject’s completed fix.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-08",
+      "name": "Handover and continuity",
+      "criterion": "Credit Contributor 01 with documenting diagnostics, badge meanings, and limitations and handing routine releases to Contributor 04; subsequent routine releases used the runbook without changing the queue.",
+      "anchors": [
+        "docs:008",
+        "chat:014",
+        "chat:015",
+        "repo:010"
+      ],
+      "pitfall": "Treating later releases as Contributor 01’s work or implying their rotation ended all involvement.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "C8"
+      ],
+      "assessment": "Separates the subject’s runbook and continuing availability from Contributor 04’s routine maintenance after the handover. Does not attribute the later releases to the subject.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-09",
+      "name": "Observed outcomes without causal overclaim",
+      "criterion": "Report that the two trial lanes continued operating, replacement labels improved in a small wash sample, and May collection records moved from 34/40 to 38/41, but dispatch differences and paper fallback prevent causal attribution to Lantern.",
+      "anchors": [
+        "chat:016",
+        "docs:009"
+      ],
+      "pitfall": "Claiming Lantern or Contributor 01 definitively improved tote recovery rates.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "C9"
+      ],
+      "assessment": "Finds continued two-lane use, paper fallback and the non-causal 34/40 versus 38/41 comparison. It omits the replacement labels surviving eight wash cycles, despite reading that message in full. The claim and account also call the combined collection-or-open-exception measure merely figures; the exact endpoint is preserved only inside the quotation.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-10",
+      "name": "Later decision and remaining adoption uncertainty",
+      "criterion": "Conclude that by the horizon Operations approved adding two south lanes in August based on stable queue operation, replacement labels, and trainer availability; this remained an expanded trial, not west-depot or general adoption, and collection impact was uncertain.",
+      "anchors": [
+        "docs:007",
+        "chat:013",
+        "chat:019"
+      ],
+      "pitfall": "Calling Lantern fully launched, using the post-horizon four-lane update as an in-horizon outcome, or presenting expansion as solely caused by Contributor 01.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "C9"
+      ],
+      "assessment": "Treats the July decision as approval for a future two-lane extension, not observed August use or a general launch. The claim preserves stable queue operation, replacement labels and trainer availability as joint reasons, with collection impact still uncertain.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-11",
+      "name": "Background and distractors",
+      "criterion": "Recognize the older paper-process delay as context and disregard unrelated facilities and social messages when assessing Contributor 01’s contribution.",
+      "anchors": [
+        "chat:001",
+        "chat:006",
+        "chat:018"
+      ],
+      "pitfall": "Mistaking coincident operational messages for Lantern work or omitting the older process context entirely.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "C1"
+      ],
+      "assessment": "Finds and uses the January paper-process delay as a pre-existing condition. Leaves the facilities notice and lunch poll out of the contribution story. That appropriate filtering does not justify also dismissing the project’s supplier-failure notice.",
+      "unread_anchors": [
+        "chat:006",
+        "chat:018"
+      ]
+    }
+  ],
+  "issue_heading": "A completed queue can still hide unfinished research.",
+  "issues": [
+    {
+      "severity": "Wrong relevance decision",
+      "claim_ids": [
+        "C7",
+        "C9"
+      ],
+      "detail": "chat:010 reports adhesive failure, supplier replacement and manual entry for unreadable labels. The model grouped it with two unrelated notices and called it irrelevant based on its snippet. Four source reads remained. The queue tracks replies, references and pages; a snippet-only standalone record can fall outside those obligations."
+    },
+    {
+      "severity": "Incorrect stopping explanation",
+      "claim_ids": [],
+      "detail": "The model says it stopped after 43 charged calls plus a status audit because of the 45-call budget. Receipts show 44 requests, three cache replays and only 41 charged calls. The last status response reports four remaining source calls. No budget limit forced the omission."
+    },
+    {
+      "severity": "Quotation failed",
+      "claim_ids": [
+        "C7"
+      ],
+      "detail": "The model’s quotation ends “Keep lanes 2 and 4 running.” The source says “Keep lanes 2 and 4 running; we can revisit after the roster change.” Changing the semicolon to a period fails the exact-span check. The deferral interpretation remains supported, but the quotation cannot be presented as verbatim."
+    },
+    {
+      "severity": "Read context still compressed away",
+      "claim_ids": [
+        "C2",
+        "C9"
+      ],
+      "detail": "The final claims omit the server uniqueness guard from the joint design discussion and the eight-wash-cycle replacement-label observation. Both were read. Grouping 33 records as used with one generic reason does not show that every material detail survived synthesis."
+    },
+    {
+      "severity": "Metric definition lost",
+      "claim_ids": [
+        "C9"
+      ],
+      "detail": "38 of 41 versus 34 of 40 measures a recorded collection OR an open-customer exception by a seven-day review point. The exact source quote includes this definition, but the claim and narrative reduce it to figures. A reader could mistake it for a collection-success count."
+    },
+    {
+      "severity": "Evaluator boundary mismatch",
+      "claim_ids": [
+        "C5"
+      ],
+      "detail": "The frozen structural validator accepts only primary record IDs in dispositions, so it flags the available template and unavailable export entries. Tool receipts show both attachments were explicitly checked. These two flags are an evaluator contract limitation, not invented attachment evidence. The original failed validation is retained rather than patched into a pass."
+    }
+  ],
+  "limitations": [
+    "The revised source server, researcher prompt, schemas, evaluator checks and unit tests were frozen before authoring. The separate author produced 39 records and 11 themes; no content was edited. The researcher’s first response was preserved before the rubric was opened.",
+    "Author and researcher used the same provider/default model family, with no exact identifier captured. This assistant graded the result manually. The new case repeats a warehouse-prototype pattern and reuses the fictional project name of an earlier, different case; separate invocation is weaker independence than a human-authored out-of-domain benchmark.",
+    "The theme score measures interpreted coverage separately from quotation validity. Nine full and two partial is not an end-to-end pass: one of 33 quotations fails exact matching, and the stopping explanation contradicts the receipts.",
+    "35 of 38 accessible primary records were read in full. Three were snippet-only: two distractors and a relevant label-failure notice. One further record lies beyond the horizon. The available attachment and explicit unavailable result are outside that primary-record denominator.",
+    "Nine discovered contexts and all nine source/time-window sweeps completed. Earlier enumeration found the January pre-existing problem, but its 90-day boundary does not establish completeness across older history.",
+    "Three duplicate requests replayed saved responses without a new source charge. This fixes repeat source work on immutable snapshots; it does not stop the model requesting duplicates or supply a production revision/expiry policy.",
+    "The 45 charged-source-call limit, 60-request ceiling and parent-inclusive context responses differ from prior runs. Different stories and protocols prevent a controlled score comparison.",
+    "The output includes seven contribution chains and dispositions covering all 35 fully read primary records. Those structural aids did not prevent omissions within records marked used or a mistaken relevance decision about an unread standalone record.",
+    "No search call was made. The earlier sweep was exercised; broadening empty queries and finding context outside its 90-day window were not. The story has no multi-level reply chain, and only two irrelevant notices.",
+    "No private archive or live platform was accessed. Synthetic source replay is offline and read-only; model inference used authenticated Codex. The earlier model responses, fixtures and freeze hashes remain unchanged."
+  ],
+  "method": "A separate isolated AI author received the generic brief and schema only. A fresh researcher received scope and chose all 44 MCP requests, including three cache replays. This assistant then compared the preserved account with the hidden author rubric and original records. The frozen exact-quote and disposition validator was run once without changing it to accept this result.",
+  "next_experiment": "Before another untouched case, make stopping reconcile the remaining budget and all surfaced standalone records, require explicit metric definitions in claim text, and distinguish attachment dispositions from primary records. Test outside warehouse prototypes with a separate assessor. Preserve this failed first result.",
+  "summary_counts": {
+    "fully_met": 9,
+    "partial": 2,
+    "missed": 0,
+    "themes": 11,
+    "full_records": 35,
+    "snippet_only": 3,
+    "source_calls": 41,
+    "requests": 44,
+    "cache_hits": 3,
+    "remaining_source_calls": 4,
+    "completed_contexts": 9,
+    "completed_source_window_sweeps": 9,
+    "exact_quotes": 32,
+    "submitted_quotes": 33,
+    "quotation_errors": 1,
+    "structural_flags": 2,
+    "disposition_records": 35,
+    "attribution_chains": 7
+  },
+  "final_planning": {
+    "unopened_contexts": [],
+    "unread_references": [],
+    "unchecked_attachments": [],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "later_use": "A completed sweep is discovery coverage, not proof of continued use. Read the relevant later evidence and separate reports from measurement.",
+    "calls_remaining": 4,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted.",
+    "full_read_index": [
+      {
+        "id": "chat:002",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2028-02-03",
+        "title": "Contributor 01 proposes scope"
+      },
+      {
+        "id": "chat:003",
+        "source": "chat",
+        "author": "Contributor 02",
+        "date": "2028-02-04",
+        "title": "Ownership clarification"
+      },
+      {
+        "id": "chat:004",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2028-02-09",
+        "title": "Private deduplication discussion"
+      },
+      {
+        "id": "chat:005",
+        "source": "chat",
+        "author": "Contributor 02",
+        "date": "2028-02-09",
+        "title": "Server-side guard agreed"
+      },
+      {
+        "id": "chat:007",
+        "source": "chat",
+        "author": "Contributor 07",
+        "date": "2028-03-07",
+        "title": "First-shift report"
+      },
+      {
+        "id": "chat:008",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2028-03-07",
+        "title": "Response to operator confusion"
+      },
+      {
+        "id": "chat:009",
+        "source": "chat",
+        "author": "Contributor 07",
+        "date": "2028-03-12",
+        "title": "Limited wording follow-up"
+      },
+      {
+        "id": "chat:011",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2028-03-25",
+        "title": "Proposed trial expansion"
+      },
+      {
+        "id": "chat:012",
+        "source": "chat",
+        "author": "Contributor 07",
+        "date": "2028-03-26",
+        "title": "Expansion deferred"
+      },
+      {
+        "id": "docs:001",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2028-02-06",
+        "title": "Scan-state proposal"
+      },
+      {
+        "id": "docs:002",
+        "source": "docs",
+        "author": "Contributor 03",
+        "date": "2028-02-07",
+        "title": "Firmware constraint"
+      },
+      {
+        "id": "docs:003",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2028-03-01",
+        "title": "Depot trial checklist"
+      },
+      {
+        "id": "docs:004",
+        "source": "docs",
+        "author": "Contributor 07",
+        "date": "2028-03-02",
+        "title": "Trial selection caveat"
+      },
+      {
+        "id": "docs:005",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2028-03-18",
+        "title": "Week-one trial notes"
+      },
+      {
+        "id": "docs:006",
+        "source": "docs",
+        "author": "Contributor 07",
+        "date": "2028-03-19",
+        "title": "Trial-method limitation"
+      },
+      {
+        "id": "repo:002",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2028-02-19",
+        "title": "Add offline scan queue"
+      },
+      {
+        "id": "repo:003",
+        "source": "repo",
+        "author": "Contributor 06",
+        "date": "2028-02-21",
+        "title": "Retry review"
+      },
+      {
+        "id": "repo:004",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2028-02-22",
+        "title": "Retry correction"
+      },
+      {
+        "id": "repo:005",
+        "source": "repo",
+        "author": "Contributor 06",
+        "date": "2028-02-23",
+        "title": "Queue approval"
+      },
+      {
+        "id": "repo:008",
+        "source": "repo",
+        "author": "Contributor 04",
+        "date": "2028-04-02",
+        "title": "Cross-device duplicate issue"
+      },
+      {
+        "id": "repo:009",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2028-04-04",
+        "title": "Conflict behavior assessment"
+      },
+      {
+        "id": "chat:001",
+        "source": "chat",
+        "author": "Contributor 04",
+        "date": "2028-01-22",
+        "title": "Older scan-delay thread"
+      },
+      {
+        "id": "repo:001",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2028-02-12",
+        "title": "Offline queue issue"
+      },
+      {
+        "id": "repo:006",
+        "source": "repo",
+        "author": "Contributor 02",
+        "date": "2028-03-05",
+        "title": "Service ingestion endpoint"
+      },
+      {
+        "id": "repo:007",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2028-03-09",
+        "title": "Clarify queued state"
+      },
+      {
+        "id": "docs:007",
+        "source": "docs",
+        "author": "Contributor 09",
+        "date": "2028-04-12",
+        "title": "April continuation decision"
+      },
+      {
+        "id": "docs:008",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2028-04-20",
+        "title": "Tablet handover"
+      },
+      {
+        "id": "chat:013",
+        "source": "chat",
+        "author": "Contributor 09",
+        "date": "2028-04-15",
+        "title": "Trial-scope announcement"
+      },
+      {
+        "id": "chat:014",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2028-04-21",
+        "title": "Handover message"
+      },
+      {
+        "id": "chat:015",
+        "source": "chat",
+        "author": "Contributor 04",
+        "date": "2028-05-08",
+        "title": "Routine release after handover"
+      },
+      {
+        "id": "chat:016",
+        "source": "chat",
+        "author": "Contributor 07",
+        "date": "2028-05-17",
+        "title": "May trial status"
+      },
+      {
+        "id": "chat:017",
+        "source": "chat",
+        "author": "Contributor 02",
+        "date": "2028-06-18",
+        "title": "Conflict prototype status"
+      },
+      {
+        "id": "chat:019",
+        "source": "chat",
+        "author": "Contributor 09",
+        "date": "2028-07-28",
+        "title": "Expanded-trial decision"
+      },
+      {
+        "id": "docs:009",
+        "source": "docs",
+        "author": "Contributor 10",
+        "date": "2028-06-11",
+        "title": "May returns review"
+      },
+      {
+        "id": "repo:010",
+        "source": "repo",
+        "author": "Contributor 04",
+        "date": "2028-07-19",
+        "title": "July tablet release"
+      }
+    ],
+    "earlier_start": "2027-11-03",
+    "requests_remaining": 16,
+    "attribution_review": "Before finalising, account for every fully read record: used, contextual, unresolved or irrelevant. Carry material initiators, reviewers, implementers and later owners into claims and narrative, with citations. This index does not infer roles."
+  },
+  "quotation_errors": [
+    "C7: quote missing or ambiguous in chat:012"
+  ],
+  "structural_flags": [
+    "Unknown or duplicate disposition record: attachment:raw-lane-export",
+    "Unknown or duplicate disposition record: attachment:trial-sheet-template"
+  ],
+  "adjudicator": "This assistant; manual original-source comparison against separate-author rubric",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "review_sha256": "c8764704f53e98da99d71034674eb4d05324fe71d3d0a72f2f61cc8adf86f0fe",
+  "gold_sha256": "0db69449d7bf91d0daec7437c02db94a5ebebd702b81be4e3435c97b4cb6afdb"
+}

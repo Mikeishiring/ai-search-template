@@ -1,0 +1,734 @@
+{
+  "synthetic": true,
+  "snapshot": "2027-09-15",
+  "sources": [
+    {
+      "id": "chat",
+      "platform": "Fictional workplace chat archive",
+      "enumeration": true,
+      "inventory": "All retained public channels, project channels, and in-scope private-message conversations.",
+      "read_only": true
+    },
+    {
+      "id": "docs",
+      "platform": "Fictional collaborative document store",
+      "enumeration": true,
+      "inventory": "Versioned documents and retained nested blocks, including archived project pages.",
+      "read_only": true
+    },
+    {
+      "id": "repo",
+      "platform": "Fictional code and issue repository",
+      "enumeration": true,
+      "inventory": "Issues, pull requests, reviews, commits, and release discussions.",
+      "read_only": true
+    }
+  ],
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2027-01-04",
+      "author": "Contributor 06",
+      "container": "#programme-planning",
+      "body": "January focus: Project Lantern should make exhibit audio transcripts follow playback closely enough for the spring evening programme. Contributor 01 will investigate timing; Contributor 04 owns the player changes; Contributor 03 will coordinate content testing.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "January priorities",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2027-01-05",
+      "author": "Contributor 03",
+      "container": "Project Lantern / Brief",
+      "body": "Pilot scope: twelve English-language recordings across two galleries. Desired result is easier transcript following, not a claim of formal accessibility compliance. Current cue sheets were produced by hand and drift after pauses. Launch decision belongs to Contributor 06.",
+      "parent": null,
+      "links": [],
+      "title": "Lantern pilot brief",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2027-01-06",
+      "author": "Contributor 01",
+      "container": "DM: Contributor 01 ↔ Contributor 03",
+      "body": "I sampled three recordings. The text is mostly usable, but the cue timestamps appear to assume uninterrupted narration. I can prototype deriving boundaries from the mastered audio and return a confidence flag where alignment is weak.",
+      "parent": null,
+      "links": [],
+      "title": "Initial timing proposal",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2027-01-06",
+      "author": "Contributor 03",
+      "container": "DM: Contributor 01 ↔ Contributor 03",
+      "body": "That would help. Please keep low-confidence cues visible for editorial review rather than silently fixing them. Contributor 08 can explain the export format.",
+      "parent": "chat:002",
+      "links": [],
+      "title": "Editorial safeguard",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2027-01-07",
+      "author": "Contributor 01",
+      "container": "lantern-tools issue 18",
+      "body": "Proposal: alignment command reads mastered audio plus paragraph transcript, emits cue JSON with confidence and a review report. It will not alter transcript wording. Open questions: music beds, long silences, and whether the player accepts overlapping cues.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:002"
+        }
+      ],
+      "title": "Prototype transcript-to-audio alignment",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2027-01-08",
+      "author": "Contributor 08",
+      "container": "lantern-tools issue 18",
+      "body": "Player import rejects overlaps. The old spreadsheet exporter rounds to whole seconds, although the player accepts milliseconds. I have attached a sample export and schema notes.",
+      "parent": "repo:001",
+      "links": [],
+      "title": "Export constraints",
+      "attachments": [
+        "att:export-sample"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2027-01-09",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Alignment notes",
+      "body": "Method draft: normalise transcript punctuation, estimate word positions from speech segments, preserve paragraph boundaries, then flag cues below 0.72 confidence. Validation should compare generated cues with editor-reviewed reference points, not merely successful import.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Alignment method draft",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2027-01-09",
+      "author": "Contributor 04",
+      "container": "Project Lantern / Alignment notes / Player considerations",
+      "body": "Nested note: the player highlights one paragraph at a time. Millisecond precision is supported, but rapid cue changes can cause visible flicker on older tablets.",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Player considerations",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2027-01-14",
+      "author": "Contributor 01",
+      "container": "lantern-tools pull request 21",
+      "body": "Adds the alignment command, confidence report, overlap prevention, and fixtures for silence and music. Local evaluation on four recordings: median boundary error 0.42 seconds against 68 reviewed boundaries. Two low-confidence music sections remain poor.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        },
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "Add cue alignment prototype",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2027-01-15",
+      "author": "Contributor 07",
+      "container": "lantern-tools pull request 21 review",
+      "body": "The tests are clear, but the confidence threshold is embedded in code and the report drops the source paragraph number. Please make the threshold configurable and retain provenance before merge.",
+      "parent": "repo:003",
+      "links": [],
+      "title": "Review requested changes",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2027-01-16",
+      "author": "Contributor 01",
+      "container": "lantern-tools pull request 21 review",
+      "body": "Updated: threshold is a command option defaulting to 0.72; report now includes paragraph index and audio offset. Added a regression fixture for rounded legacy timestamps.",
+      "parent": "repo:004",
+      "links": [],
+      "title": "Review changes addressed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2027-01-17",
+      "author": "Contributor 07",
+      "container": "lantern-tools pull request 21 review",
+      "body": "Re-ran fixtures and inspected two reports. Approved. This proves the tool path, not the editorial accuracy of the remaining recordings.",
+      "parent": "repo:005",
+      "links": [],
+      "title": "Prototype approved",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2027-01-18",
+      "author": "Contributor 01",
+      "container": "#lantern-pilot",
+      "body": "Prototype merged. On the four reference recordings it is comfortably inside the one-second working target except the two music-backed passages. I need reviewed reference points for the other eight before making a broader claim.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:003"
+        }
+      ],
+      "title": "Prototype status",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2027-01-19",
+      "author": "Contributor 06",
+      "container": "#lantern-pilot",
+      "body": "Good enough to prepare all twelve for the internal walkthrough. Please do not describe this as twelve validated recordings yet.",
+      "parent": "chat:004",
+      "links": [],
+      "title": "Walkthrough decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2027-01-23",
+      "author": "Contributor 03",
+      "container": "Project Lantern / Review log",
+      "body": "Editorial review began with recordings A–F. Contributor 03 corrected sentence splits and supplied reference boundaries; Contributor 01 regenerated cues and investigated flags. Recording D contains an interview overlap that the automated method cannot separate reliably.",
+      "parent": null,
+      "links": [],
+      "title": "Review log: first six",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:006",
+      "source": "chat",
+      "date": "2027-01-25",
+      "author": "Contributor 04",
+      "container": "#lantern-pilot",
+      "body": "The cue files import, but older tablets flash between paragraphs in the fast section of recording B. This looks like the rendering path I own, not an alignment error. I will debounce highlight updates.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        }
+      ],
+      "title": "Tablet flicker found",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2027-01-28",
+      "author": "Contributor 04",
+      "container": "audio-player pull request 144",
+      "body": "Debounces transcript highlight updates and adds an older-tablet playback test. Cue data is unchanged. Contributor 01 supplied the fast-switching fixture from recording B.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:006"
+        }
+      ],
+      "title": "Prevent transcript highlight flicker",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2027-02-02",
+      "author": "Contributor 09",
+      "container": "#social-committee",
+      "body": "Friday's film night has moved to Studio Three. Please update dietary notes by Wednesday.",
+      "parent": null,
+      "links": [],
+      "title": "Film night moved",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2027-02-04",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Operator guide",
+      "body": "Runbook for producing cue files, reading confidence reports, and rerunning a single paragraph after editorial changes. Low-confidence items require human review. Known limitation: simultaneous speakers and prominent music can produce plausible but wrong boundaries.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:003"
+        }
+      ],
+      "title": "Cue-generation runbook",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2027-02-04",
+      "author": "Contributor 08",
+      "container": "Project Lantern / Operator guide / Export step",
+      "body": "Nested procedure: convert generated JSON through the existing content exporter without whole-second rounding. Contributor 08 verified the example against the staging player.",
+      "parent": "docs:005",
+      "links": [],
+      "title": "Export procedure",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2027-02-10",
+      "author": "Contributor 03",
+      "container": "DM: Contributor 03 ↔ Contributor 01",
+      "body": "I have finished review points for G–J. K and L are waiting on revised transcripts from the curatorial team, so that delay is not yours. Could you regenerate G–J before Monday?",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:004"
+        }
+      ],
+      "title": "Second review batch",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2027-02-11",
+      "author": "Contributor 01",
+      "container": "DM: Contributor 03 ↔ Contributor 01",
+      "body": "G–J regenerated and reports are in the project folder. G has one flagged music passage; the rest clear the configured threshold. I also found that J's source audio differs from the file named in the brief, so I did not mark it validated.",
+      "parent": "chat:008",
+      "links": [],
+      "title": "Regeneration completed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:010",
+      "source": "chat",
+      "date": "2027-02-11",
+      "author": "Contributor 03",
+      "container": "DM: Contributor 03 ↔ Contributor 01",
+      "body": "Confirmed: J was mastered again last week and the brief was stale. I have replaced the reference points. Please rerun against the new master; the earlier result should be discarded rather than counted as a miss.",
+      "parent": "chat:009",
+      "links": [],
+      "title": "Stale master confirmed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2027-02-12",
+      "author": "Contributor 01",
+      "container": "lantern-content issue 33",
+      "body": "Recording J regenerated against master j_final_3 with the replacement reference points. Boundary check: 15 of 16 within one second; the remaining boundary is 1.3 seconds late and flagged at 0.61 confidence. Requesting editorial disposition.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:010"
+        }
+      ],
+      "title": "Recording J rerun",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2027-02-13",
+      "author": "Contributor 03",
+      "container": "lantern-content issue 33",
+      "body": "Accepted after listening. The late highlight occurs during a breath and is less distracting than splitting the displayed quotation. Mark J reviewed, with the exception documented.",
+      "parent": "repo:008",
+      "links": [],
+      "title": "J editorial acceptance",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2027-02-18",
+      "author": "Contributor 05",
+      "container": "Evening programme / Walkthrough notes",
+      "body": "Eight staff tried the transcript player on two tablet models. Six said following the text felt easier than the previous build; two noticed no difference. One older tablet briefly lost its place after seeking. This was an internal walkthrough, not visitor research.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:007"
+        }
+      ],
+      "title": "Internal walkthrough notes",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2027-02-19",
+      "author": "Contributor 06",
+      "container": "#lantern-pilot",
+      "body": "Let's proceed with a limited evening-programme release for the ten reviewed recordings. K and L can follow when their text settles. Contributor 04 owns seek-state repair; Contributor 03 owns final editorial sign-off. Contributor 01, please stay available for cue defects.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "Limited release decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2027-02-22",
+      "author": "Contributor 04",
+      "container": "audio-player issue 151",
+      "body": "After a manual seek, the highlight sometimes retains the pre-seek paragraph until the next cue. Reproduced independently of how cues were generated. Fix scheduled before the evening release.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "Seek-state defect",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2027-02-24",
+      "author": "Contributor 12",
+      "container": "#collections-ops",
+      "body": "The south reading room scanner is unavailable until its replacement lamp arrives. Use the second-floor unit for urgent requests.",
+      "parent": null,
+      "links": [],
+      "title": "Scanner unavailable",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2027-03-03",
+      "author": "Contributor 06",
+      "container": "Project Lantern / Release record",
+      "body": "Released ten reviewed recordings to the spring evening programme. Alignment tooling was developed by Contributor 01 with review from Contributor 07; transcript corrections and listening decisions were led by Contributor 03; export support came from Contributor 08; player fixes came from Contributor 04. K and L remain outside release pending transcript approval.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:011"
+        },
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Limited release record",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:011",
+      "source": "repo",
+      "date": "2027-03-05",
+      "author": "Contributor 04",
+      "container": "audio-player pull request 152",
+      "body": "Fixes stale highlight after seeking. Tested with generated and legacy cue files. Merged for the evening release.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Reset highlight on seek",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2027-03-12",
+      "author": "Contributor 03",
+      "container": "#lantern-pilot",
+      "body": "First two evenings: hosts logged three transcript comments across roughly 140 audio starts. Two were about wording; one reported a late highlight in recording D, the known overlapping-interview case. These are host notes, not a complete count of visitor experience.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:004"
+        }
+      ],
+      "title": "Early host notes",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:014",
+      "source": "chat",
+      "date": "2027-03-13",
+      "author": "Contributor 01",
+      "container": "#lantern-pilot",
+      "body": "I checked D against the released master. The cue matches the reviewed exception, so changing the algorithm alone would not resolve the simultaneous speakers. I suggest a manual cue split if editorial accepts the quotation changing one beat earlier.",
+      "parent": "chat:013",
+      "links": [],
+      "title": "Recording D investigation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:015",
+      "source": "chat",
+      "date": "2027-03-14",
+      "author": "Contributor 03",
+      "container": "#lantern-pilot",
+      "body": "Manual split applied after listening with Contributor 05. It is a content judgment rather than a general tool improvement. The next evening's host did not report the issue again, but that is only one shift.",
+      "parent": "chat:014",
+      "links": [],
+      "title": "Recording D adjusted",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2027-03-20",
+      "author": "Contributor 10",
+      "container": "Quarterly purchasing notes",
+      "body": "Renewed the portable-recorder maintenance contract for six months. This is charged to oral-history operations, not Project Lantern.",
+      "parent": null,
+      "links": [],
+      "title": "Recorder maintenance renewal",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:012",
+      "source": "repo",
+      "date": "2027-04-02",
+      "author": "Contributor 11",
+      "container": "lantern-tools issue 41",
+      "body": "Used the runbook to generate cues for a staff-training recording outside the pilot. Import succeeded after Contributor 08 clarified the export step. I reviewed only the flagged sections, so this is evidence of reuse, not a full accuracy assessment.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        },
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "First reuse outside pilot",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:010",
+      "source": "docs",
+      "date": "2027-05-10",
+      "author": "Contributor 05",
+      "container": "Project Lantern / Follow-up",
+      "body": "Across seven evening sessions, hosts recorded 11 transcript-related comments from approximately 510 audio starts: five wording requests, three late or early highlights, two requests for larger text, and one unclear note. Logs are voluntary and cannot establish the true visitor error rate. No session was cancelled because of the transcript player.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:013"
+        }
+      ],
+      "title": "Seven-session follow-up",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:016",
+      "source": "chat",
+      "date": "2027-05-18",
+      "author": "Contributor 06",
+      "container": "#lantern-pilot",
+      "body": "K and L are still awaiting curatorial transcript approval. We will close the spring pilot at ten recordings rather than hold the report open. The alignment tool remains available, but there is no decision yet to migrate the permanent collection.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:010"
+        }
+      ],
+      "title": "Pilot closure",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:011",
+      "source": "docs",
+      "date": "2027-06-25",
+      "author": "Contributor 06",
+      "container": "Project Lantern / Retrospective",
+      "body": "Outcome through June: ten recordings released and remained in the evening programme; K and L were not completed. The timing workflow reduced preparation effort according to the two editors who used it, but effort was not time-tracked. Reliability depended on human review, especially with music and overlapping speech. Broader collection adoption and visitor accessibility impact remain unmeasured.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:008"
+        },
+        {
+          "source": "docs",
+          "id": "docs:010"
+        },
+        {
+          "source": "repo",
+          "id": "repo:012"
+        }
+      ],
+      "title": "Lantern retrospective",
+      "attachments": [
+        "att:editor-survey"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:017",
+      "source": "chat",
+      "date": "2027-08-03",
+      "author": "Contributor 08",
+      "container": "#content-systems",
+      "body": "For the autumn programme we are evaluating a different caption package alongside the Lantern command. No selection has been made.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:011"
+        }
+      ],
+      "title": "Autumn tooling evaluation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "attachments": [
+    {
+      "id": "att:export-sample",
+      "source": "repo",
+      "title": "Sample cue export and schema notes",
+      "body": "Example fields: paragraph_index, start_ms, end_ms, confidence. Overlapping intervals are invalid; timestamps are integer milliseconds.",
+      "unavailable": false
+    },
+    {
+      "id": "att:editor-survey",
+      "source": "docs",
+      "title": "Editor effort survey responses",
+      "body": "",
+      "unavailable": true
+    }
+  ]
+}

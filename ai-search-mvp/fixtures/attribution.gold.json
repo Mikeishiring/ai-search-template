@@ -1,0 +1,187 @@
+{
+  "label": "Contributor 01 built and refined Lantern’s tablet-side offline scan workflow, supported its trial and handover, and helped define—but did not finish—the cross-device conflict response. The limited trial continued and was later approved for a modest expansion, while broader adoption and causal impact remained unproven.",
+  "expected_records": [
+    "chat:001",
+    "chat:002",
+    "chat:003",
+    "docs:001",
+    "docs:002",
+    "chat:004",
+    "chat:005",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "repo:005",
+    "chat:006",
+    "docs:003",
+    "docs:004",
+    "repo:006",
+    "chat:007",
+    "chat:008",
+    "repo:007",
+    "chat:009",
+    "docs:005",
+    "docs:006",
+    "chat:010",
+    "chat:011",
+    "chat:012",
+    "repo:008",
+    "repo:009",
+    "docs:007",
+    "chat:013",
+    "chat:014",
+    "docs:008",
+    "chat:015",
+    "chat:016",
+    "docs:009",
+    "chat:017",
+    "chat:018",
+    "repo:010",
+    "chat:019"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal implementation scope",
+      "criterion": "Conclude that Contributor 01 owned the tablet event-flow slice and implemented the persistent offline queue, device event IDs, retry behavior, visible pending state, and tests; do not attribute the service or labels to them.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "repo:001",
+        "repo:002",
+        "repo:006"
+      ],
+      "pitfall": "Calling Contributor 01 the sole creator of Lantern or crediting them with the service endpoint, reporting table, labels, or firmware.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "State model and constraint adaptation",
+      "criterion": "Identify Contributor 01’s scan-state draft and their adaptation to the handheld limitation by moving event-ID generation to the tablet, while recognizing Contributor 03 surfaced the constraint and Contributor 02 added server uniqueness.",
+      "anchors": [
+        "docs:001",
+        "docs:002",
+        "chat:004",
+        "chat:005"
+      ],
+      "pitfall": "Presenting the design as entirely unilateral or claiming the handheld generated event IDs during the trial.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-03",
+      "name": "Review-driven retry correction",
+      "criterion": "Note that the initial retry implementation risked battery drain and Contributor 01 corrected it after Contributor 06’s review by capping automatic retries and adding a permanent-rejection test.",
+      "anchors": [
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005"
+      ],
+      "pitfall": "Omitting the initial defect or treating the correction as proof that no operational risk remained.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-04",
+      "name": "Trial preparation and execution evidence",
+      "criterion": "Credit Contributor 01 with drafting the trial checklist and documenting week-one observations, while preserving the non-random two-lane scope, weak comparison basis, and unavailable raw export.",
+      "anchors": [
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "docs:006"
+      ],
+      "pitfall": "Generalizing the 612 accepted events or 47 delayed uploads to the whole depot, or claiming the inaccessible export independently verifies more than the retained notes.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Operator wording response",
+      "criterion": "Conclude that Contributor 01 responded to observed rescan confusion by changing the queued-state wording and shift card; supervisors later reported improvement only across two lanes and three shifts.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:007",
+        "chat:009"
+      ],
+      "pitfall": "Claiming a depot-wide usability improvement or confusing suppressed same-device replays with all duplicate scans.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Shared causes and rollout deferral",
+      "criterion": "Distinguish the supplier label failure and training-capacity constraint from tablet behavior; Contributor 01 proposed expansion, but Operations deferred it and retained a limited trial.",
+      "anchors": [
+        "chat:010",
+        "chat:011",
+        "chat:012",
+        "docs:007",
+        "chat:013"
+      ],
+      "pitfall": "Blaming Contributor 01 for every delay, or saying their proposal itself caused a rollout.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Known cross-device gap",
+      "criterion": "State that event-ID deduplication did not prevent equivalent scans from separate devices. Contributor 01 analyzed the tradeoff and proposed a banner but left implementation blocked on service design and an operations resolution workflow.",
+      "anchors": [
+        "repo:008",
+        "repo:009",
+        "chat:017",
+        "repo:010"
+      ],
+      "pitfall": "Claiming Contributor 01 fixed cross-device conflicts, or treating the unresolved item as evidence that the entire queue failed.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-08",
+      "name": "Handover and continuity",
+      "criterion": "Credit Contributor 01 with documenting diagnostics, badge meanings, and limitations and handing routine releases to Contributor 04; subsequent routine releases used the runbook without changing the queue.",
+      "anchors": [
+        "docs:008",
+        "chat:014",
+        "chat:015",
+        "repo:010"
+      ],
+      "pitfall": "Treating later releases as Contributor 01’s work or implying their rotation ended all involvement.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-09",
+      "name": "Observed outcomes without causal overclaim",
+      "criterion": "Report that the two trial lanes continued operating, replacement labels improved in a small wash sample, and May collection records moved from 34/40 to 38/41, but dispatch differences and paper fallback prevent causal attribution to Lantern.",
+      "anchors": [
+        "chat:016",
+        "docs:009"
+      ],
+      "pitfall": "Claiming Lantern or Contributor 01 definitively improved tote recovery rates.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Later decision and remaining adoption uncertainty",
+      "criterion": "Conclude that by the horizon Operations approved adding two south lanes in August based on stable queue operation, replacement labels, and trainer availability; this remained an expanded trial, not west-depot or general adoption, and collection impact was uncertain.",
+      "anchors": [
+        "docs:007",
+        "chat:013",
+        "chat:019"
+      ],
+      "pitfall": "Calling Lantern fully launched, using the post-horizon four-lane update as an in-horizon outcome, or presenting expansion as solely caused by Contributor 01.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-11",
+      "name": "Background and distractors",
+      "criterion": "Recognize the older paper-process delay as context and disregard unrelated facilities and social messages when assessing Contributor 01’s contribution.",
+      "anchors": [
+        "chat:001",
+        "chat:006",
+        "chat:018"
+      ],
+      "pitfall": "Mistaking coincident operational messages for Lantern work or omitting the older process context entirely.",
+      "importance": "secondary"
+    }
+  ],
+  "author_note": "This is a wholly fictional, pre-frozen evaluation corpus. It provides message, document, and repository evidence but no interviews, device telemetry beyond retained summaries, or accessible raw lane export. Later outcomes are intentionally limited and multi-causal; the post-horizon August update exists to test temporal discipline."
+}

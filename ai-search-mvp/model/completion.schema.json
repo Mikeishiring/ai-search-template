@@ -1,0 +1,230 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "account",
+    "claims",
+    "unknowns",
+    "rejected_conclusions",
+    "attribution_chains",
+    "evidence_dispositions",
+    "stop_receipt_id",
+    "attachment_dispositions"
+  ],
+  "properties": {
+    "account": {
+      "type": "string"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "category",
+          "statement",
+          "limits",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "origin",
+              "mandate",
+              "contribution",
+              "shared_ownership",
+              "use",
+              "correction",
+              "constraint",
+              "outcome",
+              "other"
+            ]
+          },
+          "statement": {
+            "type": "string"
+          },
+          "limits": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "record_id",
+                "span_id"
+              ],
+              "properties": {
+                "record_id": {
+                  "type": "string"
+                },
+                "span_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rejected_conclusions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "statement",
+          "reason",
+          "record_ids"
+        ],
+        "properties": {
+          "statement": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "record_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "attribution_chains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "intervention": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "actor": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "record_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "actor",
+                "role",
+                "record_ids"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "limits": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "intervention",
+          "roles",
+          "claim_ids",
+          "limits"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "evidence_dispositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "record_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "used",
+              "contextual",
+              "unresolved",
+              "irrelevant"
+            ]
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "record_ids",
+          "disposition",
+          "claim_ids",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "stop_receipt_id": {
+      "type": "string"
+    },
+    "attachment_dispositions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attachment_id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "attachment_id",
+          "reason",
+          "claim_ids"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "sha256": {
+    "corpus": "6d3d82bb0377e5c1ffa4a772687f5966b64c5e6985f3978e3305e2b6d8d665bf",
+    "scope": "519af7c367b538d952f7c9fcb5cd11870082d8da656639abb543a71cd63e0f47",
+    "gold": "d294e5e976ef8416bfe23a5ab514ff4c2fb63d9ca4db68870cb39ebac4a2ec50"
+  },
+  "structural_validation": "passed except declared record-count deviation",
+  "content_edited": false,
+  "original_author_sha256": "1bd595ee8ae7f7b0eba3e6f30136623341a56dd6f247d45e85b1eb03ac0f8e22",
+  "research_started": false,
+  "deviation": "Author supplied 42 records instead of requested 32\u201340. Kept intact; no content edits, no prompt or 45-call budget changes."
+}

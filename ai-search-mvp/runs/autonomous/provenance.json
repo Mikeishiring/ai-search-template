@@ -1,0 +1,332 @@
+{
+  "valid": true,
+  "errors": [],
+  "claims": [
+    {
+      "id": "claim-01",
+      "category": "origin",
+      "statement": "Contributor 01 compared interval and controller-event data and identified overlapping defrost starts as a testable explanation for the largest peaks.",
+      "limits": "This was an initial analysis, not proof of causality; another contributor immediately identified open dock doors as an alternative explanation.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "quote": "I compared the March interval export with the controller event log. The largest peaks line up with overlapping defrost starts, not ordinary cooling load. I can test a stagger before we discuss equipment changes.",
+          "start": 0,
+          "end": 211,
+          "record_hash": "63bd8cbc0f7e0ff7dfbedfdbe0679a0efb4598320e51a774fa778ddc215b8532"
+        },
+        {
+          "record_id": "chat:003",
+          "quote": "That fits the night-shift notes, although open dock doors could explain part of the same interval. Please keep both possibilities in the analysis.",
+          "start": 0,
+          "end": 146,
+          "record_hash": "ff9ce9e4f8756ec401f4c4abc90a5c8507274e10b4c75bf1a4863b5e4452cc2f"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-02",
+      "category": "contribution",
+      "statement": "Contributor 01 proposed separating eligible defrost starts by 12 minutes and specified the measures and operational limits to examine.",
+      "limits": "The notebook explicitly described this as a hypothesis rather than an approved control change; approval conditions were supplied by Contributor 03.",
+      "evidence": [
+        {
+          "record_id": "docs:001",
+          "quote": "Working hypothesis: separate eligible defrost starts by 12 minutes while preserving temperature and maximum-delay limits. Compare peak demand, energy, alarms, door-open periods, and product-temperature excursions. This is a proposal, not an approved control change.",
+          "start": 0,
+          "end": 265,
+          "record_hash": "027b678e323421d5a98e2f19fa4ea7ceac1d61b709671c311a15e81a586b2d9a"
+        },
+        {
+          "record_id": "docs:002",
+          "quote": "Approval conditions: operations chooses trial windows; controls engineering reviews commands; safety limits remain in the controller; automatic rollback after two missed cycles or any high-temperature alarm.",
+          "start": 0,
+          "end": 207,
+          "record_hash": "c8b108da8774ea0f10ddb16850a2977b8a0fe23f630fe052c0c7b1e3ecf9ac01"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-03",
+      "category": "contribution",
+      "statement": "Contributor 01 built the initial event-log parser, overlap detector, and offset simulator without adding a controller-writing path.",
+      "limits": "The first parser mishandled an ambiguous clock-change interval and inflated the March overlap count by one event.",
+      "evidence": [
+        {
+          "record_id": "repo:001",
+          "quote": "Added event-log parser, overlap detector, and a small simulator for candidate start offsets. Output includes original and proposed coincidence counts; no controller-writing path.",
+          "start": 0,
+          "end": 178,
+          "record_hash": "a9ab76121de26e32ec15258e57f2e80d04886c5489d06eed3ea523c2c5954496"
+        },
+        {
+          "record_id": "repo:002",
+          "quote": "The parser assumes an offset that is absent from the source file, so the March overlap count is inflated by one event.",
+          "start": 75,
+          "end": 193,
+          "record_hash": "87a048d59027ac03f34dd0b8c3ca5c44cab5a5d39739c738369f322d7b041e94"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-04",
+      "category": "correction",
+      "statement": "After soliciting a timestamp sanity check, Contributor 01 corrected the parser to preserve ambiguous local times, exclude unresolved events, report exclusions, and test both the duplicated hour and ordinary days.",
+      "limits": "Contributor 07 discovered the source ambiguity and supplied the duplicated-hour fixture; review validated the analysis path, not deployment behavior.",
+      "evidence": [
+        {
+          "record_id": "chat:004",
+          "quote": "Could you sanity-check how the older controller reports local timestamps? My parser currently treats the export as site-local time with an explicit offset.",
+          "start": 0,
+          "end": 155,
+          "record_hash": "8d78c9711174a4bcfa301717fb492311251d14e0dad0bb656545256fe11d3e66"
+        },
+        {
+          "record_id": "repo:004",
+          "quote": "Parser now preserves ambiguous local times, excludes unresolved events from matched comparisons, and reports the excluded count. Added Contributor 07's duplicated-hour fixture and six ordinary-day cases.",
+          "start": 0,
+          "end": 203,
+          "record_hash": "fa229a8b98efcce7921e89147a666283f9c31631fc4d0a5680aefb3876896db8"
+        },
+        {
+          "record_id": "repo:005",
+          "quote": "Fixture passes and the corrected March result still shows repeated overlap outside the clock-change hour. Approved. This validates the analysis path, not deployment behavior.",
+          "start": 0,
+          "end": 174,
+          "record_hash": "afe494df7b53d200978973445095ba5b954f90ff47ee2baa6a3975623906a2bc"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-05",
+      "category": "contribution",
+      "statement": "Contributor 01 drafted a supervised Freezer B pilot with operator confirmation, stop conditions, and an exclusion for the ambiguous clock-change interval.",
+      "limits": "The initial six-night plan was reduced by operations to four staffed nights, and night supervisors retained final go/no-go authority.",
+      "evidence": [
+        {
+          "record_id": "docs:003",
+          "quote": "Draft trial: Freezer B only, 01:00\u201305:00, six nights. Scheduler proposes starts; operator confirms them. Stop on temperature alarm, missed defrost, controller rejection, or operator concern. Baseline excludes the ambiguous clock-change interval.",
+          "start": 0,
+          "end": 245,
+          "record_hash": "0cf7be9b427ce6cc66160e352b8e5f9c637afa8e481a16791dcfd2aa5b2b80a4"
+        },
+        {
+          "record_id": "docs:004",
+          "quote": "Operations can staff four nights, not six. Add a visible hold button and a handover line saying which unit is delayed. Night supervisors own the final go/no-go each shift.",
+          "start": 0,
+          "end": 171,
+          "record_hash": "e69e0dcba78af1db5393f9bf816db71cc26f12792c1a404c57fe7fa257171463"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-06",
+      "category": "contribution",
+      "statement": "Contributor 01 implemented recommendation mode with 12-minute separation, eligibility and delay information, audit logging, and operator hold, while excluding automatic command submission.",
+      "limits": "Safety constraints came from the plan and review; Contributor 01 subsequently implemented requested hard-stop, alert, label, and test changes.",
+      "evidence": [
+        {
+          "record_id": "repo:006",
+          "quote": "Added read-only schedule recommendations, 12-minute separation, temperature eligibility checks, maximum-delay display, audit logging, and operator hold. No automatic command submission.",
+          "start": 0,
+          "end": 185,
+          "record_hash": "1add3345c1d52c888021fef558ce2fdba35f850b0064185dc8602c0173197308"
+        },
+        {
+          "record_id": "repo:008",
+          "quote": "Changed rejection handling to stop and alert; labelled the profile-derived limit in the operator view. Added tests for both paths.",
+          "start": 0,
+          "end": 130,
+          "record_hash": "5f6562101671d3739a46b6c996cc1bad35067001effb27c4d9896e87f4cb302f"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-07",
+      "category": "use",
+      "statement": "Operators used the recommendations during the Freezer B trial, including holding a recommendation when operating conditions warranted it.",
+      "limits": "This use report covers the first night, was executed by operations rather than Contributor 01, and demonstrates supervised use only.",
+      "evidence": [
+        {
+          "record_id": "chat:007",
+          "quote": "Night one completed. We followed three recommendations and held one because a pallet inspection kept a door open. No temperature alarms. The handover line was useful.",
+          "start": 0,
+          "end": 166,
+          "record_hash": "43a784f995dbe7e009cfa45e4ecd208b514f24cef8a5b3d43daa208589ae2715"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-08",
+      "category": "outcome",
+      "statement": "Across four Freezer B trial windows, the highest 15-minute demand was 38 kW below the matched baseline maximum, total energy was unchanged within meter resolution, and no product-temperature excursion or missed defrost was recorded.",
+      "limits": "Door-open time was lower on two trial nights, so the peak difference cannot be wholly attributed to staggering. Four nights were insufficient for seasonal claims and did not test unattended scheduling.",
+      "evidence": [
+        {
+          "record_id": "docs:005",
+          "quote": "Meter result for the four Freezer B trial windows: highest 15-minute demand was 38 kW below the matched baseline maximum. Total energy differed by less than meter resolution. Door-open time was also lower on two trial nights, so the peak change cannot be assigned wholly to staggering.",
+          "start": 0,
+          "end": 285,
+          "record_hash": "ba87710d408bcac588f5d9804c10c78faeea385403f4093fbf934c4d88df36aa"
+        },
+        {
+          "record_id": "docs:006",
+          "quote": "No product-temperature excursion or missed defrost was recorded. Four nights are too few for seasonal claims, and operator confirmation means this did not test unattended scheduling.",
+          "start": 0,
+          "end": 182,
+          "record_hash": "b15fa54582c0d4f4aa6d27a35833d94a864c18c44c73d7faaed1e2168ce9c535"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-09",
+      "category": "shared_ownership",
+      "statement": "Contributor 01 explicitly resisted sole credit and distinguished the observed 38 kW difference from a controlled saving, crediting operations, timestamp review, and safety design to other contributors.",
+      "limits": "This identifies several shared roles but may not exhaust everyone who contributed.",
+      "evidence": [
+        {
+          "record_id": "chat:010",
+          "quote": "Thanks, though that number is the difference between two observed maxima, not a controlled saving. Contributor 04 ran the shifts, Contributor 07 caught the time issue, and Contributor 03 set the safety constraints.",
+          "start": 0,
+          "end": 214,
+          "record_hash": "a0fbafa7e2f2dfedd415c00745669734642c319e117cfd3c4bc6ba0fb8477ffd"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-10",
+      "category": "contribution",
+      "statement": "Contributor 01 wrote an operating guide covering supervised startup, holds, rejection handling, audit export, rollback, and supported versus unsupported controllers.",
+      "limits": "The guide was based on pilot handovers and was subsequently edited by operations, including a terminology change that reinforced the non-autonomous nature of the workflow.",
+      "evidence": [
+        {
+          "record_id": "docs:008",
+          "quote": "Documented recommendation-mode startup, operator hold, rejection handling, audit export, rollback, and the distinction between supported Freezer B controllers and unsupported R4 gateways. Drafted from the pilot handovers.",
+          "start": 0,
+          "end": 221,
+          "record_hash": "244385d57c23b189ebdd8b3a21e88065826ffadd0ae0eaa2b26eb313318e4d23"
+        },
+        {
+          "record_id": "docs:009",
+          "quote": "Added shift screenshots and changed 'approve' to 'confirm recommendation'; operators are confirming a suggestion, not authorising an autonomous control action.",
+          "start": 0,
+          "end": 159,
+          "record_hash": "ae6596984455eb552c3736c05bce5aa5d1f0655e3b2c2e4f9a41dcbe2a7f1594"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-11",
+      "category": "constraint",
+      "statement": "When the R4 gateway rejected proposed-delay metadata, Contributor 01 advised against building an undocumented adapter because the wrong units could be silently applied and recommended recording manual decisions pending vendor confirmation.",
+      "limits": "The incompatibility blocked the planned screen-assisted workflow, not manual operations; the issue was originally reported by Contributor 05.",
+      "evidence": [
+        {
+          "record_id": "repo:009",
+          "quote": "East-site gateway rejects proposed-delay metadata on controller revision R4. Need either a vendor-supported mapping or a site-specific adapter. This blocks the planned screen-assisted workflow, not manual operations.",
+          "start": 0,
+          "end": 216,
+          "record_hash": "db454edc418978ac56458d5ce28eb2e50444be6f60b4d36e5f941fe7b7aa5f01"
+        },
+        {
+          "record_id": "repo:010",
+          "quote": "I can build an adapter, but without a documented field contract we could silently apply the wrong units. Recommend recording manual decisions while Contributor 05 seeks vendor confirmation.",
+          "start": 0,
+          "end": 189,
+          "record_hash": "4e511910c2052e81596d338555e28220eec29015238aea211e1e947f43c176e8"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-12",
+      "category": "correction",
+      "statement": "Contributor 01 fixed a telemetry-loss display hazard by hiding recommendations after 30 seconds, showing a disconnected state, requiring fresh eligibility calculation after reconnection, and adding stream-loss tests.",
+      "limits": "Bench approval closed the stale-display hazard only; it did not solve the separate R4 incompatibility.",
+      "evidence": [
+        {
+          "record_id": "repo:012",
+          "quote": "Hide recommendations after 30 seconds without telemetry, show a disconnected state, and require a fresh eligibility calculation after reconnect. Added stream-loss tests.",
+          "start": 0,
+          "end": 169,
+          "record_hash": "e9658e627fac0070561bb17e6ea5ac267f97e48e17096cc3cfa43cb084612309"
+        },
+        {
+          "record_id": "repo:013",
+          "quote": "Approved after bench verification. This closes the display hazard; it does not resolve the R4 gateway incompatibility.",
+          "start": 0,
+          "end": 118,
+          "record_hash": "d808a2264b88271c5e9b0b79651318d20bc52209a2b1f889d327c6cc8ad12426"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-13",
+      "category": "outcome",
+      "statement": "At quarter end, Lantern remained supervised at Freezer B, with uncertain causality and tariff impact; Chiller C had only two manual nights, and broader rollout awaited gateway support and more varied data.",
+      "limits": "This is a team-level quarterly status, not an outcome attributable solely to Contributor 01.",
+      "evidence": [
+        {
+          "record_id": "docs:010",
+          "quote": "Lantern remains a supervised practice at Freezer B. The team observed a lower trial-window peak without measurable energy change; causality and tariff impact remain uncertain. Chiller C produced only two manual nights, and broader rollout awaits gateway support and more varied operating data.",
+          "start": 0,
+          "end": 293,
+          "record_hash": "d02c8604e0647063dcef0277d1b76de036d440214d5eac969ef06bd0c87c65f1"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-14",
+      "category": "outcome",
+      "statement": "By 2028-03-12, vendor documentation had clarified the R4 field units, but East-site deployment still had not been prioritised because controller replacement was under review.",
+      "limits": "The record says adapter work could resume, not that Contributor 01 resumed it or that deployment occurred.",
+      "evidence": [
+        {
+          "record_id": "repo:014",
+          "quote": "Vendor documentation finally confirms the R4 field uses whole minutes. Adapter work could resume, but the East-site controller replacement is now under review, so the site has not prioritised deployment.",
+          "start": 0,
+          "end": 203,
+          "record_hash": "39e414117b22f7e28604bbc64f60d07cfe9ba4f8e62903d2f303dabf619ddcff"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "claim-15",
+      "category": "constraint",
+      "statement": "Contributor 01 recommended reporting only the observed peak difference and unchanged energy reading, while the measurement owner advised against annualising the result.",
+      "limits": "Tariff benefit remained unknown because four nights did not establish whether the trial window would otherwise have set the billing peak.",
+      "evidence": [
+        {
+          "record_id": "chat:013",
+          "quote": "Do we have enough to call the pilot a saving in the quarterly note? I would describe only the observed 38 kW peak difference and the unchanged energy reading.",
+          "start": 0,
+          "end": 158,
+          "record_hash": "2849e33852c91fc66546eb9f6b1b7bb2e00d4a626bac2088cf83ca17dd88280c"
+        },
+        {
+          "record_id": "chat:014",
+          "quote": "Agreed. Avoid annualising it. Tariff benefit depends on whether the trial window would otherwise have set the billing peak, which we do not know from four nights.",
+          "start": 0,
+          "end": 162,
+          "record_hash": "b378f099bdee972b27d0682d2cf832d48628e18e15bd11cad6a5e9e3be002003"
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 27,
+  "meaning_validated": false
+}

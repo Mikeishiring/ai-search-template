@@ -1,0 +1,87 @@
+{
+  "synthetic": true,
+  "label": "Development fixture",
+  "expected_records": [
+    "chat:001",
+    "chat:002",
+    "chat:003",
+    "chat:004",
+    "docs:001",
+    "docs:002",
+    "docs:003",
+    "repo:001",
+    "repo:002",
+    "chat:010",
+    "chat:011",
+    "chat:012",
+    "chat:013",
+    "chat:014",
+    "chat:020",
+    "chat:030",
+    "docs:030",
+    "chat:040",
+    "chat:noise0",
+    "chat:noise1",
+    "chat:noise2",
+    "chat:noise3",
+    "chat:noise4",
+    "chat:noise5"
+  ],
+  "themes": [
+    {
+      "name": "Earlier proposal",
+      "record": "chat:001",
+      "category": "proposal"
+    },
+    {
+      "name": "Narrower brief",
+      "record": "chat:002",
+      "category": "scope_change"
+    },
+    {
+      "name": "Personal coordination",
+      "record": "chat:003",
+      "category": "contribution"
+    },
+    {
+      "name": "Shared implementation",
+      "record": "chat:004",
+      "category": "collaboration"
+    },
+    {
+      "name": "Nested constraint",
+      "record": "docs:002",
+      "category": "constraint"
+    },
+    {
+      "name": "Correction after trial",
+      "record": "repo:002",
+      "category": "correction"
+    },
+    {
+      "name": "First reported use",
+      "record": "chat:012",
+      "category": "use"
+    },
+    {
+      "name": "Later reported use",
+      "record": "chat:013",
+      "category": "use"
+    },
+    {
+      "name": "Postponed wider rollout",
+      "record": "chat:014",
+      "category": "pause"
+    },
+    {
+      "name": "Concurrent responsibilities",
+      "record": "chat:030",
+      "category": "constraint"
+    }
+  ],
+  "must_not_merge": [
+    "docs:030",
+    "chat:010"
+  ],
+  "unavailable_attachment": "chat:attachment-missing"
+}

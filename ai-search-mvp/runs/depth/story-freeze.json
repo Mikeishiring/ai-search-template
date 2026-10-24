@@ -1,0 +1,20 @@
+{
+  "sha256": {
+    "corpus": "0c85dc5c030871451911fca57b2db22848b35bf2fdcdc03ce0e4529553a8518b",
+    "scope": "c9ba3d903b1048d1f1e0227683984d65e4c52b21014197e58ac99d3933abd109",
+    "gold": "24aaeb7d35db7f750f099f4d3f4e8f255f3a0e79302b106fd64c2dc592c7b556"
+  },
+  "structural_validation": "passed",
+  "content_edited": false,
+  "research_started": false,
+  "record_count": 48,
+  "requested_record_range": [
+    32,
+    40
+  ],
+  "structural_acceptance_range": [
+    32,
+    64
+  ],
+  "size_deviation": true
+}

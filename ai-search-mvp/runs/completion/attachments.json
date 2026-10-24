@@ -1,0 +1,20 @@
+[
+  {
+    "id": "att:export-sample",
+    "source": "repo",
+    "title": "Sample cue export and schema notes",
+    "body": "Example fields: paragraph_index, start_ms, end_ms, confidence. Overlapping intervals are invalid; timestamps are integer milliseconds.",
+    "unavailable": false,
+    "read_by_researcher": false,
+    "observed_result": "Evaluator copy; not checked during research."
+  },
+  {
+    "id": "att:editor-survey",
+    "source": "docs",
+    "title": "Editor effort survey responses",
+    "body": "",
+    "unavailable": true,
+    "read_by_researcher": true,
+    "observed_result": "Original attachment unavailable; not evidence of approval or failure."
+  }
+]

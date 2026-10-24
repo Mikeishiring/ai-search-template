@@ -1,0 +1,117 @@
+{
+  "fixture": "Development fixture",
+  "expected_records": 24,
+  "retrieved_expected": 24,
+  "missing_records": [],
+  "out_of_scope_records": [],
+  "baseline_records": 3,
+  "baseline_calls": 3,
+  "runner_receipts": 80,
+  "themes": [
+    {
+      "name": "Earlier proposal",
+      "record": "chat:001",
+      "category": "proposal",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": true,
+      "baseline_surfaced": true
+    },
+    {
+      "name": "Narrower brief",
+      "record": "chat:002",
+      "category": "scope_change",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Personal coordination",
+      "record": "chat:003",
+      "category": "contribution",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Shared implementation",
+      "record": "chat:004",
+      "category": "collaboration",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Nested constraint",
+      "record": "docs:002",
+      "category": "constraint",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Correction after trial",
+      "record": "repo:002",
+      "category": "correction",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "First reported use",
+      "record": "chat:012",
+      "category": "use",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Later reported use",
+      "record": "chat:013",
+      "category": "use",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Postponed wider rollout",
+      "record": "chat:014",
+      "category": "pause",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    },
+    {
+      "name": "Concurrent responsibilities",
+      "record": "chat:030",
+      "category": "constraint",
+      "retrieved": true,
+      "surfaced": true,
+      "baseline_retrieved": false,
+      "baseline_surfaced": false
+    }
+  ],
+  "surfaced": 10,
+  "baseline_surfaced": 1,
+  "missed": [],
+  "violations": [],
+  "verdict": "NOT READY for autonomous narrative: rule-based signals need semantic review",
+  "method": "Program-blind answer key; fixture author also wrote the runner. Not an independently blind benchmark. No external model calls.",
+  "harsh_review": [
+    "Retrieving every record is a coverage result, not proof of understanding.",
+    "Lexical signals preserve quotes but do not establish who did what or resolve contradictions.",
+    "The baseline is a deliberately shallow single-query search, not a state-of-the-art retrieval baseline.",
+    "The synthetic corpus is small and clean; real exports, permissions, retries and messy identity resolution remain untested.",
+    "The critic is a deterministic gap detector. It cannot independently reason about fairness or causality.",
+    "Implicit links and unfamiliar wording can be missed even after the correct record has been retrieved.",
+    "No live MCP, calendar, private archive, external model or network operation is used."
+  ]
+}

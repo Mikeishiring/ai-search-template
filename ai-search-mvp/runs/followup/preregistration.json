@@ -1,0 +1,42 @@
+{
+  "synthetic_only": true,
+  "source_call_budget": 45,
+  "page_size": 3,
+  "author": "Separate isolated Codex author; generic brief only, no implementation, previous story, private records or researcher prompt",
+  "researcher": "Fresh Codex session; scope and read-only tools with observed-evidence planning ledger",
+  "assessment": "Manual comparison with author rubric after first run; exact quote checks; no semantic keyword grading",
+  "stop": "One substantive run, 45 source calls or 15 minutes. No hints, retries or changes after story observation.",
+  "record_range": {
+    "requested": [
+      32,
+      40
+    ],
+    "accepted_without_editing": [
+      32,
+      64
+    ]
+  },
+  "hypotheses": [
+    "Known relevant thread flags lead to context expansion, including nested replies.",
+    "Separate later-window enumeration discovers newly created follow-up roots.",
+    "Researcher distinguishes ongoing use from release announcements and notices material later caveats."
+  ],
+  "failure_criteria": [
+    "Material known relevant thread left unread without justified tradeoff.",
+    "Later-use conclusion unsupported or missing accessible material follow-up.",
+    "Claim cites unseen or unquoted material."
+  ],
+  "comparison_limit": "Different independent story; cannot isolate causal improvement or estimate general reliability.",
+  "freeze": {
+    "model/independent-author.txt": "8678e028f9d92c630f845bd1015004a96adc79b4da79c362c1375bb3af267520",
+    "model/followup-researcher.txt": "e95a49132972ca310b3e096a677272775467e9586499295820481ad841681d7a",
+    "model/author.schema.json": "4118bbc8ec7114ea0e5e1458e1e1db24723435a8feb35b03bd90a8ba686450ec",
+    "model/review.schema.json": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+    "followup_server.py": "3c5df5973d274f6c91f44426a55af0d87fa1c9a04ad6eb203f9e897bb00786ee",
+    "autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "mcp_server.py": "d808a0d52d9bbeca7024a155cf289274e17e73fe74ce50b71dece38f13867131",
+    "model_backend.py": "2ef789c86ae7a9fff2885b4e34c0c5c3f0fc7c3bdc33074fbbd83194f39b7b55",
+    "followup_experiment.py": "60d2e69e0f101c58939870a3acd7533b471df5c34c697ec3e9ebd352ec36017e",
+    "tests/test_followup.py": "015aa8ce4ab8a258819c5ccc915c32e19754a27daa033fc648c61938975c8c79"
+  }
+}

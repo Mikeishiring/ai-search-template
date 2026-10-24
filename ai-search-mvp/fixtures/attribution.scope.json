@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 personally contribute to Project Lantern during the stated window, and what happened afterwards?",
+  "query": "Project Lantern",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2028-02-01",
+  "end": "2028-04-30",
+  "horizon": "2028-07-31",
+  "timezone": "Europe/London"
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "chat:006",
+    "source": "chat",
+    "date": "2028-02-26",
+    "author": "Contributor 08",
+    "container": "#facilities",
+    "body": "Reminder: the west loading-bay freezer inspection has moved to Thursday. This is unrelated to tote washing; access to bay three will be restricted for an hour.",
+    "parent": null,
+    "links": [],
+    "title": "Freezer inspection",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:010",
+    "source": "chat",
+    "date": "2028-03-22",
+    "author": "Contributor 05",
+    "container": "#project-lantern",
+    "body": "Some labels curled after the hot wash. That is on the adhesive batch, not the queue. I have asked the supplier for a replacement run; until then, washing will set aside unreadable labels for manual entry.",
+    "parent": null,
+    "links": [],
+    "title": "Label failure",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:018",
+    "source": "chat",
+    "date": "2028-07-03",
+    "author": "Contributor 11",
+    "container": "#social-committee",
+    "body": "The summer lunch poll closes Wednesday. The courtyard option has shade but no indoor backup.",
+    "parent": null,
+    "links": [],
+    "title": "Summer lunch poll",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  }
+]

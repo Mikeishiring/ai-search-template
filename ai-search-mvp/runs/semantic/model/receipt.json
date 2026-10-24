@@ -1,0 +1,26 @@
+{
+  "provider": "Authenticated Codex CLI",
+  "model_selection": "CLI default; no model override",
+  "exit_code": 0,
+  "elapsed_seconds": 71.72,
+  "packet_sha256": "ddfad7537e0f96707eac9aab8958d24f332b0c4347d104e472d1c5c1dc912f37",
+  "prompt_sha256": "e92c75e64829c82a18c1ec09ce42a5051d26b839fbd0645cbf2fe2fad6797245",
+  "schema_sha256": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+  "tool_events": 0,
+  "ephemeral": true,
+  "user_config_loaded": false,
+  "usage": [
+    {
+      "input_tokens": 11738,
+      "cached_input_tokens": 0,
+      "output_tokens": 2626,
+      "reasoning_output_tokens": 299
+    }
+  ],
+  "event_types": [
+    "thread.started",
+    "turn.started",
+    "item.completed",
+    "turn.completed"
+  ]
+}

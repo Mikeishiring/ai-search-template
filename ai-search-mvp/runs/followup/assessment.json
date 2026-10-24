@@ -1,0 +1,343 @@
+{
+  "headline": "It followed later use. It still lost earlier context.",
+  "summary": "The revised planner opened every discovered thread and found continued use months after the pilot. The final account omitted a review-driven safety correction and missed a problem that predated the project.",
+  "scope_limit": "One new story from a separate AI session; one uncoached research attempt. Nine of eleven author-defined themes were fully met, one partly met and one missed. Different stories prevent a causal comparison with the earlier run.",
+  "expected_records": 37,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personally owned mobile prototype",
+      "criterion": "Conclude that Contributor 01 proposed and implemented the scanner-side offline prototype: cached signed snapshots, zone grouping, deterministic route ordering, skip reasons, route explanations, and tests, while explicitly excluding automatic stock correction.",
+      "anchors": [
+        "chat:002",
+        "docs:002",
+        "repo:001"
+      ],
+      "pitfall": "Attributing the entire Harborlight system or stock-correction capability to Contributor 01.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "assessment": "Credits the subject with the scoped mobile proposal and implementation. Keeps stock mutation out of scope and distinguishes the proposal from repository evidence. Route-explanation detail is compressed, but the contribution boundary is preserved.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "Shared ownership boundaries",
+      "criterion": "Distinguish Contributor 01's mobile ownership from Contributor 03's snapshot service and Contributor 06's trial design, measurement, and interviews; Contributor 01 supplied a fixture shape and compatibility review but did not implement the service.",
+      "anchors": [
+        "chat:003",
+        "repo:005",
+        "docs:005",
+        "docs:009"
+      ],
+      "pitfall": "Crediting Contributor 01 with the backend, experimental design, or pilot analysis.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c1",
+        "c3"
+      ],
+      "assessment": "Separates mobile support from the snapshot service, measurement and interviews; explicitly limits the subject’s backend contribution to fixture shape and compatibility review.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-03",
+      "name": "Safety feedback incorporated",
+      "criterion": "State that Contributor 05 identified the forklift-crossing risk and Contributor 01 acknowledged the distance-only mistake, then added a visible time-window routing penalty.",
+      "anchors": [
+        "docs:004",
+        "chat:004",
+        "repo:001"
+      ],
+      "pitfall": "Presenting the safety rule as Contributor 01's original insight, or omitting the initial modeling gap.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c3"
+      ],
+      "assessment": "Reports the implemented crossing penalty but omits the correction’s origin. Both docs:004 and chat:004 were read in full: Contributor 05 identified the forklift risk, and Contributor 01 acknowledged having modeled distance alone. The source was retrieved; the final account lost the feedback and initial mistake.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-04",
+      "name": "Stale-data safeguard and lifecycle repair",
+      "criterion": "Report that review exposed an unsafe stale-list state, which Contributor 01 fixed with blocking verification messaging and timestamps; Contributor 01 also diagnosed and repaired S4 route loss after sleep, with limited bench validation.",
+      "anchors": [
+        "repo:002",
+        "repo:003",
+        "repo:006",
+        "repo:007",
+        "repo:008",
+        "repo:009"
+      ],
+      "pitfall": "Saying the prototype was safe and reliable from the outset, or treating bench tests as proof under all field conditions.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c4",
+        "c5"
+      ],
+      "assessment": "Preserves review-driven stale-data blocking, the lifecycle diagnosis and repair, and the limits of two-device bench testing. Does not claim initial safety or universal field reliability.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-05",
+      "name": "Pilot incident response",
+      "criterion": "Explain that after three users returned to paper during a Wi-Fi drop, Contributor 01 used logs to identify two launch-session failures, noted the third was unknown, and shipped clearer offline messaging, a retry, and diagnostic instrumentation without weakening authentication.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Claiming all three failures were diagnosed, that routing itself required connectivity, or that Contributor 01 changed authentication policy.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c6"
+      ],
+      "assessment": "Connects the incident reply to the shipped message, retry and instrumentation changes. Explains two of three devices while retaining the missing third log and unchanged authentication policy.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-06",
+      "name": "Skip taxonomy mistake and correction",
+      "criterion": "Conclude that the original categories omitted assistance-required work; Contributor 01 accepted responsibility for the category-design error, added the reason, and asked that the mid-trial discontinuity be documented.",
+      "anchors": [
+        "chat:009",
+        "chat:010",
+        "docs:006",
+        "repo:012"
+      ],
+      "pitfall": "Blaming operators, implying the correction made pre/post reason data comparable, or treating the correction as absolving the initial measurement flaw.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c7"
+      ],
+      "assessment": "Retains responsibility for the category-design error, the shipped assistance reason and the explicit break in comparability after shift four. Does not blame operators or treat the correction as erasing the earlier flaw.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-07",
+      "name": "Directional pilot outcome",
+      "criterion": "Report the bounded North Depot result: walking time per completed check fell from 3.8 to 3.1 minutes, completed checks rose from 412 to 463, and unresolved exceptions changed from 37 to 35 across six baseline and six trial mornings, with workload, staffing, novelty, and export freshness as competing explanations.",
+      "anchors": [
+        "docs:003",
+        "docs:007",
+        "docs:008"
+      ],
+      "pitfall": "Making a causal productivity, accuracy, or company-wide efficiency claim from the small non-controlled pilot.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c9"
+      ],
+      "assessment": "Preserves the three bounded pilot comparisons and six-versus-six morning scope. Limits and rejected conclusions retain workload, staffing, novelty and export freshness as competing explanations; no causal productivity claim is accepted.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-08",
+      "name": "Limited continued use, not general rollout",
+      "criterion": "State that North retained the tool on eight devices for April, seven were used on at least 14 of 18 mornings, and six working devices remained in use by August; paper remained a fallback, total shift duration was inconsistently measured, and no repeat time study occurred.",
+      "anchors": [
+        "chat:011",
+        "chat:013",
+        "docs:010"
+      ],
+      "pitfall": "Calling this broad adoption, full replacement of paper, or sustained quantified productivity improvement.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c10",
+        "c11"
+      ],
+      "assessment": "Finds the later reply with seven of eight devices used on at least 14 of 18 mornings and the newly created August document reporting six working devices. Keeps paper fallback, inconsistent shift-duration measurement and no repeat time study explicit.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-09",
+      "name": "Handover and second-site dependency",
+      "criterion": "Describe Contributor 01's documented mobile handover and open items, including configurable depot rules; Contributor 01 declined to own issue 48 that month, and Contributor 02 later delivered schema validation while the admin workflow remained deferred.",
+      "anchors": [
+        "docs:009",
+        "repo:013",
+        "chat:012",
+        "repo:014"
+      ],
+      "pitfall": "Crediting Contributor 01 with later schema validation or framing the capacity boundary as abandonment or project failure.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c8",
+        "c12"
+      ],
+      "assessment": "Connects the handover and capacity boundary to later implementation by Contributor 02. Does not turn the handover into a commitment by the subject or the deferred admin workflow into personal failure.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-10",
+      "name": "Outcome boundaries and unknowns",
+      "criterion": "Note that by the follow-up horizon no other depot had started, inventory accuracy was not evaluated, Harborlight did not write stock values, one early device lacked logs, and no evidence resolves how much of the observed improvement came from routing versus confounders.",
+      "anchors": [
+        "chat:008",
+        "docs:007",
+        "docs:008",
+        "docs:010"
+      ],
+      "pitfall": "Inferring inventory accuracy gains, universal reliability, a failed expansion, or a definitive causal effect from absent evidence.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c6",
+        "c9",
+        "c11"
+      ],
+      "assessment": "Separates limited continued use from multi-depot rollout, leaves the third device unexplained, and does not infer accuracy gains, a causal effect or universal reliability. Does not use the September record beyond the horizon.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-11",
+      "name": "Pre-existing export problem",
+      "criterion": "Recognize that stale or late source exports predated Harborlight and remained a contextual limitation outside Contributor 01's mobile contribution.",
+      "anchors": [
+        "chat:001",
+        "docs:001",
+        "docs:007"
+      ],
+      "pitfall": "Attributing export freshness problems to Contributor 01 or claiming the mobile tool fixed them.",
+      "importance": "secondary",
+      "status": "missed",
+      "claim_ids": [
+        "c9"
+      ],
+      "assessment": "Names export freshness as a pilot confounder, but never establishes that late exports predated the project. The January chat was never surfaced; the linked January baseline document was left unread. Avoiding blame is not the same as recovering the earlier context.",
+      "unread_anchors": [
+        "chat:001",
+        "docs:001"
+      ]
+    }
+  ],
+  "issue_heading": "Finishing the thread queue is not finishing the research.",
+  "issues": [
+    {
+      "severity": "Read, then omitted",
+      "claim_ids": [
+        "c3"
+      ],
+      "detail": "The model read the safety comment and the subject’s admission that distance alone had been modeled. Its final account mentioned the crossing penalty but omitted the reviewer’s contribution and the original mistake. This is a synthesis failure, not a retrieval failure."
+    },
+    {
+      "severity": "Earlier context missed",
+      "claim_ids": [
+        "c9"
+      ],
+      "detail": "The pre-project export complaint in chat:001 was outside both enumerated windows and had no incoming link. No search was attempted. The linked baseline docs:001 was explicitly left unread. The model noted export age but did not establish that the problem predated the subject’s work."
+    },
+    {
+      "severity": "Three avoidable re-reads",
+      "claim_ids": [],
+      "detail": "Calls 43–45 re-read chat:013, docs:009 and repo:014, all already returned in full. The queue still listed the earlier baseline and a results attachment. A visible queue helped thread coverage but did not prevent poor final budget allocation."
+    },
+    {
+      "severity": "Uninspected supporting files",
+      "claim_ids": [
+        "c5",
+        "c9"
+      ],
+      "detail": "The available pilot table att:002 was not opened; the model disclosed this. It also left the device-log message chat:006 snippet-only and never discovered that att:001 was unavailable. The evaluator found that neither attachment changes the rubric conclusions, but the research did not establish that itself."
+    },
+    {
+      "severity": "Numbers remain secondary evidence",
+      "claim_ids": [
+        "c9"
+      ],
+      "detail": "The synthetic results document reports totals and medians. Its attachment contains only a description of supporting rows, not the rows themselves. Even complete retrieval of this fixture could not independently recompute those metrics."
+    }
+  ],
+  "limitations": [
+    "The author received only the generic story brief and schema. Planner, tool contract, page size and 45-call limit were frozen beforehand; the 38-record story was accepted without edits. The hidden rubric was opened only after the first research response was complete.",
+    "Both sessions used the same provider/default model family. This is separate AI authorship, not an independent human benchmark; the precise model identifier was not captured.",
+    "This assistant manually graded all eleven author-defined themes against the original records. Nine full, one partial and one missed is a judgement for this case, not an accuracy estimate.",
+    "The 33-of-37 count includes all accessible records, including the kitchen distractor. Two records remained snippet-only and two were unseen in full or snippet. The remaining record is beyond the horizon.",
+    "All eleven discovered contexts and all six source/window sweeps finished. The model found the April use reply and the new August follow-up document. This demonstrates those paths on this fixture, not exhaustive discovery across historical archives.",
+    "The researcher made zero search calls. Query broadening was not exercised. The generated story has one irrelevant notice and no multi-level reply chain; unit tests cover nested expansion and context pagination, but this model run does not.",
+    "All thirty quoted spans match records returned in full. Provenance checks do not establish that every statement is complete or that the fixture’s reported numbers can be recomputed.",
+    "The planner lists observed obligations and asks the model to reserve budget. It does not force an action order, suppress duplicate reads or attach an explicit disposition to every skipped lead.",
+    "All sources are simulated, read-only and offline. Only synthetic instructions and evidence were sent for model inference. No private archive or live platform was accessed.",
+    "The earlier run remains unchanged. Different stories, denominators and rubrics mean the two theme scores cannot isolate the effect of the planner change."
+  ],
+  "method": "A separate isolated AI author wrote the story and rubric after the revised planner was frozen. A fresh researcher received scope only, chose 45 MCP calls, and returned one preserved account. This assistant then inspected the hidden rubric and all source records; no evaluator discoveries were fed back and no model rerun occurred.",
+  "next_experiment": "Freeze a planner with explicit dispositions for skipped leads, duplicate-read warnings and a bounded pre-project context sweep. Test another independently authored story with several distractors and genuinely nested threads; add a separate assessor and data that permits metric recomputation.",
+  "summary_counts": {
+    "fully_met": 9,
+    "partial": 1,
+    "missed": 1,
+    "themes": 11,
+    "full_records": 33,
+    "snippet_only": 2,
+    "unseen": 2,
+    "source_calls": 45,
+    "searches": 0,
+    "pending_pages": 0,
+    "completed_contexts": 11,
+    "unfinished_contexts": 0,
+    "completed_source_window_sweeps": 6,
+    "redundant_full_reads": 3,
+    "quotes": 30
+  },
+  "redundant_reads": [
+    {
+      "sequence": 43,
+      "tool": "read_record",
+      "ids": [
+        "chat:013"
+      ]
+    },
+    {
+      "sequence": 44,
+      "tool": "read_record",
+      "ids": [
+        "docs:009"
+      ]
+    },
+    {
+      "sequence": 45,
+      "tool": "read_record",
+      "ids": [
+        "repo:014"
+      ]
+    }
+  ],
+  "final_planning": {
+    "unopened_contexts": [],
+    "unread_references": [
+      {
+        "source": "docs",
+        "id": "docs:001"
+      }
+    ],
+    "unchecked_attachments": [
+      {
+        "source": "docs",
+        "id": "att:002"
+      }
+    ],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "later_use": "A completed sweep is discovery coverage, not proof of continued use. Read the relevant later evidence and separate reports from measurement.",
+    "calls_remaining": 0,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted."
+  },
+  "adjudicator": "This assistant; manual original-source comparison against separate-author rubric",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "review_sha256": "789a52c23f090cee2d04c71cf39cee3da744ac131eeffff18a4b968285cc1956",
+  "gold_sha256": "79cffcb83ff126e729fd5ad009b6fbc2935e269f32177d4ba0e8ea992a8554ec"
+}

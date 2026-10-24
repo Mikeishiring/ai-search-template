@@ -1,0 +1,84 @@
+{
+  "synthetic": true,
+  "label": "Wording challenge",
+  "reviewer_hash_before_challenge": "76b97650ad38ba4e18688d2f0d153361ceccc44844816ece79bcfa22f1381f9a",
+  "expected_records": [
+    "chat:c101",
+    "chat:c102",
+    "chat:c103",
+    "docs:c201",
+    "docs:c202",
+    "docs:c203",
+    "repo:c301",
+    "repo:c302",
+    "chat:c110",
+    "chat:c111",
+    "chat:c112",
+    "chat:c113",
+    "chat:c120",
+    "chat:c121",
+    "docs:c230",
+    "chat:c140",
+    "chat:cnoise0",
+    "chat:cnoise1",
+    "chat:cnoise2",
+    "chat:cnoise3"
+  ],
+  "themes": [
+    {
+      "name": "Self-initiated origin",
+      "record": "chat:c101",
+      "category": "proposal"
+    },
+    {
+      "name": "Reduced mandate",
+      "record": "chat:c102",
+      "category": "scope_change"
+    },
+    {
+      "name": "Personal implementation and teaching",
+      "record": "chat:c103",
+      "category": "contribution"
+    },
+    {
+      "name": "Separate authorship",
+      "record": "docs:c202",
+      "category": "collaboration"
+    },
+    {
+      "name": "Sponsor dependency",
+      "record": "docs:c203",
+      "category": "constraint"
+    },
+    {
+      "name": "Post-trial correction",
+      "record": "repo:c302",
+      "category": "correction"
+    },
+    {
+      "name": "First reported use",
+      "record": "chat:c111",
+      "category": "use"
+    },
+    {
+      "name": "Later reported use",
+      "record": "chat:c112",
+      "category": "use"
+    },
+    {
+      "name": "Paused expansion with local use continuing",
+      "record": "chat:c113",
+      "category": "pause"
+    },
+    {
+      "name": "Competing work without an explicit link",
+      "record": "chat:c120",
+      "category": "constraint"
+    }
+  ],
+  "must_not_merge": [
+    "docs:c230",
+    "chat:c110"
+  ],
+  "unavailable_attachment": "chat:challenge-missing"
+}

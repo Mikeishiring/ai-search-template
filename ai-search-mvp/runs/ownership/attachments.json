@@ -1,0 +1,20 @@
+[
+  {
+    "id": "att:runbook-diagram",
+    "source": "docs",
+    "title": "Reconnect decision diagram",
+    "body": "Diagram showing queue-depth checks, service health and manual fallback branches.",
+    "unavailable": false,
+    "read_by_researcher": false,
+    "observed_result": "Request refused: source budget exhausted."
+  },
+  {
+    "id": "att:pilot-metrics",
+    "source": "docs",
+    "title": "Pilot metrics workbook",
+    "body": "",
+    "unavailable": true,
+    "read_by_researcher": false,
+    "observed_result": "Evaluator copy; not requested by researcher. Unavailability comes from fixture inspection, not a source-tool result."
+  }
+]

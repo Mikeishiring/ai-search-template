@@ -1,0 +1,781 @@
+{
+  "account": "Contributor 01 joined a project initiated by Contributor 04 to replace a pre-existing conductivity-assay worksheet that accepted impossible dilution combinations. During 1 April–31 May, Contributor 01 mapped the existing rules while explicitly deferring unresolved assay-policy decisions; wrote the validation layer and inline errors; sought bench-workflow review; moved a warning earlier and added a disposal-case test after feedback; detected a mixed-unit defect during the pilot, stopped release, and prepared the correction; and implemented bounded migration exception handling for verified aliases. Assay requirements remained Contributor 03’s responsibility, the broader workflow came from Contributor 04’s process map, and Contributor 02 supplied key bench feedback. The release was controlled and limited to the pilot laboratory, not organisation-wide adoption. Afterwards, a blank result was released despite the configured supervisor-signoff control. Contributor 01 proposed both a mandatory reason and a more visible blank warning, then implemented the narrower approved change: foregrounding the blank flag and adding acknowledgement. Reviewers explicitly warned that this improved salience but did not prove appropriate supervisor decisions. Full-record evidence also indicated later quality review and postponed expansion, but the quantitative outcome and expansion claims are not included below because their citation-span identifiers were not retained in the surfaced tool output. Research stopped at the 45-call source limit with six surfaced records and two attachments unread.",
+  "claims": [
+    {
+      "id": "c1",
+      "category": "origin",
+      "statement": "Project Glassfin addressed a pre-existing worksheet defect: the conductivity-assay worksheet accepted impossible dilution combinations without warning. Contributor 04 initiated the project thread and named Contributor 01 and Contributor 03 as collaborators; this does not establish that Contributor 01 originated or solely owned the project.",
+      "limits": "The evidence identifies the immediate pre-project problem and collaborators, not the worksheet’s original author or how long the defect had existed.",
+      "evidence": [
+        {
+          "record_id": "chat:001",
+          "quote": "The current conductivity assay worksheet accepts impossible dilution combinations and gives technicians no warning."
+        },
+        {
+          "record_id": "chat:001",
+          "quote": "Contributor 01, Contributor 03, and I will sketch a guarded replacement before the April trial."
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "category": "contribution",
+      "statement": "Contributor 01 mapped the existing worksheet rules into six validation cases and explicitly escalated unresolved rerun-temperature and blank-release questions rather than implementing guesses.",
+      "limits": "Contributor 01 mapped requirements but did not own the assay-policy decisions; Contributor 03 resolved those questions and retained assay-rule authority.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "quote": "I mapped the existing worksheet rules into six validation cases."
+        },
+        {
+          "record_id": "chat:002",
+          "quote": "Two questions remain: whether reruns inherit the original sample temperature and whether a blank result may be released."
+        },
+        {
+          "record_id": "chat:002",
+          "quote": "I put both in the decision page rather than guessing."
+        },
+        {
+          "record_id": "docs:003",
+          "quote": "Approved: reruns use newly measured temperature; blank results require supervisor signoff; ranges follow assay family rather than instrument model."
+        },
+        {
+          "record_id": "docs:003",
+          "quote": "Assay-rule authority remains with Contributor 03."
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "category": "contribution",
+      "statement": "Contributor 01 wrote the prototype’s validation layer and inline error text, requested a bench-workflow review, then moved the volume check earlier and added a disposal-case test in response to Contributor 02’s feedback.",
+      "limits": "The broader step order came from Contributor 04’s process map, not Contributor 01’s interviews; Contributor 02 identified the warning-timing problem.",
+      "evidence": [
+        {
+          "record_id": "chat:004",
+          "quote": "I wrote the validation layer and the inline error text; could you check whether the sequence matches how technicians actually prepare the dilution?"
+        },
+        {
+          "record_id": "chat:005",
+          "quote": "The warning arrives after the technician has already disposed of the aliquot."
+        },
+        {
+          "record_id": "chat:005",
+          "quote": "Move the volume check ahead of the preparation confirmation."
+        },
+        {
+          "record_id": "chat:006",
+          "quote": "I moved that check earlier and added a test for the disposal case."
+        },
+        {
+          "record_id": "chat:006",
+          "quote": "The broader step order came from Contributor 04's process map, not from my interviews."
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "category": "correction",
+      "statement": "During the pilot, Contributor 01 personally detected that 750 µL was being compared as 750 mL, stopped the pilot build’s release, and prepared a conversion fix.",
+      "limits": "The defect affected three sandbox trial records and no published records according to the full thread; the cited span establishes diagnosis and immediate response, not production harm or final review approval.",
+      "evidence": [
+        {
+          "record_id": "chat:007",
+          "quote": "Today's pilot surfaced a unit bug: entering 750 µL was compared as 750 mL and blocked every such dilution."
+        },
+        {
+          "record_id": "chat:007",
+          "quote": "I disabled release of the pilot build and am preparing a conversion fix."
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "category": "contribution",
+      "statement": "Contributor 01 implemented bounded migration exception handling by adding aliases for four verified spellings while leaving ten unresolved templates in the exception report; Contributor 05 owned confirmation of those labels with assay leads.",
+      "limits": "This was not authority to decide scientific equivalence, and it did not by itself complete migration or resolve the ten labels.",
+      "evidence": [
+        {
+          "record_id": "chat:012",
+          "quote": "I added an alias table for the four verified spellings and left the other ten templates in the exception report."
+        },
+        {
+          "record_id": "chat:012",
+          "quote": "Contributor 05 owns confirming those labels with the assay leads."
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "category": "use",
+      "statement": "Glassfin 1.0 received a controlled release to the pilot laboratory with the guarded form, validation logging, reviewed unit conversion, exception reporting, and rollback procedure.",
+      "limits": "Release is not evidence of organisation-wide adoption, sustained use, or causal improvement; expansion required a separate readiness decision.",
+      "evidence": [
+        {
+          "record_id": "repo:012",
+          "quote": "Controlled release to the pilot laboratory."
+        },
+        {
+          "record_id": "repo:012",
+          "quote": "Included: guarded entry form, validation logging, reviewed unit conversion, exception reporting, and rollback procedure."
+        },
+        {
+          "record_id": "repo:012",
+          "quote": "Expansion requires a separate readiness decision."
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "category": "correction",
+      "statement": "After the question window, a supervisor released a blank result even though signoff operated as designed. Contributor 01 proposed requiring a reason and foregrounding the blank flag, then opened the narrower change requested by Contributor 03.",
+      "limits": "The incident shows the original control did not prevent inappropriate approval. It does not establish the frequency of such approvals or that Contributor 01 owned the original policy.",
+      "evidence": [
+        {
+          "record_id": "chat:017",
+          "quote": "A blank result was released after a supervisor approved it without reading the note."
+        },
+        {
+          "record_id": "chat:017",
+          "quote": "The software enforced signoff as designed; it did not require a reason."
+        },
+        {
+          "record_id": "chat:017",
+          "quote": "We should not describe the control as preventing inappropriate approval."
+        },
+        {
+          "record_id": "chat:018",
+          "quote": "I proposed requiring an approval reason and showing the blank flag in the confirmation."
+        },
+        {
+          "record_id": "chat:018",
+          "quote": "Contributor 03 prefers the visible flag now and wants evidence before making free-text reasons mandatory."
+        },
+        {
+          "record_id": "chat:018",
+          "quote": "I opened the smaller change accordingly."
+        }
+      ]
+    },
+    {
+      "id": "c8",
+      "category": "constraint",
+      "statement": "Contributor 01’s later blank-confirmation change foregrounded the blank flag and added acknowledgement, while excluding mandatory written rationale pending policy evidence; Contributor 03 supplied the accepted wording and Contributor 07 approved after accessibility checks.",
+      "limits": "The review explicitly states that improved salience cannot establish appropriate supervisor decisions; approval is not evidence of outcome effectiveness.",
+      "evidence": [
+        {
+          "record_id": "repo:015",
+          "quote": "Foregrounds the blank flag in the approval confirmation and adds an acknowledgement checkbox."
+        },
+        {
+          "record_id": "repo:015",
+          "quote": "A mandatory written rationale is excluded pending policy evidence."
+        },
+        {
+          "record_id": "repo:015",
+          "quote": "Contributor 03 supplied the accepted wording."
+        },
+        {
+          "record_id": "repo:016",
+          "quote": "Approved after accessibility checks."
+        },
+        {
+          "record_id": "repo:016",
+          "quote": "This improves salience but cannot establish that supervisors make appropriate decisions; monitor approvals separately."
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "The six unread surfaced records were chat:020, chat:021, docs:008, repo:005, repo:013, and repo:014. The two unread project-relevant repo records concern the mixed-unit defect and blank-approval incident; the other four appeared peripheral in snippets but were not dismissed as irrelevant without full reads.",
+    "Attachments attachment:audit-export and attachment:walkthrough-photos were not inspected, so their contents and whether they materially qualify the measurements remain unknown.",
+    "The month-one quality review and expansion records were read, but their exact citation-span identifiers were unavailable in the retained output; therefore this account does not make a supported quantitative outcome claim or a detailed expansion-status claim.",
+    "The bounded earlier sweep began 1 January 2027 and found the immediate March kickoff and pre-existing worksheet defect. No evidence established when that worksheet defect was introduced or who created it.",
+    "Discovery sweeps were completed through 31 August 2027, but the receipt does not certify unseen archives or facts after the horizon."
+  ],
+  "rejected_conclusions": [
+    {
+      "statement": "Contributor 01 originated or solely owned Project Glassfin.",
+      "reason": "Contributor 04 initiated the thread; Contributor 03 owned assay-rule authority; Contributor 04 supplied the broader process map; other contributors reviewed, tested, approved, measured, and maintained parts of the work.",
+      "record_ids": [
+        "chat:001",
+        "docs:003",
+        "chat:005",
+        "chat:006"
+      ]
+    },
+    {
+      "statement": "Contributor 01 defined the scientific assay rules.",
+      "reason": "Contributor 01 explicitly deferred unresolved questions, while Contributor 03 approved the requirements and retained rule authority.",
+      "record_ids": [
+        "chat:002",
+        "docs:003"
+      ]
+    },
+    {
+      "statement": "The pilot proved production reliability or organisation-wide success.",
+      "reason": "The bench run was explicitly a limited trial, and the release was controlled to one pilot laboratory with expansion requiring a separate decision.",
+      "record_ids": [
+        "chat:009",
+        "repo:012"
+      ]
+    },
+    {
+      "statement": "The original blank-result control prevented inappropriate approval.",
+      "reason": "A blank result was released after signoff; the source explicitly warns against describing the control as preventive.",
+      "record_ids": [
+        "chat:017"
+      ]
+    },
+    {
+      "statement": "The later confirmation change proved supervisors would make appropriate decisions.",
+      "reason": "The accessibility reviewer said the change improved salience but could not establish decision quality.",
+      "record_ids": [
+        "repo:016"
+      ]
+    }
+  ],
+  "attribution_chains": [
+    {
+      "intervention": "Project Glassfin addressed a pre-existing worksheet defect: the conductivity-assay worksheet accepted impossible dilution combinations without warning. Contributor 04 initiated the project thread and named Contributor 01 and Contributor 03 as collaborators; this does not establish that Contributor 01 originated or solely owned the project.",
+      "roles": [
+        {
+          "actor": "Contributor 04",
+          "role": "initiated the Glassfin thread and convened the replacement work",
+          "record_ids": [
+            "chat:001"
+          ]
+        },
+        {
+          "actor": "Contributor 01",
+          "role": "named collaborator on the guarded replacement",
+          "record_ids": [
+            "chat:001"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "named collaborator on the guarded replacement",
+          "record_ids": [
+            "chat:001"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c1"
+      ],
+      "limits": "The evidence identifies the immediate pre-project problem and collaborators, not the worksheet’s original author or how long the defect had existed."
+    },
+    {
+      "intervention": "Contributor 01 mapped the existing worksheet rules into six validation cases and explicitly escalated unresolved rerun-temperature and blank-release questions rather than implementing guesses.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "mapped existing rules and withheld unresolved policy assumptions",
+          "record_ids": [
+            "chat:002"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "approved assay decisions and retained assay-rule authority",
+          "record_ids": [
+            "docs:003"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c2"
+      ],
+      "limits": "Contributor 01 mapped requirements but did not own the assay-policy decisions; Contributor 03 resolved those questions and retained assay-rule authority."
+    },
+    {
+      "intervention": "Contributor 01 wrote the prototype’s validation layer and inline error text, requested a bench-workflow review, then moved the volume check earlier and added a disposal-case test in response to Contributor 02’s feedback.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "implemented validation and error text, solicited review, and incorporated the correction with a test",
+          "record_ids": [
+            "chat:004",
+            "chat:006"
+          ]
+        },
+        {
+          "actor": "Contributor 02",
+          "role": "identified that the warning occurred after aliquot disposal and requested earlier validation",
+          "record_ids": [
+            "chat:005"
+          ]
+        },
+        {
+          "actor": "Contributor 04",
+          "role": "provided the broader process map underlying the step order",
+          "record_ids": [
+            "chat:006"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c3"
+      ],
+      "limits": "The broader step order came from Contributor 04’s process map, not Contributor 01’s interviews; Contributor 02 identified the warning-timing problem."
+    },
+    {
+      "intervention": "During the pilot, Contributor 01 personally detected that 750 µL was being compared as 750 mL, stopped the pilot build’s release, and prepared a conversion fix.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "diagnosed the mixed-unit defect, halted release, and prepared the correction",
+          "record_ids": [
+            "chat:007"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c4"
+      ],
+      "limits": "The defect affected three sandbox trial records and no published records according to the full thread; the cited span establishes diagnosis and immediate response, not production harm or final review approval."
+    },
+    {
+      "intervention": "Contributor 01 implemented bounded migration exception handling by adding aliases for four verified spellings while leaving ten unresolved templates in the exception report; Contributor 05 owned confirmation of those labels with assay leads.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "implemented verified aliases and preserved unresolved templates as exceptions",
+          "record_ids": [
+            "chat:012"
+          ]
+        },
+        {
+          "actor": "Contributor 05",
+          "role": "owned confirmation of unresolved labels with assay leads",
+          "record_ids": [
+            "chat:012"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c5"
+      ],
+      "limits": "This was not authority to decide scientific equivalence, and it did not by itself complete migration or resolve the ten labels."
+    },
+    {
+      "intervention": "After the question window, a supervisor released a blank result even though signoff operated as designed. Contributor 01 proposed requiring a reason and foregrounding the blank flag, then opened the narrower change requested by Contributor 03.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "proposed the incident response and opened the constrained implementation",
+          "record_ids": [
+            "chat:018"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "constrained the immediate change to a visible flag pending evidence for mandatory reasons",
+          "record_ids": [
+            "chat:018"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c7"
+      ],
+      "limits": "The incident shows the original control did not prevent inappropriate approval. It does not establish the frequency of such approvals or that Contributor 01 owned the original policy."
+    },
+    {
+      "intervention": "Contributor 01’s later blank-confirmation change foregrounded the blank flag and added acknowledgement, while excluding mandatory written rationale pending policy evidence; Contributor 03 supplied the accepted wording and Contributor 07 approved after accessibility checks.",
+      "roles": [
+        {
+          "actor": "Contributor 01",
+          "role": "implemented the narrower blank-confirmation correction",
+          "record_ids": [
+            "repo:015"
+          ]
+        },
+        {
+          "actor": "Contributor 03",
+          "role": "supplied accepted wording",
+          "record_ids": [
+            "repo:015"
+          ]
+        },
+        {
+          "actor": "Contributor 07",
+          "role": "performed accessibility review and qualified the outcome claim",
+          "record_ids": [
+            "repo:016"
+          ]
+        }
+      ],
+      "claim_ids": [
+        "c8"
+      ],
+      "limits": "The review explicitly states that improved salience cannot establish appropriate supervisor decisions; approval is not evidence of outcome effectiveness."
+    }
+  ],
+  "evidence_dispositions": [
+    {
+      "record_ids": [
+        "chat:001"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c1"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:002"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c2"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:003"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Contributor 03’s immediate rule-decision reply is substantively represented by the cited, more complete decision-log record docs:003."
+    },
+    {
+      "record_ids": [
+        "chat:004"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:005"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:006"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c3"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:007"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c4"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:008"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Corroborates that the three affected records stayed in the sandbox and that review also missed mixed-unit inputs; omitted from claims because the cited Contributor 01 report already supports the personal diagnosis and response."
+    },
+    {
+      "record_ids": [
+        "chat:009"
+      ],
+      "disposition": "unresolved",
+      "claim_ids": [],
+      "reason": "Model omitted the required explanation; unresolved by compiler."
+    },
+    {
+      "record_ids": [
+        "chat:010"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored migration draft adds personal planning work, but it is excluded as duplicative of the more specific cited alias/exception contribution and because its exact span was unavailable."
+    },
+    {
+      "record_ids": [
+        "chat:011"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Reports the migration dry-run result and helps establish shared testing by Contributor 05; excluded because no exact citation span was retained."
+    },
+    {
+      "record_ids": [
+        "chat:012"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c5"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:013"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Controlled-release approval identifies multiple approvers and Contributor 01’s readiness role; excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "chat:014"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "First-shift observation is early use evidence, not a reliability outcome; excluded to avoid overstating a small observation."
+    },
+    {
+      "record_ids": [
+        "chat:015"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Reports later resolution of migration exceptions by multiple owners; excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "chat:016"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Provides a four-week measurement, but it is excluded because the exact metric citation span was unavailable; the account therefore avoids presenting the number."
+    },
+    {
+      "record_ids": [
+        "chat:017"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c7"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:018"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c7"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "chat:019"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Reports postponed expansion and continued pilot-only use; excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "docs:001"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Project brief gives mandate and scope context; excluded because chat:001 and repo:012 provide citable origin and release limits."
+    },
+    {
+      "record_ids": [
+        "docs:002"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored inventory adds personal documentation work, but the cited chat:002 more specifically establishes the mapping and deliberate non-assumption boundary."
+    },
+    {
+      "record_ids": [
+        "docs:003"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c2"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "docs:004"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Bench walkthrough evidence supports testing and Contributor 02’s role; excluded because chat:005 and chat:006 more directly establish the feedback-and-correction chain."
+    },
+    {
+      "record_ids": [
+        "docs:005"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Trial results corroborate the limited bench run; excluded because chat:009 supplies the explicit limited-trial qualification."
+    },
+    {
+      "record_ids": [
+        "docs:006"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored release/rollback runbook adds personal operational planning, but it is excluded because its exact citation span was unavailable and the release claim is supported by repo:012."
+    },
+    {
+      "record_ids": [
+        "docs:007"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Readiness decision establishes shared approval and open limitations; excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "docs:009"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Provides the month-one measurement definition and audit scope, but it is excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "docs:010"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Expansion tracker limits adoption claims; excluded because its exact citation span was unavailable, so expansion status is carried as a research limitation rather than a claim."
+    },
+    {
+      "record_ids": [
+        "repo:001"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored validation issue adds scoping and acceptance-criteria evidence, but the cited rule-mapping records better preserve the distinction between implementation and policy authority."
+    },
+    {
+      "record_ids": [
+        "repo:002"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Confirms Contributor 03’s assay requirements; excluded because docs:003 supplies the same authority boundary with an available citation span."
+    },
+    {
+      "record_ids": [
+        "repo:003"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored guarded-form pull request adds implementation corroboration, but the personal validation/error-text contribution is already cited directly from chat:004."
+    },
+    {
+      "record_ids": [
+        "repo:004"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored revision adds personal implementation evidence after bench feedback, but chat:006 more directly and citablely establishes the correction and test."
+    },
+    {
+      "record_ids": [
+        "repo:006"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Reviewer record for the unit correction; excluded because its exact citation span was not retained."
+    },
+    {
+      "record_ids": [
+        "repo:007"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored completion record adds evidence that Contributor 01 implemented the unit fix, but it is excluded because its exact citation span was unavailable; claim c4 is consequently limited to diagnosis, release halt, and preparation of the fix."
+    },
+    {
+      "record_ids": [
+        "repo:008"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored migration-tooling pull request adds personal implementation evidence, but it is excluded because its exact citation span was unavailable."
+    },
+    {
+      "record_ids": [
+        "repo:009"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Migration dry-run review provides shared testing context by Contributor 05; excluded because its exact span was unavailable."
+    },
+    {
+      "record_ids": [
+        "repo:010"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Subject-authored alias pull request corroborates personal migration work, but chat:012 provides the same bounded contribution and ownership split with available spans."
+    },
+    {
+      "record_ids": [
+        "repo:011"
+      ],
+      "disposition": "contextual",
+      "claim_ids": [],
+      "reason": "Alias review approval supplies reviewer context; excluded because the claim focuses on Contributor 01’s bounded implementation and Contributor 05’s later ownership."
+    },
+    {
+      "record_ids": [
+        "repo:012"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c6"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:015"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c8"
+      ],
+      "reason": "Derived from selected source spans."
+    },
+    {
+      "record_ids": [
+        "repo:016"
+      ],
+      "disposition": "used",
+      "claim_ids": [
+        "c8"
+      ],
+      "reason": "Derived from selected source spans."
+    }
+  ],
+  "stop_receipt_id": "73237e67f1ba183125d3688ce3fa020ab5857a1b69a4c49973d0be10601a75f4",
+  "attachment_dispositions": [],
+  "research_choices": [
+    "Enumerated earlier, primary, and follow-up roots for chat, docs, and repo, completing every pagination chain before reading evidence.",
+    "Used read_context for every surfaced root with replies, then expanded the nested chat:005 and chat:011 branches before switching to standalone records.",
+    "Reserved later calls for follow-up evidence, contrary evidence, release limits, and shared-role records rather than treating subject authorship as ownership.",
+    "Prioritized the blank-result incident and corrective pull request because they materially qualified the original control’s effectiveness.",
+    "At the source-call limit, six surfaced records and two attachments remained unread; these are reported as unresolved rather than dismissed from snippets."
+  ]
+}

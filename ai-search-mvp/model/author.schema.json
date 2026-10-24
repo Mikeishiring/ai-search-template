@@ -1,0 +1,305 @@
+{
+  "type": "object",
+  "properties": {
+    "corpus": {
+      "type": "object",
+      "properties": {
+        "synthetic": {
+          "type": "boolean"
+        },
+        "snapshot": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "chat",
+                  "docs",
+                  "repo"
+                ]
+              },
+              "platform": {
+                "type": "string"
+              },
+              "enumeration": {
+                "type": "boolean"
+              },
+              "inventory": {
+                "type": "string"
+              },
+              "read_only": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "platform",
+              "enumeration",
+              "inventory",
+              "read_only"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "chat",
+                  "docs",
+                  "repo"
+                ]
+              },
+              "date": {
+                "type": "string"
+              },
+              "author": {
+                "type": "string"
+              },
+              "container": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "parent": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "source": {
+                      "type": "string",
+                      "enum": [
+                        "chat",
+                        "docs",
+                        "repo"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "id"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "title": {
+                "type": "string"
+              },
+              "attachments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "link_only": {
+                "type": "boolean"
+              },
+              "repost_of": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "source",
+              "date",
+              "author",
+              "container",
+              "body",
+              "parent",
+              "links",
+              "title",
+              "attachments",
+              "link_only",
+              "repost_of"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "enum": [
+                  "chat",
+                  "docs",
+                  "repo"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "unavailable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "source",
+              "title",
+              "body",
+              "unavailable"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "synthetic",
+        "snapshot",
+        "sources",
+        "records",
+        "attachments"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "horizon": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "query",
+        "subject",
+        "sources",
+        "start",
+        "end",
+        "horizon",
+        "timezone"
+      ],
+      "additionalProperties": false
+    },
+    "gold": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "expected_records": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "themes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "criterion": {
+                "type": "string"
+              },
+              "anchors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "pitfall": {
+                "type": "string"
+              },
+              "importance": {
+                "type": "string",
+                "enum": [
+                  "material",
+                  "secondary"
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "criterion",
+              "anchors",
+              "pitfall",
+              "importance"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "author_note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "expected_records",
+        "themes",
+        "author_note"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "corpus",
+    "scope",
+    "gold"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,189 @@
+{
+  "label": "Contributor 01 materially shaped and implemented Lanternleaf’s advisory exception workflow, corrected defects, documented operations, and trained shift leads; the pilot delivered promising but limited efficiency and usefulness evidence, suffered a jointly caused schema incident, and continued locally without broad adoption or resolved data dependencies by the follow-up horizon.",
+  "expected_records": [
+    "chat:001",
+    "docs:001",
+    "chat:002",
+    "chat:003",
+    "docs:002",
+    "docs:003",
+    "docs:004",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "chat:004",
+    "docs:005",
+    "chat:005",
+    "chat:006",
+    "chat:007",
+    "chat:008",
+    "repo:005",
+    "repo:006",
+    "repo:007",
+    "docs:006",
+    "docs:007",
+    "repo:008",
+    "repo:009",
+    "repo:010",
+    "repo:011",
+    "chat:009",
+    "docs:008",
+    "docs:009",
+    "repo:012",
+    "repo:013",
+    "repo:014",
+    "repo:015",
+    "chat:010",
+    "docs:010",
+    "chat:011",
+    "docs:011",
+    "chat:012",
+    "docs:012",
+    "repo:016",
+    "chat:013"
+  ],
+  "themes": [
+    {
+      "id": "theme_01",
+      "name": "Rules and taxonomy design",
+      "criterion": "Conclude that Contributor 01 defined the initial exception taxonomy, reason model, duplicate key, and limitations, incorporating Operations feedback rather than inventing the entire policy alone.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:010"
+      ],
+      "pitfall": "Saying Contributor 01 single-handedly determined final business policy, or omitting the reviewer-driven duplicate-key correction.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_02",
+      "name": "Initial implementation and review fixes",
+      "criterion": "Conclude that Contributor 01 implemented the initial advisory rule engine and tests, then fixed the cross-currency pairing defect identified by Contributor 09; approval did not eliminate uncertainty about the time window.",
+      "anchors": [
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004"
+      ],
+      "pitfall": "Claiming the initial implementation was defect-free or crediting Contributor 01 with discovering the currency bug.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_03",
+      "name": "Queue grouping and accessibility",
+      "criterion": "Conclude that Contributor 01 proposed and implemented view-level grouping while preserving underlying flags, and fixed a keyboard-focus regression after review.",
+      "anchors": [
+        "chat:006",
+        "chat:007",
+        "chat:008",
+        "repo:005",
+        "repo:006",
+        "repo:007"
+      ],
+      "pitfall": "Misstating grouping as suppression of exceptions or omitting the accessibility defect and correction.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_04",
+      "name": "Reversal-rule refinement was shared",
+      "criterion": "Conclude that Contributor 01 analysed pilot labels and designed a three-state reversal approach, but Contributor 10 performed the final production integration; Operations supplied the late-adjustment constraint.",
+      "anchors": [
+        "docs:007",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Giving Contributor 01 sole implementation credit for the final reversal behavior, or treating the heuristic as fully validated.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_05",
+      "name": "Operational readiness work",
+      "criterion": "Conclude that Contributor 01 authored the monitoring and fallback runbook and delivered a recorded walkthrough to both shift leads, not to all reviewers.",
+      "anchors": [
+        "chat:009",
+        "docs:008",
+        "docs:009"
+      ],
+      "pitfall": "Claiming organisation-wide training or overlooking that the workflow remained advisory with a spreadsheet fallback.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_06",
+      "name": "Schema incident and shared responsibility",
+      "criterion": "Conclude that an unvalidated type change caused a silent zero-row load and roughly two hours of delay; Contributor 01 acknowledged inadequate type validation and fixed it, while Contributor 07 acknowledged changing the export without notice.",
+      "anchors": [
+        "repo:012",
+        "repo:013",
+        "repo:014",
+        "repo:015",
+        "chat:010"
+      ],
+      "pitfall": "Assigning the incident solely to Contributor 01, treating the correction as proof no risk remained, or claiming processing failed for the whole cycle.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_07",
+      "name": "Pilot evidence and its limits",
+      "criterion": "Report the observed pilot evidence accurately: 24 selected statements had median review time of 12 versus 19 minutes, and 45 of 63 checked flags were useful, with explicit selection, sample-size, and audit limitations.",
+      "anchors": [
+        "docs:006",
+        "docs:007"
+      ],
+      "pitfall": "Generalising the timing result to all statements, converting limited labels into a proven accuracy rate, or claiming missed exceptions were measured.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_08",
+      "name": "Completion and continued local use",
+      "criterion": "Conclude that April processing completed after the fix and later records show continued use in the same two imprints, with mixed queue/spreadsheet practice rather than abandonment or broad rollout.",
+      "anchors": [
+        "chat:010",
+        "docs:011",
+        "chat:012"
+      ],
+      "pitfall": "Calling the project a failure because spreadsheets remained, or claiming full adoption because the shift leads continued using it.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_09",
+      "name": "Unresolved dependency and rollout uncertainty",
+      "criterion": "Conclude that the scheduled feed still lacked reversal references, Finance deferred the change, and there was no owner or date for wider rollout through 2032-07-31.",
+      "anchors": [
+        "chat:003",
+        "docs:012"
+      ],
+      "pitfall": "Assuming the dependency was resolved, interpreting deferral as cancellation, or importing the post-horizon third-imprint decision.",
+      "importance": "material"
+    },
+    {
+      "id": "theme_10",
+      "name": "Remaining workflow gap",
+      "criterion": "Note that annotations still often returned to spreadsheet exports and a bulk-note request remained in backlog, but it was described as an inconvenience rather than a blocker.",
+      "anchors": [
+        "chat:010",
+        "repo:016"
+      ],
+      "pitfall": "Ignoring the residual workflow gap or overstating a backlog item as evidence that the pilot could not operate.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme_11",
+      "name": "Boundaries of personal ownership",
+      "criterion": "Distinguish Contributor 01’s work from Contributor 07’s export ownership, Contributor 10’s production integration, Contributor 08’s evaluation summaries, and operational decisions by Contributors 04–06.",
+      "anchors": [
+        "chat:001",
+        "repo:011",
+        "docs:006",
+        "docs:007",
+        "docs:010"
+      ],
+      "pitfall": "Attributing every project output or outcome to Contributor 01 merely because they were the principal builder.",
+      "importance": "material"
+    }
+  ],
+  "author_note": "This is a wholly synthetic case. Its records support bounded conclusions about a small advisory pilot, but they do not establish organisation-wide productivity, complete exception accuracy, or causality beyond the described samples. The unavailable attachment is not needed for any rubric conclusion, and the August decision is intentionally outside the follow-up horizon."
+}

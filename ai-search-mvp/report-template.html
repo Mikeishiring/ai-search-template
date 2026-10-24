@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>AI search MVP · synthetic research evaluation</title>
+<style>
+__STYLES__
+</style>
+</head>
+<body>
+<a class="skip" href="#review">Skip to review</a>
+<main>
+<div class="masthead"><span class="brand">AI search / research review</span><nav aria-label="Report"><a href="#review">Review</a><a href="#sources">Sources</a><a href="#method-section">Method</a></nav><small>Synthetic demo data</small></div>
+<fieldset id="case" class="case-switch"><legend class="sr-only">Test case</legend>
+<label class="segment"><input type="radio" name="case" id="case-ownership" value="ownership"><span>Ownership</span></label>
+<label class="segment"><input type="radio" name="case" id="case-retention" value="retention"><span>Evidence memory</span></label>
+<label class="segment"><input type="radio" name="case" id="case-depth" value="depth"><span>Deep threads</span></label>
+<label class="segment"><input type="radio" name="case" id="case-completion" value="completion"><span>Completion</span></label>
+<label class="segment"><input type="radio" name="case" id="case-attribution" value="attribution"><span>Attribution</span></label>
+<label class="segment"><input type="radio" name="case" id="case-followup" value="followup"><span>Follow-ups</span></label>
+<label class="segment"><input type="radio" name="case" id="case-autonomous" value="autonomous"><span>Earlier run</span></label>
+<label class="segment"><input type="radio" name="case" id="case-semantic" value="semantic"><span>AI review</span></label>
+<label class="segment"><input type="radio" name="case" id="case-challenge" value="challenge"><span>Wording</span></label>
+<label class="segment"><input type="radio" name="case" id="case-training" value="training"><span>Development</span></label>
+<label class="segment"><input type="radio" name="case" id="case-search_only" value="search_only"><span>Search only</span></label>
+</fieldset>
+<header><h1 id="headline">Research review</h1><p id="intro" class="intro"></p><div class="summary-grid"><div id="verdict" class="verdict"></div><div id="metrics" class="metrics"></div></div></header>
+<section id="review" aria-labelledby="context"><div class="section-heading"><h2 id="context">Context review</h2><p id="theme-method" class="meta"></p></div><div class="review-reader"><fieldset id="themes" class="theme-list" aria-label="Context theme"></fieldset><div><div class="mobile-theme"><label for="theme-select">Context theme</label><select id="theme-select"></select></div><article id="theme-detail" class="theme-detail" aria-labelledby="theme-title"></article></div></div><div id="comparison"></div></section>
+<section aria-labelledby="criticism"><h2 id="criticism">What still needs work</h2><div id="issues"></div><details><summary>Assessment limits</summary><div class="disclosure-body"><ul id="critique" class="list"></ul></div></details><div class="columns"><div><h3>The next test</h3><p id="next-experiment">Use an independently authored story and a second assessor. Let the model choose follow-up reads, then test whether it finds the missing context.</p></div><div><h3>Private records stay outside</h3><p>The source replay runs offline. Codex sessions use only synthetic inputs. The researcher cannot access the hidden answer key, private archive, prior chat or source tools outside this demo.</p></div></div></section>
+<section id="sources" aria-labelledby="evidence-title"><div class="section-heading"><h2 id="evidence-title">Sources</h2><p id="scope" class="meta"></p></div><div id="coverage" class="coverage"></div><details><summary>Blocked reads and follow-ups</summary><div id="queue" class="disclosure-body"></div></details><div class="controls"><label for="evidence-filter">Records</label><select id="evidence-filter"><option value="all">All records</option><option value="missed">Missed or partial context</option><option value="signals">With rule signals (audit)</option><option value="unlinked">Without connections</option></select><label for="record-search" class="sr-only">Search retained text</label><input id="record-search" type="search" placeholder="Search retained text" autocomplete="off"></div><p id="record-count" class="meta" role="status"></p><button type="button" id="return-review" hidden>Back to selected theme ↑</button><div id="evidence"></div><div id="attachments"></div></section>
+<section id="method-section" aria-labelledby="reproduce"><h2 id="reproduce">Method &amp; reproduction</h2><p id="method"></p><details><summary>Research question and input files</summary><div class="disclosure-body"><p id="question"></p><pre id="inputs"></pre></div></details><details><summary>Validate the saved run</summary><div class="disclosure-body"><pre>cd ai-search-mvp
+python prepare_ownership_result.py
+python assess_ownership.py
+python prepare_retention_result.py
+python assess_retention.py
+python prepare_depth_result.py
+python assess_depth.py
+python prepare_completion_result.py
+python assess_completion.py
+python prepare_attribution_result.py
+python assess_attribution.py
+python prepare_followup_result.py
+python assess_followup.py
+python prepare_autonomous_result.py
+python assess_autonomous.py
+python semantic_review.py
+python assess_semantic.py
+python -m unittest discover -s tests -v
+python cli.py report
+node tests/check_report.cjs</pre><p>Python 3.11 or later; standard library only. These commands make no model call. The autonomous run used <code>python independent_experiment.py research</code> and preserves its first attempt. The packet-review entry point, <code>python model_backend.py review</code>, requires an authenticated CLI and refuses to overwrite the first response.</p><p>To resume research: <code>python cli.py run challenge --steps 5</code>, then <code>python cli.py run challenge</code>. Use <code>--refresh</code> for an explicit re-read; earlier revisions remain in the ledger.</p></div></details></section>
+<footer>Saved experiment results. Quotation checks establish provenance; they do not prove interpretation or real-world completeness.</footer>
+<noscript><p class="error">Enable JavaScript to inspect the saved results. This file makes no network requests.</p></noscript>
+</main>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+const data=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let selected=data.ownership?'ownership':data.retention?'retention':data.depth?'depth':data.completion?'completion':data.attribution?'attribution':data.followup?'followup':data.autonomous?'autonomous':data.semantic?'semantic':'challenge',themeIndex=null,returnState=null;
+const viewMemory={};
+function recordId(id){return 'record-'+id.replace(/[^a-zA-Z0-9_-]/g,'-')}
+function draw(){if(isResearch()){drawAutonomous();return}if(selected==='semantic'){drawAI();return}const {result:r,evaluation:e}=data[selected];$('question').textContent=r.scope.question;
+$('headline').textContent=selected==='challenge'?'Every record retrieved. Half the context missed.':selected==='training'?'The rules found each expected signal.':'Search access leaves coverage unknown.';$('intro').textContent=selected==='challenge'?'The wording challenge exposes the gap between retrieving a passage and recognising what it means.':selected==='training'?'The development fixture uses familiar wording. A matching rule remains candidate evidence, not a judgement about who did what.':'Matching records are available, but a complete inventory is not. Missing search results do not establish that no evidence exists.';$('theme-method').textContent='The evaluator opens its answer key after research. A matched rule is candidate evidence, not an accepted claim.';
+$('verdict').innerHTML='<strong>Retrieval works; autonomous interpretation does not.</strong><p>'+esc(e?`${e.missed.length} of ${e.themes.length} expected context themes were not surfaced by the frozen rules.`:'Search-only access cannot establish the full source inventory. This run preserves that limitation.')+'</p>';
+const n=e?e.expected_records:'unknown',found=e?e.retrieved_expected:r.records.length;
+$('metrics').innerHTML=`<div class="metric"><span class="value">${found} / ${n}</span><span>expected records retrieved</span></div><div class="metric"><span class="value">${e?`${e.surfaced} / ${e.themes.length}`:'Not scored'}</span><span>expected context themes surfaced</span></div><div class="metric"><span class="value">0</span><span>semantic reviews completed</span></div>`;
+$('comparison').innerHTML=e?`<div class="compare"><span>Single-query baseline</span><div class="track"><div class="bar prior" style="width:${100*e.baseline_surfaced/e.themes.length}%"></div></div><span>${e.baseline_surfaced} / ${e.themes.length}</span></div><div class="compare"><span>Research runner</span><div class="track"><div class="bar" style="width:${100*e.surfaced/e.themes.length}%"></div></div><span>${e.surfaced} / ${e.themes.length}</span></div>`:'';
+$('method').textContent=e?`${e.fixture} answer key; ${e.themes.length} author-defined context themes. Runner: ${r.receipts} operation receipts. Baseline: ${e.baseline_calls} search calls. The baseline is intentionally shallow. Same author designed fixtures and code; this is not an independent blind benchmark.`:`${r.records.length} records from ${r.scope.sources.length} declared fixture sources; source totals are unknown to this search-only runner.`;
+const records=Object.fromEntries(r.records.map(x=>[x.id,x]));
+renderReader();
+$('coverage').innerHTML=r.coverage.map(c=>`<article><h3>${esc(c.platform)}</h3><p class="counts">${c.records_retrieved} retrieved · ${c.records_rule_scanned} rule-scanned<br>${c.semantic_reviews} semantic reviews</p><p>${c.enumeration_end?'Bounded enumeration ended.':'Enumeration unavailable or unfinished.'}<br>${c.blocked} blocked · ${c.pending} pending</p><p class="meta">Retrieval: ${esc(c.retrieval_state.replaceAll('_',' '))}<br>Review: candidate evidence only</p></article>`).join('');
+const blocked=r.tasks.filter(t=>t.state==='blocked'),gap=r.tasks.filter(t=>t.reason.startsWith('Missing '));
+$('queue').innerHTML='<h3>Blocked reads</h3>'+blocked.map(t=>`<p>${esc(t.operation)} · ${esc(t.source)} · ${esc(t.error)}<br><small>${esc(t.args.id||t.reason)}</small></p>`).join('')+`<h3>${gap.length} automatic gap searches</h3><p class="meta">Missing stage signals generated these searches without user follow-ups. Search completion does not resolve the underlying question.</p>`+gap.map(t=>`<details><summary>${esc(t.args.query)} · ${esc(t.source)}</summary><p>${esc(t.reason)}</p><p class="meta">${esc(t.state)} · ${t.attempts} attempts</p></details>`).join('');
+$('issues').innerHTML='<p>Lexical matches cannot resolve ownership, contradictions or causality. Retrieving every expected record is a coverage result.</p>';$('critique').innerHTML=(e?e.harsh_review:data.challenge.evaluation.harsh_review).map(x=>`<li>${esc(x)}</li>`).join('');
+$('inputs').textContent=(r.input_files||[]).join('\n')||'Input audit not saved for this run.';
+drawEvidence();}
+function drawEvidence(){const attachments=data[selected].attachments||[];$('attachments').innerHTML=attachments.length?'<h3>Attachments</h3>'+attachments.map(a=>'<details id="'+recordId(a.id)+'"><summary>'+esc(a.title)+'</summary><p class="meta">'+esc(a.id)+' · '+(!a.read_by_researcher?'Evaluator copy · not checked by researcher':a.unavailable?'Unavailable':'Returned in full')+'</p><p>'+esc(a.unavailable?a.observed_result:a.body)+'</p></details>').join(''):'';const {result:r,evaluation:e}=data[selected],filter=$('evidence-filter').value,query=$('record-search').value.trim().toLocaleLowerCase(),missed=new Set(isAI()?e.themes.filter(t=>t.status!=='pass').flatMap(t=>t.anchors):e?e.themes.filter(t=>!t.surfaced).map(t=>t.record):[]),signals=new Set(r.findings.map(f=>f.record_id)),isolated=new Set(r.components.filter(g=>g.length===1).flat());
+const rows=evidenceRecords().filter(x=>filter==='all'||filter==='missed'&&missed.has(x.id)||filter==='signals'&&signals.has(x.id)||filter==='unlinked'&&isolated.has(x.id)).filter(x=>!query||[x.id,x.title,x.body,x.author,x.source].join(' ').toLocaleLowerCase().includes(query)).sort((a,b)=>a.date.localeCompare(b.date)||a.id.localeCompare(b.id));
+$('record-count').textContent=isResearch()?`${rows.length} of ${e.expected_records} accessible records · ${r.records.length} read in full by researcher · evaluator-only copies marked`:`${rows.length} of ${r.records.length} retained records; original synthetic text, ordered by event date.`;
+$('evidence').innerHTML=rows.map(x=>{const categories=[...new Set(r.findings.filter(f=>f.record_id===x.id).map(f=>f.category))];return `<details class="record" id="${recordId(x.id)}"><summary>${esc(x.title||x.id)} <span class="count-label">${esc(x.date)} · ${esc(x.source)}</span></summary><p class="meta">${isResearch()&&!r.records.some(read=>read.id===x.id)?'Evaluator copy · not read in full by researcher · ':''}${esc(x.id)} · ${esc(x.author)}${x.parent?' · parent '+esc(x.parent):''}</p><blockquote>${esc(x.body)}</blockquote><p class="category">${isResearch()?(r.records.some(read=>read.id===x.id)?'Full record returned to researcher':data[selected].trace.snippet_only_ids.includes(x.id)?'Snippet seen; full record not read':'Not surfaced during research'):(categories.length?categories.map(esc).join(' · '):'No rule signal surfaced')}</p><p class="meta">${x.links.length?'Explicit links: '+x.links.map(l=>esc(l.id)).join(', '):'No explicit outgoing links.'}${x.repost_of?' Repost of '+esc(x.repost_of)+'.':''}</p></details>`}).join('')||'<p class="empty">No records match. Clear the search or choose All records.</p>';}
+$('case').addEventListener('change',e=>changeCase(e.target.value));$('evidence-filter').addEventListener('change',drawEvidence);
+document.addEventListener('click',followSource);
+function drawAI(){const {result:r,evaluation:e,review,provenance,receipt}=data.semantic;
+$('headline').textContent=e.headline;$('intro').textContent='One new story, one model response. The reviewer connected ownership, corrections and later use. Its explanation of the expansion pause needed qualification.';$('question').textContent=r.scope.question;
+$('verdict').innerHTML='<p>'+esc(e.scope_limit)+'</p>';
+const pass=e.themes.filter(t=>t.status==='pass').length,partial=e.themes.filter(t=>t.status==='partial').length;
+$('metrics').innerHTML=`<div class="metric"><span class="value">${r.records.length} / ${e.expected_records}</span><span>expected records retrieved</span></div><div class="metric"><span class="value">${pass} / ${e.themes.length}</span><span>rubric themes fully met · ${partial} partial</span></div><div class="metric"><span class="value">${provenance.quote_count}</span><span>exact quotations checked · ${review.claims.length} claims</span></div>`;
+$('comparison').innerHTML='<details><summary>Original model account</summary><div class="disclosure-body"><p>'+esc(review.account)+'</p><p class="meta">Unedited first response. The assessment qualifies its statements about continued use and why expansion paused.</p></div></details>';
+$('comparison').innerHTML+='<details><summary>What the rules missed in this same story</summary><p>'+e.rule_comparison.signals+' lexical signals across '+e.rule_comparison.records_with_signals+' of '+r.records.length+' records. No rule signal was surfaced for these passages:</p><ul>'+e.rule_comparison.examples.map(x=>'<li>'+esc(x.meaning)+' · <a href="#'+recordId(x.record_id)+'" data-record="'+esc(x.record_id)+'">'+esc(x.record_id)+'</a> · AI claim '+esc(x.claim_id)+'</li>').join('')+'</ul><p class="meta">'+esc(e.rule_comparison.limit)+'</p></details><details><summary>The model’s unknowns and rejected conclusions</summary><h3>Unknowns</h3><ul>'+review.unknowns.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><h3>Rejected conclusions</h3>'+review.rejected_conclusions.map(x=>'<p><strong>'+esc(x.statement)+'</strong><br>'+esc(x.reason)+'</p><p class="meta">'+x.record_ids.map(esc).join(', ')+'</p>').join('')+'</details>';
+$('method').textContent=`One new synthetic story; one substantive model attempt; ${receipt.elapsed_seconds}s. Prompt and schema frozen before story creation. Rubric withheld from reviewer. Scores are this assistant's manual assessment, not an independent benchmark.`;
+$('theme-method').textContent='12 themes assessed against the hidden rubric. The same author wrote the story and assessed the answer.';
+renderReader();
+$('coverage').innerHTML=r.coverage.map(c=>`<article><h3>${esc(c.platform)}</h3><p>${c.records_retrieved} records supplied<br>${c.blocked} blocked reads</p><p class="meta">${c.enumeration_end?'Fixture enumeration ended.':'Enumeration incomplete.'}<br>Model interpretations remain inspectable proposals.</p></article>`).join('');
+$('queue').innerHTML=r.tasks.filter(t=>t.state==='blocked').map(t=>`<p>${esc(t.operation)} · ${esc(t.error)}<br><small>${esc(t.args.id||t.reason)}</small></p>`).join('')+'<p>The model received the retained packet in one pass. It did not choose new source searches or retrieve the missing attachment.</p>';
+$('critique').innerHTML=e.limitations.map(x=>'<li>'+esc(x)+'</li>').join('');$('issues').innerHTML='<div class="critique-block"><h3>The stated cause is not the only possible cause.</h3><ul class="list">'+e.issues.map(x=>'<li><strong>'+esc(x.severity)+'.</strong> '+esc(x.detail)+'</li>').join('')+'</ul></div>';
+$('inputs').textContent=r.input_files.join('\n')+'\nModel input: synthetic retained records and retrieval limits only.\nNo evaluator rubric, rule signals or private archive.';drawEvidence();}
+function drawAutonomous(){
+ const {result:r,evaluation:e,review,provenance,receipt,trace}=data[selected];
+ $('headline').textContent=e.headline;$('intro').textContent=e.summary;$('question').textContent=r.scope.question;
+ $('verdict').innerHTML='<p>'+esc(e.scope_limit)+'</p>';
+ const pass=e.themes.filter(t=>t.status==='pass').length,partial=e.themes.filter(t=>t.status==='partial').length,missed=e.themes.filter(t=>t.status==='missed').length;
+ $('metrics').innerHTML=`<div class="metric"><span class="value">${r.records.length} / ${e.expected_records}</span><span>accessible records read in full</span></div><div class="metric"><span class="value">${pass} / ${e.themes.length}</span><span>themes fully met · ${partial} partial · ${missed} missed</span></div><div class="metric"><span class="value">${trace.source_calls} / ${trace.budget}</span><span>source calls · ${trace.searches} searches${trace.requests?` · ${trace.requests} requests · ${trace.cache_hits} cache replays`:``}</span></div>`;
+ $('theme-method').textContent='Rubric written by a separate AI author, hidden from the researcher. Assessment checked against original records after the run.';
+ const path=trace.events.map(event=>`<details><summary>${event.sequence}. ${esc(event.tool)}${event.arguments.source?' · '+esc(event.arguments.source):''}${event.arguments.query?' · “'+esc(event.arguments.query)+'”':''}</summary><p class="meta">${esc(JSON.stringify(event.arguments))}</p><p>${event.tool==='draft_check'?(event.result.valid?'Draft structure passed.':'Draft needs correction: '+esc((event.result.errors||[]).join('; '))):event.result.error?'Error: '+esc(event.result.error):event.result.unavailable?'Attachment unavailable.':event.result.records?event.result.records.length+' cached records recovered.':event.result.saved_record_ids?event.result.saved_record_ids.length+' record judgments saved locally.':event.result.items?event.result.items.length+' '+(event.result.full_records?'full records':'snippets or attachments')+' returned.':'Source metadata or status returned.'} ${event.result.cache_hit?'Saved response replay; no source charge.':''} ${event.result.next_cursor?'More pages available.':''}</p><ul class="source-links">${(event.result.items||[]).filter(x=>evidenceRecords().some(r=>r.id===x.id)).map(x=>'<li>'+sourceLink(x.id)+'</li>').join('')}</ul></details>`).join('');
+ $('comparison').innerHTML=`<details><summary>Research path · ${trace.requests||trace.source_calls} model-chosen calls</summary><div class="disclosure-body"><p>No user follow-up prompts or automatic thread traversal. Queries, pagination and record reads are the model’s choices.</p>${path}</div></details><details><summary>${['retention','ownership'].includes(selected)?'Evidence-linked account':'Original model account'}</summary><div class="disclosure-body">${review.account.split('\n\n').map(p=>'<p>'+esc(p)+'</p>').join('')}<p class="meta">${selected==='ownership'?'Compiled from the first response’s ordered claims and limits, with evaluation-source authorship from record metadata.':selected==='retention'?'Compiled from the first response’s ordered claim sentences and limits, without rewriting.':'Unedited first response.'} Evaluator-only evidence was added after the run and never fed back to the researcher.</p></div></details><details><summary>Model unknowns and rejected conclusions</summary><div class="disclosure-body"><h3>Unknowns</h3><ul>${review.unknowns.map(x=>'<li>'+esc(x)+'</li>').join('')}</ul><h3>Rejected conclusions</h3>${review.rejected_conclusions.map(x=>'<p><strong>'+esc(x.statement)+'</strong><br>'+esc(x.reason)+'</p><p class="meta">'+x.record_ids.map(sourceLink).join(' · ')+'</p>').join('')}</div></details>`;
+ $('method').textContent=e.method+` ${selected==='ownership'?'The substantive run, after the failed connection launch,':'One research attempt'} took ${receipt.elapsed_seconds}s. ${provenance.quote_count} quotations matched exact spans; ${provenance.errors.length} citation or structure flags. Inventory coverage includes distractors and is separate from context recall.`;
+ $('critique').innerHTML=e.limitations.map(x=>'<li>'+esc(x)+'</li>').join('');
+ $('issues').innerHTML='<div class="critique-block"><h3>'+esc(e.issue_heading)+'</h3><ul class="list">'+e.issues.map(x=>'<li><strong>'+esc(x.severity)+'.</strong> '+esc(x.detail)+'</li>').join('')+'</ul></div>';
+ $('next-experiment').textContent=e.next_experiment;
+ renderReader();
+ $('coverage').innerHTML=r.coverage.map(c=>`<article><h3>${esc(c.platform)}</h3><p>${c.records_retrieved} / ${c.expected_records} accessible records read in full</p><p class="meta">${c.snippet_only} snippet-only · ${c.pending} pending pages<br>${c.blocked} blocked or rejected reads</p></article>`).join('');
+ $('queue').innerHTML=`<p>${trace.pending_pages.length} pagination chains left unfinished. The call limit was ${trace.budget}; the researcher used ${trace.source_calls}.</p>`+trace.pending_pages.map(x=>'<p class="meta">'+esc(x.tool)+' · '+esc(JSON.stringify(x.arguments))+'</p>').join('')+trace.events.filter(x=>x.result.unavailable||x.result.error).map(x=>'<p>'+esc(x.tool)+' · '+esc(x.arguments.id||x.arguments.source||'')+' · '+esc(x.result.reason||x.result.error)+'</p>').join('');
+ if(review.attribution_chains){
+ $('comparison').innerHTML+='<details><summary>Who did what · '+review.attribution_chains.length+' contribution chains</summary><div class="disclosure-body">'+review.attribution_chains.map(chain=>'<h3>'+esc(chain.intervention)+'</h3>'+chain.roles.map(role=>'<p><strong>'+esc(role.actor)+'</strong> · '+esc(role.role)+'<br>'+role.record_ids.map(sourceLink).join(' · ')+'</p>').join('')+'<p class="meta">Claims '+chain.claim_ids.map(esc).join(', ')+' · '+esc(chain.limits)+'</p>').join('')+'<p class="meta">The model assigned these roles. Source links and structural checks make the assignments inspectable; they do not certify interpretation.</p></div></details>';
+ $('comparison').innerHTML+='<details><summary>How the model used each read record</summary><div class="disclosure-body">'+review.evidence_dispositions.map(d=>'<p><strong>'+esc(d.disposition)+'</strong> · '+d.record_ids.map(sourceLink).join(' · ')+'<br>'+esc(d.reason)+'<br><small>Claims: '+d.claim_ids.map(esc).join(', ')+'</small></p>').join('')+'</div></details>';
+ }
+ if(trace.planning){
+ const p=trace.planning;
+ $('queue').innerHTML+='<h3>Observed follow-up queue at stop</h3><p>'+p.unopened_contexts.length+' unfinished contexts · '+p.unread_references.length+' unread references · '+p.unchecked_attachments.length+' unchecked attachments · '+p.unfinished_window_sweeps.length+' unfinished window sweeps</p><pre>'+esc(JSON.stringify(p,null,2))+'</pre>';
+ $('comparison').innerHTML=(selected==='ownership'?'<details><summary>What changed in this test</summary><div class="disclosure-body"><p>Saved actor events distinguish offers, plans, work in progress and completion. Final roles reference those events. Evaluation authorship comes from source metadata, with no claim that the writer performed all the underlying work.</p><p>Coverage explanations can describe a cited record without marking it omitted. A local draft check validates the complete output before sealing; the final content must match. These checks establish consistency, not whether the model interpreted a passage correctly.</p></div></details>':selected==='retention'?'<details><summary>What changed in this test</summary><div class="disclosure-body"><p>The researcher saves findings against original source spans, then recovers cached records in compact writing packets. These local operations remain available after the source budget ends. Records used only to reject a conclusion are accounted for separately.</p><p>The account is assembled from every ordered claim sentence and its limits. There is no separate summary to drop accepted claims. This protects the handoff into writing; it does not prove that a claim or saved note contains all the relevant meaning.</p></div></details>':selected==='depth'?'<details><summary>What changed in this test</summary><div class="disclosure-body"><p>Open branches are ranked deepest first using observed metadata. The AI chooses every read and records its reasons for departing from that order. It also reviews subject-authored records for diagnostic work that might disappear during synthesis.</p><p>Each role points to evidence inside its claim. Code derives record usage, role links and checked attachment status; uncited records still need a model explanation. The source budget remains 45, with 80 total requests. The protocol was frozen before the independent story was written.</p></div></details>':selected==='completion'?'<details><summary>What changed in this test</summary><div class="disclosure-body"><p>Every surfaced record remains an obligation until read in full. A free completion check uses actual request and source counts, and refuses early completion while known work remains. The final answer must include its receipt.</p><p>The AI selects immutable source-span IDs; quoted text is resolved directly from saved records. This prevents rewritten quotations, but does not determine whether a passage supports its claim. The story comes from a separate AI session in a new domain, after the protocol was frozen.</p></div></details>':review.attribution_chains?'<details><summary>What changed in this test</summary><div class="disclosure-body"><p>Already-read records and repeated pages come from the saved source cache. Thread reads include an unread parent. Earlier activity has a 90-day discovery window, with older records still searchable. The final output must map roles to claims and account for each read record.</p><p>The source limit remains 45; cache replays are free within a 60-request ceiling. This changes the protocol as well as the prompt. The implementation was frozen before independent story generation; earlier tests remain unchanged.</p></div></details>':'<details><summary>What changed in the planner</summary><div class="disclosure-body"><p>Each source response now carries known unread replies, references and unfinished pages. A separate activity window finds follow-ups created after the original project period. The AI chooses the reads; the server does not crawl them.</p><p>The planner and budget were frozen before a separate AI session wrote this story. The earlier run remains unchanged. These are different stories, so the score difference cannot establish a causal improvement.</p></div></details>')+$('comparison').innerHTML;
+ }
+ if(['depth','retention','ownership'].includes(selected)){
+ $('comparison').innerHTML+='<details><summary>Derived evidence links and research choices</summary><div class="disclosure-body"><p>Record usage and role links come from selected citations. Omission explanations and role judgments remain the model’s work; structural consistency does not establish their accuracy.</p><ul>'+review.research_choices.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></details>';
+ }
+ if(['retention','ownership'].includes(selected)){
+ $('comparison').innerHTML+='<details><summary>Saved findings · '+review.evidence_notes.length+' records</summary><div class="disclosure-body">'+review.evidence_notes.map(n=>{const claims=review.claims.filter(c=>c.evidence.some(a=>a.record_id===n.record_id)).map(c=>c.id);const rejected=review.rejected_conclusions.some(c=>c.record_ids.includes(n.record_id));return '<p><strong>'+esc(n.relevance)+'</strong> · '+sourceLink(n.record_id)+'<br>'+esc(n.finding)+(n.attributions?'<br>'+n.attributions.map(a=>esc(a.actor)+' · '+esc(a.state)+' · '+esc(a.action)).join('<br>'):'')+'<br><small>'+(claims.length?'Account claims: '+claims.map(esc).join(', '):rejected?'Used to reject a conclusion':'Not included in an account claim')+'</small></p>'}).join('')+'<p class="meta">Saved judgments are model interpretations. A record link does not certify that every part of the finding survived into the claim.</p></div></details>';
+ }
+ if(selected==='ownership'){
+ $('comparison').innerHTML+='<details><summary>Evaluation authors and coverage decisions</summary><div class="disclosure-body">'+Object.entries(review.source_credits).filter(([id,credits])=>credits.length).map(([id,credits])=>'<p><strong>'+esc(id)+'</strong><br>'+credits.map(c=>esc(c.author)+' · '+sourceLink(c.record_id)).join('<br>')+'</p>').join('')+'<p class="meta">Source authorship comes from record metadata. It does not establish sole measurement, implementation or decision ownership.</p>'+review.partial_coverage_notes.map(n=>'<p>'+sourceLink(n.record_id)+' · represented<br>'+esc(n.reason)+'</p>').join('')+'</div></details>';
+ }
+ if(trace.completion_receipt){
+ const c=trace.completion_receipt;
+ $('queue').innerHTML+='<h3>Completion receipt</h3><p>'+esc(c.status||'No final receipt')+' · '+(provenance.completion_receipt_valid?'matches the saved final response':'not accepted')+'</p><pre>'+esc(JSON.stringify({counts:c.counts,unresolved:c.unresolved},null,2))+'</pre>';
+ $('comparison').innerHTML+='<details><summary>Quotation provenance</summary><div class="disclosure-body"><p>The model returned span IDs, not quoted text. This dashboard resolves the selected spans from records read in full. Claim wording remains the first model output; the Evidence memory and Ownership accounts are assembled from those sentences and their limits. Ownership also retains evaluation-source authorship from record metadata. Exact source text does not establish semantic completeness.</p></div></details>';
+ }
+ $('inputs').textContent=r.input_files.join('\n')+'\nResearcher started with scope only. Source content arrived through chosen MCP reads.\nIndependent author output and rubric were withheld. Evaluator copies in this dashboard were added after research.';
+ drawEvidence();
+}
+function isResearch(){return ['autonomous','followup','attribution','completion','depth','retention','ownership'].includes(selected)}
+function isAI(){return selected==='semantic'||isResearch()}
+function evidenceRecords(){return [...data[selected].result.records,...(data[selected].audit_records||[])]}
+function needsWork(t){return isAI()?t.status!=='pass':!t.surfaced}
+function statusLabel(t){return isAI()?(t.status==='pass'?'Fully met':t.status==='partial'?'Partly met':'Missed'):(t.surfaced?'Rule signal found':t.retrieved?'Retrieved, meaning missed':'Not retrieved')}
+function sourceLink(id){const attribute=(data[selected].attachments||[]).some(a=>a.id===id)?'data-attachment':'data-record';return '<a href="#'+recordId(id)+'" '+attribute+'="'+esc(id)+'">'+esc(id)+'</a>'}
+function quoteEvidence(claimId,a){
+ const matched=data[selected].provenance.claims.some(c=>c.id===claimId&&c.evidence.some(e=>e.record_id===a.record_id&&e.quote===a.quote));
+ return '<blockquote'+(matched?'':' class="quote-error"')+'>'+esc(a.quote)+'</blockquote>'+(matched?'':'<p class="miss">Exact quotation check failed. Inspect the original source.</p>')+'<p class="proof-source">'+sourceLink(a.record_id)+'</p>';
+}
+function renderReader(){
+ const {result:r,evaluation:e}=data[selected],list=e?.themes||[];
+ for(const key of ['ownership','retention','depth','completion','attribution','followup','autonomous','semantic','challenge','training','search_only']){$('case-'+key).checked=key===selected;$('case-'+key).disabled=!data[key]}
+ $('scope').textContent=r.scope.start+' to '+r.scope.end+' · follow-ups through '+r.scope.horizon+' · '+r.scope.timezone;
+ const provenanceText=isResearch()?'Sources: '+selected+'.gold.json (author rubric and accessible inventory); runs/'+selected+'/calls.jsonl (actual reads); assessment.json (manual assessment); provenance.json (quotation checks).':selected==='semantic'?'Sources: semantic.gold.json (expected records and rubric); runs/semantic/assessment.json (judgements); runs/semantic/model/provenance.json (exact quotations).':'Sources: runs/'+selected+'/result.json (retrieval and review ledger)'+(e?'; runs/'+selected+'/evaluation.json (expected inventory and rule signals).':'. No inventory denominator is available.');
+ if(!$('method').textContent.includes('Sources:'))$('method').textContent+=' '+provenanceText;
+ if(themeIndex===null||themeIndex>=list.length){const first=list.findIndex(needsWork);themeIndex=first<0?0:first}
+ $('themes').innerHTML='<legend class="sr-only">Context theme</legend>'+list.map((t,i)=>'<label class="theme-option"><input type="radio" name="theme" value="'+i+'" '+(i===themeIndex?'checked':'')+' aria-controls="theme-detail"><span class="theme-label"><span class="theme-number">'+String(i+1).padStart(2,'0')+'</span><span><span class="theme-name">'+esc(t.name)+'</span><span class="status '+(needsWork(t)?'miss':'')+'">'+esc(statusLabel(t))+'</span></span></span></label>').join('');
+ $('themes').hidden=!list.length;
+ $('theme-select').innerHTML=list.map((t,i)=>'<option value="'+i+'">'+String(i+1).padStart(2,'0')+' · '+esc(t.name)+' · '+esc(statusLabel(t))+'</option>').join('');
+ $('theme-select').value=String(themeIndex);$('theme-select').disabled=!list.length;
+ if(!$('metrics').innerHTML.includes('metric-source')){
+  const labels=isResearch()?['Author inventory','Hidden author rubric','MCP receipts']:isAI()?['Fixture inventory','Manual assessment','Source-span check']:['Fixture inventory','Rule evaluation','Review ledger'];let n=0;
+  $('metrics').innerHTML=$('metrics').innerHTML.replace(/<\/span><\/div>/g,()=>'</span><a class="metric-source" href="#method-section">'+labels[n++]+'</a></div>');
+ }
+ const t=list[themeIndex];
+ if(!t){$('theme-detail').innerHTML='<h3 id="theme-title" tabindex="-1">Review not scored</h3><p class="empty">The source inventory is unknown. Inspect the returned records and blocked reads before making a completeness claim.</p><a href="#sources">Inspect sources ↓</a>';return}
+ let body='';
+ if(isAI()){
+  body='<p class="theme-assessment">'+esc(t.assessment)+'</p>';
+  body+=t.claim_ids.map(id=>{const c=data[selected].review.claims.find(x=>x.id===id);if(!c)return '';const flagged=e.issues.some(x=>x.claim_ids.includes(id));return '<details class="claim" '+(flagged||t.claim_ids.length===1?'open':'')+'><summary><span class="claim-id">'+esc(c.id)+'</span>'+esc(c.statement)+'</summary><p class="meta">'+esc(c.limits)+'</p>'+c.evidence.map(a=>quoteEvidence(c.id,a)).join('')+'</details>'}).join('');
+  if(!t.claim_ids.length){const rejected=data[selected].review.rejected_conclusions.filter(x=>x.record_ids.some(id=>t.anchors.includes(id)));body+='<details><summary>Related rejected conclusions</summary>'+rejected.map(x=>'<p><strong>'+esc(x.statement)+'</strong><br>'+esc(x.reason)+'</p>').join('')+(rejected.length?'':'<p>See the model unknowns and rejected conclusions for the complete response.</p>')+'</details>'}
+  body+='<ul class="source-links">'+t.anchors.map(id=>'<li>'+sourceLink(id)+'</li>').join('')+'</ul>';
+ }else{
+  const record=r.records.find(x=>x.id===t.record);
+  body='<p class="theme-assessment">'+(t.surfaced?'The frozen rule surfaced a candidate passage. Its meaning still needs review.':t.retrieved?'The passage was retrieved, but the expected rule signal was absent.':'The expected passage was not retrieved.')+'</p><blockquote>'+esc(record?.body||'Source not retrieved.')+'</blockquote><p class="proof-source">'+(record?sourceLink(record.id):'')+'</p><p class="meta">Expected category: '+esc(t.category)+' · '+(t.baseline_surfaced?'the baseline also found a signal':'the baseline missed this theme')+'</p>';
+ }
+ $('theme-detail').innerHTML='<p class="state-line '+(needsWork(t)?'miss':'')+'">'+(themeIndex+1)+' of '+list.length+' · '+esc(statusLabel(t))+'</p><h3 id="theme-title" tabindex="-1">'+esc(t.name)+'</h3>'+body;
+}
+function selectTheme(value){const i=Number(value),list=data[selected].evaluation?.themes||[];if(!Number.isInteger(i)||i<0||i>=list.length)return;themeIndex=i;renderReader()}
+function changeCase(value){if(!data[value])return;viewMemory[selected]={themeIndex,filter:$('evidence-filter').value,query:$('record-search').value};selected=value;const memory=viewMemory[value];themeIndex=memory?.themeIndex??null;$('evidence-filter').value=memory?.filter??'all';$('record-search').value=memory?.query??'';returnState=null;$('return-review').hidden=true;draw()}
+function followSource(e){
+ const attachment=e.target.closest('[data-attachment]');
+ if(attachment?.dataset.attachment){
+  e.preventDefault();if(!(data[selected].attachments||[]).some(a=>a.id===attachment.dataset.attachment))return;
+  if(!returnState)returnState={filter:$('evidence-filter').value,query:$('record-search').value};
+  const target=$(recordId(attachment.dataset.attachment));target.open=true;target.querySelector('summary').focus();target.scrollIntoView({block:'start',behavior:'auto'});$('return-review').hidden=false;return;
+ }
+
+ const a=e.target.closest('[data-record]');if(!a)return;e.preventDefault();
+ if(!evidenceRecords().some(r=>r.id===a.dataset.record))return;
+ if(!returnState)returnState={filter:$('evidence-filter').value,query:$('record-search').value};
+ $('evidence-filter').value='all';$('record-search').value='';drawEvidence();
+ const target=$(recordId(a.dataset.record));target.open=true;target.querySelector('summary').focus();target.scrollIntoView({block:'start',behavior:'auto'});$('return-review').hidden=false;
+}
+$('themes').addEventListener('change',e=>{selectTheme(e.target.value);$('themes').querySelector('input:checked')?.focus()});
+$('theme-select').addEventListener('change',e=>selectTheme(e.target.value));
+$('record-search').addEventListener('input',drawEvidence);
+$('return-review').addEventListener('click',()=>{if(returnState){$('evidence-filter').value=returnState.filter;$('record-search').value=returnState.query}returnState=null;drawEvidence();$('return-review').hidden=true;$('theme-title').focus();$('review').scrollIntoView({block:'start',behavior:'auto'})});
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){const d=e.target.closest('details[open]');if(d){d.open=false;d.querySelector('summary').focus()}}});draw();
+</script>
+</body>
+</html>

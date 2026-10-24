@@ -1,0 +1,198 @@
+{
+  "label": "Contributor 01 implemented and iterated Glassfin's guarded assay-entry form, validation logic, tests, migration safeguards, and release runbook, while others owned scientific rules, operating process, approvals, and content decisions. A unit-conversion defect delayed the pilot without affecting published records; the controlled release then showed promising but limited evidence in one laboratory, exposed a human-approval weakness, and did not achieve broader adoption within the horizon.",
+  "expected_records": [
+    "chat:001",
+    "chat:002",
+    "chat:003",
+    "chat:004",
+    "chat:005",
+    "chat:006",
+    "chat:007",
+    "chat:008",
+    "chat:009",
+    "chat:010",
+    "chat:011",
+    "chat:012",
+    "chat:013",
+    "chat:014",
+    "chat:015",
+    "chat:016",
+    "chat:017",
+    "chat:018",
+    "chat:019",
+    "chat:020",
+    "chat:021",
+    "docs:001",
+    "docs:002",
+    "docs:003",
+    "docs:004",
+    "docs:005",
+    "docs:006",
+    "docs:007",
+    "docs:008",
+    "docs:009",
+    "docs:010",
+    "repo:001",
+    "repo:002",
+    "repo:003",
+    "repo:004",
+    "repo:005",
+    "repo:006",
+    "repo:007",
+    "repo:008",
+    "repo:009",
+    "repo:010",
+    "repo:011",
+    "repo:012",
+    "repo:013",
+    "repo:014",
+    "repo:015",
+    "repo:016"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal implementation contribution",
+      "criterion": "Conclude that Contributor 01 personally built the guarded entry form, validation paths, inline messages, logging, and associated tests; do not imply sole authorship of the whole project.",
+      "anchors": [
+        "docs:001",
+        "repo:003",
+        "repo:004",
+        "chat:004"
+      ],
+      "pitfall": "Crediting Contributor 01 with the entire product or omitting their concrete implementation work.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "Scientific rules belonged to others",
+      "criterion": "Distinguish implementation from assay-policy authority: Contributor 01 inventoried ambiguities rather than deciding them, and Contributor 03 approved the scientific rules.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "docs:002",
+        "docs:003",
+        "repo:001",
+        "repo:002"
+      ],
+      "pitfall": "Claiming Contributor 01 designed or approved the assay rules because they encoded them.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-03",
+      "name": "Workflow iteration was collaborative",
+      "criterion": "Explain that Contributor 02 identified the late-warning problem, Contributor 01 moved the check and added a regression test, and the broader process map came from Contributor 04.",
+      "anchors": [
+        "chat:004",
+        "chat:005",
+        "chat:006",
+        "docs:004",
+        "repo:004"
+      ],
+      "pitfall": "Portraying the improved sequence as either entirely Contributor 01's insight or entirely someone else's implementation.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-04",
+      "name": "Unit defect and accountable recovery",
+      "criterion": "Report that Contributor 01's implementation contained a mixed-unit defect, that they detected it during observation and stopped release, and that expanded cross-unit and server-side tests followed; three sandbox records were affected and none published.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:005",
+        "repo:006",
+        "repo:007"
+      ],
+      "pitfall": "Either concealing the defect, calling it a production data incident, or treating the later fix as proof the original oversight was harmless.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Migration safeguards and shared decisions",
+      "criterion": "Credit Contributor 01 with dry-run migration, rollback verification, alias handling, and exception reporting, while noting Contributor 05 and assay owners verified or corrected labels and retired obsolete templates.",
+      "anchors": [
+        "chat:010",
+        "chat:011",
+        "chat:012",
+        "chat:015",
+        "docs:006",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Claiming Contributor 01 independently migrated every template or scientifically resolved ambiguous labels.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Controlled release, not broad launch",
+      "criterion": "State that Glassfin entered controlled release in one pilot laboratory on 24 May after approvals by functional owners; expansion required separate decisions.",
+      "anchors": [
+        "chat:013",
+        "docs:007",
+        "repo:012",
+        "docs:001"
+      ],
+      "pitfall": "Calling the release organisation-wide or attributing approval authority to Contributor 01.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Early evidence was encouraging but narrow",
+      "criterion": "Report the limited observations accurately: 18 synthetic trial entries behaved as expected; the first shift involved six users; month one had 126 entries, seven pre-submission blocks, and no breach among only 40 audited releases.",
+      "anchors": [
+        "chat:009",
+        "chat:014",
+        "chat:016",
+        "docs:004",
+        "docs:005",
+        "docs:009"
+      ],
+      "pitfall": "Generalising to proven reliability, claiming zero errors across all 126 entries, or treating blocked attempts as confirmed prevented incidents.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-08",
+      "name": "Human approval weakness remained",
+      "criterion": "Explain that a supervisor later released a blank result despite the required signoff, so the implemented rule worked mechanically but did not ensure appropriate judgment; Contributor 01 proposed alternatives and implemented the narrower approved display change.",
+      "anchors": [
+        "chat:017",
+        "chat:018",
+        "repo:014",
+        "repo:015",
+        "repo:016"
+      ],
+      "pitfall": "Saying the control prevented inappropriate release, blaming the software alone, or claiming mandatory rationale was implemented.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-09",
+      "name": "Adoption remained limited for an external reason",
+      "criterion": "Conclude that by 31 August only the pilot laboratory was live; the second laboratory postponed adoption because of its instrument-interface replacement, and the third was unassessed.",
+      "anchors": [
+        "chat:019",
+        "docs:010"
+      ],
+      "pitfall": "Equating delayed expansion with product rejection or claiming successful general adoption. The September update is outside the horizon and must not alter the horizon conclusion.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Residual uncertainty and unrelated material",
+      "criterion": "Acknowledge uncertainty about unaudited entries, future supervisor behavior, and expansion, while excluding unrelated lunch, garden, balance, and notebook-export records from substantive conclusions.",
+      "anchors": [
+        "docs:009",
+        "repo:016",
+        "chat:019",
+        "chat:020",
+        "chat:021",
+        "docs:008",
+        "repo:013"
+      ],
+      "pitfall": "Treating every absence of evidence as failure, presenting corrections as complete assurance, or folding distractors into the project narrative.",
+      "importance": "secondary"
+    }
+  ],
+  "author_note": "This is a wholly synthetic case. The corpus is intentionally compact and cannot represent every informal conversation, usage event, or operational factor. Outcomes are bounded to the stated horizon; the inaccessible walkthrough photographs are not needed for any rubric conclusion, and the later September update is retained only to test horizon discipline."
+}

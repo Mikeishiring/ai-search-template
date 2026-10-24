@@ -1,0 +1,22 @@
+{
+  "role": "researcher",
+  "exit_code": 0,
+  "elapsed_seconds": 95.36,
+  "provider": "Authenticated Codex CLI",
+  "model_selection": "CLI default; exact identifier not captured",
+  "prompt_sha256": "e95a49132972ca310b3e096a677272775467e9586499295820481ad841681d7a",
+  "schema_sha256": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+  "request_sha256": "6c9f42abc9b10b8e211d87fa1236d9a169c033119618a75579c32ca65a2e9940",
+  "completed_tool_calls": 45,
+  "unexpected_tool_events": 0,
+  "usage": [
+    {
+      "input_tokens": 154022,
+      "cached_input_tokens": 105600,
+      "output_tokens": 3460,
+      "reasoning_output_tokens": 299
+    }
+  ],
+  "isolated": true,
+  "previous_chat_supplied": false
+}

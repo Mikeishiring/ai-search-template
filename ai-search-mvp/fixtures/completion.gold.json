@@ -1,0 +1,198 @@
+{
+  "label": "Contributor 01 built and documented a reviewed cue-alignment workflow, supported pilot production and investigated defects; a shared ten-recording release persisted through June, while accuracy, effort savings, wider adoption, and visitor impact remained limited or uncertain.",
+  "expected_records": [
+    "chat:001",
+    "docs:001",
+    "chat:002",
+    "chat:003",
+    "repo:001",
+    "repo:002",
+    "docs:002",
+    "docs:003",
+    "repo:003",
+    "repo:004",
+    "repo:005",
+    "repo:006",
+    "chat:004",
+    "chat:005",
+    "docs:004",
+    "chat:006",
+    "repo:007",
+    "chat:007",
+    "docs:005",
+    "docs:006",
+    "chat:008",
+    "chat:009",
+    "chat:010",
+    "repo:008",
+    "repo:009",
+    "docs:007",
+    "chat:011",
+    "repo:010",
+    "chat:012",
+    "docs:008",
+    "repo:011",
+    "chat:013",
+    "chat:014",
+    "chat:015",
+    "docs:009",
+    "repo:012",
+    "docs:010",
+    "chat:016",
+    "docs:011"
+  ],
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal technical contribution",
+      "criterion": "Conclude that Contributor 01 proposed and implemented the transcript-to-audio cue alignment command, including confidence reporting, overlap prevention, provenance, configuration, and regression fixtures.",
+      "anchors": [
+        "chat:002",
+        "repo:001",
+        "repo:003",
+        "repo:005"
+      ],
+      "pitfall": "Saying only that Contributor 01 generally helped, or crediting them with the entire player and content system.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-02",
+      "name": "Evidence and validation boundaries",
+      "criterion": "Report the four-recording evaluation accurately: median boundary error was 0.42 seconds across 68 reviewed boundaries, with known failures around music, and Contributor 01 explicitly withheld broader validation claims.",
+      "anchors": [
+        "repo:003",
+        "repo:006",
+        "chat:004"
+      ],
+      "pitfall": "Turning a small reference evaluation into proof that all twelve recordings were accurate.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-03",
+      "name": "Review-driven improvement",
+      "criterion": "Recognize that Contributor 07 identified configurability and provenance gaps, Contributor 01 corrected them, and approval covered the tool path rather than all editorial accuracy.",
+      "anchors": [
+        "repo:004",
+        "repo:005",
+        "repo:006"
+      ],
+      "pitfall": "Presenting the first implementation as complete or treating code approval as content validation.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-04",
+      "name": "Production and documentation work",
+      "criterion": "Credit Contributor 01 with regenerating reviewed batches, detecting the stale J master, rerunning J, supplying a player fixture, documenting operation, and remaining available for cue defects.",
+      "anchors": [
+        "repo:007",
+        "docs:005",
+        "chat:009",
+        "chat:010",
+        "repo:008",
+        "chat:011"
+      ],
+      "pitfall": "Omitting operational follow-through, or claiming Contributor 01 personally reviewed and approved every transcript.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-05",
+      "name": "Shared ownership",
+      "criterion": "Separate roles: Contributor 03 led transcript correction and editorial judgments, Contributor 04 owned player fixes, Contributor 08 supported export, Contributor 07 reviewed code, and Contributor 06 made release decisions.",
+      "anchors": [
+        "docs:004",
+        "repo:007",
+        "docs:006",
+        "chat:011",
+        "docs:008"
+      ],
+      "pitfall": "Attributing the ten-recording release or all improvements solely to Contributor 01.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-06",
+      "name": "Pilot scope and release outcome",
+      "criterion": "State that ten of twelve recordings were released to the spring evening programme; K and L remained blocked by transcript approval and were not completed through June.",
+      "anchors": [
+        "docs:001",
+        "docs:008",
+        "chat:016",
+        "docs:011"
+      ],
+      "pitfall": "Claiming all twelve launched, or treating the two pending recordings as evidence that Contributor 01 failed to deliver assigned work.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-07",
+      "name": "Player defects versus alignment defects",
+      "criterion": "Distinguish older-tablet flicker and seek-state problems, owned and fixed by Contributor 04, from cue alignment quality; Contributor 01 only supplied a fixture for one fix.",
+      "anchors": [
+        "chat:006",
+        "repo:007",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Blaming or crediting Contributor 01 for player rendering and seek-state repairs.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-08",
+      "name": "Observed use and issue handling",
+      "criterion": "Note the limited internal walkthrough, early host reports, Contributor 01's investigation of recording D, and the subsequent manual editorial split; one quiet shift did not prove resolution generally.",
+      "anchors": [
+        "docs:007",
+        "chat:013",
+        "chat:014",
+        "chat:015"
+      ],
+      "pitfall": "Claiming visitor satisfaction or definitive defect elimination from sparse staff and host observations.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-09",
+      "name": "Follow-up outcome and uncertainty",
+      "criterion": "Through June, the ten recordings remained in use and no session was cancelled; voluntary logs recorded 11 comments over approximately 510 starts, but could not establish a true error rate or accessibility impact.",
+      "anchors": [
+        "docs:010",
+        "docs:011"
+      ],
+      "pitfall": "Converting voluntary comment logs into a measured success rate or formal accessibility result.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-10",
+      "name": "Reuse and adoption limits",
+      "criterion": "Recognize one documented reuse outside the pilot, performed with partial review, while permanent-collection adoption remained undecided.",
+      "anchors": [
+        "repo:012",
+        "chat:016",
+        "docs:011"
+      ],
+      "pitfall": "Calling one reuse organisation-wide adoption, or calling the absence of a migration decision a tool failure.",
+      "importance": "material"
+    },
+    {
+      "id": "theme-11",
+      "name": "Efficiency claim is weakly evidenced",
+      "criterion": "Report that two editors said preparation felt easier or reduced, but time was not tracked and the underlying survey attachment is unavailable; the retrospective itself supports only a limited qualitative claim.",
+      "anchors": [
+        "docs:011"
+      ],
+      "pitfall": "Inventing quantified time savings, ignoring the limitation, or treating the unavailable attachment as necessary proof.",
+      "importance": "secondary"
+    },
+    {
+      "id": "theme-12",
+      "name": "Known technical limitations",
+      "criterion": "Explain that music and simultaneous speakers could yield plausible but wrong timing, requiring confidence flags and human editorial review rather than full automation.",
+      "anchors": [
+        "chat:003",
+        "docs:005",
+        "chat:014",
+        "docs:011"
+      ],
+      "pitfall": "Describing the workflow as autonomous, or implying every flagged case was a failure rather than a prompt for review.",
+      "importance": "material"
+    }
+  ],
+  "author_note": "This synthetic case intentionally mixes code evidence, operational notes, limited observational data, shared ownership, and unresolved adoption questions. The unavailable survey prevents detailed verification of the effort claim, but the assessable conclusions do not depend on it; records after 2027-06-30 are outside the follow-up horizon."
+}

@@ -1,0 +1,299 @@
+{
+  "valid": false,
+  "errors": [
+    "Read record lacks citation or omission explanation: chat:009"
+  ],
+  "claims": [
+    {
+      "id": "c1",
+      "category": "origin",
+      "statement": "Project Glassfin addressed a pre-existing worksheet defect: the conductivity-assay worksheet accepted impossible dilution combinations without warning. Contributor 04 initiated the project thread and named Contributor 01 and Contributor 03 as collaborators; this does not establish that Contributor 01 originated or solely owned the project.",
+      "limits": "The evidence identifies the immediate pre-project problem and collaborators, not the worksheet\u2019s original author or how long the defect had existed.",
+      "evidence": [
+        {
+          "record_id": "chat:001",
+          "span_id": "chat:001:18a4920c5a44:40",
+          "start": 40,
+          "end": 155,
+          "quote": "The current conductivity assay worksheet accepts impossible dilution combinations and gives technicians no warning."
+        },
+        {
+          "record_id": "chat:001",
+          "span_id": "chat:001:18a4920c5a44:156",
+          "start": 156,
+          "end": 251,
+          "quote": "Contributor 01, Contributor 03, and I will sketch a guarded replacement before the April trial."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c2",
+      "category": "contribution",
+      "statement": "Contributor 01 mapped the existing worksheet rules into six validation cases and explicitly escalated unresolved rerun-temperature and blank-release questions rather than implementing guesses.",
+      "limits": "Contributor 01 mapped requirements but did not own the assay-policy decisions; Contributor 03 resolved those questions and retained assay-rule authority.",
+      "evidence": [
+        {
+          "record_id": "chat:002",
+          "span_id": "chat:002:05b91da292d2:0",
+          "start": 0,
+          "end": 64,
+          "quote": "I mapped the existing worksheet rules into six validation cases."
+        },
+        {
+          "record_id": "chat:002",
+          "span_id": "chat:002:05b91da292d2:65",
+          "start": 65,
+          "end": 185,
+          "quote": "Two questions remain: whether reruns inherit the original sample temperature and whether a blank result may be released."
+        },
+        {
+          "record_id": "chat:002",
+          "span_id": "chat:002:05b91da292d2:186",
+          "start": 186,
+          "end": 239,
+          "quote": "I put both in the decision page rather than guessing."
+        },
+        {
+          "record_id": "docs:003",
+          "span_id": "docs:003:e2241c136af8:0",
+          "start": 0,
+          "end": 147,
+          "quote": "Approved: reruns use newly measured temperature; blank results require supervisor signoff; ranges follow assay family rather than instrument model."
+        },
+        {
+          "record_id": "docs:003",
+          "span_id": "docs:003:e2241c136af8:148",
+          "start": 148,
+          "end": 197,
+          "quote": "Assay-rule authority remains with Contributor 03."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c3",
+      "category": "contribution",
+      "statement": "Contributor 01 wrote the prototype\u2019s validation layer and inline error text, requested a bench-workflow review, then moved the volume check earlier and added a disposal-case test in response to Contributor 02\u2019s feedback.",
+      "limits": "The broader step order came from Contributor 04\u2019s process map, not Contributor 01\u2019s interviews; Contributor 02 identified the warning-timing problem.",
+      "evidence": [
+        {
+          "record_id": "chat:004",
+          "span_id": "chat:004:bf043ca7e8c5:53",
+          "start": 53,
+          "end": 200,
+          "quote": "I wrote the validation layer and the inline error text; could you check whether the sequence matches how technicians actually prepare the dilution?"
+        },
+        {
+          "record_id": "chat:005",
+          "span_id": "chat:005:f86850f62aab:26",
+          "start": 26,
+          "end": 103,
+          "quote": "The warning arrives after the technician has already disposed of the aliquot."
+        },
+        {
+          "record_id": "chat:005",
+          "span_id": "chat:005:f86850f62aab:104",
+          "start": 104,
+          "end": 164,
+          "quote": "Move the volume check ahead of the preparation confirmation."
+        },
+        {
+          "record_id": "chat:006",
+          "span_id": "chat:006:e145c84bfaed:8",
+          "start": 8,
+          "end": 74,
+          "quote": "I moved that check earlier and added a test for the disposal case."
+        },
+        {
+          "record_id": "chat:006",
+          "span_id": "chat:006:e145c84bfaed:75",
+          "start": 75,
+          "end": 161,
+          "quote": "The broader step order came from Contributor 04's process map, not from my interviews."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c4",
+      "category": "correction",
+      "statement": "During the pilot, Contributor 01 personally detected that 750 \u00b5L was being compared as 750 mL, stopped the pilot build\u2019s release, and prepared a conversion fix.",
+      "limits": "The defect affected three sandbox trial records and no published records according to the full thread; the cited span establishes diagnosis and immediate response, not production harm or final review approval.",
+      "evidence": [
+        {
+          "record_id": "chat:007",
+          "span_id": "chat:007:d580a0df72d0:0",
+          "start": 0,
+          "end": 106,
+          "quote": "Today's pilot surfaced a unit bug: entering 750 \u00b5L was compared as 750 mL and blocked every such dilution."
+        },
+        {
+          "record_id": "chat:007",
+          "span_id": "chat:007:d580a0df72d0:107",
+          "start": 107,
+          "end": 179,
+          "quote": "I disabled release of the pilot build and am preparing a conversion fix."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c5",
+      "category": "contribution",
+      "statement": "Contributor 01 implemented bounded migration exception handling by adding aliases for four verified spellings while leaving ten unresolved templates in the exception report; Contributor 05 owned confirmation of those labels with assay leads.",
+      "limits": "This was not authority to decide scientific equivalence, and it did not by itself complete migration or resolve the ten labels.",
+      "evidence": [
+        {
+          "record_id": "chat:012",
+          "span_id": "chat:012:6af566f7fddf:0",
+          "start": 0,
+          "end": 112,
+          "quote": "I added an alias table for the four verified spellings and left the other ten templates in the exception report."
+        },
+        {
+          "record_id": "chat:012",
+          "span_id": "chat:012:6af566f7fddf:113",
+          "start": 113,
+          "end": 178,
+          "quote": "Contributor 05 owns confirming those labels with the assay leads."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c6",
+      "category": "use",
+      "statement": "Glassfin 1.0 received a controlled release to the pilot laboratory with the guarded form, validation logging, reviewed unit conversion, exception reporting, and rollback procedure.",
+      "limits": "Release is not evidence of organisation-wide adoption, sustained use, or causal improvement; expansion required a separate readiness decision.",
+      "evidence": [
+        {
+          "record_id": "repo:012",
+          "span_id": "repo:012:f5883b6a76b3:0",
+          "start": 0,
+          "end": 43,
+          "quote": "Controlled release to the pilot laboratory."
+        },
+        {
+          "record_id": "repo:012",
+          "span_id": "repo:012:f5883b6a76b3:44",
+          "start": 44,
+          "end": 164,
+          "quote": "Included: guarded entry form, validation logging, reviewed unit conversion, exception reporting, and rollback procedure."
+        },
+        {
+          "record_id": "repo:012",
+          "span_id": "repo:012:f5883b6a76b3:165",
+          "start": 165,
+          "end": 214,
+          "quote": "Expansion requires a separate readiness decision."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c7",
+      "category": "correction",
+      "statement": "After the question window, a supervisor released a blank result even though signoff operated as designed. Contributor 01 proposed requiring a reason and foregrounding the blank flag, then opened the narrower change requested by Contributor 03.",
+      "limits": "The incident shows the original control did not prevent inappropriate approval. It does not establish the frequency of such approvals or that Contributor 01 owned the original policy.",
+      "evidence": [
+        {
+          "record_id": "chat:017",
+          "span_id": "chat:017:5e8980634150:0",
+          "start": 0,
+          "end": 84,
+          "quote": "A blank result was released after a supervisor approved it without reading the note."
+        },
+        {
+          "record_id": "chat:017",
+          "span_id": "chat:017:5e8980634150:85",
+          "start": 85,
+          "end": 156,
+          "quote": "The software enforced signoff as designed; it did not require a reason."
+        },
+        {
+          "record_id": "chat:017",
+          "span_id": "chat:017:5e8980634150:157",
+          "start": 157,
+          "end": 229,
+          "quote": "We should not describe the control as preventing inappropriate approval."
+        },
+        {
+          "record_id": "chat:018",
+          "span_id": "chat:018:27dc5b2a5178:0",
+          "start": 0,
+          "end": 87,
+          "quote": "I proposed requiring an approval reason and showing the blank flag in the confirmation."
+        },
+        {
+          "record_id": "chat:018",
+          "span_id": "chat:018:27dc5b2a5178:88",
+          "start": 88,
+          "end": 193,
+          "quote": "Contributor 03 prefers the visible flag now and wants evidence before making free-text reasons mandatory."
+        },
+        {
+          "record_id": "chat:018",
+          "span_id": "chat:018:27dc5b2a5178:194",
+          "start": 194,
+          "end": 234,
+          "quote": "I opened the smaller change accordingly."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    },
+    {
+      "id": "c8",
+      "category": "constraint",
+      "statement": "Contributor 01\u2019s later blank-confirmation change foregrounded the blank flag and added acknowledgement, while excluding mandatory written rationale pending policy evidence; Contributor 03 supplied the accepted wording and Contributor 07 approved after accessibility checks.",
+      "limits": "The review explicitly states that improved salience cannot establish appropriate supervisor decisions; approval is not evidence of outcome effectiveness.",
+      "evidence": [
+        {
+          "record_id": "repo:015",
+          "span_id": "repo:015:30be19d46f2b:0",
+          "start": 0,
+          "end": 93,
+          "quote": "Foregrounds the blank flag in the approval confirmation and adds an acknowledgement checkbox."
+        },
+        {
+          "record_id": "repo:015",
+          "span_id": "repo:015:30be19d46f2b:94",
+          "start": 94,
+          "end": 160,
+          "quote": "A mandatory written rationale is excluded pending policy evidence."
+        },
+        {
+          "record_id": "repo:015",
+          "span_id": "repo:015:30be19d46f2b:161",
+          "start": 161,
+          "end": 206,
+          "quote": "Contributor 03 supplied the accepted wording."
+        },
+        {
+          "record_id": "repo:016",
+          "span_id": "repo:016:453cd0230765:0",
+          "start": 0,
+          "end": 36,
+          "quote": "Approved after accessibility checks."
+        },
+        {
+          "record_id": "repo:016",
+          "span_id": "repo:016:453cd0230765:37",
+          "start": 37,
+          "end": 155,
+          "quote": "This improves salience but cannot establish that supervisors make appropriate decisions; monitor approvals separately."
+        }
+      ],
+      "state": "needs_semantic_assessment"
+    }
+  ],
+  "quote_count": 30,
+  "meaning_validated": false,
+  "disposition_records": 41,
+  "attribution_chains": 7,
+  "structural_only": true,
+  "completion_receipt_valid": true,
+  "attachment_dispositions": 0,
+  "span_resolution": true,
+  "bookkeeping_derived": true
+}

@@ -1,0 +1,14 @@
+{
+  "question": "What did Contributor 01 personally contribute to Folio, and what happened afterwards?",
+  "query": "Folio",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2034-04-01",
+  "end": "2034-06-30",
+  "horizon": "2034-07-31",
+  "timezone": "UTC"
+}

@@ -1,0 +1,1778 @@
+{
+  "events": [
+    {
+      "sequence": 1,
+      "tool": "source_inventory",
+      "arguments": {},
+      "result": {
+        "synthetic": true,
+        "scope": {
+          "question": "What did Contributor 01 personally contribute to Project Lantern between 2027-04-01 and 2027-06-30, and what happened afterwards?",
+          "query": "Project Lantern Contributor 01 contributions and subsequent outcomes",
+          "subject": "Contributor 01",
+          "sources": [
+            "chat",
+            "docs",
+            "repo"
+          ],
+          "start": "2027-04-01",
+          "end": "2027-06-30",
+          "horizon": "2028-06-30",
+          "timezone": "Europe/London"
+        },
+        "sources": [
+          {
+            "id": "chat",
+            "platform": "Fictional workplace chat",
+            "enumeration": true,
+            "inventory": "All retained public channels, project rooms, and in-scope private-message threads in the synthetic snapshot.",
+            "read_only": true,
+            "containers": [
+              "#facilities-operations",
+              "#office-moves",
+              "#project-lantern",
+              "#site-east-maintenance",
+              "Direct message: Contributor 01 / Contributor 07",
+              "Direct message: Contributor 01 / Contributor 08"
+            ]
+          },
+          {
+            "id": "docs",
+            "platform": "Fictional collaborative documents",
+            "enumeration": true,
+            "inventory": "All retained documents and nested blocks visible to the evaluation account.",
+            "read_only": true,
+            "containers": [
+              "Demand-management portfolio note",
+              "Lantern operating guide",
+              "Lantern phase-two decision",
+              "Lantern pilot plan",
+              "Lantern pilot readout",
+              "Lantern working notebook",
+              "Quarterly operations review"
+            ]
+          },
+          {
+            "id": "repo",
+            "platform": "Fictional code and issue repository",
+            "enumeration": true,
+            "inventory": "All retained repositories, pull requests, issues, reviews, and comments visible to the evaluation account.",
+            "read_only": true,
+            "containers": [
+              "lantern-control / issue 31",
+              "lantern-control / issue 36",
+              "lantern-control / pull request 23",
+              "lantern-control / pull request 39",
+              "lantern-tools / commit 4c91",
+              "lantern-tools / issue 14",
+              "lantern-tools / pull request 18"
+            ]
+          }
+        ],
+        "capabilities": "Explicit search, root enumeration, record, immediate-context and attachment reads. No automatic traversal. Snippets are not full reads.",
+        "remaining_calls": 44
+      },
+      "observed_at": "2026-10-23T14:38:47.837332+00:00"
+    },
+    {
+      "sequence": 2,
+      "tool": "search",
+      "arguments": {
+        "source": "docs",
+        "query": "Project Lantern"
+      },
+      "result": {
+        "items": [],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 0,
+        "remaining_calls": 43
+      },
+      "observed_at": "2026-10-23T14:38:47.855411+00:00"
+    },
+    {
+      "sequence": 3,
+      "tool": "search",
+      "arguments": {
+        "source": "chat",
+        "query": "Project Lantern"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:002",
+            "source": "chat",
+            "date": "2027-04-03",
+            "author": "Contributor 01",
+            "container": "#project-lantern",
+            "title": "Initial overlap finding",
+            "parent": null,
+            "snippet": "I compared the March interval export with the controller event log. The largest peaks line up with overlapping defrost starts, not ordinary cooling load. I can ",
+            "has_children": true
+          },
+          {
+            "id": "chat:003",
+            "source": "chat",
+            "date": "2027-04-03",
+            "author": "Contributor 06",
+            "container": "#project-lantern",
+            "title": "Alternative explanation",
+            "parent": "chat:002",
+            "snippet": "That fits the night-shift notes, although open dock doors could explain part of the same interval. Please keep both possibilities in the analysis.",
+            "has_children": false
+          },
+          {
+            "id": "chat:006",
+            "source": "chat",
+            "date": "2027-04-18",
+            "author": "Contributor 08",
+            "container": "#project-lantern",
+            "title": "Outcome definition",
+            "parent": null,
+            "snippet": "Finance asked whether Lantern is an energy-saving project. For the pilot, the agreed target is avoiding the monthly demand peak; total energy may stay flat or r",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "f49fc8f4485b:3",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 42
+      },
+      "observed_at": "2026-10-23T14:38:47.857417+00:00"
+    },
+    {
+      "sequence": 4,
+      "tool": "search",
+      "arguments": {
+        "source": "chat",
+        "query": "Contributor 01 Lantern"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:009",
+            "source": "chat",
+            "date": "2027-05-07",
+            "author": "Contributor 02",
+            "container": "#project-lantern",
+            "title": "Informal praise",
+            "parent": null,
+            "snippet": "Nice work by Contributor 01 getting the peak down 38 kW.",
+            "has_children": true
+          }
+        ],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 41
+      },
+      "observed_at": "2026-10-23T14:38:47.857417+00:00"
+    },
+    {
+      "sequence": 5,
+      "tool": "search",
+      "arguments": {
+        "source": "repo",
+        "query": "Project Lantern"
+      },
+      "result": {
+        "items": [],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 0,
+        "remaining_calls": 40
+      },
+      "observed_at": "2026-10-23T14:38:47.858421+00:00"
+    },
+    {
+      "sequence": 6,
+      "tool": "search",
+      "arguments": {
+        "source": "repo",
+        "query": "Contributor 01 Lantern"
+      },
+      "result": {
+        "items": [],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 0,
+        "remaining_calls": 39
+      },
+      "observed_at": "2026-10-23T14:38:47.859438+00:00"
+    },
+    {
+      "sequence": 7,
+      "tool": "search",
+      "arguments": {
+        "source": "docs",
+        "query": "Contributor 01 Lantern"
+      },
+      "result": {
+        "items": [],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 0,
+        "remaining_calls": 38
+      },
+      "observed_at": "2026-10-23T14:38:47.860451+00:00"
+    },
+    {
+      "sequence": 8,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "chat"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:002",
+            "source": "chat",
+            "date": "2027-04-03",
+            "author": "Contributor 01",
+            "container": "#project-lantern",
+            "title": "Initial overlap finding",
+            "parent": null,
+            "snippet": "I compared the March interval export with the controller event log. The largest peaks line up with overlapping defrost starts, not ordinary cooling load. I can ",
+            "has_children": true
+          },
+          {
+            "id": "chat:004",
+            "source": "chat",
+            "date": "2027-04-08",
+            "author": "Contributor 01",
+            "container": "Direct message: Contributor 01 / Contributor 07",
+            "title": "Timestamp check request",
+            "parent": null,
+            "snippet": "Could you sanity-check how the older controller reports local timestamps? My parser currently treats the export as site-local time with an explicit offset.",
+            "has_children": true
+          },
+          {
+            "id": "chat:006",
+            "source": "chat",
+            "date": "2027-04-18",
+            "author": "Contributor 08",
+            "container": "#project-lantern",
+            "title": "Outcome definition",
+            "parent": null,
+            "snippet": "Finance asked whether Lantern is an energy-saving project. For the pilot, the agreed target is avoiding the monthly demand peak; total energy may stay flat or r",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "b7e1145fac19:3",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 37
+      },
+      "observed_at": "2026-10-23T14:38:50.363608+00:00"
+    },
+    {
+      "sequence": 9,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "docs"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:001",
+            "source": "docs",
+            "date": "2027-04-05",
+            "author": "Contributor 01",
+            "container": "Lantern working notebook",
+            "title": "Staggering hypothesis",
+            "parent": null,
+            "snippet": "Working hypothesis: separate eligible defrost starts by 12 minutes while preserving temperature and maximum-delay limits. Compare peak demand, energy, alarms, d",
+            "has_children": true
+          },
+          {
+            "id": "docs:003",
+            "source": "docs",
+            "date": "2027-04-15",
+            "author": "Contributor 01",
+            "container": "Lantern pilot plan",
+            "title": "Pilot plan draft",
+            "parent": null,
+            "snippet": "Draft trial: Freezer B only, 01:00\u201305:00, six nights. Scheduler proposes starts; operator confirms them. Stop on temperature alarm, missed defrost, controller r",
+            "has_children": true
+          },
+          {
+            "id": "docs:005",
+            "source": "docs",
+            "date": "2027-05-06",
+            "author": "Contributor 08",
+            "container": "Lantern pilot readout",
+            "title": "Freezer B meter result",
+            "parent": null,
+            "snippet": "Meter result for the four Freezer B trial windows: highest 15-minute demand was 38 kW below the matched baseline maximum. Total energy differed by less than met",
+            "has_children": true
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "ada2a03adeb9:3",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 36
+      },
+      "observed_at": "2026-10-23T14:38:50.364608+00:00"
+    },
+    {
+      "sequence": 10,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "repo"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:001",
+            "source": "repo",
+            "date": "2027-04-09",
+            "author": "Contributor 01",
+            "container": "lantern-tools / commit 4c91",
+            "title": "Initial analysis tooling",
+            "parent": null,
+            "snippet": "Added event-log parser, overlap detector, and a small simulator for candidate start offsets. Output includes original and proposed coincidence counts; no contro",
+            "has_children": false
+          },
+          {
+            "id": "repo:002",
+            "source": "repo",
+            "date": "2027-04-10",
+            "author": "Contributor 07",
+            "container": "lantern-tools / issue 14",
+            "title": "DST normalization defect",
+            "parent": null,
+            "snippet": "Clock-change fixture produces two events with the same normalized instant. The parser assumes an offset that is absent from the source file, so the March overla",
+            "has_children": true
+          },
+          {
+            "id": "repo:004",
+            "source": "repo",
+            "date": "2027-04-12",
+            "author": "Contributor 01",
+            "container": "lantern-tools / pull request 18",
+            "title": "Timestamp handling correction",
+            "parent": null,
+            "snippet": "Parser now preserves ambiguous local times, excludes unresolved events from matched comparisons, and reports the excluded count. Added Contributor 07's duplicat",
+            "has_children": true
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "dcb73ad8d6ab:3",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 35
+      },
+      "observed_at": "2026-10-23T14:38:50.365608+00:00"
+    },
+    {
+      "sequence": 11,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "docs",
+        "cursor": "ada2a03adeb9:3"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:007",
+            "source": "docs",
+            "date": "2027-05-12",
+            "author": "Contributor 03",
+            "container": "Lantern phase-two decision",
+            "title": "Phase-two decision",
+            "parent": null,
+            "snippet": "Proceed with a supervised trial in Chiller C. Keep recommendation mode. Do not enable fleet automation until the controller interface is supported and at least ",
+            "has_children": false
+          },
+          {
+            "id": "docs:008",
+            "source": "docs",
+            "date": "2027-06-02",
+            "author": "Contributor 01",
+            "container": "Lantern operating guide",
+            "title": "Operating guide",
+            "parent": null,
+            "snippet": "Documented recommendation-mode startup, operator hold, rejection handling, audit export, rollback, and the distinction between supported Freezer B controllers a",
+            "has_children": true
+          },
+          {
+            "id": "docs:010",
+            "source": "docs",
+            "date": "2027-06-30",
+            "author": "Contributor 02",
+            "container": "Quarterly operations review",
+            "title": "Quarterly status",
+            "parent": null,
+            "snippet": "Lantern remains a supervised practice at Freezer B. The team observed a lower trial-window peak without measurable energy change; causality and tariff impact re",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 3,
+        "remaining_calls": 34
+      },
+      "observed_at": "2026-10-23T14:38:52.878781+00:00"
+    },
+    {
+      "sequence": 12,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "chat",
+        "cursor": "b7e1145fac19:3"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:007",
+            "source": "chat",
+            "date": "2027-04-27",
+            "author": "Contributor 04",
+            "container": "#project-lantern",
+            "title": "First trial night",
+            "parent": null,
+            "snippet": "Night one completed. We followed three recommendations and held one because a pallet inspection kept a door open. No temperature alarms. The handover line was u",
+            "has_children": true
+          },
+          {
+            "id": "chat:009",
+            "source": "chat",
+            "date": "2027-05-07",
+            "author": "Contributor 02",
+            "container": "#project-lantern",
+            "title": "Informal praise",
+            "parent": null,
+            "snippet": "Nice work by Contributor 01 getting the peak down 38 kW.",
+            "has_children": true
+          },
+          {
+            "id": "chat:011",
+            "source": "chat",
+            "date": "2027-05-14",
+            "author": "Contributor 05",
+            "container": "#site-east-maintenance",
+            "title": "Controller incompatibility",
+            "parent": null,
+            "snippet": "Chiller C has a different controller revision. The recommendation screen reads its state, but the vendor gateway rejects the proposed-delay field. Manual stagge",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "b7e1145fac19:6",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 33
+      },
+      "observed_at": "2026-10-23T14:38:52.879278+00:00"
+    },
+    {
+      "sequence": 13,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "repo",
+        "cursor": "dcb73ad8d6ab:3"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:006",
+            "source": "repo",
+            "date": "2027-04-21",
+            "author": "Contributor 01",
+            "container": "lantern-control / pull request 23",
+            "title": "Recommendation-mode implementation",
+            "parent": null,
+            "snippet": "Added read-only schedule recommendations, 12-minute separation, temperature eligibility checks, maximum-delay display, audit logging, and operator hold. No auto",
+            "has_children": true
+          },
+          {
+            "id": "repo:009",
+            "source": "repo",
+            "date": "2027-05-15",
+            "author": "Contributor 05",
+            "container": "lantern-control / issue 31",
+            "title": "R4 gateway incompatibility",
+            "parent": null,
+            "snippet": "East-site gateway rejects proposed-delay metadata on controller revision R4. Need either a vendor-supported mapping or a site-specific adapter. This blocks the ",
+            "has_children": true
+          },
+          {
+            "id": "repo:011",
+            "source": "repo",
+            "date": "2027-06-18",
+            "author": "Contributor 07",
+            "container": "lantern-control / issue 36",
+            "title": "Stale recommendation display",
+            "parent": null,
+            "snippet": "During a bench test, losing the telemetry stream leaves the last recommendation visible for up to five minutes. It is labelled with its timestamp, but stale adv",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": "dcb73ad8d6ab:6",
+        "page_size": 3,
+        "end_reached": false,
+        "returned_count": 3,
+        "remaining_calls": 32
+      },
+      "observed_at": "2026-10-23T14:38:52.880789+00:00"
+    },
+    {
+      "sequence": 14,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "repo",
+        "cursor": "dcb73ad8d6ab:6"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:012",
+            "source": "repo",
+            "date": "2027-06-19",
+            "author": "Contributor 01",
+            "container": "lantern-control / pull request 39",
+            "title": "Telemetry-loss safeguard",
+            "parent": null,
+            "snippet": "Hide recommendations after 30 seconds without telemetry, show a disconnected state, and require a fresh eligibility calculation after reconnect. Added stream-lo",
+            "has_children": true
+          }
+        ],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 31
+      },
+      "observed_at": "2026-10-23T14:38:55.474286+00:00"
+    },
+    {
+      "sequence": 15,
+      "tool": "list_roots",
+      "arguments": {
+        "source": "chat",
+        "cursor": "b7e1145fac19:6"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:012",
+            "source": "chat",
+            "date": "2027-05-20",
+            "author": "Contributor 04",
+            "container": "#project-lantern",
+            "title": "Limited second-site trial",
+            "parent": null,
+            "snippet": "Chiller C completed two manually staggered nights. No alarms, but the second night had too few eligible cycles to compare. We are pausing until the gateway ques",
+            "has_children": false
+          },
+          {
+            "id": "chat:013",
+            "source": "chat",
+            "date": "2027-06-09",
+            "author": "Contributor 01",
+            "container": "Direct message: Contributor 01 / Contributor 08",
+            "title": "Quarterly wording question",
+            "parent": null,
+            "snippet": "Do we have enough to call the pilot a saving in the quarterly note? I would describe only the observed 38 kW peak difference and the unchanged energy reading.",
+            "has_children": true
+          },
+          {
+            "id": "chat:015",
+            "source": "chat",
+            "date": "2027-06-24",
+            "author": "Contributor 09",
+            "container": "#office-moves",
+            "title": "Meeting room labels",
+            "parent": null,
+            "snippet": "The west meeting room labels are being replaced Friday. Please remove anything left on the whiteboard before noon.",
+            "has_children": false
+          }
+        ],
+        "full_records": false,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 3,
+        "remaining_calls": 30
+      },
+      "observed_at": "2026-10-23T14:38:55.475287+00:00"
+    },
+    {
+      "sequence": 16,
+      "tool": "read_record",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:002"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:002",
+            "source": "chat",
+            "date": "2027-04-03",
+            "author": "Contributor 01",
+            "container": "#project-lantern",
+            "body": "I compared the March interval export with the controller event log. The largest peaks line up with overlapping defrost starts, not ordinary cooling load. I can test a stagger before we discuss equipment changes.",
+            "parent": null,
+            "links": [
+              {
+                "source": "chat",
+                "id": "chat:001"
+              },
+              {
+                "source": "docs",
+                "id": "docs:001"
+              }
+            ],
+            "title": "Initial overlap finding",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 29
+      },
+      "observed_at": "2026-10-23T14:39:01.415171+00:00"
+    },
+    {
+      "sequence": 17,
+      "tool": "read_record",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:004"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:004",
+            "source": "chat",
+            "date": "2027-04-08",
+            "author": "Contributor 01",
+            "container": "Direct message: Contributor 01 / Contributor 07",
+            "body": "Could you sanity-check how the older controller reports local timestamps? My parser currently treats the export as site-local time with an explicit offset.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:001"
+              }
+            ],
+            "title": "Timestamp check request",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 28
+      },
+      "observed_at": "2026-10-23T14:39:01.416682+00:00"
+    },
+    {
+      "sequence": 18,
+      "tool": "read_record",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:007"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:007",
+            "source": "chat",
+            "date": "2027-04-27",
+            "author": "Contributor 04",
+            "container": "#project-lantern",
+            "body": "Night one completed. We followed three recommendations and held one because a pallet inspection kept a door open. No temperature alarms. The handover line was useful.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:006"
+              }
+            ],
+            "title": "First trial night",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 27
+      },
+      "observed_at": "2026-10-23T14:39:01.417180+00:00"
+    },
+    {
+      "sequence": 19,
+      "tool": "read_record",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:009"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:009",
+            "source": "chat",
+            "date": "2027-05-07",
+            "author": "Contributor 02",
+            "container": "#project-lantern",
+            "body": "Nice work by Contributor 01 getting the peak down 38 kW.",
+            "parent": null,
+            "links": [
+              {
+                "source": "docs",
+                "id": "docs:005"
+              }
+            ],
+            "title": "Informal praise",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 26
+      },
+      "observed_at": "2026-10-23T14:39:01.418690+00:00"
+    },
+    {
+      "sequence": 20,
+      "tool": "read_record",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:013"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:013",
+            "source": "chat",
+            "date": "2027-06-09",
+            "author": "Contributor 01",
+            "container": "Direct message: Contributor 01 / Contributor 08",
+            "body": "Do we have enough to call the pilot a saving in the quarterly note? I would describe only the observed 38 kW peak difference and the unchanged energy reading.",
+            "parent": null,
+            "links": [
+              {
+                "source": "docs",
+                "id": "docs:005"
+              }
+            ],
+            "title": "Quarterly wording question",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 25
+      },
+      "observed_at": "2026-10-23T14:39:01.419189+00:00"
+    },
+    {
+      "sequence": 21,
+      "tool": "read_record",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:001"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:001",
+            "source": "docs",
+            "date": "2027-04-05",
+            "author": "Contributor 01",
+            "container": "Lantern working notebook",
+            "body": "Working hypothesis: separate eligible defrost starts by 12 minutes while preserving temperature and maximum-delay limits. Compare peak demand, energy, alarms, door-open periods, and product-temperature excursions. This is a proposal, not an approved control change.",
+            "parent": null,
+            "links": [
+              {
+                "source": "chat",
+                "id": "chat:002"
+              }
+            ],
+            "title": "Staggering hypothesis",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 24
+      },
+      "observed_at": "2026-10-23T14:39:01.419189+00:00"
+    },
+    {
+      "sequence": 22,
+      "tool": "read_record",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:003"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:003",
+            "source": "docs",
+            "date": "2027-04-15",
+            "author": "Contributor 01",
+            "container": "Lantern pilot plan",
+            "body": "Draft trial: Freezer B only, 01:00\u201305:00, six nights. Scheduler proposes starts; operator confirms them. Stop on temperature alarm, missed defrost, controller rejection, or operator concern. Baseline excludes the ambiguous clock-change interval.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:004"
+              },
+              {
+                "source": "docs",
+                "id": "docs:002"
+              }
+            ],
+            "title": "Pilot plan draft",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 23
+      },
+      "observed_at": "2026-10-23T14:39:01.420699+00:00"
+    },
+    {
+      "sequence": 23,
+      "tool": "read_record",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:005"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:005",
+            "source": "docs",
+            "date": "2027-05-06",
+            "author": "Contributor 08",
+            "container": "Lantern pilot readout",
+            "body": "Meter result for the four Freezer B trial windows: highest 15-minute demand was 38 kW below the matched baseline maximum. Total energy differed by less than meter resolution. Door-open time was also lower on two trial nights, so the peak change cannot be assigned wholly to staggering.",
+            "parent": null,
+            "links": [
+              {
+                "source": "chat",
+                "id": "chat:008"
+              }
+            ],
+            "title": "Freezer B meter result",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 22
+      },
+      "observed_at": "2026-10-23T14:39:01.421198+00:00"
+    },
+    {
+      "sequence": 24,
+      "tool": "read_record",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:008"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:008",
+            "source": "docs",
+            "date": "2027-06-02",
+            "author": "Contributor 01",
+            "container": "Lantern operating guide",
+            "body": "Documented recommendation-mode startup, operator hold, rejection handling, audit export, rollback, and the distinction between supported Freezer B controllers and unsupported R4 gateways. Drafted from the pilot handovers.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:008"
+              },
+              {
+                "source": "repo",
+                "id": "repo:009"
+              }
+            ],
+            "title": "Operating guide",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 21
+      },
+      "observed_at": "2026-10-23T14:39:01.422201+00:00"
+    },
+    {
+      "sequence": 25,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:001"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:001",
+            "source": "repo",
+            "date": "2027-04-09",
+            "author": "Contributor 01",
+            "container": "lantern-tools / commit 4c91",
+            "body": "Added event-log parser, overlap detector, and a small simulator for candidate start offsets. Output includes original and proposed coincidence counts; no controller-writing path.",
+            "parent": null,
+            "links": [
+              {
+                "source": "docs",
+                "id": "docs:001"
+              }
+            ],
+            "title": "Initial analysis tooling",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 20
+      },
+      "observed_at": "2026-10-23T14:39:01.423206+00:00"
+    },
+    {
+      "sequence": 26,
+      "tool": "read_record",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:010"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:010",
+            "source": "docs",
+            "date": "2027-06-30",
+            "author": "Contributor 02",
+            "container": "Quarterly operations review",
+            "body": "Lantern remains a supervised practice at Freezer B. The team observed a lower trial-window peak without measurable energy change; causality and tariff impact remain uncertain. Chiller C produced only two manual nights, and broader rollout awaits gateway support and more varied operating data.",
+            "parent": null,
+            "links": [
+              {
+                "source": "docs",
+                "id": "docs:005"
+              },
+              {
+                "source": "chat",
+                "id": "chat:012"
+              },
+              {
+                "source": "repo",
+                "id": "repo:009"
+              }
+            ],
+            "title": "Quarterly status",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 19
+      },
+      "observed_at": "2026-10-23T14:39:01.423705+00:00"
+    },
+    {
+      "sequence": 27,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:002"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:002",
+            "source": "repo",
+            "date": "2027-04-10",
+            "author": "Contributor 07",
+            "container": "lantern-tools / issue 14",
+            "body": "Clock-change fixture produces two events with the same normalized instant. The parser assumes an offset that is absent from the source file, so the March overlap count is inflated by one event.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:001"
+              },
+              {
+                "source": "chat",
+                "id": "chat:005"
+              }
+            ],
+            "title": "DST normalization defect",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 18
+      },
+      "observed_at": "2026-10-23T14:39:01.424707+00:00"
+    },
+    {
+      "sequence": 28,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:004"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:004",
+            "source": "repo",
+            "date": "2027-04-12",
+            "author": "Contributor 01",
+            "container": "lantern-tools / pull request 18",
+            "body": "Parser now preserves ambiguous local times, excludes unresolved events from matched comparisons, and reports the excluded count. Added Contributor 07's duplicated-hour fixture and six ordinary-day cases.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:002"
+              }
+            ],
+            "title": "Timestamp handling correction",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 17
+      },
+      "observed_at": "2026-10-23T14:39:01.425206+00:00"
+    },
+    {
+      "sequence": 29,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:006"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:006",
+            "source": "repo",
+            "date": "2027-04-21",
+            "author": "Contributor 01",
+            "container": "lantern-control / pull request 23",
+            "body": "Added read-only schedule recommendations, 12-minute separation, temperature eligibility checks, maximum-delay display, audit logging, and operator hold. No automatic command submission.",
+            "parent": null,
+            "links": [
+              {
+                "source": "docs",
+                "id": "docs:004"
+              }
+            ],
+            "title": "Recommendation-mode implementation",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 16
+      },
+      "observed_at": "2026-10-23T14:39:01.426210+00:00"
+    },
+    {
+      "sequence": 30,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:009"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:009",
+            "source": "repo",
+            "date": "2027-05-15",
+            "author": "Contributor 05",
+            "container": "lantern-control / issue 31",
+            "body": "East-site gateway rejects proposed-delay metadata on controller revision R4. Need either a vendor-supported mapping or a site-specific adapter. This blocks the planned screen-assisted workflow, not manual operations.",
+            "parent": null,
+            "links": [
+              {
+                "source": "chat",
+                "id": "chat:011"
+              }
+            ],
+            "title": "R4 gateway incompatibility",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 15
+      },
+      "observed_at": "2026-10-23T14:39:01.426715+00:00"
+    },
+    {
+      "sequence": 31,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:011"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:011",
+            "source": "repo",
+            "date": "2027-06-18",
+            "author": "Contributor 07",
+            "container": "lantern-control / issue 36",
+            "body": "During a bench test, losing the telemetry stream leaves the last recommendation visible for up to five minutes. It is labelled with its timestamp, but stale advice should be hidden immediately.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:006"
+              }
+            ],
+            "title": "Stale recommendation display",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 14
+      },
+      "observed_at": "2026-10-23T14:39:01.427215+00:00"
+    },
+    {
+      "sequence": 32,
+      "tool": "read_record",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:012"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:012",
+            "source": "repo",
+            "date": "2027-06-19",
+            "author": "Contributor 01",
+            "container": "lantern-control / pull request 39",
+            "body": "Hide recommendations after 30 seconds without telemetry, show a disconnected state, and require a fresh eligibility calculation after reconnect. Added stream-loss tests.",
+            "parent": null,
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:011"
+              }
+            ],
+            "title": "Telemetry-loss safeguard",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "remaining_calls": 13
+      },
+      "observed_at": "2026-10-23T14:39:01.428726+00:00"
+    },
+    {
+      "sequence": 33,
+      "tool": "read_context",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:002"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:003",
+            "source": "chat",
+            "date": "2027-04-03",
+            "author": "Contributor 06",
+            "container": "#project-lantern",
+            "body": "That fits the night-shift notes, although open dock doors could explain part of the same interval. Please keep both possibilities in the analysis.",
+            "parent": "chat:002",
+            "links": [],
+            "title": "Alternative explanation",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 12
+      },
+      "observed_at": "2026-10-23T14:39:05.998683+00:00"
+    },
+    {
+      "sequence": 34,
+      "tool": "read_context",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:004"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:005",
+            "source": "chat",
+            "date": "2027-04-08",
+            "author": "Contributor 07",
+            "container": "Direct message: Contributor 01 / Contributor 07",
+            "body": "The spring export has no offset at all. Most days look local, but the clock-change hour is duplicated. Don't rely on the label; I will send a test fixture.",
+            "parent": "chat:004",
+            "links": [],
+            "title": "Clock-change warning",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 11
+      },
+      "observed_at": "2026-10-23T14:39:05.999186+00:00"
+    },
+    {
+      "sequence": 35,
+      "tool": "read_context",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:009"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:010",
+            "source": "chat",
+            "date": "2027-05-07",
+            "author": "Contributor 01",
+            "container": "#project-lantern",
+            "body": "Thanks, though that number is the difference between two observed maxima, not a controlled saving. Contributor 04 ran the shifts, Contributor 07 caught the time issue, and Contributor 03 set the safety constraints.",
+            "parent": "chat:009",
+            "links": [],
+            "title": "Qualification and attribution",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 10
+      },
+      "observed_at": "2026-10-23T14:39:06.000706+00:00"
+    },
+    {
+      "sequence": 36,
+      "tool": "read_context",
+      "arguments": {
+        "source": "chat",
+        "id": "chat:013"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "chat:014",
+            "source": "chat",
+            "date": "2027-06-09",
+            "author": "Contributor 08",
+            "container": "Direct message: Contributor 01 / Contributor 08",
+            "body": "Agreed. Avoid annualising it. Tariff benefit depends on whether the trial window would otherwise have set the billing peak, which we do not know from four nights.",
+            "parent": "chat:013",
+            "links": [],
+            "title": "No annualisation",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 9
+      },
+      "observed_at": "2026-10-23T14:39:06.001205+00:00"
+    },
+    {
+      "sequence": 37,
+      "tool": "read_context",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:001"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:002",
+            "source": "docs",
+            "date": "2027-04-05",
+            "author": "Contributor 03",
+            "container": "Lantern working notebook",
+            "body": "Approval conditions: operations chooses trial windows; controls engineering reviews commands; safety limits remain in the controller; automatic rollback after two missed cycles or any high-temperature alarm.",
+            "parent": "docs:001",
+            "links": [],
+            "title": "Approval conditions",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 8
+      },
+      "observed_at": "2026-10-23T14:39:06.001205+00:00"
+    },
+    {
+      "sequence": 38,
+      "tool": "read_context",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:003"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:004",
+            "source": "docs",
+            "date": "2027-04-16",
+            "author": "Contributor 04",
+            "container": "Lantern pilot plan",
+            "body": "Operations can staff four nights, not six. Add a visible hold button and a handover line saying which unit is delayed. Night supervisors own the final go/no-go each shift.",
+            "parent": "docs:003",
+            "links": [],
+            "title": "Operations revision",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 7
+      },
+      "observed_at": "2026-10-23T14:39:06.002716+00:00"
+    },
+    {
+      "sequence": 39,
+      "tool": "read_context",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:008"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:009",
+            "source": "docs",
+            "date": "2027-06-03",
+            "author": "Contributor 04",
+            "container": "Lantern operating guide",
+            "body": "Added shift screenshots and changed 'approve' to 'confirm recommendation'; operators are confirming a suggestion, not authorising an autonomous control action.",
+            "parent": "docs:008",
+            "links": [],
+            "title": "Operations edits",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 6
+      },
+      "observed_at": "2026-10-23T14:39:06.003716+00:00"
+    },
+    {
+      "sequence": 40,
+      "tool": "read_context",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:004"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:005",
+            "source": "repo",
+            "date": "2027-04-13",
+            "author": "Contributor 07",
+            "container": "lantern-tools / pull request 18",
+            "body": "Fixture passes and the corrected March result still shows repeated overlap outside the clock-change hour. Approved. This validates the analysis path, not deployment behavior.",
+            "parent": "repo:004",
+            "links": [],
+            "title": "Analysis review approval",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 5
+      },
+      "observed_at": "2026-10-23T14:39:06.004217+00:00"
+    },
+    {
+      "sequence": 41,
+      "tool": "read_context",
+      "arguments": {
+        "source": "docs",
+        "id": "docs:005"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "docs:006",
+            "source": "docs",
+            "date": "2027-05-06",
+            "author": "Contributor 06",
+            "container": "Lantern pilot readout",
+            "body": "No product-temperature excursion or missed defrost was recorded. Four nights are too few for seasonal claims, and operator confirmation means this did not test unattended scheduling.",
+            "parent": "docs:005",
+            "links": [],
+            "title": "Pilot limitations",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 4
+      },
+      "observed_at": "2026-10-23T14:39:06.005217+00:00"
+    },
+    {
+      "sequence": 42,
+      "tool": "read_context",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:006"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:007",
+            "source": "repo",
+            "date": "2027-04-22",
+            "author": "Contributor 03",
+            "container": "lantern-control / pull request 23",
+            "body": "Safety checks match the plan. Please make controller rejection a hard stop rather than retrying, and clarify that the maximum-delay value comes from the controller profile.",
+            "parent": "repo:006",
+            "links": [],
+            "title": "Safety review",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          },
+          {
+            "id": "repo:008",
+            "source": "repo",
+            "date": "2027-04-23",
+            "author": "Contributor 01",
+            "container": "lantern-control / pull request 23",
+            "body": "Changed rejection handling to stop and alert; labelled the profile-derived limit in the operator view. Added tests for both paths.",
+            "parent": "repo:006",
+            "links": [],
+            "title": "Review changes",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 2,
+        "remaining_calls": 3
+      },
+      "observed_at": "2026-10-23T14:39:06.006222+00:00"
+    },
+    {
+      "sequence": 43,
+      "tool": "read_context",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:009"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:010",
+            "source": "repo",
+            "date": "2027-05-16",
+            "author": "Contributor 01",
+            "container": "lantern-control / issue 31",
+            "body": "I can build an adapter, but without a documented field contract we could silently apply the wrong units. Recommend recording manual decisions while Contributor 05 seeks vendor confirmation.",
+            "parent": "repo:009",
+            "links": [],
+            "title": "Adapter risk assessment",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          },
+          {
+            "id": "repo:014",
+            "source": "repo",
+            "date": "2028-03-12",
+            "author": "Contributor 05",
+            "container": "lantern-control / issue 31",
+            "body": "Vendor documentation finally confirms the R4 field uses whole minutes. Adapter work could resume, but the East-site controller replacement is now under review, so the site has not prioritised deployment.",
+            "parent": "repo:009",
+            "links": [],
+            "title": "Gateway clarification without deployment",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 2,
+        "remaining_calls": 2
+      },
+      "observed_at": "2026-10-23T14:39:06.006222+00:00"
+    },
+    {
+      "sequence": 44,
+      "tool": "read_context",
+      "arguments": {
+        "source": "repo",
+        "id": "repo:012"
+      },
+      "result": {
+        "items": [
+          {
+            "id": "repo:013",
+            "source": "repo",
+            "date": "2027-06-20",
+            "author": "Contributor 03",
+            "container": "lantern-control / pull request 39",
+            "body": "Approved after bench verification. This closes the display hazard; it does not resolve the R4 gateway incompatibility.",
+            "parent": "repo:012",
+            "links": [
+              {
+                "source": "repo",
+                "id": "repo:009"
+              }
+            ],
+            "title": "Safeguard approval",
+            "attachments": [],
+            "link_only": false,
+            "repost_of": null
+          }
+        ],
+        "full_records": true,
+        "next_cursor": null,
+        "page_size": 3,
+        "end_reached": true,
+        "returned_count": 1,
+        "remaining_calls": 1
+      },
+      "observed_at": "2026-10-23T14:39:06.007245+00:00"
+    },
+    {
+      "sequence": 45,
+      "tool": "research_status",
+      "arguments": {},
+      "result": {
+        "full_record_ids": [
+          "chat:002",
+          "chat:003",
+          "chat:004",
+          "chat:005",
+          "chat:007",
+          "chat:009",
+          "chat:010",
+          "chat:013",
+          "chat:014",
+          "docs:001",
+          "docs:002",
+          "docs:003",
+          "docs:004",
+          "docs:005",
+          "docs:006",
+          "docs:008",
+          "docs:009",
+          "docs:010",
+          "repo:001",
+          "repo:002",
+          "repo:004",
+          "repo:005",
+          "repo:006",
+          "repo:007",
+          "repo:008",
+          "repo:009",
+          "repo:010",
+          "repo:011",
+          "repo:012",
+          "repo:013",
+          "repo:014"
+        ],
+        "snippet_only_ids": [
+          "chat:006",
+          "chat:011",
+          "chat:012",
+          "chat:015",
+          "docs:007"
+        ],
+        "source_coverage": "not certified",
+        "calls_used": 44,
+        "remaining_calls": 0
+      },
+      "observed_at": "2026-10-23T14:39:07.548604+00:00"
+    }
+  ],
+  "source_calls": 45,
+  "budget": 45,
+  "searches": 6,
+  "full_records": 31,
+  "snippet_only_ids": [
+    "chat:006",
+    "chat:011",
+    "chat:012",
+    "chat:015",
+    "docs:007"
+  ],
+  "not_fully_read_ids": [
+    "chat:001",
+    "repo:003",
+    "chat:006",
+    "chat:008",
+    "docs:007",
+    "chat:011",
+    "chat:012",
+    "chat:015",
+    "chat:016",
+    "docs:011"
+  ],
+  "pending_pages": [
+    {
+      "tool": "search",
+      "arguments": {
+        "source": "chat",
+        "query": "Project Lantern"
+      },
+      "next_cursor": "f49fc8f4485b:3"
+    }
+  ],
+  "unknowns": [
+    "Source coverage is not certified. All enumerated root pages were inspected, but five records remained snippet-only when the 45-call budget was exhausted: chat:006, chat:011, chat:012, chat:015, and docs:007.",
+    "The full records for the outcome definition, controller-incompatibility chat, limited Chiller C trial, unrelated office-move item, and phase-two decision were not read. Relevant limitations from the incompatibility and second-site work are supported here by fully read repository and quarterly-review records instead.",
+    "No attachments were referenced by the full records read. No pending pagination remained in the root enumerations or the contexts that were opened.",
+    "The investigation did not establish whether Lantern continued operating at Freezer B after 2027-06-30, whether any later Freezer B measurements were collected, whether adapter work resumed, or whether East-site controllers were replaced by the 2028-06-30 horizon.",
+    "It remains unknown how much of the 38 kW observed difference was caused by staggering versus door-open conditions or other uncontrolled differences, and whether any tariff cost was avoided."
+  ],
+  "source_coverage": [
+    {
+      "source": "chat",
+      "platform": "Fictional workplace chat",
+      "records_retrieved": 9,
+      "expected_records": 16,
+      "snippet_only": 4,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 1
+    },
+    {
+      "source": "docs",
+      "platform": "Fictional collaborative documents",
+      "records_retrieved": 9,
+      "expected_records": 11,
+      "snippet_only": 1,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    },
+    {
+      "source": "repo",
+      "platform": "Fictional code and issue repository",
+      "records_retrieved": 13,
+      "expected_records": 14,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    }
+  ],
+  "full_read_inventory_scope": "All accessible records through the horizon, including distractors; relevance is scored separately against the author rubric."
+}

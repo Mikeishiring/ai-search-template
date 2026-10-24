@@ -1,0 +1,930 @@
+{
+  "headline": "The replies were read. Too much was lost in the telling.",
+  "summary": "Both nested correction threads reached the final account. Other contributions, usage figures and the reason expansion stalled were dropped, even though their source text and citation IDs were returned.",
+  "scope_limit": "One untouched 48-record laboratory-tool story; one uncoached attempt. Strict completeness review: 3 of 10 themes fully met, 5 partial and 2 missed. All 30 quotations resolve exactly, but one record lacks an omission explanation. This is not an end-to-end pass.",
+  "expected_records": 47,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Personal implementation contribution",
+      "criterion": "Conclude that Contributor 01 personally built the guarded entry form, validation paths, inline messages, logging, and associated tests; do not imply sole authorship of the whole project.",
+      "anchors": [
+        "docs:001",
+        "repo:003",
+        "repo:004",
+        "chat:004"
+      ],
+      "pitfall": "Crediting Contributor 01 with the entire product or omitting their concrete implementation work.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c3",
+        "c6"
+      ],
+      "assessment": "Credits personal validation, inline messages and a regression test. The guarded form and logging appear as release features, but personal implementation of those parts is not carried through from repo:003. This is an incomplete contribution account, not false sole-ownership attribution.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "Scientific rules belonged to others",
+      "criterion": "Distinguish implementation from assay-policy authority: Contributor 01 inventoried ambiguities rather than deciding them, and Contributor 03 approved the scientific rules.",
+      "anchors": [
+        "chat:002",
+        "chat:003",
+        "docs:002",
+        "docs:003",
+        "repo:001",
+        "repo:002"
+      ],
+      "pitfall": "Claiming Contributor 01 designed or approved the assay rules because they encoded them.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c2"
+      ],
+      "assessment": "Preserves the six-case mapping, unresolved policy questions and deliberate escalation. Assay-rule authority remains with Contributor 03.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-03",
+      "name": "Workflow iteration was collaborative",
+      "criterion": "Explain that Contributor 02 identified the late-warning problem, Contributor 01 moved the check and added a regression test, and the broader process map came from Contributor 04.",
+      "anchors": [
+        "chat:004",
+        "chat:005",
+        "chat:006",
+        "docs:004",
+        "repo:004"
+      ],
+      "pitfall": "Portraying the improved sequence as either entirely Contributor 01's insight or entirely someone else's implementation.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c3"
+      ],
+      "assessment": "Names Contributor 02 as the source of the late-warning feedback, Contributor 01 as the implementer of the earlier check and test, and Contributor 04 as the process-map owner. The reply-to-reply correction survives in the final narrative.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-04",
+      "name": "Unit defect and accountable recovery",
+      "criterion": "Report that Contributor 01's implementation contained a mixed-unit defect, that they detected it during observation and stopped release, and that expanded cross-unit and server-side tests followed; three sandbox records were affected and none published.",
+      "anchors": [
+        "chat:007",
+        "chat:008",
+        "repo:005",
+        "repo:006",
+        "repo:007"
+      ],
+      "pitfall": "Either concealing the defect, calling it a production data incident, or treating the later fix as proof the original oversight was harmless.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c4"
+      ],
+      "assessment": "Preserves personal diagnosis, release halt and three sandbox records with no publication. It omits completed cross-unit and server-side safeguards from repo:007, despite reading them, and does not clearly connect the original defect to the subject’s implementation or the shared review oversight. Claim c4 cites diagnosis but leaves the impact sentence unselected.",
+      "unread_anchors": [
+        "repo:005"
+      ]
+    },
+    {
+      "id": "theme-05",
+      "name": "Migration safeguards and shared decisions",
+      "criterion": "Credit Contributor 01 with dry-run migration, rollback verification, alias handling, and exception reporting, while noting Contributor 05 and assay owners verified or corrected labels and retired obsolete templates.",
+      "anchors": [
+        "chat:010",
+        "chat:011",
+        "chat:012",
+        "chat:015",
+        "docs:006",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Claiming Contributor 01 independently migrated every template or scientifically resolved ambiguous labels.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c5"
+      ],
+      "assessment": "Preserves four verified aliases and the ten unresolved labels with Contributor 05’s authority. Drops the subject’s dry-run migration, rollback verification and runbook, then omits the later resolution of all fourteen exceptions by several owners. Those details were read, not inaccessible.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-06",
+      "name": "Controlled release, not broad launch",
+      "criterion": "State that Glassfin entered controlled release in one pilot laboratory on 24 May after approvals by functional owners; expansion required separate decisions.",
+      "anchors": [
+        "chat:013",
+        "docs:007",
+        "repo:012",
+        "docs:001"
+      ],
+      "pitfall": "Calling the release organisation-wide or attributing approval authority to Contributor 01.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c6"
+      ],
+      "assessment": "Correctly limits release to one pilot laboratory and requires a separate expansion decision. Omits the 24 May date and the functional approvals/application-readiness split recorded in chat:013. Product release is preserved; the responsibility chain through release is incomplete.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-07",
+      "name": "Early evidence was encouraging but narrow",
+      "criterion": "Report the limited observations accurately: 18 synthetic trial entries behaved as expected; the first shift involved six users; month one had 126 entries, seven pre-submission blocks, and no breach among only 40 audited releases.",
+      "anchors": [
+        "chat:009",
+        "chat:014",
+        "chat:016",
+        "docs:004",
+        "docs:005",
+        "docs:009"
+      ],
+      "pitfall": "Generalising to proven reliability, claiming zero errors across all 126 entries, or treating blocked attempts as confirmed prevented incidents.",
+      "importance": "material",
+      "status": "missed",
+      "claim_ids": [],
+      "assessment": "Reads the trial, first-shift and month-one records but excludes the usable counts entirely: 18 synthetic entries, six first-shift users, 126 logged entries, seven pre-submission blocks and zero breaches in only 40 audited releases. No production-reliability claim is invented, but caution becomes loss of the bounded evidence.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-08",
+      "name": "Human approval weakness remained",
+      "criterion": "Explain that a supervisor later released a blank result despite the required signoff, so the implemented rule worked mechanically but did not ensure appropriate judgment; Contributor 01 proposed alternatives and implemented the narrower approved display change.",
+      "anchors": [
+        "chat:017",
+        "chat:018",
+        "repo:014",
+        "repo:015",
+        "repo:016"
+      ],
+      "pitfall": "Saying the control prevented inappropriate release, blaming the software alone, or claiming mandatory rationale was implemented.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c7",
+        "c8"
+      ],
+      "assessment": "Preserves the supervisor approval failure, the subject’s two proposed responses, the policy owner’s narrower request, the implemented acknowledgement/display change and the reviewer’s warning that salience does not establish sound decisions. Does not claim mandatory rationale shipped.",
+      "unread_anchors": [
+        "repo:014"
+      ]
+    },
+    {
+      "id": "theme-09",
+      "name": "Adoption remained limited for an external reason",
+      "criterion": "Conclude that by 31 August only the pilot laboratory was live; the second laboratory postponed adoption because of its instrument-interface replacement, and the third was unassessed.",
+      "anchors": [
+        "chat:019",
+        "docs:010"
+      ],
+      "pitfall": "Equating delayed expansion with product rejection or claiming successful general adoption. The September update is outside the horizon and must not alter the horizon conclusion.",
+      "importance": "material",
+      "status": "missed",
+      "claim_ids": [],
+      "assessment": "Reads both expansion records but omits the instrument-interface dependency, the pilot-only status through the horizon and the unassessed third laboratory. The account mentions postponed expansion vaguely and calls the citation IDs unavailable; the saved MCP responses contain them.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-10",
+      "name": "Residual uncertainty and unrelated material",
+      "criterion": "Acknowledge uncertainty about unaudited entries, future supervisor behavior, and expansion, while excluding unrelated lunch, garden, balance, and notebook-export records from substantive conclusions.",
+      "anchors": [
+        "docs:009",
+        "repo:016",
+        "chat:019",
+        "chat:020",
+        "chat:021",
+        "docs:008",
+        "repo:013"
+      ],
+      "pitfall": "Treating every absence of evidence as failure, presenting corrections as complete assurance, or folding distractors into the project narrative.",
+      "importance": "secondary",
+      "status": "partial",
+      "claim_ids": [
+        "c8"
+      ],
+      "assessment": "Retains uncertainty about future supervisor decisions and avoids incorporating unrelated records into the story. It does not explain the unaudited portion of the measurement, and replaces the known reason for delayed expansion with an unsupported citation-availability limitation. Four distractors remain unread and are correctly left unresolved rather than declared irrelevant.",
+      "unread_anchors": [
+        "chat:020",
+        "chat:021",
+        "docs:008",
+        "repo:013"
+      ]
+    }
+  ],
+  "issue_heading": "Retrieval succeeded where synthesis still failed.",
+  "issues": [
+    {
+      "severity": "Depth improved, priority only partly followed",
+      "claim_ids": [
+        "c3",
+        "c5"
+      ],
+      "detail": "All 14 discovered contexts were completed, including two reply-to-reply corrections. They were read before standalone records. However, the model followed the highest-priority branch immediately in only 2 of 9 opportunities; the other seven calls opened different contexts without a specific explanation. This case has no chain as deep as the preceding test, so it does not prove the hardest depth failure is fixed."
+    },
+    {
+      "severity": "Available citations described as missing",
+      "claim_ids": [
+        "c4",
+        "c5"
+      ],
+      "detail": "The recorded CLI responses contain span IDs for the completed unit fix, migration tooling, runbook, later exception resolution, measurement and expansion records. The model nevertheless says those IDs were unavailable. The exact internal cause is unobserved; context loss is a hypothesis. It made no cached recovery read, despite 33 request slots remaining at stop."
+    },
+    {
+      "severity": "Personal follow-through still omitted",
+      "claim_ids": [
+        "c4",
+        "c5"
+      ],
+      "detail": "Diagnosis and the later approval-control correction survive. Completed unit-pair/server validation, rollback safeguards, the runbook and the subject’s support for resolved migration exceptions do not. An omission rationale saying a record is contextual does not justify discarding distinct contributions."
+    },
+    {
+      "severity": "Measured use and external dependency disappear",
+      "claim_ids": [],
+      "detail": "The model reads the trial, six-user first shift, month-one sample and expansion tracker but excludes their substantive findings. It should preserve the bounded counts and the instrument-interface dependency, with their limits, instead of calling them source gaps."
+    },
+    {
+      "severity": "One evidence accounting failure remains",
+      "claim_ids": [],
+      "detail": "chat:009 was read and appears in a rejected conclusion, but is neither quoted by a claim nor explained in uncited_records. The compiler marks it unresolved and retains the validation failure. Derived role links and used-record links are consistent. The contract excludes rejection-only references from quoted claim use: this is a remaining interface/contract failure, not proof that the record was never considered. No explanation was silently supplied."
+    },
+    {
+      "severity": "Discovery spends a large share of the budget",
+      "claim_ids": [],
+      "detail": "Fifteen root-enumeration calls and one inventory call precede all full reads. At 45 charged calls, two relevant issue roots, four distractors and two attachments remain unread. The researcher then attempts one uncached read after exhaustion; the server rejects it without charging. A valid stopping receipt does not make the account complete."
+    }
+  ],
+  "limitations": [
+    "The separate AI author saw a generic fictional brief and domain exclusions, not private records, the implementation, the researcher prompt or previous cases. It produced 48 records despite a requested 32–40. The predeclared structural acceptance range was 32–64; the story was accepted unchanged. The larger story competes for the same 45-call budget.",
+    "Author and researcher used separate isolated sessions with the same provider/default model family. The exact model version was not captured. This is procedural independence, not a human-authored benchmark or an independent provider replication.",
+    "This assistant applied the hidden author rubric only after the first response. Full credit requires the material details of the whole theme. Partial scores represent incomplete coverage, not necessarily false claims. The three full themes cover rule authority, collaborative workflow correction and the later approval-control response.",
+    "41 of 47 accessible primary records were returned in full. One additional record is beyond the August horizon and was not supplied. All discovered contexts and all nine source/window sweeps completed; two relevant standalone roots and four distractors remained unread. No keyword searches were used.",
+    "The deepest accessible records in this case are replies to replies. The preceding case had a deeper repository chain. This run exercises nested follow-up but cannot establish reliable traversal at arbitrary depth or scale.",
+    "Thirty selected spans match exact original text. The compiler derives seven contribution chains and one disposition per full record. It still reports the missing semantic omission note for chat:009; no fabricated explanation was inserted.",
+    "The claimed citation gaps are contradicted by the saved source and CLI tool responses. Those logs do not expose the model’s internal attention or any host-side context handling. Each full-read response is roughly 7,868–9,844 characters, much of it repeated planning inventory; reducing that burden is a plausible next experiment, not a proven diagnosis.",
+    "The source budget ended at 45 with 47 requests and no cache replays. Cached reads were still permitted before the final receipt within the 80-request ceiling. The model did not use them to recover IDs. The accepted source-limit receipt certifies only that stopping state, not semantic completion.",
+    "Neither attachment was checked. The audit export is an evaluator copy and the photographs are marked unavailable in the fixture; neither status was discovered by the researcher. The derived checked-attachment ledger is therefore empty.",
+    "The source’s 126-entry count and statement about the other 86 released entries need definition reconciliation if used as a production metric: seven pre-submission blocks are also reported. The defensible reported observation is zero breaches among 40 audited releases, not a population error rate. The model omitted this evidence rather than resolving its definition.",
+    "No protocol, prompt, schema or source fixture was changed after story generation; no substantive retry occurred. Scores across these different stories and protocols are not causal estimates of improvement. No private archive or live integration was accessed."
+  ],
+  "method": "Protocol, prompts, schemas, compiler and tests were hash-frozen before a separate AI authored the story. A fresh researcher chose every MCP request and source span from scope alone. After its first response, this assistant compared the hidden rubric, original records, source receipts and recorded CLI responses. Mechanical validation and semantic completeness are reported separately; no coaching, fixture edits or retry.",
+  "next_experiment": "Test a compact, persistent citation-and-contribution ledger with cache-only evidence recovery before finalisation. Avoid repeating the entire inventory on every read. Then use another untouched independent story to test whether the same bounded findings survive into the account; keep this failed first result unchanged.",
+  "summary_counts": {
+    "fully_met": 3,
+    "partial": 5,
+    "missed": 2,
+    "themes": 10,
+    "full_records": 41,
+    "accessible_records": 47,
+    "source_calls": 45,
+    "requests": 47,
+    "cache_hits": 0,
+    "remaining_source_calls": 0,
+    "remaining_requests": 33,
+    "completed_contexts": 14,
+    "unfinished_contexts": 0,
+    "completed_source_window_sweeps": 9,
+    "unread_surfaced_records": 6,
+    "unchecked_attachments": 2,
+    "exact_spans": 30,
+    "submitted_spans": 30,
+    "completion_receipt_valid": true,
+    "validation_flags": 1,
+    "disposition_records": 41,
+    "attribution_chains": 7,
+    "priority_opportunities": 9,
+    "immediate_priority_follows": 2
+  },
+  "final_planning": {
+    "unopened_contexts": [],
+    "unread_references": [
+      {
+        "source": "repo",
+        "id": "repo:005"
+      },
+      {
+        "source": "repo",
+        "id": "repo:014"
+      }
+    ],
+    "unchecked_attachments": [
+      {
+        "source": "docs",
+        "id": "attachment:audit-export"
+      },
+      {
+        "source": "docs",
+        "id": "attachment:walkthrough-photos"
+      }
+    ],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "later_use": "A completed sweep is discovery coverage, not proof of continued use. Read the relevant later evidence and separate reports from measurement.",
+    "calls_remaining": 0,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted.",
+    "full_read_index": [
+      {
+        "id": "chat:004",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-04-08",
+        "title": "Request for workflow review"
+      },
+      {
+        "id": "chat:005",
+        "source": "chat",
+        "author": "Contributor 02",
+        "date": "2027-04-09",
+        "title": "Prototype feedback"
+      },
+      {
+        "id": "chat:002",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-04-02",
+        "title": "Initial rule mapping"
+      },
+      {
+        "id": "chat:003",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-04-03",
+        "title": "Rule decisions"
+      },
+      {
+        "id": "chat:010",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-05-04",
+        "title": "Migration draft"
+      },
+      {
+        "id": "chat:011",
+        "source": "chat",
+        "author": "Contributor 05",
+        "date": "2027-05-07",
+        "title": "Migration dry-run result"
+      },
+      {
+        "id": "chat:007",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-04-15",
+        "title": "Pilot unit defect"
+      },
+      {
+        "id": "chat:008",
+        "source": "chat",
+        "author": "Contributor 04",
+        "date": "2027-04-15",
+        "title": "Impact confirmation"
+      },
+      {
+        "id": "chat:017",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-07-06",
+        "title": "Blank-result incident"
+      },
+      {
+        "id": "chat:018",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-07-08",
+        "title": "Incident response proposal"
+      },
+      {
+        "id": "docs:002",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2027-04-02",
+        "title": "Rule inventory draft"
+      },
+      {
+        "id": "docs:003",
+        "source": "docs",
+        "author": "Contributor 03",
+        "date": "2027-04-03",
+        "title": "Approved assay decisions"
+      },
+      {
+        "id": "chat:006",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-04-09",
+        "title": "Feedback incorporated"
+      },
+      {
+        "id": "repo:003",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-04-08",
+        "title": "PR 18: guarded entry form"
+      },
+      {
+        "id": "repo:004",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-04-10",
+        "title": "PR 18 revision"
+      },
+      {
+        "id": "repo:001",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-04-02",
+        "title": "Issue 12: validation cases"
+      },
+      {
+        "id": "repo:002",
+        "source": "repo",
+        "author": "Contributor 03",
+        "date": "2027-04-04",
+        "title": "Assay requirements confirmed"
+      },
+      {
+        "id": "chat:012",
+        "source": "chat",
+        "author": "Contributor 01",
+        "date": "2027-05-10",
+        "title": "Migration exception handling"
+      },
+      {
+        "id": "repo:006",
+        "source": "repo",
+        "author": "Contributor 10",
+        "date": "2027-04-16",
+        "title": "Review of unit fix"
+      },
+      {
+        "id": "repo:007",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-04-17",
+        "title": "Unit fix completed"
+      },
+      {
+        "id": "repo:010",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-05-10",
+        "title": "PR 34: unit aliases and exceptions"
+      },
+      {
+        "id": "repo:011",
+        "source": "repo",
+        "author": "Contributor 10",
+        "date": "2027-05-13",
+        "title": "Alias review approval"
+      },
+      {
+        "id": "repo:015",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-07-08",
+        "title": "PR 49: clearer blank confirmation"
+      },
+      {
+        "id": "repo:016",
+        "source": "repo",
+        "author": "Contributor 07",
+        "date": "2027-07-12",
+        "title": "Blank-confirmation review"
+      },
+      {
+        "id": "repo:008",
+        "source": "repo",
+        "author": "Contributor 01",
+        "date": "2027-05-04",
+        "title": "PR 31: template migration tooling"
+      },
+      {
+        "id": "repo:009",
+        "source": "repo",
+        "author": "Contributor 05",
+        "date": "2027-05-07",
+        "title": "Migration dry-run review"
+      },
+      {
+        "id": "chat:001",
+        "source": "chat",
+        "author": "Contributor 04",
+        "date": "2027-03-26",
+        "title": "Glassfin kickoff thread"
+      },
+      {
+        "id": "chat:009",
+        "source": "chat",
+        "author": "Contributor 03",
+        "date": "2027-04-22",
+        "title": "Second bench run"
+      },
+      {
+        "id": "chat:013",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-05-18",
+        "title": "Controlled-release approval"
+      },
+      {
+        "id": "chat:014",
+        "source": "chat",
+        "author": "Contributor 02",
+        "date": "2027-05-25",
+        "title": "First-shift observation"
+      },
+      {
+        "id": "chat:015",
+        "source": "chat",
+        "author": "Contributor 05",
+        "date": "2027-06-03",
+        "title": "Migration exceptions resolved"
+      },
+      {
+        "id": "chat:019",
+        "source": "chat",
+        "author": "Contributor 06",
+        "date": "2027-08-12",
+        "title": "Expansion postponed"
+      },
+      {
+        "id": "chat:016",
+        "source": "chat",
+        "author": "Contributor 07",
+        "date": "2027-06-21",
+        "title": "Four-week quality review"
+      },
+      {
+        "id": "docs:001",
+        "source": "docs",
+        "author": "Contributor 04",
+        "date": "2027-03-27",
+        "title": "Project Glassfin brief"
+      },
+      {
+        "id": "docs:004",
+        "source": "docs",
+        "author": "Contributor 02",
+        "date": "2027-04-11",
+        "title": "Bench walkthrough notes"
+      },
+      {
+        "id": "docs:005",
+        "source": "docs",
+        "author": "Contributor 03",
+        "date": "2027-04-23",
+        "title": "Trial run 2 results"
+      },
+      {
+        "id": "docs:006",
+        "source": "docs",
+        "author": "Contributor 01",
+        "date": "2027-05-05",
+        "title": "Release and rollback runbook"
+      },
+      {
+        "id": "docs:007",
+        "source": "docs",
+        "author": "Contributor 06",
+        "date": "2027-05-17",
+        "title": "Readiness decision"
+      },
+      {
+        "id": "docs:009",
+        "source": "docs",
+        "author": "Contributor 07",
+        "date": "2027-06-20",
+        "title": "Month-one quality review"
+      },
+      {
+        "id": "docs:010",
+        "source": "docs",
+        "author": "Contributor 06",
+        "date": "2027-08-11",
+        "title": "Expansion tracker"
+      },
+      {
+        "id": "repo:012",
+        "source": "repo",
+        "author": "Contributor 06",
+        "date": "2027-05-24",
+        "title": "Glassfin 1.0 controlled release"
+      }
+    ],
+    "earlier_start": "2027-01-01",
+    "requests_remaining": 33,
+    "attribution_review": "Before finalising, account for every fully read record: used, contextual, unresolved or irrelevant. Carry material initiators, reviewers, implementers and later owners into claims and narrative, with citations. This index does not infer roles.",
+    "unread_surfaced_records": [
+      {
+        "id": "chat:020",
+        "source": "chat",
+        "title": "Lunch order",
+        "date": "2027-04-28"
+      },
+      {
+        "id": "chat:021",
+        "source": "chat",
+        "title": "Balance calibration",
+        "date": "2027-06-11"
+      },
+      {
+        "id": "docs:008",
+        "source": "docs",
+        "title": "Garden rota note",
+        "date": "2027-05-29"
+      },
+      {
+        "id": "repo:005",
+        "source": "repo",
+        "title": "Issue 21: mixed-unit comparison",
+        "date": "2027-04-15"
+      },
+      {
+        "id": "repo:013",
+        "source": "repo",
+        "title": "Unrelated PDF export defect",
+        "date": "2027-06-02"
+      },
+      {
+        "id": "repo:014",
+        "source": "repo",
+        "title": "Issue 47: blank approval control",
+        "date": "2027-07-06"
+      }
+    ],
+    "stop_policy": "Read surfaced records before dismissing relevance. finish_check is required before the final response; do not invent a budget explanation.",
+    "priority_branches": [],
+    "subject_authored_full_records": [
+      {
+        "id": "chat:004",
+        "title": "Request for workflow review",
+        "date": "2027-04-08"
+      },
+      {
+        "id": "chat:002",
+        "title": "Initial rule mapping",
+        "date": "2027-04-02"
+      },
+      {
+        "id": "chat:010",
+        "title": "Migration draft",
+        "date": "2027-05-04"
+      },
+      {
+        "id": "chat:007",
+        "title": "Pilot unit defect",
+        "date": "2027-04-15"
+      },
+      {
+        "id": "chat:018",
+        "title": "Incident response proposal",
+        "date": "2027-07-08"
+      },
+      {
+        "id": "docs:002",
+        "title": "Rule inventory draft",
+        "date": "2027-04-02"
+      },
+      {
+        "id": "chat:006",
+        "title": "Feedback incorporated",
+        "date": "2027-04-09"
+      },
+      {
+        "id": "repo:003",
+        "title": "PR 18: guarded entry form",
+        "date": "2027-04-08"
+      },
+      {
+        "id": "repo:004",
+        "title": "PR 18 revision",
+        "date": "2027-04-10"
+      },
+      {
+        "id": "repo:001",
+        "title": "Issue 12: validation cases",
+        "date": "2027-04-02"
+      },
+      {
+        "id": "chat:012",
+        "title": "Migration exception handling",
+        "date": "2027-05-10"
+      },
+      {
+        "id": "repo:007",
+        "title": "Unit fix completed",
+        "date": "2027-04-17"
+      },
+      {
+        "id": "repo:010",
+        "title": "PR 34: unit aliases and exceptions",
+        "date": "2027-05-10"
+      },
+      {
+        "id": "repo:015",
+        "title": "PR 49: clearer blank confirmation",
+        "date": "2027-07-08"
+      },
+      {
+        "id": "repo:008",
+        "title": "PR 31: template migration tooling",
+        "date": "2027-05-04"
+      },
+      {
+        "id": "docs:006",
+        "title": "Release and rollback runbook",
+        "date": "2027-05-05"
+      }
+    ],
+    "priority_policy": "Close already-open branches, deepest first, before unrelated standalone reads. This is an observed structural recommendation, not a relevance score. Preserve later-window discovery budget; explain deviations in final research_choices."
+  },
+  "completion_receipt": {
+    "allowed": true,
+    "status": "source_limit",
+    "counts": {
+      "source_calls": 45,
+      "source_budget": 45,
+      "requests_including_this_check": 47,
+      "request_limit": 80,
+      "source_calls_remaining": 0,
+      "requests_remaining": 33
+    },
+    "unresolved": {
+      "unread_surfaced_records": [
+        {
+          "id": "chat:020",
+          "source": "chat",
+          "title": "Lunch order",
+          "date": "2027-04-28"
+        },
+        {
+          "id": "chat:021",
+          "source": "chat",
+          "title": "Balance calibration",
+          "date": "2027-06-11"
+        },
+        {
+          "id": "docs:008",
+          "source": "docs",
+          "title": "Garden rota note",
+          "date": "2027-05-29"
+        },
+        {
+          "id": "repo:005",
+          "source": "repo",
+          "title": "Issue 21: mixed-unit comparison",
+          "date": "2027-04-15"
+        },
+        {
+          "id": "repo:013",
+          "source": "repo",
+          "title": "Unrelated PDF export defect",
+          "date": "2027-06-02"
+        },
+        {
+          "id": "repo:014",
+          "source": "repo",
+          "title": "Issue 47: blank approval control",
+          "date": "2027-07-06"
+        }
+      ],
+      "unopened_contexts": [],
+      "unread_references": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        },
+        {
+          "source": "repo",
+          "id": "repo:014"
+        }
+      ],
+      "unchecked_attachments": [
+        {
+          "source": "docs",
+          "id": "attachment:audit-export"
+        },
+        {
+          "source": "docs",
+          "id": "attachment:walkthrough-photos"
+        }
+      ],
+      "pending_pages": [],
+      "unfinished_window_sweeps": []
+    },
+    "scope": "Observed records and enumerated windows only; unseen source contents and semantic completeness are not certified.",
+    "receipt_id": "73237e67f1ba183125d3688ce3fa020ab5857a1b69a4c49973d0be10601a75f4",
+    "cache_hit": false,
+    "source_charge": 0,
+    "remaining_calls": 0
+  },
+  "validation_errors": [
+    "Read record lacks citation or omission explanation: chat:009"
+  ],
+  "priority_opportunities": [
+    {
+      "sequence": 18,
+      "recommended": "chat:005",
+      "actual": "chat:002",
+      "followed": false
+    },
+    {
+      "sequence": 19,
+      "recommended": "chat:005",
+      "actual": "chat:010",
+      "followed": false
+    },
+    {
+      "sequence": 20,
+      "recommended": "chat:005",
+      "actual": "chat:007",
+      "followed": false
+    },
+    {
+      "sequence": 21,
+      "recommended": "chat:005",
+      "actual": "chat:017",
+      "followed": false
+    },
+    {
+      "sequence": 22,
+      "recommended": "chat:005",
+      "actual": "docs:002",
+      "followed": false
+    },
+    {
+      "sequence": 23,
+      "recommended": "chat:005",
+      "actual": "chat:005",
+      "followed": true
+    },
+    {
+      "sequence": 24,
+      "recommended": "chat:011",
+      "actual": "repo:003",
+      "followed": false
+    },
+    {
+      "sequence": 25,
+      "recommended": "chat:011",
+      "actual": "repo:001",
+      "followed": false
+    },
+    {
+      "sequence": 26,
+      "recommended": "chat:011",
+      "actual": "chat:011",
+      "followed": true
+    }
+  ],
+  "citation_delivery_audit": {
+    "repo:007": [
+      "repo:007:84fb679ace6e:0",
+      "repo:007:84fb679ace6e:82",
+      "repo:007:84fb679ace6e:108"
+    ],
+    "repo:008": [
+      "repo:008:64a0909cd0cc:0",
+      "repo:008:64a0909cd0cc:72"
+    ],
+    "docs:006": [
+      "docs:006:68c8ca00adac:0",
+      "docs:006:68c8ca00adac:143"
+    ],
+    "chat:015": [
+      "chat:015:ae378125e8cb:0",
+      "chat:015:ae378125e8cb:161"
+    ],
+    "chat:016": [
+      "chat:016:03072d7b9c84:0",
+      "chat:016:03072d7b9c84:72",
+      "chat:016:03072d7b9c84:131"
+    ],
+    "docs:009": [
+      "docs:009:d8d84c91d56b:0",
+      "docs:009:d8d84c91d56b:41",
+      "docs:009:d8d84c91d56b:173"
+    ],
+    "chat:019": [
+      "chat:019:675344fa81bd:0",
+      "chat:019:675344fa81bd:101"
+    ],
+    "docs:010": [
+      "docs:010:b6d67355b755:0",
+      "docs:010:b6d67355b755:24",
+      "docs:010:b6d67355b755:88",
+      "docs:010:b6d67355b755:120"
+    ]
+  },
+  "adjudicator": "This assistant; strict manual comparison with separate-author rubric and original records",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "raw_response_sha256": "e98481ad3900bfa4630498dd2c737195df4f04b16b5ca657a2b6857c4e660744",
+  "compiled_review_sha256": "a6658343656453589e1d5c93f77dc42d5d33822d4e61e0b66d03bcf59d317320",
+  "gold_sha256": "24aaeb7d35db7f750f099f4d3f4e8f255f3a0e79302b106fd64c2dc592c7b556"
+}

@@ -1,0 +1,874 @@
+{
+  "synthetic": true,
+  "scope": {
+    "question": "What did Contributor 01 personally contribute to Project Lantern during the stated window, and what happened afterwards?",
+    "query": "Project Lantern",
+    "subject": "Contributor 01",
+    "sources": [
+      "chat",
+      "docs",
+      "repo"
+    ],
+    "start": "2028-02-01",
+    "end": "2028-04-30",
+    "horizon": "2028-07-31",
+    "timezone": "Europe/London"
+  },
+  "status": "first_model_attempt_complete",
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2028-01-22",
+      "author": "Contributor 04",
+      "container": "#warehouse-systems / thread: scan delays",
+      "body": "The south depot still records tote returns on paper when the loading-bay tablet loses signal. That makes the weekly loss figure arrive two or three days late.",
+      "parent": null,
+      "links": [],
+      "title": "Older scan-delay thread",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2028-02-03",
+      "author": "Contributor 01",
+      "container": "#project-lantern",
+      "body": "I can take the event-flow slice: define the scan states, build the offline queue in the tablet app, and draft the depot trial checklist. I will need Contributor 03 for the handheld firmware behavior and Operations to choose trial lanes.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "Contributor 01 proposes scope",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2028-02-04",
+      "author": "Contributor 02",
+      "container": "#project-lantern",
+      "body": "Works for me. I will own the service endpoint and reporting table. Contributor 05 has the physical labels and supplier conversations. Let us review the state names together before implementation.",
+      "parent": "chat:002",
+      "links": [],
+      "title": "Ownership clarification",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2028-02-06",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Scan-state proposal",
+      "body": "Draft flow: issued \u2192 loaded \u2192 delivered \u2192 collected \u2192 washed \u2192 available. Scans may be stored locally and replayed with a device-generated event ID. Open question: whether a damaged tote can move directly from collected to retired.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Scan-state proposal",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2028-02-07",
+      "author": "Contributor 03",
+      "container": "Project Lantern / Scan-state proposal / Firmware notes",
+      "body": "The handheld sends only tote ID, action code, and its local timestamp. It cannot generate the proposed event ID until the next firmware train, so the tablet must do that for this trial.",
+      "parent": "docs:001",
+      "links": [],
+      "title": "Firmware constraint",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2028-02-09",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01\u2013Contributor 02",
+      "body": "I changed the draft so the tablet assigns the event ID. For duplicate replay I am leaning toward ignoring any repeated ID, even if its timestamp differs. Does that fit your endpoint?",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "Private deduplication discussion",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2028-02-09",
+      "author": "Contributor 02",
+      "container": "Direct message: Contributor 01\u2013Contributor 02",
+      "body": "Yes. Please also preserve the original scan time separately from upload time; the loss report needs both. I can enforce uniqueness server-side as a second guard.",
+      "parent": "chat:004",
+      "links": [],
+      "title": "Server-side guard agreed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2028-02-12",
+      "author": "Contributor 01",
+      "container": "lantern-tablet / issue 41",
+      "body": "Implement a persistent offline event queue with device event IDs, original scan time, retry state, and a visible unsent count. Acceptance check includes closing and reopening the app before reconnection.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "Offline queue issue",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2028-02-19",
+      "author": "Contributor 01",
+      "container": "lantern-tablet / pull request 44",
+      "body": "Adds the local queue, event-ID generation, exponential retry, and an unsent badge. Includes tests for restart persistence and repeated acknowledgements. Does not cover two operators scanning the same tote on separate devices.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Add offline scan queue",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2028-02-21",
+      "author": "Contributor 06",
+      "container": "lantern-tablet / pull request 44 / review",
+      "body": "Restart test passes. Please cap retries; the current loop continues all shift against a rejected event and drains the older tablet battery.",
+      "parent": "repo:002",
+      "links": [],
+      "title": "Retry review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2028-02-22",
+      "author": "Contributor 01",
+      "container": "lantern-tablet / pull request 44 / review",
+      "body": "Added a ten-minute ceiling with manual retry after that, plus a test for permanent rejection. I also changed the badge copy from \u201csynced\u201d to \u201c0 waiting\u201d so it does not imply the server accepted everything.",
+      "parent": "repo:002",
+      "links": [],
+      "title": "Retry correction",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2028-02-23",
+      "author": "Contributor 06",
+      "container": "lantern-tablet / pull request 44 / review",
+      "body": "Approved after the retry change. The endpoint contract test is maintained in the service repository, so this approval only covers the tablet behavior.",
+      "parent": "repo:002",
+      "links": [],
+      "title": "Queue approval",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2028-03-01",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Trial checklist",
+      "body": "Before each lane starts: confirm label contrast, run one online and one offline scan, photograph the unsent count, reconnect, and verify the service shows the original scan time. Record exceptions by device and lane rather than correcting the sheet silently.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:006"
+        }
+      ],
+      "title": "Depot trial checklist",
+      "attachments": [
+        "attachment:trial-sheet-template"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2028-03-02",
+      "author": "Contributor 07",
+      "container": "Project Lantern / Trial checklist / Operations amendment",
+      "body": "Operations selected south lanes 2 and 4 for five weekdays. Lane 4 handles more chilled orders, so results should not be treated as a random depot sample. Supervisors, not the product team, will train each shift.",
+      "parent": "docs:003",
+      "links": [],
+      "title": "Trial selection caveat",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2028-03-05",
+      "author": "Contributor 02",
+      "container": "lantern-service / pull request 18",
+      "body": "Adds the ingestion endpoint, uniqueness constraint on event ID, and scan/upload timestamps. Contributor 01 supplied tablet fixtures and paired on the reconnect contract test; service implementation and migration are mine.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:002"
+        }
+      ],
+      "title": "Service ingestion endpoint",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2028-03-07",
+      "author": "Contributor 07",
+      "container": "#project-lantern / thread: first shift",
+      "body": "First shift completed. The queue replayed after we came back into coverage. Two operators thought the grey \u201cwaiting\u201d badge meant the scan had failed and rescanned.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:003"
+        }
+      ],
+      "title": "First-shift report",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2028-03-07",
+      "author": "Contributor 01",
+      "container": "#project-lantern / thread: first shift",
+      "body": "I will change the waiting state to amber with \u201csaved on device\u201d and add that phrase to the shift card. The duplicate IDs from same-device rescans were rejected as intended; separate-device duplicates remain possible.",
+      "parent": "chat:007",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:007"
+        }
+      ],
+      "title": "Response to operator confusion",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2028-03-09",
+      "author": "Contributor 01",
+      "container": "lantern-tablet / pull request 49",
+      "body": "Changes queued-state wording to \u201csaved on device,\u201d uses the existing amber status style, and adds the wording to the printable shift card. Snapshot and accessibility-label tests updated.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:007"
+        }
+      ],
+      "title": "Clarify queued state",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2028-03-12",
+      "author": "Contributor 07",
+      "container": "#project-lantern / thread: first shift",
+      "body": "After Friday\u2019s wording update, both lane supervisors said staff stopped doing immediate rescans. That is two lanes and three shifts, not a depot-wide measure.",
+      "parent": "chat:007",
+      "links": [],
+      "title": "Limited wording follow-up",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2028-03-18",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Trial notes / Week one",
+      "body": "Across the two trial lanes, 612 scan events were accepted and 47 were uploaded after an offline interval. Four same-device repeats were suppressed. Eleven tote journeys lack a collection scan; observation cannot distinguish missed scans from totes still at customers. No battery complaints were logged after retry capping.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:004"
+        },
+        {
+          "source": "docs",
+          "id": "docs:004"
+        }
+      ],
+      "title": "Week-one trial notes",
+      "attachments": [
+        "attachment:raw-lane-export"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2028-03-19",
+      "author": "Contributor 07",
+      "container": "Project Lantern / Trial notes / Week one / Operations comment",
+      "body": "One supervisor covered both lanes on Tuesday, and the second shift began after only a five-minute briefing. The counts are useful for finding workflow problems, but comparisons with the old paper process would be weak.",
+      "parent": "docs:005",
+      "links": [],
+      "title": "Trial-method limitation",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2028-03-25",
+      "author": "Contributor 01",
+      "container": "Direct message: Contributor 01\u2013Contributor 07",
+      "body": "Could we extend to all south lanes next week if replacement labels arrive? The event path looks stable enough to learn from a busier mix, but I do not want the label issue counted as an app failure.",
+      "parent": null,
+      "links": [],
+      "title": "Proposed trial expansion",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2028-03-26",
+      "author": "Contributor 07",
+      "container": "Direct message: Contributor 01\u2013Contributor 07",
+      "body": "Not next week. Quarter-end dispatch volume means supervisors cannot train four more lanes. Keep lanes 2 and 4 running; we can revisit after the roster change.",
+      "parent": "chat:011",
+      "links": [],
+      "title": "Expansion deferred",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2028-04-02",
+      "author": "Contributor 04",
+      "container": "lantern-tablet / issue 55",
+      "body": "When two devices scan the same tote while offline, both events have different IDs and are accepted. This produced conflicting \u201ccollected\u201d events during a handover. Proposal: warn on a recent tote/action pair after synchronization rather than discard automatically.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:002"
+        }
+      ],
+      "title": "Cross-device duplicate issue",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2028-04-04",
+      "author": "Contributor 01",
+      "container": "lantern-tablet / issue 55",
+      "body": "Agreed this is outside event-ID deduplication. Automatic discard could hide a legitimate second collection after a reversal. I can add a server-returned conflict banner, but Contributor 02\u2019s service must first identify the pair. Marking blocked on service design.",
+      "parent": "repo:008",
+      "links": [],
+      "title": "Conflict behavior assessment",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2028-04-12",
+      "author": "Contributor 09",
+      "container": "Operations review / Lantern decision log",
+      "body": "Decision: continue the two-lane trial through May, replace the defective labels, and postpone depot-wide rollout. The offline queue is sufficiently stable for continued trial use. Open items are cross-device conflicts, supervisor training capacity, and evidence that collection completeness improves.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        },
+        {
+          "source": "chat",
+          "id": "chat:012"
+        }
+      ],
+      "title": "April continuation decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2028-04-15",
+      "author": "Contributor 09",
+      "container": "#operations-announcements",
+      "body": "Lantern remains a limited trial on south lanes 2 and 4. Please do not describe it as launched across the depot. The old paper return sheet remains required elsewhere.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "Trial-scope announcement",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2028-04-20",
+      "author": "Contributor 01",
+      "container": "Project Lantern / Tablet handover",
+      "body": "Runbook: inspect queue age before clearing local data; export rejected-event codes; never mark an unsent scan as accepted. Known limitation: event IDs prevent replay duplicates from one stored event, not equivalent scans created by different devices. Routine release owner from May: Contributor 04.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        }
+      ],
+      "title": "Tablet handover",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:014",
+      "source": "chat",
+      "date": "2028-04-21",
+      "author": "Contributor 01",
+      "container": "#project-lantern",
+      "body": "I have updated the handover notes with queue diagnostics, badge meanings, and the unresolved two-device case. I will stay available for defects, but Contributor 04 can handle routine tablet releases during my May rotation.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:008"
+        }
+      ],
+      "title": "Handover message",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:015",
+      "source": "chat",
+      "date": "2028-05-08",
+      "author": "Contributor 04",
+      "container": "#project-lantern / thread: version 1.3.2",
+      "body": "Released the tablet dependency update using Contributor 01\u2019s runbook. Queue age and reconnect checks passed. No Lantern behavior changed.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:008"
+        }
+      ],
+      "title": "Routine release after handover",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:016",
+      "source": "chat",
+      "date": "2028-05-17",
+      "author": "Contributor 07",
+      "container": "#project-lantern",
+      "body": "Replacement labels have survived eight wash cycles in the small sample. Lanes 2 and 4 are still scanning, though Friday night reverted to paper for half a shift when the shared tablet was borrowed for inventory.",
+      "parent": null,
+      "links": [],
+      "title": "May trial status",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2028-06-11",
+      "author": "Contributor 10",
+      "container": "South depot / May returns review",
+      "body": "For lanes 2 and 4, 38 of 41 dispatched totes had a recorded collection or an open-customer exception by the seven-day review point. The previous month had 34 of 40. Different dispatch mixes and the continuing paper fallback prevent attributing the change to Lantern. Other lanes were not assessed.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "May returns review",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:017",
+      "source": "chat",
+      "date": "2028-06-18",
+      "author": "Contributor 02",
+      "container": "#project-lantern / thread: conflict detection",
+      "body": "I have a service-side prototype that flags equivalent tote/action pairs within fifteen minutes. Contributor 01 reviewed the proposed response shape, but has not implemented the tablet banner. We still need Operations to decide who resolves a flag.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        }
+      ],
+      "title": "Conflict prototype status",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2028-07-19",
+      "author": "Contributor 04",
+      "container": "lantern-tablet / release 1.4 notes",
+      "body": "Adds service compatibility for new wash-station codes. Offline queue unchanged. Cross-device conflict banner remains open pending an operations workflow.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        }
+      ],
+      "title": "July tablet release",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:019",
+      "source": "chat",
+      "date": "2028-07-28",
+      "author": "Contributor 09",
+      "container": "#operations-leads",
+      "body": "We will add two more south lanes in August with supervisor-led training. This is an expanded trial, not approval for the west depot. The decision reflects stable queue operation, replacement labels, and available trainers; collection impact is still uncertain.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        },
+        {
+          "source": "docs",
+          "id": "docs:009"
+        }
+      ],
+      "title": "Expanded-trial decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "findings": [
+    {
+      "category": "pause",
+      "record_id": "docs:001",
+      "start": 149,
+      "end": 231,
+      "quote": "Open question: whether a damaged tote can move directly from collected to retired.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "docs:002",
+      "start": 71,
+      "end": 185,
+      "quote": "It cannot generate the proposed event ID until the next firmware train, so the tablet must do that for this trial.",
+      "speaker": "Contributor 03",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "contribution",
+      "record_id": "repo:005",
+      "start": 33,
+      "end": 150,
+      "quote": "The endpoint contract test is maintained in the service repository, so this approval only covers the tablet behavior.",
+      "speaker": "Contributor 06",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "docs:003",
+      "start": 179,
+      "end": 258,
+      "quote": "Record exceptions by device and lane rather than correcting the sheet silently.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:006",
+      "start": 92,
+      "end": 221,
+      "quote": "Contributor 01 supplied tablet fixtures and paired on the reconnect contract test; service implementation and migration are mine.",
+      "speaker": "Contributor 02",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:006",
+      "start": 92,
+      "end": 221,
+      "quote": "Contributor 01 supplied tablet fixtures and paired on the reconnect contract test; service implementation and migration are mine.",
+      "speaker": "Contributor 02",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "repo:008",
+      "start": 164,
+      "end": 264,
+      "quote": "Proposal: warn on a recent tote/action pair after synchronization rather than discard automatically.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:008",
+      "start": 164,
+      "end": 264,
+      "quote": "Proposal: warn on a recent tote/action pair after synchronization rather than discard automatically.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:009",
+      "start": 125,
+      "end": 228,
+      "quote": "I can add a server-returned conflict banner, but Contributor 02\u2019s service must first identify the pair.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "constraint",
+      "record_id": "repo:009",
+      "start": 229,
+      "end": 263,
+      "quote": "Marking blocked on service design.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "pause",
+      "record_id": "docs:007",
+      "start": 0,
+      "end": 113,
+      "quote": "Decision: continue the two-lane trial through May, replace the defective labels, and postpone depot-wide rollout.",
+      "speaker": "Contributor 09",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "constraint",
+      "record_id": "docs:007",
+      "start": 180,
+      "end": 300,
+      "quote": "Open items are cross-device conflicts, supervisor training capacity, and evidence that collection completeness improves.",
+      "speaker": "Contributor 09",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "constraint",
+      "record_id": "chat:015",
+      "start": 0,
+      "end": 69,
+      "quote": "Released the tablet dependency update using Contributor 01\u2019s runbook.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "chat:017",
+      "start": 0,
+      "end": 95,
+      "quote": "I have a service-side prototype that flags equivalent tote/action pairs within fifteen minutes.",
+      "speaker": "Contributor 02",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "chat:017",
+      "start": 96,
+      "end": 191,
+      "quote": "Contributor 01 reviewed the proposed response shape, but has not implemented the tablet banner.",
+      "speaker": "Contributor 02",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "contribution",
+      "record_id": "chat:017",
+      "start": 96,
+      "end": 191,
+      "quote": "Contributor 01 reviewed the proposed response shape, but has not implemented the tablet banner.",
+      "speaker": "Contributor 02",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    }
+  ],
+  "components": [
+    [
+      "chat:001"
+    ],
+    [
+      "chat:002",
+      "chat:003",
+      "chat:004",
+      "chat:005",
+      "chat:007",
+      "chat:008",
+      "chat:009",
+      "chat:011",
+      "chat:012",
+      "chat:013",
+      "chat:014",
+      "chat:015",
+      "chat:017",
+      "chat:019",
+      "docs:001",
+      "docs:002",
+      "docs:003",
+      "docs:004",
+      "docs:005",
+      "docs:006",
+      "docs:007",
+      "docs:008",
+      "docs:009",
+      "repo:001",
+      "repo:002",
+      "repo:003",
+      "repo:004",
+      "repo:005",
+      "repo:006",
+      "repo:007",
+      "repo:008",
+      "repo:009",
+      "repo:010"
+    ],
+    [
+      "chat:016"
+    ]
+  ],
+  "coverage": [
+    {
+      "source": "chat",
+      "platform": "Fictional workplace messaging archive",
+      "records_retrieved": 16,
+      "expected_records": 19,
+      "snippet_only": 3,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    },
+    {
+      "source": "docs",
+      "platform": "Fictional collaborative document system",
+      "records_retrieved": 9,
+      "expected_records": 9,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 1,
+      "pending": 0
+    },
+    {
+      "source": "repo",
+      "platform": "Fictional code and issue repository",
+      "records_retrieved": 10,
+      "expected_records": 10,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    }
+  ],
+  "tasks": [],
+  "receipts": 44,
+  "input_files": [
+    "fixtures/attribution.scope.json",
+    "MCP responses recorded in runs/attribution/calls.jsonl"
+  ]
+}

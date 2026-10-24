@@ -1,0 +1,422 @@
+{
+  "headline": "The findings survived writing. Attribution still needs care.",
+  "summary": "All 41 accessible records were read and noted. The account retains the measured use, corrections, shared responsibility and stalled dependency. It still loses one evaluator’s credit and turns an offer to supply data into a delivered contribution.",
+  "scope_limit": "One untouched synthetic publishing-operations story; one uncoached attempt. Ten of eleven themes fully met, one partial. All 80 selected quotations match. A redundant omission entry fails the output contract, so this is not an end-to-end pass.",
+  "expected_records": 41,
+  "themes": [
+    {
+      "id": "theme_01",
+      "name": "Rules and taxonomy design",
+      "criterion": "Conclude that Contributor 01 defined the initial exception taxonomy, reason model, duplicate key, and limitations, incorporating Operations feedback rather than inventing the entire policy alone.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:010"
+      ],
+      "pitfall": "Saying Contributor 01 single-handedly determined final business policy, or omitting the reviewer-driven duplicate-key correction.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "assessment": "Preserves the subject’s taxonomy, reason model, provisional thresholds, duplicate-key correction and insufficient-fields boundary. Credits the reviewer who identified title-level false alarms. The final story does not claim sole business-policy authority.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_02",
+      "name": "Initial implementation and review fixes",
+      "criterion": "Conclude that Contributor 01 implemented the initial advisory rule engine and tests, then fixed the cross-currency pairing defect identified by Contributor 09; approval did not eliminate uncertainty about the time window.",
+      "anchors": [
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004"
+      ],
+      "pitfall": "Claiming the initial implementation was defect-free or crediting Contributor 01 with discovering the currency bug.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c2",
+        "c3"
+      ],
+      "assessment": "Keeps initial implementation and fixtures, credits Contributor 09 with finding the cross-currency defect, and credits the subject with the currency guard and tests. Retains the reviewer’s concern about the 45-day reference-free window after approval.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_03",
+      "name": "Queue grouping and accessibility",
+      "criterion": "Conclude that Contributor 01 proposed and implemented view-level grouping while preserving underlying flags, and fixed a keyboard-focus regression after review.",
+      "anchors": [
+        "chat:006",
+        "chat:007",
+        "chat:008",
+        "repo:005",
+        "repo:006",
+        "repo:007"
+      ],
+      "pitfall": "Misstating grouping as suppression of exceptions or omitting the accessibility defect and correction.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c4"
+      ],
+      "assessment": "Preserves the reviewer’s eleven-flag example, the subject’s grouping proposal and implementation, the export owner’s constraint, and the keyboard-focus regression and fix. Explicitly says underlying flags and rules were not suppressed.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_04",
+      "name": "Reversal-rule refinement was shared",
+      "criterion": "Conclude that Contributor 01 analysed pilot labels and designed a three-state reversal approach, but Contributor 10 performed the final production integration; Operations supplied the late-adjustment constraint.",
+      "anchors": [
+        "docs:007",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011"
+      ],
+      "pitfall": "Giving Contributor 01 sole implementation credit for the final reversal behavior, or treating the heuristic as fully validated.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c6"
+      ],
+      "assessment": "Keeps the subject’s pilot-label analysis, 14-day proposal and revised three-state design after Operations feedback. Credits Contributor 10 with production integration and conflict resolution, while retaining the subject’s design, tests and final review. The uncertain late reversals stay visible.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_05",
+      "name": "Operational readiness work",
+      "criterion": "Conclude that Contributor 01 authored the monitoring and fallback runbook and delivered a recorded walkthrough to both shift leads, not to all reviewers.",
+      "anchors": [
+        "chat:009",
+        "docs:008",
+        "docs:009"
+      ],
+      "pitfall": "Claiming organisation-wide training or overlooking that the workflow remained advisory with a spreadsheet fallback.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c8"
+      ],
+      "assessment": "Keeps the limited continuation mandate, monitoring/fallback runbook and 35-minute staged training for both shift leads. Explicitly excludes ordinary-reviewer training and wider rollout.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_06",
+      "name": "Schema incident and shared responsibility",
+      "criterion": "Conclude that an unvalidated type change caused a silent zero-row load and roughly two hours of delay; Contributor 01 acknowledged inadequate type validation and fixed it, while Contributor 07 acknowledged changing the export without notice.",
+      "anchors": [
+        "repo:012",
+        "repo:013",
+        "repo:014",
+        "repo:015",
+        "chat:010"
+      ],
+      "pitfall": "Assigning the incident solely to Contributor 01, treating the correction as proof no risk remained, or claiming processing failed for the whole cycle.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c9",
+        "c10"
+      ],
+      "assessment": "Preserves the type-change trigger, silent zero-row behavior, roughly two-hour delay, the subject’s validation miss and corrective tests, and Contributor 07’s unannounced export change. Keeps the fallback and successful resumption; does not assign sole blame or imply the whole processing cycle failed.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_07",
+      "name": "Pilot evidence and its limits",
+      "criterion": "Report the observed pilot evidence accurately: 24 selected statements had median review time of 12 versus 19 minutes, and 45 of 63 checked flags were useful, with explicit selection, sample-size, and audit limitations.",
+      "anchors": [
+        "docs:006",
+        "docs:007"
+      ],
+      "pitfall": "Generalising the timing result to all statements, converting limited labels into a proven accuracy rate, or claiming missed exceptions were measured.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c5",
+        "c7"
+      ],
+      "assessment": "The 24 selected statements, medians of 19 and 12 minutes, four reviewers, and 45 useful/12 incorrect/6 unclear flags out of 63 all survive into the account. Retains sample selection and the absence of an independent missed-exception audit. Does not infer a population-wide causal gain or accuracy rate.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_08",
+      "name": "Completion and continued local use",
+      "criterion": "Conclude that April processing completed after the fix and later records show continued use in the same two imprints, with mixed queue/spreadsheet practice rather than abandonment or broad rollout.",
+      "anchors": [
+        "chat:010",
+        "docs:011",
+        "chat:012"
+      ],
+      "pitfall": "Calling the project a failure because spreadsheets remained, or claiming full adoption because the shift leads continued using it.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c10",
+        "c11",
+        "c12"
+      ],
+      "assessment": "Preserves April completion, May’s 34 queue-led and seven spreadsheet-led reviews out of 41, missing timing entries, and June use by both leads and two of six reviewers. Keeps mixed working practices and the two-imprint boundary instead of calling the tool abandoned or broadly adopted.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_09",
+      "name": "Unresolved dependency and rollout uncertainty",
+      "criterion": "Conclude that the scheduled feed still lacked reversal references, Finance deferred the change, and there was no owner or date for wider rollout through 2032-07-31.",
+      "anchors": [
+        "chat:003",
+        "docs:012"
+      ],
+      "pitfall": "Assuming the dependency was resolved, interpreting deferral as cancellation, or importing the post-horizon third-imprint decision.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c13"
+      ],
+      "assessment": "Preserves the scheduled-feed reversal-reference dependency, Finance’s deferral, continued heuristic limits and no wider-rollout owner or date. Does not import the August extension decision. A role label in this claim separately overstates the pilot-export offer as delivered; see the semantic criticism.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_10",
+      "name": "Remaining workflow gap",
+      "criterion": "Note that annotations still often returned to spreadsheet exports and a bulk-note request remained in backlog, but it was described as an inconvenience rather than a blocker.",
+      "anchors": [
+        "chat:010",
+        "repo:016"
+      ],
+      "pitfall": "Ignoring the residual workflow gap or overstating a backlog item as evidence that the pilot could not operate.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "c10",
+        "c14"
+      ],
+      "assessment": "Preserves spreadsheet annotation practice, the July bulk-note backlog and its classification as an inconvenience rather than a processing blocker.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme_11",
+      "name": "Boundaries of personal ownership",
+      "criterion": "Distinguish Contributor 01’s work from Contributor 07’s export ownership, Contributor 10’s production integration, Contributor 08’s evaluation summaries, and operational decisions by Contributors 04–06.",
+      "anchors": [
+        "chat:001",
+        "repo:011",
+        "docs:006",
+        "docs:007",
+        "docs:010"
+      ],
+      "pitfall": "Attributing every project output or outcome to Contributor 01 merely because they were the principal builder.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c1",
+        "c6",
+        "c8",
+        "c9",
+        "c11"
+      ],
+      "assessment": "Separates export ownership, production integration, reviewer feedback and operational authority. However, Contributor 08’s authorship of the evaluation reports disappears from both the saved metric notes and the final roles. The numbers are not falsely credited to the subject, but the full ownership map remains incomplete.",
+      "unread_anchors": []
+    }
+  ],
+  "issue_heading": "Complete record links do not guarantee complete meaning.",
+  "issues": [
+    {
+      "severity": "One contributor disappears before writing",
+      "claim_ids": [
+        "c5",
+        "c7",
+        "c11"
+      ],
+      "detail": "Contributor 08 wrote the timing, flag-label and May evaluation reports. Their numbers survive, but that credit is absent from the saved notes and final roles. Compiling every claim protects what was selected; it cannot recover attribution already dropped during note-taking."
+    },
+    {
+      "severity": "An offer becomes a delivered contribution",
+      "claim_ids": [
+        "c13"
+      ],
+      "detail": "The role table says Contributor 07 provided one-off pilot reference data. chat:003 says they can add it. The record supports an offer and a production constraint, not proof of delivery. The main claim keeps the unresolved feed dependency accurately, but the role’s stronger wording is unsupported."
+    },
+    {
+      "severity": "A cited record is also called omitted",
+      "claim_ids": [
+        "c10"
+      ],
+      "detail": "docs:010 supplies the limited-continuation quotation in c10 and is also placed in omitted_material. The explanation says its other content is covered elsewhere, which is understandable, but that field is for wholly uncited material records. The validator retains this contract failure. The record itself is not missing."
+    },
+    {
+      "severity": "The old bookkeeping repair has limited live evidence",
+      "claim_ids": [],
+      "detail": "Regression tests now reconcile a record used only to reject a conclusion while still rejecting invented sources. In this new story, every rejected-conclusion source is also cited by a positive claim. The specific rejection-only path therefore passes unit tests but was not exercised by this AI run."
+    },
+    {
+      "severity": "Recovery works, but notes arrived late",
+      "claim_ids": [],
+      "detail": "The model spent all 45 source calls before making nine writing-packet recoveries and nine note submissions. It recovered evidence after exhaustion and made no false missing-citation claim, but did not build interpretive notes incrementally as requested. The underlying source journal remained persistent throughout."
+    },
+    {
+      "severity": "The audit attachment remains unchecked",
+      "claim_ids": [
+        "c5",
+        "c7"
+      ],
+      "detail": "The parent document says its reviewer-by-reviewer export cannot be opened. The model reports that parent statement and its own lack of an attachment read separately. Aggregate results remain source reports rather than independently recomputed measurements."
+    }
+  ],
+  "limitations": [
+    "The separate AI author received only a generic fictional brief, schema and domain-diversity exclusions. The 42-record story exceeds the requested 32–40 but falls inside the preregistered 32–64 acceptance range. It was accepted unchanged. No previous story, private record, implementation or researcher prompt was supplied.",
+    "Author and researcher were separate isolated sessions using the same provider/default model family. The exact model version was not captured. Procedural independence is not equivalent to a human-authored benchmark or an independent-provider replication.",
+    "This assistant manually compared the hidden author rubric and original sources only after the first response. Ten full themes and one partial measure this story’s thematic coverage, not general reliability. The unsupported offer-to-delivery role was found beyond the rubric and remains separately flagged.",
+    "All 41 accessible primary records, including three distractors, were returned in full. One August record lies beyond the July horizon and was not supplied. All discovered contexts, including chains three levels below the root, and all nine source/window sweeps completed.",
+    "All 41 full reads have persistent judgments: 38 material and three irrelevant. Every material record is referenced by a claim or rejection. That is record-level coverage only; the missing evaluator credit demonstrates that not every semantic detail survived.",
+    "Nine cache-only writing packets recovered all 41 records after the source-call limit. Nine save_notes calls persisted judgments, followed by research_status and finish_check: 65 requests in total, leaving 15 slots. There were no ordinary cached read_record replays; writing recovery is counted separately.",
+    "All 80 selected quotations resolve to exact original spans. The account joins fourteen first-response claim statements and their limits in the model’s chosen order. It is deliberately compiled rather than independently summarised; this changes the writing interface and does not demonstrate better unconstrained summarisation.",
+    "The final receipt is valid at the 45-source-call limit, with no unread primary records or missing notes. One attachment remains unchecked. A valid receipt certifies observed budget and discovery state, not claim truth or source completeness.",
+    "The sole structural failure is the contradictory docs:010 omission entry. It was not removed or converted into a pass. The role overstatement and evaluator-credit omission are semantic issues that the span validator cannot detect.",
+    "The specific rejection-only bookkeeping path is covered by independent unit fixtures, including invalid-source cases, but no rejection-only record occurred in this live story. Attachment classification is likewise based on the parent record and fixture audit, not a successful attachment request.",
+    "Twenty local writing/audit calls were added to 45 source calls. The CLI reported 1,451,089 input tokens, including 1,370,496 cached tokens, and 8,720 output tokens. These are provider usage counters, not a price calculation or evidence that the workflow is cheaper; no controlled efficiency comparison was run.",
+    "No source fixture, frozen prompt, schema, server or compiler was changed after story generation. There was one substantive research attempt, with no coaching or retry. Different story content and the compiled narrative mechanism prevent causal comparison with earlier scores. Private archives and live integrations were not accessed."
+  ],
+  "method": "The protocol, cache recovery, note journal, compiler, schemas and tests were hash-frozen before separate AI story generation. A fresh researcher chose all reads and then recovered cached evidence for writing. After its first response, this assistant checked the hidden rubric, original sources, saved notes, source spans and completion receipt. The compiler only resolves quotations, derives links and assembles the chosen claim sentences; evaluator findings are never fed back to the model.",
+  "next_experiment": "Test explicit attribution and action-state checks in saved notes: who wrote an evaluation, who offered something, and what proves delivery. Clarify whole-record exclusions versus partial-content notes, and check a complete draft before sealing it. Use another untouched story; preserve this result.",
+  "summary_counts": {
+    "fully_met": 10,
+    "partial": 1,
+    "missed": 0,
+    "themes": 11,
+    "full_records": 41,
+    "accessible_records": 41,
+    "source_calls": 45,
+    "requests": 65,
+    "cache_hits": 0,
+    "remaining_source_calls": 0,
+    "remaining_requests": 15,
+    "completed_contexts": 17,
+    "unfinished_contexts": 0,
+    "completed_source_window_sweeps": 9,
+    "unread_surfaced_records": 0,
+    "unchecked_attachments": 1,
+    "exact_spans": 80,
+    "submitted_spans": 80,
+    "completion_receipt_valid": true,
+    "validation_flags": 1,
+    "disposition_records": 41,
+    "attribution_chains": 9,
+    "writing_packet_calls": 9,
+    "save_notes_calls": 9,
+    "saved_notes": 41,
+    "material_notes": 38,
+    "material_notes_represented": 38,
+    "narrative_claims": 14,
+    "rejection_only_records": 0
+  },
+  "final_planning": {
+    "unopened_contexts": [],
+    "unread_references": [],
+    "unchecked_attachments": [
+      {
+        "source": "docs",
+        "id": "att:001"
+      }
+    ],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "calls_remaining": 0,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted.",
+    "earlier_start": "2031-11-03",
+    "requests_remaining": 15,
+    "unread_surfaced_records": [],
+    "priority_branches": [],
+    "writing": {
+      "full_records": 41,
+      "noted_records": 41,
+      "unnoted_ids": [],
+      "material_note_ids": [
+        "chat:001",
+        "chat:002",
+        "chat:003",
+        "chat:004",
+        "chat:006",
+        "chat:007",
+        "chat:008",
+        "chat:009",
+        "chat:010",
+        "chat:012",
+        "docs:001",
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "docs:006",
+        "docs:007",
+        "docs:008",
+        "docs:009",
+        "docs:010",
+        "docs:011",
+        "docs:012",
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005",
+        "repo:006",
+        "repo:007",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011",
+        "repo:012",
+        "repo:013",
+        "repo:014",
+        "repo:015",
+        "repo:016"
+      ],
+      "recovery": "writing_packet and save_notes are free local operations within the 80-request ceiling, including after 45 source calls."
+    }
+  },
+  "completion_receipt": {
+    "allowed": true,
+    "status": "source_limit",
+    "counts": {
+      "source_calls": 45,
+      "source_budget": 45,
+      "requests_including_this_check": 65,
+      "request_limit": 80,
+      "source_calls_remaining": 0,
+      "requests_remaining": 15
+    },
+    "unresolved": {
+      "unread_surfaced_records": [],
+      "unopened_contexts": [],
+      "unread_references": [],
+      "unchecked_attachments": [
+        {
+          "source": "docs",
+          "id": "att:001"
+        }
+      ],
+      "pending_pages": [],
+      "unfinished_window_sweeps": [],
+      "unnoted_records": []
+    },
+    "scope": "Observed records and enumerated windows only; unseen source contents and semantic completeness are not certified.",
+    "receipt_id": "46a53d095fb10599c25e2f82e83f7a28a1aaf0ec39d01c4089fd79af5f16d01a",
+    "cache_hit": false,
+    "source_charge": 0,
+    "remaining_calls": 0
+  },
+  "validation_errors": [
+    "Invalid material omission: docs:010"
+  ],
+  "adjudicator": "This assistant; manual rubric assessment plus source-level semantic checks",
+  "substantive_attempts": 1,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "raw_response_sha256": "bdf9c80222a334eb86d3dac684a981bdd8d520749633c5bfdef0f952b132ca19",
+  "compiled_review_sha256": "fdd8ae84c492128d9949116ee3ae144daa2731de42f0ffcccee0e39c80cb69a1",
+  "gold_sha256": "42528615d2c6e28d57eefb18b91b4c5c27609f633627daafc2b32233e6513d6b"
+}

@@ -1,0 +1,1071 @@
+{
+  "synthetic": true,
+  "scope": {
+    "question": "What did Contributor 01 personally contribute to Project Lanternleaf between 2032-02-01 and 2032-04-30, and what happened afterwards?",
+    "query": "Project Lanternleaf Contributor 01 contributions outcomes follow-up",
+    "subject": "Contributor 01",
+    "sources": [
+      "chat",
+      "docs",
+      "repo"
+    ],
+    "start": "2032-02-01",
+    "end": "2032-04-30",
+    "horizon": "2032-07-31",
+    "timezone": "Europe/London"
+  },
+  "status": "first_model_attempt_complete",
+  "records": [
+    {
+      "id": "chat:001",
+      "source": "chat",
+      "date": "2032-01-28",
+      "author": "Contributor 04",
+      "container": "#publishing-ops",
+      "body": "February planning: Lanternleaf will test whether royalty-statement exceptions can be reviewed from one queue instead of three spreadsheets. Contributor 01 is taking the exception rules and prototype; Contributor 07 owns the source export. Pilot is two imprints only.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:001"
+        }
+      ],
+      "title": "Lanternleaf kickoff note",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:001",
+      "source": "docs",
+      "date": "2032-01-30",
+      "author": "Contributor 04",
+      "container": "Projects / Lanternleaf",
+      "body": "Pilot brief. Problem: reviewers reconcile duplicate, negative, and unusually large royalty lines across separate exports. Scope: two imprints, quarterly statements, advisory flags only. No automatic payment holds. Success measures: reviewer time, missed known exceptions, and false alerts. Decisions remain with Publishing Operations.",
+      "parent": null,
+      "links": [],
+      "title": "Lanternleaf pilot brief",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:002",
+      "source": "chat",
+      "date": "2032-02-03",
+      "author": "Contributor 01",
+      "container": "DM: Contributor 01 \u2194 Contributor 07",
+      "body": "Could you include contract currency and reversal reference in the sample export? I can draft rules against the current columns, but negative lines without their reversal IDs will look like genuine exceptions.",
+      "parent": null,
+      "links": [],
+      "title": "Export fields request",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:003",
+      "source": "chat",
+      "date": "2032-02-03",
+      "author": "Contributor 07",
+      "container": "DM: Contributor 01 \u2194 Contributor 07",
+      "body": "Currency is available. Reversal reference is not in the scheduled feed; I can add it to the one-off pilot extract, but production needs a finance-system change.",
+      "parent": "chat:002",
+      "links": [],
+      "title": "Re: Export fields request",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:002",
+      "source": "docs",
+      "date": "2032-02-06",
+      "author": "Contributor 01",
+      "container": "Projects / Lanternleaf / Rule design",
+      "body": "Draft taxonomy: exact duplicate, probable reversal pair, negative without visible pair, and high-value outlier. Proposed output includes rule code and a plain-language reason. Thresholds are provisional until Operations labels a sample. Known limitation: reversal matching depends on an optional reference or, failing that, amount/date heuristics.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:002"
+        }
+      ],
+      "title": "Exception taxonomy v0.1",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:003",
+      "source": "docs",
+      "date": "2032-02-08",
+      "author": "Contributor 06",
+      "container": "Projects / Lanternleaf / Rule design",
+      "body": "Comment: please separate a true duplicate from two editions earning the same amount. Title-level matching caused false alarms in last year's manual check.",
+      "parent": "docs:002",
+      "links": [],
+      "title": "Comment on exception taxonomy",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:004",
+      "source": "docs",
+      "date": "2032-02-09",
+      "author": "Contributor 01",
+      "container": "Projects / Lanternleaf / Rule design",
+      "body": "Agreed. Revised duplicate key is contract, edition, territory, period, amount, and transaction type. Same-title matches are no longer sufficient. I also added an \u201cinsufficient fields\u201d reason rather than guessing.",
+      "parent": "docs:003",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        }
+      ],
+      "title": "Reply: revised duplicate key",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:001",
+      "source": "repo",
+      "date": "2032-02-11",
+      "author": "Contributor 01",
+      "container": "lanternleaf/rules \u2014 PR 18",
+      "body": "Implements four advisory exception rules, reason codes, and fixture-based tests. Reversal matching prefers reference IDs and falls back to same contract, inverse amount, and a 45-day window. Outlier threshold is configuration, not hard-coded.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:002"
+        }
+      ],
+      "title": "PR 18: initial exception engine",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:002",
+      "source": "repo",
+      "date": "2032-02-12",
+      "author": "Contributor 09",
+      "container": "lanternleaf/rules \u2014 PR 18",
+      "body": "The fallback pairs across currencies because the comparison normalises neither currency nor amount. A \u00a3500 line could cancel a \u20ac500 line.",
+      "parent": "repo:001",
+      "links": [],
+      "title": "Review: currency pairing defect",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:003",
+      "source": "repo",
+      "date": "2032-02-13",
+      "author": "Contributor 01",
+      "container": "lanternleaf/rules \u2014 PR 18",
+      "body": "Fixed by requiring equal currency before inverse-amount matching; added mixed-currency fixtures. I also made missing currency return \u201cinsufficient fields.\u201d",
+      "parent": "repo:002",
+      "links": [],
+      "title": "Reply: currency guard added",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:004",
+      "source": "repo",
+      "date": "2032-02-14",
+      "author": "Contributor 09",
+      "container": "lanternleaf/rules \u2014 PR 18",
+      "body": "Retested. Mixed currencies no longer pair. Approved, with the broader concern that 45 days may be too permissive until we see labelled data.",
+      "parent": "repo:003",
+      "links": [],
+      "title": "Approval after correction",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:004",
+      "source": "chat",
+      "date": "2032-02-16",
+      "author": "Contributor 01",
+      "container": "#lanternleaf",
+      "body": "Prototype queue is on the test workspace. Filters are imprint, quarter, and reason; selecting a row shows the source fields used by the rule. It does not update payment status. Please use the feedback sheet for incorrect flags.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:001"
+        },
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "Prototype available",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:005",
+      "source": "docs",
+      "date": "2032-02-16",
+      "author": "Contributor 04",
+      "container": "Projects / Lanternleaf",
+      "body": "Pilot feedback sheet. Reviewers should label each sampled flag as useful, incorrect, or unclear and record minutes spent. The original reviewer-by-reviewer export is attached for audit, but its retained copy cannot be opened.",
+      "parent": null,
+      "links": [],
+      "title": "Pilot feedback instructions",
+      "attachments": [
+        "att:001"
+      ],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:005",
+      "source": "chat",
+      "date": "2032-02-20",
+      "author": "Contributor 11",
+      "container": "#office-plants",
+      "body": "The east-window fern has been moved away from the radiator. Please stop adding coffee grounds; the compost bin is downstairs.",
+      "parent": null,
+      "links": [],
+      "title": "Fern update",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:006",
+      "source": "chat",
+      "date": "2032-02-23",
+      "author": "Contributor 06",
+      "container": "#lanternleaf",
+      "body": "First pass: the reason text is much better than raw codes. Eleven \u201cnegative without pair\u201d flags are all from the same backdated correction batch, so they are technically correct but not useful individually.",
+      "parent": "chat:004",
+      "links": [],
+      "title": "First reviewer feedback",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:007",
+      "source": "chat",
+      "date": "2032-02-24",
+      "author": "Contributor 01",
+      "container": "#lanternleaf",
+      "body": "I can group those by correction batch if the batch identifier is stable. Otherwise I can suppress identical contract/date reasons into one expandable group without changing the underlying flags.",
+      "parent": "chat:006",
+      "links": [],
+      "title": "Proposed grouping",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:008",
+      "source": "chat",
+      "date": "2032-02-24",
+      "author": "Contributor 07",
+      "container": "#lanternleaf",
+      "body": "Batch ID is stable in the one-off extract but not guaranteed in the scheduled feed. Grouping in the view is safer than making it part of rule identity.",
+      "parent": "chat:007",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:005"
+        }
+      ],
+      "title": "Batch identifier caveat",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:005",
+      "source": "repo",
+      "date": "2032-02-28",
+      "author": "Contributor 01",
+      "container": "lanternleaf/ui \u2014 PR 23",
+      "body": "Groups repeated flags by contract, posting date, and reason in the queue while preserving each underlying line. Adds expand/collapse and an accessible group count. No rule suppression.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:008"
+        }
+      ],
+      "title": "PR 23: repeated-flag grouping",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:006",
+      "source": "repo",
+      "date": "2032-03-01",
+      "author": "Contributor 03",
+      "container": "lanternleaf/ui \u2014 PR 23",
+      "body": "Keyboard focus disappears after collapsing a group. Please return focus to the group header.",
+      "parent": "repo:005",
+      "links": [],
+      "title": "Review: focus regression",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:007",
+      "source": "repo",
+      "date": "2032-03-02",
+      "author": "Contributor 01",
+      "container": "lanternleaf/ui \u2014 PR 23",
+      "body": "Updated collapse behavior to retain focus on the header and added a keyboard test. Ready for another pass.",
+      "parent": "repo:006",
+      "links": [],
+      "title": "Reply: focus behavior fixed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:006",
+      "source": "docs",
+      "date": "2032-03-07",
+      "author": "Contributor 08",
+      "container": "Operations / Quarterly review",
+      "body": "Timed comparison, 24 sampled statements across the two pilot imprints: current process median 19 minutes; Lanternleaf-assisted median 12 minutes. Four reviewers participated. Samples were selected from statements already suspected to contain exceptions, so this is not a general workload estimate.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:005"
+        }
+      ],
+      "title": "Pilot timing note",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:007",
+      "source": "docs",
+      "date": "2032-03-09",
+      "author": "Contributor 08",
+      "container": "Operations / Quarterly review",
+      "body": "Label review: 63 flags checked; 45 useful, 12 incorrect, 6 unclear. Most incorrect flags came from heuristic reversal matching where the reference was absent. Exact duplicates had no incorrect labels in this sample. Counts combine four reviewers and are not an independent audit.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:008"
+        }
+      ],
+      "title": "Flag-label summary",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:008",
+      "source": "repo",
+      "date": "2032-03-10",
+      "author": "Contributor 01",
+      "container": "lanternleaf/rules \u2014 Issue 31",
+      "body": "Proposal based on pilot labels: shorten reference-free reversal window from 45 to 14 days and expose the match basis in the queue. This reduces questionable pairings but may leave legitimate late reversals flagged.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:007"
+        }
+      ],
+      "title": "Issue 31: tighten reversal heuristic",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:009",
+      "source": "repo",
+      "date": "2032-03-11",
+      "author": "Contributor 06",
+      "container": "lanternleaf/rules \u2014 Issue 31",
+      "body": "Fourteen days fits the sampled correction batches, but annual adjustments can arrive after a month. Could those remain \u201cuncertain\u201d instead of being treated as unmatched negatives?",
+      "parent": "repo:008",
+      "links": [],
+      "title": "Operations concern on late reversals",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:010",
+      "source": "repo",
+      "date": "2032-03-12",
+      "author": "Contributor 01",
+      "container": "lanternleaf/rules \u2014 Issue 31",
+      "body": "Yes. Revised plan: confident pairs within 14 days; 15\u201345 day inverse matches become \u201cpossible late reversal\u201d and stay visible. Beyond 45 days remains unmatched. That avoids silently clearing them.",
+      "parent": "repo:009",
+      "links": [],
+      "title": "Reply: three-state reversal handling",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:011",
+      "source": "repo",
+      "date": "2032-03-18",
+      "author": "Contributor 10",
+      "container": "lanternleaf/rules \u2014 PR 29",
+      "body": "Implemented Issue 31\u2019s three-state reversal handling and match-basis display, using Contributor 01\u2019s design and tests from the issue branch. Contributor 01 reviewed the final change; I handled the production integration conflicts.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "PR 29: reversal confidence states",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:009",
+      "source": "chat",
+      "date": "2032-03-22",
+      "author": "Contributor 04",
+      "container": "#lanternleaf",
+      "body": "Decision: continue through the April statement run. Contributor 01, please document monitoring and train the two shift leads. Wider imprint rollout is not approved yet; Finance still needs to decide whether reversal reference can enter the scheduled feed.",
+      "parent": null,
+      "links": [],
+      "title": "April continuation decision",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:008",
+      "source": "docs",
+      "date": "2032-03-25",
+      "author": "Contributor 01",
+      "container": "Projects / Lanternleaf / Operations",
+      "body": "Runbook: load validation, rule-version check, queue health checks, rollback to spreadsheet review, and escalation contacts by role. Daily checks cover missing currency, unexpected flag-volume changes, and stale source timestamps. The tool remains advisory.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:009"
+        }
+      ],
+      "title": "Pilot operations runbook",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:009",
+      "source": "docs",
+      "date": "2032-03-27",
+      "author": "Contributor 05",
+      "container": "Projects / Lanternleaf / Operations",
+      "body": "Training note: Contributor 01 ran a 35-minute walkthrough for both shift leads using a staged statement. We practised expanding grouped flags, reading match basis, and falling back to the spreadsheet. Both leads completed the exercise; ordinary reviewers were not trained in this session.",
+      "parent": "docs:008",
+      "links": [],
+      "title": "Shift-lead training record",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:012",
+      "source": "repo",
+      "date": "2032-04-03",
+      "author": "Contributor 12",
+      "container": "lanternleaf/ui \u2014 Issue 38",
+      "body": "After the source export changed `statement_period` from text to a date, the queue loaded zero rows without an error. April processing was delayed for about two hours while we reverted to the spreadsheet.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:008"
+        }
+      ],
+      "title": "Issue 38: silent zero-row load",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:013",
+      "source": "repo",
+      "date": "2032-04-03",
+      "author": "Contributor 01",
+      "container": "lanternleaf/ui \u2014 Issue 38",
+      "body": "I assumed the pilot schema would remain fixed and validated required columns but not their types. I\u2019m adding type checks and a visible stop condition; the runbook fallback limited the delay, but the silent success was my miss.",
+      "parent": "repo:012",
+      "links": [],
+      "title": "Cause and corrective action",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:014",
+      "source": "repo",
+      "date": "2032-04-04",
+      "author": "Contributor 07",
+      "container": "lanternleaf/ui \u2014 Issue 38",
+      "body": "The export change was mine and I did not notify the pilot channel because the field name was unchanged. Type validation is still needed, but change notice also failed here.",
+      "parent": "repo:013",
+      "links": [],
+      "title": "Reply: shared cause",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:015",
+      "source": "repo",
+      "date": "2032-04-06",
+      "author": "Contributor 01",
+      "container": "lanternleaf/ui \u2014 PR 34",
+      "body": "Adds schema type validation, blocks processing on incompatible fields, and displays the received versus expected type. Includes the April export shape as a regression fixture.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:012"
+        }
+      ],
+      "title": "PR 34: fail closed on schema mismatch",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:010",
+      "source": "chat",
+      "date": "2032-04-14",
+      "author": "Contributor 05",
+      "container": "#lanternleaf",
+      "body": "April run finished. We used the queue after the schema fix and kept the spreadsheet open for the first hour. No further load failures. The grouping made the correction batch manageable, though one lead still exported rows to annotate them.",
+      "parent": "chat:009",
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:015"
+        }
+      ],
+      "title": "April run completed",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:010",
+      "source": "docs",
+      "date": "2032-04-22",
+      "author": "Contributor 04",
+      "container": "Projects / Lanternleaf",
+      "body": "Window close summary: Contributor 01 designed the exception taxonomy, built the initial engine and queue grouping, responded to review defects, authored the runbook, and trained shift leads. Contributor 10 integrated the revised reversal states; Contributor 07 owned exports. April completed after one two-hour schema incident. Recommendation: limited continuation, not general rollout.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:006"
+        },
+        {
+          "source": "docs",
+          "id": "docs:007"
+        },
+        {
+          "source": "repo",
+          "id": "repo:012"
+        }
+      ],
+      "title": "Pilot close summary",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:011",
+      "source": "chat",
+      "date": "2032-05-05",
+      "author": "Contributor 02",
+      "container": "#social-committee",
+      "body": "Summer lunch poll closes Friday. The courtyard option has shade but only six covered tables.",
+      "parent": null,
+      "links": [],
+      "title": "Lunch poll reminder",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:011",
+      "source": "docs",
+      "date": "2032-05-19",
+      "author": "Contributor 08",
+      "container": "Operations / Quarterly review",
+      "body": "May follow-up, same two imprints: 41 statements processed with Lanternleaf available; 34 were reviewed primarily in the queue and 7 primarily in spreadsheets. Median recorded review time was 13 minutes, but eight statements lacked usable timing entries. No missed-exception audit was performed.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:006"
+        }
+      ],
+      "title": "May operational follow-up",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:012",
+      "source": "chat",
+      "date": "2032-06-02",
+      "author": "Contributor 05",
+      "container": "#lanternleaf",
+      "body": "Both shift leads are still using it. Two of six ordinary reviewers now open the queue themselves; the others receive exports or stay in the spreadsheet. That is local use, not rollout to the other imprints.",
+      "parent": null,
+      "links": [
+        {
+          "source": "docs",
+          "id": "docs:011"
+        }
+      ],
+      "title": "Adoption check",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:012",
+      "source": "docs",
+      "date": "2032-06-18",
+      "author": "Contributor 04",
+      "container": "Projects / Lanternleaf",
+      "body": "Finance has deferred adding reversal reference to the scheduled feed until its autumn planning round. The pilot can continue with confidence states, but false-alert performance remains dependent on heuristic matching. No owner or date exists for broader rollout.",
+      "parent": null,
+      "links": [
+        {
+          "source": "repo",
+          "id": "repo:010"
+        }
+      ],
+      "title": "Dependency status",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "repo:016",
+      "source": "repo",
+      "date": "2032-07-09",
+      "author": "Contributor 03",
+      "container": "lanternleaf/ui \u2014 Issue 52",
+      "body": "Request from one shift lead: bulk notes for grouped flags. Marking as backlog because current annotations still live in the spreadsheet export. This is an inconvenience, not a processing blocker.",
+      "parent": null,
+      "links": [
+        {
+          "source": "chat",
+          "id": "chat:010"
+        }
+      ],
+      "title": "Issue 52: bulk group notes",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:013",
+      "source": "chat",
+      "date": "2032-07-21",
+      "author": "Contributor 14",
+      "container": "#book-club",
+      "body": "Next month's selection is the shorter of the two proposed novels. Spare copies are in the blue cupboard.",
+      "parent": null,
+      "links": [],
+      "title": "Book club selection",
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    }
+  ],
+  "findings": [
+    {
+      "category": "scope_change",
+      "record_id": "docs:001",
+      "start": 0,
+      "end": 12,
+      "quote": "Pilot brief.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "scope_change",
+      "record_id": "docs:001",
+      "start": 122,
+      "end": 185,
+      "quote": "Scope: two imprints, quarterly statements, advisory flags only.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "docs:002",
+      "start": 0,
+      "end": 111,
+      "quote": "Draft taxonomy: exact duplicate, probable reversal pair, negative without visible pair, and high-value outlier.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "docs:002",
+      "start": 112,
+      "end": 175,
+      "quote": "Proposed output includes rule code and a plain-language reason.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "constraint",
+      "record_id": "docs:002",
+      "start": 237,
+      "end": 347,
+      "quote": "Known limitation: reversal matching depends on an optional reference or, failing that, amount/date heuristics.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:001",
+      "start": 0,
+      "end": 80,
+      "quote": "Implements four advisory exception rules, reason codes, and fixture-based tests.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:002",
+      "start": 0,
+      "end": 99,
+      "quote": "The fallback pairs across currencies because the comparison normalises neither currency nor amount.",
+      "speaker": "Contributor 09",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "pause",
+      "record_id": "repo:002",
+      "start": 100,
+      "end": 137,
+      "quote": "A \u00a3500 line could cancel a \u20ac500 line.",
+      "speaker": "Contributor 09",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:003",
+      "start": 0,
+      "end": 96,
+      "quote": "Fixed by requiring equal currency before inverse-amount matching; added mixed-currency fixtures.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:004",
+      "start": 10,
+      "end": 42,
+      "quote": "Mixed currencies no longer pair.",
+      "speaker": "Contributor 09",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "chat:006",
+      "start": 59,
+      "end": 206,
+      "quote": "Eleven \u201cnegative without pair\u201d flags are all from the same backdated correction batch, so they are technically correct but not useful individually.",
+      "speaker": "Contributor 06",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "chat:006",
+      "start": 59,
+      "end": 206,
+      "quote": "Eleven \u201cnegative without pair\u201d flags are all from the same backdated correction batch, so they are technically correct but not useful individually.",
+      "speaker": "Contributor 06",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "chat:007",
+      "start": 0,
+      "end": 72,
+      "quote": "I can group those by correction batch if the batch identifier is stable.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "repo:008",
+      "start": 0,
+      "end": 130,
+      "quote": "Proposal based on pilot labels: shorten reference-free reversal window from 45 to 14 days and expose the match basis in the queue.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:008",
+      "start": 131,
+      "end": 214,
+      "quote": "This reduces questionable pairings but may leave legitimate late reversals flagged.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:009",
+      "start": 0,
+      "end": 99,
+      "quote": "Fourteen days fits the sampled correction batches, but annual adjustments can arrive after a month.",
+      "speaker": "Contributor 06",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "repo:010",
+      "start": 5,
+      "end": 126,
+      "quote": "Revised plan: confident pairs within 14 days; 15\u201345 day inverse matches become \u201cpossible late reversal\u201d and stay visible.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "contribution",
+      "record_id": "repo:011",
+      "start": 0,
+      "end": 140,
+      "quote": "Implemented Issue 31\u2019s three-state reversal handling and match-basis display, using Contributor 01\u2019s design and tests from the issue branch.",
+      "speaker": "Contributor 10",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:013",
+      "start": 0,
+      "end": 97,
+      "quote": "I assumed the pilot schema would remain fixed and validated required columns but not their types.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "repo:015",
+      "start": 119,
+      "end": 175,
+      "quote": "Includes the April export shape as a regression fixture.",
+      "speaker": "Contributor 01",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "use",
+      "record_id": "chat:010",
+      "start": 20,
+      "end": 108,
+      "quote": "We used the queue after the schema fix and kept the spreadsheet open for the first hour.",
+      "speaker": "Contributor 05",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "chat:010",
+      "start": 20,
+      "end": 108,
+      "quote": "We used the queue after the schema fix and kept the spreadsheet open for the first hour.",
+      "speaker": "Contributor 05",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "correction",
+      "record_id": "chat:010",
+      "start": 135,
+      "end": 239,
+      "quote": "The grouping made the correction batch manageable, though one lead still exported rows to annotate them.",
+      "speaker": "Contributor 05",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "contribution",
+      "record_id": "docs:010",
+      "start": 0,
+      "end": 190,
+      "quote": "Window close summary: Contributor 01 designed the exception taxonomy, built the initial engine and queue grouping, responded to review defects, authored the runbook, and trained shift leads.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "collaboration",
+      "record_id": "docs:010",
+      "start": 191,
+      "end": 275,
+      "quote": "Contributor 10 integrated the revised reversal states; Contributor 07 owned exports.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "constraint",
+      "record_id": "docs:012",
+      "start": 102,
+      "end": 217,
+      "quote": "The pilot can continue with confidence states, but false-alert performance remains dependent on heuristic matching.",
+      "speaker": "Contributor 04",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    },
+    {
+      "category": "proposal",
+      "record_id": "chat:013",
+      "start": 0,
+      "end": 65,
+      "quote": "Next month's selection is the shorter of the two proposed novels.",
+      "speaker": "Contributor 14",
+      "status": "candidate",
+      "limit": "Lexical signal; quotation preserves attribution and negation. Human or model interpretation still required."
+    }
+  ],
+  "components": [
+    [
+      "chat:001",
+      "docs:001"
+    ],
+    [
+      "chat:002",
+      "chat:003",
+      "chat:004",
+      "chat:006",
+      "chat:007",
+      "chat:008",
+      "chat:009",
+      "chat:010",
+      "chat:012",
+      "docs:002",
+      "docs:003",
+      "docs:004",
+      "docs:005",
+      "docs:006",
+      "docs:007",
+      "docs:008",
+      "docs:009",
+      "docs:010",
+      "docs:011",
+      "docs:012",
+      "repo:001",
+      "repo:002",
+      "repo:003",
+      "repo:004",
+      "repo:005",
+      "repo:006",
+      "repo:007",
+      "repo:008",
+      "repo:009",
+      "repo:010",
+      "repo:011",
+      "repo:012",
+      "repo:013",
+      "repo:014",
+      "repo:015",
+      "repo:016"
+    ],
+    [
+      "chat:005"
+    ],
+    [
+      "chat:011"
+    ],
+    [
+      "chat:013"
+    ]
+  ],
+  "coverage": [
+    {
+      "source": "chat",
+      "platform": "FableChat",
+      "records_retrieved": 13,
+      "expected_records": 13,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    },
+    {
+      "source": "docs",
+      "platform": "PaperNest",
+      "records_retrieved": 12,
+      "expected_records": 12,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    },
+    {
+      "source": "repo",
+      "platform": "ForgeTrack",
+      "records_retrieved": 16,
+      "expected_records": 16,
+      "snippet_only": 0,
+      "enumeration_end": true,
+      "blocked": 0,
+      "pending": 0
+    }
+  ],
+  "tasks": [],
+  "receipts": 65,
+  "input_files": [
+    "fixtures/retention.scope.json",
+    "MCP responses recorded in runs/retention/calls.jsonl"
+  ]
+}

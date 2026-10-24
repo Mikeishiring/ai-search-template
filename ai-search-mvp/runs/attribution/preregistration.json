@@ -1,0 +1,56 @@
+{
+  "frozen_at": "2026-10-23T15:17:48.914379+00:00",
+  "synthetic_only": true,
+  "source_call_budget": 45,
+  "request_limit": 60,
+  "page_size": 3,
+  "earlier_lookback_days": 90,
+  "author": "Separate isolated AI session receives only generic author instructions and schema; no old fixtures, implementation or researcher prompt",
+  "researcher": "Fresh isolated AI session with scope and fixed read-only synthetic tools",
+  "stop": "One substantive attempt, up to 45 charged source calls, 60 requests or 15 minutes. No hints or retuning after story observation.",
+  "changes": [
+    "Cache already-read records and exact request pages without new source charge; log all requests.",
+    "Include unread parent in context response; source-call efficiency differs from prior protocol.",
+    "Bounded earlier activity enumeration and optional earlier search.",
+    "Full-read index, final attribution chains and source dispositions with structural validation."
+  ],
+  "hypotheses": [
+    "Earlier conditions are discovered and separated from subject-caused problems.",
+    "Material initiators, feedback contributors, corrections and later owners survive into the final narrative and claims.",
+    "Repeated record reads use cached evidence without spending source budget."
+  ],
+  "failure_criteria": [
+    "Material earlier context absent despite accessible evidence.",
+    "Material attribution retrieved but dropped or misassigned in final account.",
+    "Repeated cached record incurs another source charge.",
+    "Unsupported citation or silent omission of fully read evidence."
+  ],
+  "record_range": {
+    "requested": [
+      32,
+      40
+    ],
+    "accepted_without_editing": [
+      32,
+      64
+    ]
+  },
+  "assessment": "Manual hidden-author-rubric and original-source comparison after completion; exact quote and disposition checks are not semantic scoring.",
+  "comparison_limit": "Different stories and changed response/budget accounting; not a controlled effectiveness comparison.",
+  "freeze": {
+    "model/independent-author.txt": "8678e028f9d92c630f845bd1015004a96adc79b4da79c362c1375bb3af267520",
+    "model/attribution-researcher.txt": "0c7245ca3bae8607c01127f35e9bf566b4811f66c6bcd5e3263646e18022fea2",
+    "model/author.schema.json": "4118bbc8ec7114ea0e5e1458e1e1db24723435a8feb35b03bd90a8ba686450ec",
+    "model/attribution.schema.json": "e394b3b250cfb2002d2573648233470c02964f6e3d3dd59b5835a9654110b36a",
+    "model/review.schema.json": "42086cef79a3ca360191c92334acabc5ee275b734b4d255d813bf70137289fec",
+    "attribution_server.py": "351f9fde507796c5111c9b86d91006c423fd067fdd3916742daaf4d021698916",
+    "attribution_review.py": "0936c3b067650163e80dace1408f4000014f834d15b5a4eeef5933773fd8a5c2",
+    "semantic_review.py": "66b6851333e51e2535dd990784d6229827f68f399ee5a04c5100be5ac70fb0e5",
+    "followup_server.py": "3c5df5973d274f6c91f44426a55af0d87fa1c9a04ad6eb203f9e897bb00786ee",
+    "autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "mcp_server.py": "d808a0d52d9bbeca7024a155cf289274e17e73fe74ce50b71dece38f13867131",
+    "model_backend.py": "2ef789c86ae7a9fff2885b4e34c0c5c3f0fc7c3bdc33074fbbd83194f39b7b55",
+    "attribution_experiment.py": "5749269be542808f779720efc4dbcdd69b4616222744f740fdc3bc63f219839b",
+    "tests/test_attribution.py": "e4c255a9fe8ca53b51e6376b1d53db6ebf97b46cd20befda5032df2c131a1b67"
+  }
+}

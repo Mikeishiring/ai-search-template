@@ -1,0 +1,452 @@
+{
+  "headline": "Report authors keep their credit. Reviewers still lose theirs.",
+  "summary": "All 39 accessible records were read and noted. Six evaluation sources retain their authors, and the initial ownership offer stays an offer. The account still drops two reviewers’ named contributions and describes a planned cap as personally completed.",
+  "scope_limit": "One independent synthetic venue-ticketing story. Eleven of twelve rubric themes fully met; one partial. All 70 quotations match and structural checks pass. Semantic gaps remain, so this is not an end-to-end pass. One failed connection launch preceded the substantive run.",
+  "expected_records": 39,
+  "themes": [
+    {
+      "id": "theme-01",
+      "name": "Owned reconciliation design and service implementation",
+      "criterion": "Conclude that Contributor 01 personally took ownership of the offline reconciliation slice and led its service-side design and implementation, while the project brief and review distinguish this from firmware, console and rollout ownership.",
+      "anchors": [
+        "chat:002",
+        "docs:001",
+        "docs:012"
+      ],
+      "pitfall": "Either omit the explicit ownership or claim Contributor 01 owned the entire project and all components.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c2",
+        "c11"
+      ],
+      "assessment": "Distinguishes the initial offer, assigned reconciliation scope and later service-implementation evidence. Firmware, console and rollout remain separately owned.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-02",
+      "name": "Built replay-safe event ingestion",
+      "criterion": "Identify Contributor 01's concrete implementation of the event ledger, idempotent upload behaviour, transaction handling and overlapping-batch test.",
+      "anchors": [
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004"
+      ],
+      "pitfall": "Reduce the work to a vague proposal, or attribute the reviewer's requested test entirely to the reviewer rather than noting Contributor 01 implemented it.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c4"
+      ],
+      "assessment": "Preserves ledger, idempotency, migration, transaction correction and the requested overlapping-batch test. It acknowledges a reviewer request, though the reviewer’s identity disappears; that attribution gap is separately flagged.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-03",
+      "name": "Designed conflict semantics with acknowledged limits",
+      "criterion": "Explain that Contributor 01 separated repeated uploads from cross-device conflicts, used receipt order as a deterministic rule rather than historical truth, preserved audit events and captured clock offsets.",
+      "anchors": [
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "repo:006"
+      ],
+      "pitfall": "State that the system established who scanned first, or portray the ordering limitation as undisclosed.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c3",
+        "c5"
+      ],
+      "assessment": "Keeps replay versus cross-device conflict, deterministic receipt order, audit retention, clock drift and completed clock-offset capture. It does not claim historical arrival order. The origin of the reviewer’s challenge is lost, despite preservation of the technical conclusion.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-04",
+      "name": "Corrected invalid-ticket misclassification",
+      "criterion": "Note that a reviewer found invalid tickets would inflate conflicts and Contributor 01 corrected the ordering of validation and added distinct metrics and a fixture.",
+      "anchors": [
+        "repo:007",
+        "repo:008"
+      ],
+      "pitfall": "Ignore the defect, claim Contributor 01 discovered it unaided, or treat the correction as proof the original design had no problem.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c5"
+      ],
+      "assessment": "Names Contributor 05 as diagnosing invalid-ticket misclassification and Contributor 01 as applying validity checks, the supplied fixture and distinct metrics. Does not hide the original defect.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-05",
+      "name": "Adapted to device retention constraints",
+      "criterion": "Conclude that Contributor 01 responded to the firmware storage limit by narrowing claims to two-hour outages, requesting age telemetry and documenting queue depth as a temporary signal; firmware delivery remained Contributor 06's work.",
+      "anchors": [
+        "chat:003",
+        "chat:004",
+        "chat:005",
+        "docs:007",
+        "repo:013"
+      ],
+      "pitfall": "Credit Contributor 01 with implementing firmware telemetry or imply that the missing signal blocked all piloting.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c6",
+        "c11"
+      ],
+      "assessment": "Preserves the storage limit, two-hour scope, requested telemetry, temporary queue-depth signal and Contributor 06’s later firmware delivery. The actor/state wording of the cap is weaker than the surrounding conclusion and is separately flagged.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-06",
+      "name": "Found and fixed a pilot-scale performance risk",
+      "criterion": "Identify that Contributor 01's rehearsal exposed an unsafe backlog, after which they implemented incremental reconciliation and contention tests; approval was explicitly limited to the modeled 20-device pilot scale.",
+      "anchors": [
+        "chat:007",
+        "repo:009",
+        "repo:010"
+      ],
+      "pitfall": "Claim general scalability or omit that the initial build was unsafe before correction.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c7"
+      ],
+      "assessment": "Keeps the subject’s diagnosis, initially unsafe backlog, incremental implementation, contention tests, 14-minute to under-90-second result and the reviewer’s 20-device/one-wave boundary.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-07",
+      "name": "Shared console and operational delivery",
+      "criterion": "Distinguish Contributor 01's API contract, state definitions, sample payloads and initial runbook from Contributor 08's console implementation and Contributor 03's operational procedure, training and rollout.",
+      "anchors": [
+        "docs:005",
+        "repo:005",
+        "docs:007",
+        "docs:008",
+        "repo:011"
+      ],
+      "pitfall": "Credit Contributor 01 with building the console or independently delivering training and rollout.",
+      "importance": "material",
+      "status": "partial",
+      "claim_ids": [
+        "c6",
+        "c8"
+      ],
+      "assessment": "Correctly separates the subject’s state definitions, API and draft runbook from console implementation and operational ownership. However, the completed ambiguity-aware sample payloads in repo:006 survive only in a note and quotation, not the account or role description. This distinct contribution is not fully carried into the story.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-08",
+      "name": "Pilot recovered a short outage with bounded evidence",
+      "criterion": "Report that Venue A queued and uploaded 1,842 events during a 17-minute outage, recorded 31 repeated uploads and six manually checked conflicts, and logged no confirmed double admission; Venue B had no outage.",
+      "anchors": [
+        "docs:009",
+        "chat:010"
+      ],
+      "pitfall": "Generalize from one observed outage to universal reliability, equate no reported double admission with proof none occurred, or count Venue B as an offline recovery test.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c9",
+        "c10"
+      ],
+      "assessment": "Retains 1,842 events, 17 minutes, 12 devices, 31 repeated uploads, six checked conflicts and the shift-log limit. Venue B is explicitly excluded as an offline recovery test.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-09",
+      "name": "Wording caused confusion and was revised",
+      "criterion": "Explain that one supervisor mistook 'accepted' for proof of arrival order, after which Contributor 01 changed the exposed wording to 'selected by system' without changing reconciliation logic; later limited feedback said it was clearer.",
+      "anchors": [
+        "docs:010",
+        "docs:011",
+        "repo:012",
+        "chat:010"
+      ],
+      "pitfall": "Hide the misunderstanding, claim the algorithm changed, or infer broad usability success from two online cases.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c10"
+      ],
+      "assessment": "Keeps the supervisor’s misunderstanding, completed presentation fix, unchanged reconciliation logic and limited two-case feedback. Source authors 10 and 11 receive metadata credit without being called sole evaluators.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-10",
+      "name": "Controlled expansion produced encouraging but limited results",
+      "criterion": "State that three additional small venues were enabled after telemetry shipped; two brief outages queued 2,406 events and completed uploads without operator intervention, with four checked conflicts and no confirmed double admissions logged.",
+      "anchors": [
+        "docs:012",
+        "repo:013",
+        "chat:012",
+        "docs:013"
+      ],
+      "pitfall": "Describe this as estate-wide adoption, a large-venue launch or definitive prevention of duplicate admission.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c11",
+        "c12"
+      ],
+      "assessment": "Separates a recommendation from later enablement of three small venues. Retains two short outages, 2,406 events, four manually checked conflicts and no confirmed double admissions logged, without claiming universal prevention.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-11",
+      "name": "Residual telemetry defect and unresolved scale",
+      "criterion": "Retain the uncertainty that queue-age telemetry could become stale after device sleep, the two-hour fallback remained, and larger-venue adoption was undecided through the horizon.",
+      "anchors": [
+        "docs:013",
+        "repo:014"
+      ],
+      "pitfall": "Treat the telemetry defect as a failed upload system, assume it was resolved, or use the post-horizon trial approval as an outcome within scope.",
+      "importance": "material",
+      "status": "pass",
+      "claim_ids": [
+        "c12"
+      ],
+      "assessment": "Retains stale queue-age warnings, the two-hour fallback, ongoing firmware investigation and undecided large-venue adoption. Does not import the post-horizon approval or confuse warning accuracy with failed upload.",
+      "unread_anchors": []
+    },
+    {
+      "id": "theme-12",
+      "name": "Background trigger and unrelated records",
+      "criterion": "Recognize the older foyer restart report as relevant motivation while excluding fridge, expense-export and book-club items from the substantive account.",
+      "anchors": [
+        "chat:001",
+        "chat:006",
+        "chat:008",
+        "chat:011"
+      ],
+      "pitfall": "Miss the relevant older context or weave unrelated operational notices into the project narrative.",
+      "importance": "secondary",
+      "status": "pass",
+      "claim_ids": [
+        "c1"
+      ],
+      "assessment": "Retrieves the January incident, preserves its observational status and excludes the fridge, expense-export and book-club distractors from the account.",
+      "unread_anchors": []
+    }
+  ],
+  "issue_heading": "A complete record ledger still loses parts of the work.",
+  "issues": [
+    {
+      "severity": "Exclusion reasons erase useful attribution",
+      "claim_ids": [
+        "c3",
+        "c4"
+      ],
+      "detail": "docs:003 records Contributor 05 challenging receipt-order semantics; the note preserves it, but c3 presents only the subject’s correction. repo:003 records Contributor 07 requesting the overlapping-batch test; c4 says “reviewer-requested” without the identity, and its roles credit only the implementer. Both are excluded as already covered. Keeping the result does not preserve who prompted it."
+    },
+    {
+      "severity": "The sentence is stronger than its action state",
+      "claim_ids": [
+        "c6"
+      ],
+      "detail": "c6 says Contributor 01 “capped claims at two hours,” while its saved actor event is planned and chat:004 says “I will cap.” The later chat:009 confirms a two-hour operational fallback decided by Contributor 03, but is excluded rather than cited to connect the stages. The cap did become operational policy; the evidence does not directly establish the subject personally completed it. The qualification says “initially plans” without repairing that attribution."
+    },
+    {
+      "severity": "A supplied example disappears during writing",
+      "claim_ids": [
+        "c5",
+        "c8"
+      ],
+      "detail": "repo:006 says Contributor 01 supplied sample payloads with ambiguous cases. The note and exact quotation retain this, but the account and role labels reduce the work to classification, clock offsets and an API. Citing the record passes bookkeeping while leaving a distinct contribution out."
+    },
+    {
+      "severity": "Compression blurs the delivery sequence",
+      "claim_ids": [
+        "c5"
+      ],
+      "detail": "c5 groups the initial classification/API implementation with the later validity correction under “After Contributor 05 found.” The original implementation is dated February 25, the review February 26 and the correction February 27. It should separate the earlier delivery from the later fix rather than imply the review preceded both."
+    },
+    {
+      "severity": "Two attachments remain outside the read evidence",
+      "claim_ids": [
+        "c6",
+        "c9"
+      ],
+      "detail": "The available runbook diagram was requested only after all 45 source calls were spent; the tool returned budget_exhausted. The metrics workbook was never requested. Evaluator inspection shows the workbook is unavailable in the fixture, but the researcher did not establish that. The account’s aggregate measurements are source reports, not recomputed workbook results."
+    },
+    {
+      "severity": "Structural repair has a narrower success claim",
+      "claim_ids": [],
+      "detail": "The first draft check caught chat:009 missing from both claims and exclusions. The AI added an exclusion explanation and passed its second check without coaching. None of this run’s seven coverage notes concerns a cited record, so the cited-but-omitted repair is exercised by unit tests, not this live story. Likewise, there is no rejection-only record in this run."
+    },
+    {
+      "severity": "A failed launch is part of the result",
+      "claim_ids": [],
+      "detail": "The first launch exposed no synthetic source tools, read zero records and made two empty host resource-list calls outside the allowlist; its output was excluded and preserved. Connection-only diagnostics subsequently succeeded. The unchanged story and frozen protocol were restarted once. This is a disclosed transport exception to the no-retry plan, not a successful first launch or a second answer selected for quality."
+    }
+  ],
+  "limitations": [
+    "The separate AI author produced 40 records in a new domain from a generic brief and schema. The researcher received the scope and a fixed synthetic MCP, never the author rubric, implementation, previous conversation or private records. The story was accepted unchanged.",
+    "The substantive run read all 39 records within the horizon, including three irrelevant records, completed twelve contexts and nine source/window sweeps, and excluded one July record beyond the June horizon. This is fixture coverage, not a claim about live archives.",
+    "All 39 read records have notes: 36 material and three irrelevant. Claims or rejections cite 29 material records; seven are explicitly excluded. Those explanations are model judgments, not proof that their distinct contributions were redundant.",
+    "Eight writing packets and eight note batches followed source exhaustion; the first save_notes was request 49. Recovery worked, but incremental note-taking still did not happen. The researcher used 67 total requests and left 13 unused.",
+    "The offer in chat:002 remains offered. The firmware promise in chat:005 remains offered, while later firmware completion is independently cited from repo:013. This is positive evidence for those particular transitions, not proof that every prose verb is safe.",
+    "Metadata credit covers six cited evaluation sources and does not imply those authors performed all underlying work. It depends on the AI classifying a source as evaluation; arbitrary diagnostic or review contributions are not automatically retained.",
+    "The first full draft failed one missing-material check, then passed after an explicit exclusion. The final response matches the checked draft except for its receipt. All 70 spans resolve exactly. Structural validity does not establish semantic support or adequate attribution.",
+    "The rubric score is a manual assessment by this assistant after the response, using the separate author’s criteria and original records. Additional attribution, action-state and chronology problems were found beyond the rubric. These are not independent human judgments or a controlled comparison with older stories.",
+    "The failed first launch, connection diagnostics and transport restart are retained. No source record or hidden rubric was read by the assessor before the substantive run; the initial output contained no findings. The no-retry exception prevents describing the complete execution as fully preregistered.",
+    "Author and researcher used the same provider/default family. Their receipts do not capture the exact model identifier. No prompt, compiler, schema or source fixture changed between generation and the substantive response. No source-specific tuning or second substantive attempt was used.",
+    "The dashboard has static, preservation, contrast and simulated-DOM checks. Rendered browser inspection remains blocked by the existing local-file policy; no alternate route was used."
+  ],
+  "method": "Implementation, prompts, schemas and tests were frozen before independent story generation. After a documented zero-read transport failure, the same research configuration made one substantive attempt. The AI chose all reads and corrected one generic draft-validation error within its budget. Only afterwards did this assistant compare the raw response, notes and exact sources with the hidden rubric. The compiler resolves spans, derives roles/coverage, credits source authors and assembles the model’s own claim sentences.",
+  "next_experiment": "Audit exclusions at the contribution level: preserve who raised a problem and who fixed it, even when the outcome is covered elsewhere. Compare every delivery verb with its dated actor event and completion source. Require the writer to account for distinctive saved findings, not merely their record IDs. Test on another untouched story; do not repair this first response.",
+  "summary_counts": {
+    "fully_met": 11,
+    "partial": 1,
+    "missed": 0,
+    "themes": 12,
+    "full_records": 39,
+    "accessible_records": 39,
+    "source_calls": 45,
+    "requests": 67,
+    "cache_hits": 0,
+    "remaining_source_calls": 0,
+    "remaining_requests": 13,
+    "completed_contexts": 12,
+    "unfinished_contexts": 0,
+    "completed_source_window_sweeps": 9,
+    "unread_surfaced_records": 0,
+    "unchecked_attachments": 2,
+    "exact_spans": 70,
+    "submitted_spans": 70,
+    "completion_receipt_valid": true,
+    "validation_flags": 0,
+    "disposition_records": 39,
+    "attribution_chains": 12,
+    "writing_packet_calls": 8,
+    "save_notes_calls": 8,
+    "saved_notes": 39,
+    "material_notes": 36,
+    "material_notes_represented": 29,
+    "explicit_material_exclusions": 7,
+    "partial_coverage_notes": 0,
+    "narrative_claims": 12,
+    "rejection_only_records": 0,
+    "source_credit_records": 6,
+    "draft_checks": 2,
+    "failed_draft_checks": 1
+  },
+  "final_planning": {
+    "unopened_contexts": [],
+    "unread_references": [],
+    "unchecked_attachments": [
+      {
+        "source": "docs",
+        "id": "att:pilot-metrics"
+      },
+      {
+        "source": "docs",
+        "id": "att:runbook-diagram"
+      }
+    ],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "calls_remaining": 0,
+    "scope": "Known leads only; no unseen content or hidden rubric consulted.",
+    "earlier_start": "2030-11-03",
+    "requests_remaining": 13,
+    "unread_surfaced_records": [],
+    "priority_branches": [],
+    "writing": {
+      "full_records": 39,
+      "noted_records": 39,
+      "unnoted_ids": [],
+      "material_note_ids": [
+        "chat:001",
+        "chat:002",
+        "chat:003",
+        "chat:004",
+        "chat:005",
+        "chat:007",
+        "chat:009",
+        "chat:010",
+        "chat:012",
+        "docs:001",
+        "docs:002",
+        "docs:003",
+        "docs:004",
+        "docs:005",
+        "docs:006",
+        "docs:007",
+        "docs:008",
+        "docs:009",
+        "docs:010",
+        "docs:011",
+        "docs:012",
+        "docs:013",
+        "repo:001",
+        "repo:002",
+        "repo:003",
+        "repo:004",
+        "repo:005",
+        "repo:006",
+        "repo:007",
+        "repo:008",
+        "repo:009",
+        "repo:010",
+        "repo:011",
+        "repo:012",
+        "repo:013",
+        "repo:014"
+      ],
+      "recovery": "writing_packet and save_notes are free local operations within the 80-request ceiling, including after 45 source calls.",
+      "checked_draft_current": true
+    }
+  },
+  "completion_receipt": {
+    "allowed": true,
+    "status": "source_limit",
+    "counts": {
+      "source_calls": 45,
+      "source_budget": 45,
+      "requests_including_this_check": 67,
+      "request_limit": 80,
+      "source_calls_remaining": 0,
+      "requests_remaining": 13
+    },
+    "unresolved": {
+      "unread_surfaced_records": [],
+      "unopened_contexts": [],
+      "unread_references": [],
+      "unchecked_attachments": [
+        {
+          "source": "docs",
+          "id": "att:pilot-metrics"
+        },
+        {
+          "source": "docs",
+          "id": "att:runbook-diagram"
+        }
+      ],
+      "pending_pages": [],
+      "unfinished_window_sweeps": [],
+      "unnoted_records": []
+    },
+    "scope": "Observed records and enumerated windows only; unseen source contents and semantic completeness are not certified.",
+    "receipt_id": "b9bd1b4f8aff0a8e34ac6506f32168460f50f09c21e30c493407fa0e10d6a7a0",
+    "cache_hit": false,
+    "source_charge": 0,
+    "remaining_calls": 0
+  },
+  "validation_errors": [],
+  "adjudicator": "This assistant; manual rubric and source review",
+  "substantive_attempts": 1,
+  "research_launches": 2,
+  "transport_restart_disclosed": true,
+  "content_edited": false,
+  "prompt_frozen": true,
+  "private_records_supplied": false,
+  "raw_response_sha256": "b00ed7f9b867976ed4efdc4f98f139e774f365b3d95752d008a16e12447054e6",
+  "compiled_review_sha256": "a7e3dfe43f864d223578ec05a8b602f73ee9ef92d19d43cd8d04cecf78e7c103",
+  "gold_sha256": "4f458d814db3fa3e306b8093ce26e25c055552166378bb8d3cfa31a959257851"
+}

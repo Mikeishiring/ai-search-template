@@ -1,0 +1,190 @@
+[
+  {
+    "id": "chat:001",
+    "source": "chat",
+    "date": "2027-03-20",
+    "author": "Contributor 04",
+    "container": "#facilities-operations",
+    "body": "Freezer B peaked again during the 02:00 defrost overlap. Three compressors and the dock heater started inside seven minutes. Logging it here until the controls review begins.",
+    "parent": null,
+    "links": [],
+    "title": "Overnight demand peak",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "repo:003",
+    "source": "repo",
+    "date": "2027-04-11",
+    "author": "Contributor 01",
+    "container": "lantern-tools / issue 14",
+    "body": "Confirmed. I inferred more timestamp precision than the export provides. I will mark the repeated hour ambiguous, exclude it from the baseline comparison, and add the supplied fixture.",
+    "parent": "repo:002",
+    "links": [],
+    "title": "Defect acknowledgement",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:006",
+    "source": "chat",
+    "date": "2027-04-18",
+    "author": "Contributor 08",
+    "container": "#project-lantern",
+    "body": "Finance asked whether Lantern is an energy-saving project. For the pilot, the agreed target is avoiding the monthly demand peak; total energy may stay flat or rise slightly.",
+    "parent": null,
+    "links": [
+      {
+        "source": "docs",
+        "id": "docs:003"
+      }
+    ],
+    "title": "Outcome definition",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:008",
+    "source": "chat",
+    "date": "2027-04-29",
+    "author": "Contributor 01",
+    "container": "#project-lantern",
+    "body": "Across the four staffed nights, overlapping eligible starts fell from 11 in the matched baseline windows to 3. One recommendation was held and one rejected by the controller. Peak-demand interpretation waits for the meter extract.",
+    "parent": "chat:007",
+    "links": [],
+    "title": "Operational trial count",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "docs:007",
+    "source": "docs",
+    "date": "2027-05-12",
+    "author": "Contributor 03",
+    "container": "Lantern phase-two decision",
+    "body": "Proceed with a supervised trial in Chiller C. Keep recommendation mode. Do not enable fleet automation until the controller interface is supported and at least eight additional nights cover busier loading conditions.",
+    "parent": null,
+    "links": [
+      {
+        "source": "docs",
+        "id": "docs:005"
+      },
+      {
+        "source": "docs",
+        "id": "docs:006"
+      }
+    ],
+    "title": "Phase-two decision",
+    "attachments": [
+      "att:001"
+    ],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:011",
+    "source": "chat",
+    "date": "2027-05-14",
+    "author": "Contributor 05",
+    "container": "#site-east-maintenance",
+    "body": "Chiller C has a different controller revision. The recommendation screen reads its state, but the vendor gateway rejects the proposed-delay field. Manual staggering is still possible.",
+    "parent": null,
+    "links": [
+      {
+        "source": "docs",
+        "id": "docs:007"
+      },
+      {
+        "source": "repo",
+        "id": "repo:009"
+      }
+    ],
+    "title": "Controller incompatibility",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:012",
+    "source": "chat",
+    "date": "2027-05-20",
+    "author": "Contributor 04",
+    "container": "#project-lantern",
+    "body": "Chiller C completed two manually staggered nights. No alarms, but the second night had too few eligible cycles to compare. We are pausing until the gateway question is answered.",
+    "parent": null,
+    "links": [
+      {
+        "source": "repo",
+        "id": "repo:009"
+      }
+    ],
+    "title": "Limited second-site trial",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:015",
+    "source": "chat",
+    "date": "2027-06-24",
+    "author": "Contributor 09",
+    "container": "#office-moves",
+    "body": "The west meeting room labels are being replaced Friday. Please remove anything left on the whiteboard before noon.",
+    "parent": null,
+    "links": [],
+    "title": "Meeting room labels",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "chat:016",
+    "source": "chat",
+    "date": "2028-02-08",
+    "author": "Contributor 04",
+    "container": "#project-lantern",
+    "body": "Freezer B supervisors still use the recommendation screen on selected high-load nights, roughly once or twice a month. It is not the default schedule, and I do not have a clean usage export because two shifts record holds on paper.",
+    "parent": "chat:007",
+    "links": [
+      {
+        "source": "docs",
+        "id": "docs:008"
+      }
+    ],
+    "title": "Later limited use",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  },
+  {
+    "id": "docs:011",
+    "source": "docs",
+    "date": "2028-06-28",
+    "author": "Contributor 08",
+    "container": "Demand-management portfolio note",
+    "body": "Lantern evidence remains site-specific: four supervised Freezer B nights, two manual Chiller C nights, and intermittent later use reported by operations. No portfolio-wide measurement or fleet rollout has been completed.",
+    "parent": null,
+    "links": [
+      {
+        "source": "docs",
+        "id": "docs:010"
+      },
+      {
+        "source": "chat",
+        "id": "chat:016"
+      },
+      {
+        "source": "repo",
+        "id": "repo:014"
+      }
+    ],
+    "title": "Follow-up horizon status",
+    "attachments": [],
+    "link_only": false,
+    "repost_of": null
+  }
+]
