@@ -835,8 +835,12 @@
       "sha256": "a3409e9a9fde1cdebea02381e56838a1d28a5c8d79d4a85528d5974f88784d7c"
     },
     {
+      "path": "LICENSE",
+      "sha256": "4d179dac87c695b3a65bf711b4fbc5ea440fe06fee5ab3b601cf9e0cf0b7fa6d"
+    },
+    {
       "path": "README.md",
-      "sha256": "db5add409f904ec19429719060fd54dfec0a06f4c8c4a17acee9267e6ec6318a"
+      "sha256": "f6e4582229a4cdc67195ccc1605005ba11726bb78c80446fb9b974ca886bf789"
     },
     {
       "path": "SPEC.md",

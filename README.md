@@ -51,3 +51,5 @@ The latest saved synthetic run read 39 of 39 accessible records and retained 70 
 Passing citation and bookkeeping checks does not prove a faithful story. The report keeps semantic criticism alongside the original output. These are small synthetic experiments, not a production accuracy benchmark.
 
 This release includes selected synthetic result artifacts, not host session databases, transport logs or private working files. The publication manifest records the included files. No default deployment or automatic publication is configured.
+
+Code, documentation and synthetic examples are available under the [MIT license](LICENSE).
