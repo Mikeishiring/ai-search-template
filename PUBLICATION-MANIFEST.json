@@ -1,6 +1,6 @@
 {
   "synthetic_only": true,
-  "method": "Explicit code, schema, synthetic fixture and selected result allowlist; no private tree copied. Pattern scan is additional screening, not a universal privacy classifier.",
+  "method": "Reviewed code, docs and synthetic examples. File pattern scan is additional screening, not proof of anonymization or a universal secret detector. Personal workspaces are excluded.",
   "files": [
     {
       "path": ".gitattributes",
@@ -9,6 +9,30 @@
     {
       "path": ".gitignore",
       "sha256": "ae7722e5efcf7461921941cfb1e6bfae8b4c6e40d0160db0d50218881700881b"
+    },
+    {
+      "path": "AI-SEARCH-MVP.html",
+      "sha256": "a3409e9a9fde1cdebea02381e56838a1d28a5c8d79d4a85528d5974f88784d7c"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "4d179dac87c695b3a65bf711b4fbc5ea440fe06fee5ab3b601cf9e0cf0b7fa6d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "6eda5507f6efadcadc67fd2bbd8efb31168cddb213bf7009965d4ead35dd2dd9"
+    },
+    {
+      "path": "SPEC.md",
+      "sha256": "597eaf306be6a7fa0b88c1797863fea018ed4c9a95a0471ae0dbdac4beb18fc5"
+    },
+    {
+      "path": "ai-search-mvp/README.md",
+      "sha256": "2908ab8f6ce95dbed1b94c092b7f83d012476a96f4d32a266fb8dda894c43b71"
+    },
+    {
+      "path": "ai-search-mvp/RESEARCH-PROMPT.md",
+      "sha256": "a18f6f688b0637ce14cf9673842036fae987a27f402c13653b0a84d4d9004f16"
     },
     {
       "path": "ai-search-mvp/accept_author_story.py",
@@ -383,10 +407,6 @@
       "sha256": "7b777e5b629ea431ce4e51b0546d92e1ab1720821671d08cf3b6f6f758ee4106"
     },
     {
-      "path": "ai-search-mvp/README.md",
-      "sha256": "2a60a7ea4eccd89154601123d28f68ad51237b490e9d09cc6a3c88007ec83d80"
-    },
-    {
       "path": "ai-search-mvp/report-style.css",
       "sha256": "9e24af8b1b1d97b62126e43c678cd590dd0d7e0effaf36c4a63742170f43480b"
     },
@@ -397,10 +417,6 @@
     {
       "path": "ai-search-mvp/report.py",
       "sha256": "464c18d521592f5c652b473b47c23944592c661a1cd96eab014d77d2e876e96b"
-    },
-    {
-      "path": "ai-search-mvp/RESEARCH-PROMPT.md",
-      "sha256": "a18f6f688b0637ce14cf9673842036fae987a27f402c13653b0a84d4d9004f16"
     },
     {
       "path": "ai-search-mvp/retention_experiment.py",
@@ -831,20 +847,44 @@
       "sha256": "dda4ca518da821eaccc11f4add7692ec8933ebca48f742368bb271f5c325fda6"
     },
     {
-      "path": "AI-SEARCH-MVP.html",
-      "sha256": "a3409e9a9fde1cdebea02381e56838a1d28a5c8d79d4a85528d5974f88784d7c"
+      "path": "docs/FIRST-USE-AUDIT.md",
+      "sha256": "aca53167b929ec31a51470dcd1a79fdc4e50dbc2bea83ea4db7dd86156595d12"
     },
     {
-      "path": "LICENSE",
-      "sha256": "4d179dac87c695b3a65bf711b4fbc5ea440fe06fee5ab3b601cf9e0cf0b7fa6d"
+      "path": "docs/MCP.md",
+      "sha256": "6d82338f2d0d6c42a1ca2f70bb11ef5fb94e54d95ebb4f8e90a9ded79ab5c1c3"
     },
     {
-      "path": "README.md",
-      "sha256": "f6e4582229a4cdc67195ccc1605005ba11726bb78c80446fb9b974ca886bf789"
+      "path": "docs/PRIVACY.md",
+      "sha256": "8dbaebc27e9bb31d8b2b57c9f2f6ec87a4e269eb6f87eef75f4d39167e73e9fa"
     },
     {
-      "path": "SPEC.md",
-      "sha256": "597eaf306be6a7fa0b88c1797863fea018ed4c9a95a0471ae0dbdac4beb18fc5"
+      "path": "docs/SOURCES.md",
+      "sha256": "4b8371b14f3746ccf576fe4b6fde31814b37f2cdf81196e29ab2e033efd367a8"
+    },
+    {
+      "path": "examples/first-records.json",
+      "sha256": "e0e58efd6e76533b8a015102fedf9f82c93f66ac869f4806dd69ffada2147eb7"
+    },
+    {
+      "path": "personal.py",
+      "sha256": "5b4bf5ed05b5739789e88dba60b044d7c82e96f93fe7f16a75d9560a17afc06b"
+    },
+    {
+      "path": "prompts/PERSONAL-REVIEW.md",
+      "sha256": "b427be4c8698c5abf1846a278f53f31327755a6d7a966936a8440690be07c527"
+    },
+    {
+      "path": "tests/test_personal.py",
+      "sha256": "4f2ca61df87c233ca8a9d8af60c44be9bd689065f84b32583bee47def7e49834"
+    },
+    {
+      "path": "tools/check_mcp.py",
+      "sha256": "04e1f7c37d6ad6ac90ffba17f4cb9f0c662f9ed85a437fb01f3bfa8ac12c7739"
+    },
+    {
+      "path": "tools/check_release.py",
+      "sha256": "e7ad68d30faf3c9f3a79fbc36f768c3dc08ad24ef6f09115243f58e9d1e69ddf"
     }
   ]
 }

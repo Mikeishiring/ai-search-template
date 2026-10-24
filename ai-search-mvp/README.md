@@ -1,10 +1,12 @@
 # Local AI research MVP
 
+This is the historical experiment notebook. For first-time setup or your own data, start with the [root README](../README.md). The separate personal workspace command does not use this experiment ledger or its synthetic MCP server.
+
 This is a local research prototype with an authenticated Codex reviewer. All research records are synthetic. The source replay runs offline; the optional reviewer sends only its synthetic evidence packet to the Codex service. No private archive, live source connector or calendar is used. Model inference is remote, while the evidence, response and dashboard are saved locally.
 
 Open `../AI-SEARCH-MVP.html` for the results and original synthetic passages. The code runs with Python 3.11 or later and the standard library.
 
-The five experiment views share a context reader. Select a theme to inspect its assessment, model claims and quotations; AI views start with a partly met theme. Source visits have a return action that restores your filters, and selections persist while switching cases. Narrow layouts use a native theme selector. The report is generated from `report-template.html` and `report-style.css` into one self-contained file.
+The experiment views share a context reader. Select a theme to inspect its assessment, model claims and quotations; AI views start with a partly met theme. Source visits have a return action that restores your filters, and selections persist while switching cases. Narrow layouts use a native theme selector. The report is generated from `report-template.html` and `report-style.css` into one self-contained file.
 
 The design pass has passing state, evidence-preservation and contrast checks. Rendered inspection remains blocked by the local-file browser policy; layout, actual keyboard/touch behaviour and hover playback are not visually verified. The receipt is `runs/design/verification.json`.
 

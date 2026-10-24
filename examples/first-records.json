@@ -1,0 +1,4 @@
+[
+  {"id":"proposal-01","source":"chat","title":"A small documentation trial","date":"2030-03-04","author":"Contributor 01","text":"I can draft a troubleshooting guide for the support team. Contributor 02 will need to review it before we try it.","parent_id":""},
+  {"id":"followup-01","source":"docs","title":"Trial follow-up","date":"2030-03-18","author":"Contributor 02","text":"The draft guide is ready. Two support colleagues tried it on three tickets. They still needed help with account recovery. We have not decided whether to use it more widely.","parent_id":"proposal-01"}
+]

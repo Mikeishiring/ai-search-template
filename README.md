@@ -1,55 +1,70 @@
 # AI search template
 
-Reconstruct how work happened across messages, documents and code. Keep the sources, distinguish personal work from shared ownership, and follow a launch through to later use.
+Trace work from its first proposal through delivery, corrections and later use. Keep exact sources and distinguish your contribution from everyone else's.
 
-This repository contains the method, prompts, a local Python prototype and fictional test stories. It contains no personal career archive. The prototype replays synthetic sources; live Slack, Notion, GitHub and ATS connectors are not implemented.
+**This is an offline prototype, not a connected personal-search app.** You can inspect synthetic AI experiments or import selected records into your own local dashboard. There is no Slack, Notion, GitHub or ATS login button. Live adapters and automatic personal research are not implemented.
 
-## Try it
+| Your goal | Working path |
+|---|---|
+| See the research approach | Open the included [synthetic report](AI-SEARCH-MVP.html) locally; no account needed |
+| Build your own dashboard | Follow the local walkthrough below; Python 3.11+ only |
+| Connect an AI host | Follow [MCP setup](docs/MCP.md); the bundled bridge serves fictional cases only |
+| Connect real accounts | Read [Sources](docs/SOURCES.md); collect permitted exports or build the missing adapter |
 
-Requires Python 3.11 or later. The offline demo uses only the standard library; no account, API key or model call is needed.
+## Get a local copy
+
+Use GitHub's **Use this template** for reusable code, then download its ZIP and extract it, or check it out with Git. Open a terminal in the repository folder containing `personal.py`. No Python packages need installing.
+
+Run `python --version`; it must show 3.11 or later. On Windows, `py -3` may be available; on macOS/Linux, use `python3`. Substitute that command for `python` below. The code is platform-neutral, but this walkthrough was exercised on Windows only.
+
+Keep personal evidence outside this checkout, even if your copy of the template is private. Use a separate folder and, for remote backup, a separate empty private repository.
+
+## Build your first dashboard
+
+Run these commands **from the repository root**. The supplied records are fictional. `../my-evidence` creates a sibling folder; choose another name if it already exists.
+
+```sh
+python personal.py init ../my-evidence --title "My work evidence" --synthetic
+python personal.py import-json ../my-evidence examples/first-records.json
+python personal.py add-claim ../my-evidence --source chat --id proposal-01 --actor "Contributor 01" --state offered --statement "Contributor 01 offered to draft a troubleshooting guide." --quote "I can draft a troubleshooting guide for the support team." --limits "This proposal does not establish delivery or adoption."
+python personal.py build ../my-evidence
+```
+
+Open `../my-evidence/DASHBOARD.html` locally. Expect **2 imported records and 1 proposed claim**. Expand a source to inspect its text. The page does not contact a model or source account. This is separate from the historical synthetic experiment report.
+
+For your own material, create a new empty workspace without `--synthetic`, rather than mixing it with the tutorial. Import selected UTF-8 `.md`/`.txt` files with metadata, or convert authorized exports into normalized JSON. [Source preparation and import commands →](docs/SOURCES.md)
+
+Run `build` again after adding evidence or claims. New captures preserve older text, and claims anchored to an older revision get a re-review warning. Importing records does not generate claims. Use `add-claim`, or try the [optional personal-review prompt](prompts/PERSONAL-REVIEW.md) in an AI host you have chosen to trust with selected evidence. Automatic personal AI integration is not implemented.
+
+## Where your data goes
+
+The personal CLI reads the supplied file and writes local JSON and HTML. It does not connect to services, call a model, run Git or upload anything. The HTML embeds source text: keep it private too. Clicking an original-source link contacts that service.
+
+An AI host may send records to its model provider. GitHub backup sends committed files to GitHub. Neither happens through `personal.py`. A private repository is access-controlled remote storage, not encryption that only you can decrypt. [.gitignore does not make a public repository safe for private data. Read the privacy guide →](docs/PRIVACY.md)
+
+## What is missing
+
+The local path supports manual text/JSON import, one source anchor per proposed claim, immutable captures and a report. It does **not** parse raw Slack ZIPs, PDFs or ATS CSVs; enumerate real threads; resolve identities; infer achievements; combine multi-source claims; compute reliable personal interview counts; or review a claim's meaning. A checked quotation can still support a misleading sentence.
+
+The synthetic demo works from a fresh checkout, but its latest experiment still loses reviewer credit and overstates a planned action. It is not a production benchmark. [First-use audit and remaining gaps →](docs/FIRST-USE-AUDIT.md)
+
+## Inspect the research prototype
 
 ```sh
 cd ai-search-mvp
-python -m unittest discover -s tests -v
+python -m unittest discover -s tests -q
 python cli.py report
 ```
 
-Open `AI-SEARCH-MVP.html` at the repository root. It is a self-contained local report. To run the deterministic examples rather than inspect saved results:
+The report is written one directory above, at `AI-SEARCH-MVP.html`. These commands inspect saved synthetic experiments; they do not build your personal dashboard or run new AI research. Node.js is optional for `node tests/check_report.cjs`, which checks behavior in a simulated DOM, not a rendered browser.
 
-```sh
-python cli.py run training
-python cli.py evaluate training
-python cli.py run challenge
-python cli.py evaluate challenge
-python cli.py run search_only
-python cli.py report
-```
+From the repository root, run `python -m unittest discover -s tests -q` for the separate personal-workspace tests. [MCP setup](docs/MCP.md) includes a no-model connection test.
 
-An AI host can launch `python mcp_server.py` from `ai-search-mvp/` and use [the research prompt](ai-search-mvp/RESEARCH-PROMPT.md). That bridge exposes synthetic data only. The model host controls inference and its data handling. The saved autonomous experiments used isolated Codex invocations; their historical launch scripts assume a Windows/npm installation and are not a portable model integration.
+## Research method and reuse
 
-## Start with these
+- [Specification](SPEC.md): proposed research loop and connector contracts; many features remain unimplemented.
+- [Historical experiments](ai-search-mvp/README.md): evidence, failures and evaluation limits.
+- [Prompts and schemas](ai-search-mvp/model): instructions used in those experiments.
+- [Synthetic fixtures](ai-search-mvp/fixtures): fictional cases; `.gold.json` answer keys are evaluator-only inputs.
 
-- [Research process and connector specification](SPEC.md): scope, coverage, thread traversal, cross-platform links and prompts.
-- [Prototype and experiment notes](ai-search-mvp/README.md): implementation, failures and reproduction commands.
-- [Research prompt](ai-search-mvp/RESEARCH-PROMPT.md) and [model prompts and schemas](ai-search-mvp/model): reusable instructions and output contracts.
-- [Synthetic fixtures](ai-search-mvp/fixtures) and [saved results](ai-search-mvp/runs): inspectable cases, including failures. Answer keys are evaluator-only inputs.
-
-## Use it with your own history
-
-Create a separate **private repository** for your own sources, notes, claims, reviews and resume. Start from an empty private repository; a public template fork is still a public publication surface.
-
-Keep these as separate working directories and Git histories. Do not use a shared data folder, submodule, shared Git remote or an automatic private-to-public sync. Keep credentials in your local credential store or environment, outside both repositories. A private GitHub repository is remote storage with access control; it is not local-only or end-to-end encrypted storage.
-
-Define the question, permitted sources, dates and exclusions before connecting real systems. Build adapters that allow only the required reads. Preserve exact source text and timestamps, then distinguish proposals, requests, completed work, measurements and interpretation. A model service may receive supplied evidence: choose its access and retention arrangements deliberately before sending private material.
-
-Publish selected lessons or examples through a new reviewed export. Renaming people is not sufficient anonymization: quotations, timelines, compensation, project names and internal links may still identify them. Never copy a private archive here and try to clean it afterwards.
-
-## What the tests establish
-
-The latest saved synthetic run read 39 of 39 accessible records and retained 70 exact quotation spans. Manual review found 11 of 12 themes complete and one partial. It still lost reviewer attribution and overstated a planned action in prose. A failed connection launch preceded the substantive attempt and is disclosed in the assessment.
-
-Passing citation and bookkeeping checks does not prove a faithful story. The report keeps semantic criticism alongside the original output. These are small synthetic experiments, not a production accuracy benchmark.
-
-This release includes selected synthetic result artifacts, not host session databases, transport logs or private working files. The publication manifest records the included files. No default deployment or automatic publication is configured.
-
-Code, documentation and synthetic examples are available under the [MIT license](LICENSE).
+No private career records, credentials or host session databases are included. Historical model launch scripts assume Windows/npm Codex and are not the newcomer setup path. Code, documentation and synthetic examples are [MIT licensed](LICENSE).
