@@ -12,6 +12,7 @@ Python 3.11 or later and the standard library are sufficient:
 python -m unittest discover -s tests -q
 python -m unittest discover -s ai-search-mvp/tests -q
 python tools/check_mcp.py
+python tools/check_multisource.py
 python tools/build_demo.py
 python tools/check_release.py
 ```

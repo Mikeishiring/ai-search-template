@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
 from adapter import SourceError, digest
 from reviewer import STAGES, components, inspect, validate_finding
@@ -33,6 +33,15 @@ def now():
 
 class Runner:
     def __init__(self, path, adapter, scope, refresh=False):
+        aliases = scope.get('aliases', [])
+        if not isinstance(aliases, list) or len(aliases) > 10 or any(not isinstance(a, str) or not a.strip() or len(a) > 256 for a in aliases):
+            raise ValueError('aliases must contain at most ten nonempty search terms of at most 256 characters')
+        followup_roots = scope.get('include_followup_roots', False)
+        if not isinstance(followup_roots, bool):
+            raise ValueError('include_followup_roots must be true or false')
+        if followup_roots and not date.fromisoformat(scope['start']) <= date.fromisoformat(scope['end']) <= date.fromisoformat(scope['horizon']):
+            raise ValueError('Follow-up discovery requires start <= end <= horizon')
+        self.queries = list(dict.fromkeys([scope['query'], *aliases]))
         self.path, self.adapter, self.scope = path, adapter, scope
         self.db = sqlite3.connect(path)
         self.db.row_factory = sqlite3.Row
@@ -64,7 +73,10 @@ class Runner:
                 self.db.execute("INSERT INTO sources(id,manifest) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET manifest=excluded.manifest",
                                 (source, json.dumps(manifest)))
                 self.enqueue("coverage", source, "list_records", {"start": scope["start"], "end": scope["end"]}, "Enumerate the declared window, including earlier roots active inside it")
-                self.enqueue("question", source, "search_records", {"query": scope["query"], "horizon": scope["horizon"]}, "Initial question discovery; search cannot certify coverage")
+                if followup_roots and scope['horizon'] > scope['end']:
+                    self.enqueue('coverage', source, 'list_records', {'start': scope['end'], 'end': scope['horizon']}, 'Enumerate standalone follow-up records in the explicitly selected horizon')
+                for query in self.queries:
+                    self.enqueue("question", source, "search_records", {"query": query, "horizon": scope["horizon"]}, "Initial question or supplied alias discovery; search cannot certify coverage")
 
     def meta(self, key):
         row = self.db.execute("SELECT value FROM meta WHERE key=?", (key,)).fetchone()
@@ -116,16 +128,17 @@ class Runner:
         added = False
         # Explicitly connected components only; never merge matching titles.
         for group in components(records):
-            if not any(self.scope["query"].casefold() in (mapping[i].get("title", "") + " " + mapping[i]["body"]).casefold() for i in group):
+            if not any(query.casefold() in (mapping[i].get("title", "") + " " + mapping[i]["body"]).casefold() for i in group for query in self.queries):
                 continue
             present = {f["category"] for f in findings if f["record_id"] in group}
             for stage in STAGES:
                 if stage in present:
                     continue
                 for source in self.scope["sources"]:
-                    count = self.db.total_changes
-                    self.enqueue("question", source, "search_records", {"query": f"{self.scope['query']} {stage.replace('_', ' ')}", "horizon": self.scope["horizon"]}, f"Missing {stage} signal in connected group {group[0]}; seek context, do not infer absence")
-                    added |= self.db.total_changes > count
+                    for query in self.queries:
+                        count = self.db.total_changes
+                        self.enqueue("question", source, "search_records", {"query": f"{query} {stage.replace('_', ' ')}", "horizon": self.scope["horizon"]}, f"Missing {stage} signal in connected group {group[0]}; seek context, do not infer absence")
+                        added |= self.db.total_changes > count
         return added
 
     def step(self, crash_before_commit=False):
@@ -190,21 +203,27 @@ class Runner:
 
     def export(self):
         records = self.current_records()
+        outside_scope = sorted({(r['id'], ref['source'], ref['id']) for r in records for ref in r.get('links', []) if ref['source'] not in self.scope['sources']})
         tasks = [dict(t) | {"args": json.loads(t["args"])} for t in self.db.execute("SELECT * FROM tasks ORDER BY created")]
         coverage = []
         for row in self.db.execute("SELECT * FROM sources ORDER BY id"):
             manifest = json.loads(row["manifest"])
             local = [r for r in records if r["source"] == row["id"]]
             st = [t for t in tasks if t["source"] == row["id"]]
+            enumeration_tasks = [t for t in st if t['operation'] == 'list_records']
+            enumeration_complete = bool(enumeration_tasks) and all(t['state'] == 'done' for t in enumeration_tasks)
             pending, blocked = sum(t["state"] == "pending" for t in st), sum(t["state"] == "blocked" for t in st)
             coverage.append({"source": row["id"], "platform": manifest["platform"],
-                             "enumeration_end": bool(row["enumerated_end"]),
+                             "enumeration_end": enumeration_complete,
+                             "requested_enumeration_window": {"start": self.scope['start'], "end": self.scope['horizon'] if self.scope.get('include_followup_roots') else self.scope['end']},
+                             "standalone_followups_requested": self.scope.get('include_followup_roots', False),
                              "records_retrieved": len(local),
                              "records_rule_scanned": self.db.execute("SELECT COUNT(*) FROM records WHERE source=? AND scanned=1", (row["id"],)).fetchone()[0],
                              "semantic_reviews": 0, "pending": pending, "blocked": blocked,
-                             "retrieval_state": "partial" if pending else "with_limits" if blocked or not row["enumerated_end"] else "complete_within_fixture_scope",
+                             "retrieval_state": "partial" if pending else "with_limits" if blocked or not enumeration_complete else "complete_within_fixture_scope",
                              "review_state": "candidate_evidence_only"})
         return {"synthetic": True, "scope": self.scope, "status": self.meta("status"),
+                "outside_scope_links": [{"origin": origin, "source": source, "id": target, "state": "not_read_outside_selected_sources"} for origin, source, target in outside_scope],
                 "reviewer": self.meta("reviewer"), "records": records, "findings": self.current_findings(),
                 "coverage": coverage, "tasks": tasks, "components": components(records),
                 "edges": [dict(r) for r in self.db.execute("SELECT * FROM edges ORDER BY origin,target,kind")],

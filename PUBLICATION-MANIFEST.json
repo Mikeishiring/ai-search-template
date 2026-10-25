@@ -20,7 +20,7 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "e538ad247ae0198ac00f563de48bed67a11e97549311a04e099b9499d087b2fb"
+      "sha256": "992c2ba3ee39aa552dcdcbe8d4f53bbbf600f200e5cc2a8fa1427d9cb67c22e6"
     },
     {
       "path": "LICENSE",
@@ -28,7 +28,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "7fed8b521b5bd5a1f0d07dbfd964b6832726db4d9247523e014b3e3b52d593ce"
+      "sha256": "7eafef541bc47a0456d3b92892df4d8c5b54c020a59c6f58ead859f5295b7456"
     },
     {
       "path": "SPEC.md",
@@ -136,7 +136,7 @@
     },
     {
       "path": "ai-search-mvp/engine.py",
-      "sha256": "08a7914110f8420c907b10787d0f854d51bc2e054086072cabf13f8d694bff55"
+      "sha256": "3fa2855d2b97d6f558dc6a5a88d46d19d35294d41902449a60c49ad776600771"
     },
     {
       "path": "ai-search-mvp/evaluate.py",
@@ -225,6 +225,14 @@
     {
       "path": "ai-search-mvp/fixtures/make_training.py",
       "sha256": "0f11f3e5844086e4fab625911698ceda9e0f9638febb5bbcb97cc61744886fe5"
+    },
+    {
+      "path": "ai-search-mvp/fixtures/multisource.corpus.json",
+      "sha256": "5a65eb95d7a4eb99acdee27b9cbf37ba6e46f1c0006b8762b6ccb99e6cc09480"
+    },
+    {
+      "path": "ai-search-mvp/fixtures/multisource.scope.json",
+      "sha256": "cce9ed8eab2e44489f003d406496fb59283e759add204795d427532b224f5a47"
     },
     {
       "path": "ai-search-mvp/fixtures/ownership.corpus.json",
@@ -839,6 +847,10 @@
       "sha256": "4b0f0304203ceff5343c5b72e43fbb9d2329998a8452d4e998218c589922c579"
     },
     {
+      "path": "ai-search-mvp/tests/test_multisource.py",
+      "sha256": "e547fa7f00c7610954e046a53612eea63e02fe1372a267d459e93b88c54919c5"
+    },
+    {
       "path": "ai-search-mvp/tests/test_ownership.py",
       "sha256": "d49b86959b3121ed2a52a17c9d785093ef8d26e638b8e5138962770807609e2e"
     },
@@ -868,11 +880,15 @@
     },
     {
       "path": "docs/GETTING-STARTED.md",
-      "sha256": "ab1dc4706103bf48ea65f6af36b7be85122d8e5a789ec5c2a303083001ba9428"
+      "sha256": "0a1474adcbb594c562219cabd29a62b5aec059cf21022c8577f28bb995b955eb"
     },
     {
       "path": "docs/MCP.md",
       "sha256": "66b43ea0be082fdd68c314effbdb281046506ab43b9d0ea0d0dad756ffd8a469"
+    },
+    {
+      "path": "docs/MULTISOURCE.md",
+      "sha256": "8718ebceefba0c9da5b71baf79396ebb094a304874542643af982669a8032d76"
     },
     {
       "path": "docs/PRIVACY.md",
@@ -903,8 +919,12 @@
       "sha256": "b427be4c8698c5abf1846a278f53f31327755a6d7a966936a8440690be07c527"
     },
     {
+      "path": "prompts/START-HERE.md",
+      "sha256": "f5360f2464c6ebe13d21cb7c58a2c7ac329bee1c6f4c51c8ad55db55a51e0346"
+    },
+    {
       "path": "skills/career-context-sheet/SKILL.md",
-      "sha256": "16a7d31008be52d393403518b6f13da7f4bae02c6f70876bda309de59b089b82"
+      "sha256": "962421e0e739681a5288f3e3207773a1aebf82a3d5f7c7f0433d09729f37e754"
     },
     {
       "path": "skills/career-context-sheet/agents/openai.yaml",
@@ -917,6 +937,10 @@
     {
       "path": "skills/career-context-sheet/references/format.md",
       "sha256": "24a902abe088a0279e38d7196916bb40b05d330dd2f8a7c564340b5589473133"
+    },
+    {
+      "path": "skills/career-context-sheet/references/source-research.md",
+      "sha256": "4512265b3f64ebd11cd75259e71d406abe41a8134002543d0e851c00ff66aef8"
     },
     {
       "path": "skills/career-context-sheet/scripts/render_context.py",
@@ -945,6 +969,10 @@
     {
       "path": "tools/check_mcp.py",
       "sha256": "04e1f7c37d6ad6ac90ffba17f4cb9f0c662f9ed85a437fb01f3bfa8ac12c7739"
+    },
+    {
+      "path": "tools/check_multisource.py",
+      "sha256": "88673c70b24bbc5149afcd9e20b4bdfe6ffc055b275c3d96e48012ef9a8360d4"
     },
     {
       "path": "tools/check_release.py",

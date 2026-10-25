@@ -9,6 +9,16 @@ The deliverable is one self-contained HTML file the person can read, keep and gi
 
 ## Gather useful context
 
+Begin by establishing work, sources and privacy. Reuse answers already in the conversation; ask only what is missing, in one short group:
+
+1. **What work should we understand?** One project, a role or a broader career period; the person involved, approximate dates, and how far to look for earlier origins or later outcomes.
+2. **Which sources can we use?** Selected accounts, files and available connectors, including the relevant channels, folders, repositories or threads. Ask for known project names or aliases when useful. First inspect available connector metadata rather than asking the person to list tools you can already see.
+3. **What should stay out?** Excluded people, channels, direct messages, sensitive topics or date ranges, and what may be retained in the private sheet. Reading a source is separate from publishing or including its full contents.
+
+Proceed once that scope is clear; do not add a second approval checkpoint for already authorized read-only work. A broad career request can start with one useful period. If source access is unavailable, begin with the person's account and record the missing source rather than blocking the sheet.
+
+For research across channels or services, read [the source-research guide](references/source-research.md). Follow the same scope through discovery, source reads and the final handoff. A link to an excluded source is a recorded gap, not permission to read it.
+
 Start with the person's supplied material and selected, authorized MCP context. If the connector returns an inventory or summary, do not claim to have read the underlying documents. Keep connector grants and selected-source boundaries intact. The skill also works with pasted accounts and local files; an MCP connection is optional.
 
 Build around complete work accounts: the situation, why the work mattered, what the person wanted to change, what they did and decided, who else contributed, what happened and what remains uncertain. Include paid work, independent projects, research and operational work when relevant. Do not require a particular career type or a complete inventory.

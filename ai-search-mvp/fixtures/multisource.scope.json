@@ -1,0 +1,21 @@
+{
+  "question": "What did Contributor 01 do on Kite, and what changed after the pilot?",
+  "query": "Kite",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat-main",
+    "chat-ops",
+    "docs",
+    "repo",
+    "email",
+    "calendar"
+  ],
+  "start": "2030-01-01",
+  "end": "2030-03-31",
+  "horizon": "2030-05-31",
+  "timezone": "UTC",
+  "aliases": [
+    "Harbor"
+  ],
+  "include_followup_roots": true
+}
