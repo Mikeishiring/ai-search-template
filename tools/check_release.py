@@ -17,6 +17,11 @@ for name in paths:
     if not path.is_file() or path.is_symlink():errors.append((name,'missing file or symlink'));continue
     if name.startswith(('private/','sources/','derived/','analysis/','personal/')) or '.sqlite' in name:errors.append((name,'private/runtime path'))
     raw=path.read_bytes()
+    if name == 'docs/career-context-preview.png':
+        if not raw.startswith(b'\x89PNG\r\n\x1a\n') or len(raw) > 3 * 1024 * 1024:
+            errors.append((name,'invalid or oversized reviewed preview'))
+        files.append({'path':name,'sha256':hashlib.sha256(raw).hexdigest()})
+        continue
     try:text=raw.decode('utf-8-sig')
     except UnicodeDecodeError:errors.append((name,'unreviewed binary'));continue
     for label,pattern in patterns.items():
@@ -24,6 +29,12 @@ for name in paths:
     if name.endswith('.corpus.json'):
         corpus=json.loads(text)
         if corpus.get('synthetic') is not True:errors.append((name,'not labeled synthetic'))
+    if name == 'examples/career-context.json' and json.loads(text).get('synthetic') is not True:
+        errors.append((name,'public career example must be synthetic'))
+    if name == 'CAREER-CONTEXT.html':
+        payload=re.search(r'<script id="career-context-data" type="application/json">(.*?)</script>',text,re.S)
+        if not payload or json.loads(payload[1]).get('synthetic') is not True:
+            errors.append((name,'public sheet must be synthetic'))
     if name.endswith('.md'):
         for link in re.findall(r'\]\(([^)]+)\)',text):
             if re.match(r'^[A-Za-z]+:',link) or link.startswith('#'):continue

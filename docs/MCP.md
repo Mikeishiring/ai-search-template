@@ -41,7 +41,7 @@ The companion [career-context skill](../skills/career-context-sheet/SKILL.md) gu
 
 The skill can work with pasted accounts, local files or selected context returned by an authorized connector. This bundled MCP still serves fictional fixtures only. Installing the skill does not add real-source access, expose personal workspaces or save a hosted profile. Any connector's selected-source and confirmation boundaries still apply.
 
-Try the fictional sheet using the [README walkthrough](../README.md#make-a-portable-career-context-sheet). Keep a real person's packet and generated HTML outside this public template.
+Try the fictional sheet using the [getting-started guide](GETTING-STARTED.md). Keep a real person's packet and generated HTML outside this public template.
 
 ## Important gaps
 

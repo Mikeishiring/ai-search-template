@@ -2,7 +2,7 @@
 
 ```text
 work/
-  ai-search-template/     reusable code and fictional examples
+  career-context-ai/     reusable code and fictional examples
   my-private-evidence/   your records, claims and DASHBOARD.html
 ```
 
