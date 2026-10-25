@@ -8,6 +8,16 @@ Give your agent [the skill instructions](../skills/career-context-sheet/SKILL.md
 
 Ask it to create one private HTML file, preserve shared credit and uncertainty, and keep original excerpts separate from summaries. Tell it where to save the sheet, outside this public project. Review the account before changing its state from draft to reviewed.
 
+The opening should establish three things, without asking again for information you already supplied:
+
+- **Work:** the project or career period, your role, and dates for origins and later outcomes.
+- **Sources:** the selected files, channels, folders, repositories or threads it can use, plus earlier project names.
+- **Privacy:** excluded locations or topics, and what may be retained in the private sheet.
+
+Use the [complete starting prompt](../prompts/START-HERE.md) if helpful. Once the scope is clear, the agent begins authorized reads; it asks later questions only when they change the account. The [multi-source tests](MULTISOURCE.md) demonstrate why aliases and standalone follow-ups matter.
+
+The agent should maintain the unresolved questions and pursue the next useful read without requiring repeated prompts. It drafts specific episodes before suggesting a career through-line, checks that personal decisions and shared credit survive the prose, and asks what the account misses about your experience. [From evidence to story](FROM-EVIDENCE-TO-STORY.md) explains the workflow and its current limits.
+
 Your host may send selected material to its model provider. Installing the skill does not connect source accounts or grant access to other records.
 
 ## Without an agent

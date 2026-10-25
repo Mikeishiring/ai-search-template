@@ -9,6 +9,18 @@ The deliverable is one self-contained HTML file the person can read, keep and gi
 
 ## Gather useful context
 
+Begin by establishing work, sources and privacy. Reuse answers already in the conversation; ask only what is missing, in one short group:
+
+1. **What work should we understand?** One project, a role or a broader career period; the person involved, approximate dates, and how far to look for earlier origins or later outcomes.
+2. **Which sources can we use?** Selected accounts, files and available connectors, including the relevant channels, folders, repositories or threads. Ask for known project names or aliases when useful. First inspect available connector metadata rather than asking the person to list tools you can already see.
+3. **What should stay out?** Excluded people, channels, direct messages, sensitive topics or date ranges, and what may be retained in the private sheet. Reading a source is separate from publishing or including its full contents.
+
+Proceed once that scope is clear; do not add a second approval checkpoint for already authorized read-only work. A broad career request can start with one useful period. If source access is unavailable, begin with the person's account and record the missing source rather than blocking the sheet.
+
+For research across channels or services, read [the source-research guide](references/source-research.md). Follow the same scope through discovery, source reads and the final handoff. A link to an excluded source is a recorded gap, not permission to read it.
+
+Read [the deepening and story guide](references/deepening-and-story.md) when researching or synthesizing a work account. Own the next useful pass within the agreed scope: trace decisions, shared contributions, later outcomes and contradictory evidence without waiting for repeated "go deeper" prompts. Keep private continuation state for work spanning sessions. A relevant source or a fluent paragraph is not a completed review.
+
 Start with the person's supplied material and selected, authorized MCP context. If the connector returns an inventory or summary, do not claim to have read the underlying documents. Keep connector grants and selected-source boundaries intact. The skill also works with pasted accounts and local files; an MCP connection is optional.
 
 Build around complete work accounts: the situation, why the work mattered, what the person wanted to change, what they did and decided, who else contributed, what happened and what remains uncertain. Include paid work, independent projects, research and operational work when relevant. Do not require a particular career type or a complete inventory.
@@ -16,6 +28,8 @@ Build around complete work accounts: the situation, why the work mattered, what 
 Use what is already known before asking a question. Reflect the core account back briefly, then ask a consequential missing factual question only if it would change the sheet. Avoid turning this into advice about titles, target employers, pay or how to sell the person. Do not make users fill every field before receiving a useful artifact.
 
 Keep a connected account alongside structured detail. Preserve exact volunteered accounts separately when they are selected for inclusion; label paraphrases and archive analyses as such. Individual ownership, shared work, qualitative outcomes, unknown metrics and unfinished projects must survive the handoff. Distinguish when work happened from when a source was captured or reviewed. A prototype is not adoption; a team result is not sole ownership; a saved draft is not a confirmed statement.
+
+Build specific episodes before proposing a career through-line. Ground patterns in those episodes, preserve exceptions and concurrent work, and ask the person what the records miss or misrepresent. Treat earlier assistant summaries as research leads, not original evidence. Check both that each consequential sentence has support and that material evidence survives the narrative; exact quotations alone do not establish either.
 
 ## Build the portable artifact
 
