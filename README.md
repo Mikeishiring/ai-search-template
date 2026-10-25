@@ -18,7 +18,7 @@ No installation or account is needed to read a sheet. GitHub displays HTML as so
 
 Start with a project you remember well. Give your agent the bundled [career-context skill](skills/career-context-sheet/SKILL.md), selected notes and this request:
 
-> Help me make a career-context sheet. First establish what work to cover, which sources we can use and what should stay private or out of scope. Reuse anything I have already told you. Then research within those boundaries, preserving my contribution, shared work, outcomes and uncertainty. Create one private HTML file I can read and give to another agent.
+> Help me make a career-context sheet. First establish what work to cover, which sources we can use and what should stay private or out of scope. Reuse anything I have already told you. Follow unresolved questions within that scope without waiting for repeated prompts. Build the story from my decisions, shared work and later outcomes, preserving uncertainty. Ask what the records miss or misrepresent. Create one private HTML file I can read and give to another agent.
 
 The [getting-started guide](docs/GETTING-STARTED.md) covers using the skill, preparing a sheet manually and updating an existing file. You can begin with one account.
 
@@ -57,6 +57,7 @@ The public project contains reusable tools and fictional examples. It does not c
 | Prepare selected exports | [Source preparation](docs/SOURCES.md) |
 | Try the fictional MCP research server | [MCP setup](docs/MCP.md) |
 | Test research across channels and sources | [Multi-source tests](docs/MULTISOURCE.md) |
+| Turn research into a recognizable personal story | [From evidence to story](docs/FROM-EVIDENCE-TO-STORY.md) |
 | Inspect the experiments and their failures | [Research guide](ai-search-mvp/README.md) / [saved report](AI-SEARCH-MVP.html) |
 | Understand the proposed research engine | [Specification](SPEC.md) |
 | Improve the project | [Contributing](CONTRIBUTING.md) |

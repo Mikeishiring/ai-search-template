@@ -28,7 +28,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "7eafef541bc47a0456d3b92892df4d8c5b54c020a59c6f58ead859f5295b7456"
+      "sha256": "9dd48cf9327caa144d8407bcd20c9af61cb459bd0d6a53b772749288cf75f509"
     },
     {
       "path": "SPEC.md",
@@ -879,8 +879,12 @@
       "sha256": "aca53167b929ec31a51470dcd1a79fdc4e50dbc2bea83ea4db7dd86156595d12"
     },
     {
+      "path": "docs/FROM-EVIDENCE-TO-STORY.md",
+      "sha256": "a5f9b28c290893f72e79068af2395eca660a45d13ac7567f762d21192ffdc447"
+    },
+    {
       "path": "docs/GETTING-STARTED.md",
-      "sha256": "0a1474adcbb594c562219cabd29a62b5aec059cf21022c8577f28bb995b955eb"
+      "sha256": "8de255935241496a880dc5bbee7dd6e944989a96b6b07d87917e55e926519ca6"
     },
     {
       "path": "docs/MCP.md",
@@ -920,11 +924,11 @@
     },
     {
       "path": "prompts/START-HERE.md",
-      "sha256": "f5360f2464c6ebe13d21cb7c58a2c7ac329bee1c6f4c51c8ad55db55a51e0346"
+      "sha256": "149aa4fd01fb8698c9c06b212e6e3d07cda57afa79c5476c0a72d1257ef86484"
     },
     {
       "path": "skills/career-context-sheet/SKILL.md",
-      "sha256": "962421e0e739681a5288f3e3207773a1aebf82a3d5f7c7f0433d09729f37e754"
+      "sha256": "b07eb65f22f64f1ea31552c173dbc7c3d43c01319d6dd1ca9c01847226f8b868"
     },
     {
       "path": "skills/career-context-sheet/agents/openai.yaml",
@@ -935,12 +939,16 @@
       "sha256": "9540b1804af4037e22497be2cc332b3a0dbb5b844dc1e447523a2715a3c2947c"
     },
     {
+      "path": "skills/career-context-sheet/references/deepening-and-story.md",
+      "sha256": "c2cb818f0971895d915bd38fba7eed8349afea7a754f582cc8b7f9281923ce5b"
+    },
+    {
       "path": "skills/career-context-sheet/references/format.md",
       "sha256": "24a902abe088a0279e38d7196916bb40b05d330dd2f8a7c564340b5589473133"
     },
     {
       "path": "skills/career-context-sheet/references/source-research.md",
-      "sha256": "4512265b3f64ebd11cd75259e71d406abe41a8134002543d0e851c00ff66aef8"
+      "sha256": "fd39daf41948ffaac2b74be0192d87fd9839ad116d009bd2b9df2371215a7d11"
     },
     {
       "path": "skills/career-context-sheet/scripts/render_context.py",

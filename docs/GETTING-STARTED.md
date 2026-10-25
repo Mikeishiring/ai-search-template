@@ -16,6 +16,8 @@ The opening should establish three things, without asking again for information 
 
 Use the [complete starting prompt](../prompts/START-HERE.md) if helpful. Once the scope is clear, the agent begins authorized reads; it asks later questions only when they change the account. The [multi-source tests](MULTISOURCE.md) demonstrate why aliases and standalone follow-ups matter.
 
+The agent should maintain the unresolved questions and pursue the next useful read without requiring repeated prompts. It drafts specific episodes before suggesting a career through-line, checks that personal decisions and shared credit survive the prose, and asks what the account misses about your experience. [From evidence to story](FROM-EVIDENCE-TO-STORY.md) explains the workflow and its current limits.
+
 Your host may send selected material to its model provider. Installing the skill does not connect source accounts or grant access to other records.
 
 ## Without an agent
