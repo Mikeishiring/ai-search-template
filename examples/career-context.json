@@ -1,0 +1,40 @@
+{
+  "schema": "career-context/v1",
+  "updatedAt": "2026-10-25",
+  "reviewStatus": "draft",
+  "person": {
+    "name": "Example person",
+    "overview": "A person-supplied account of their background.",
+    "background": []
+  },
+  "accounts": [
+    {
+      "id": "intake-process",
+      "title": "A shared intake process",
+      "period": "2025, approximate",
+      "summary": "I mapped unclear handoffs and introduced a shared review. The team kept using it; turnaround was not measured.",
+      "context": "Requests arrived through several channels.",
+      "aim": "Make the next owner clear.",
+      "contribution": "Mapped the handoffs and introduced the review.",
+      "decisions": [],
+      "sharedCredit": "Researchers shaped assessment criteria.",
+      "outcome": "The team kept using the review.",
+      "limits": [
+        "No measured turnaround improvement."
+      ],
+      "questions": [],
+      "sourceRefs": [
+        "account-1"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "account-1",
+      "label": "Selected account",
+      "kind": "person_account",
+      "content": "The selected person-supplied account belongs here.",
+      "scope": "Self-report; not independently checked."
+    }
+  ]
+}
