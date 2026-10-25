@@ -4,8 +4,10 @@ import copy
 import hashlib
 import html
 import json
+import os
 import re
 import sys
+import tempfile
 from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
@@ -25,7 +27,9 @@ def keys(value, allowed, label):
         raise ValueError(f'{label} has an unsupported field or is not an object')
 
 def validate(data):
-    keys(data, ['schema', 'updatedAt', 'reviewStatus', 'person', 'accounts', 'sources'], 'Sheet')
+    keys(data, ['schema', 'updatedAt', 'reviewStatus', 'person', 'accounts', 'sources', 'synthetic'], 'Sheet')
+    if 'synthetic' in data and not isinstance(data['synthetic'], bool):
+        raise ValueError('synthetic must be true or false')
     if data.get('schema') != 'career-context/v1' or data.get('reviewStatus') not in ['draft', 'person_reviewed']:
         raise ValueError('Unsupported schema or review status')
     date.fromisoformat(data['updatedAt'])
@@ -35,6 +39,8 @@ def validate(data):
     for line in person.get('background', []): check_text(line, 'Background item')
     for field, maximum in [('accounts', 80), ('sources', 160)]:
         if not isinstance(data[field], list) or len(data[field]) > maximum: raise ValueError(f'Invalid {field} collection')
+        if any(not isinstance(item, dict) for item in data[field]):
+            raise ValueError(f'{field} entries must be objects')
         ids = [item.get('id') for item in data[field]]
         if any(not isinstance(i, str) or not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}', i) for i in ids) or len(set(ids)) != len(ids):
             raise ValueError(f'{field} need unique safe IDs')
@@ -102,7 +108,7 @@ def render(source, destination):
     def paragraphs(text): return ''.join(f'<p>{esc(p)}</p>' for p in text.split('\n\n') if p.strip()) or '<p class="muted">Not recorded yet.</p>'
     def bullets(items): return '<ul>' + ''.join(f'<li>{esc(i)}</li>' for i in items) + '</ul>' if items else '<p class="muted">Not recorded yet.</p>'
     accounts = []
-    for index, account in enumerate(packet['accounts']):
+    for account in packet['accounts']:
         pictures = []
         for artifact in account.get('artifacts', []):
             mime, raw = image_data(artifact, source.parent); artifact.pop('file', None); artifact.pop('_dataUrl', None)
@@ -112,23 +118,32 @@ def render(source, destination):
         details = f'<div class="detail-grid"><div><h4>Context</h4>{paragraphs(account["context"])}<h4>What I wanted to change</h4>{paragraphs(account["aim"])}</div><div><h4>Decisions and approach</h4>{bullets(account["decisions"])}<h4>Shared work</h4>{paragraphs(account["sharedCredit"])}</div></div>'
         questions = '<h4>Still to clarify</h4>' + bullets(account['questions']) if account['questions'] else ''
         refs = ' · '.join(f'<a href="#source-{esc(ref)}">{esc(next(s["label"] for s in packet["sources"] if s["id"]==ref))}</a>' for ref in account['sourceRefs'])
-        accounts.append(f'''<article class="account" id="account-{account['id']}"><div class="account-index">{index+1:02d}</div><div class="account-main"><div class="account-heading"><h3>{esc(account['title'])}</h3><span class="period">{esc(account['period']) or 'Period not recorded'}</span></div><div class="account-summary">{paragraphs(account['summary'])}</div><div class="facts"><div><h4>My contribution</h4>{paragraphs(account['contribution'])}</div><div><h4>What happened</h4>{paragraphs(account['outcome'])}</div></div><details class="context-details"><summary>Decisions, shared work and open points <span aria-hidden="true">+</span></summary>{details}<div class="limit"><h4>Limits of the account</h4>{bullets(account['limits'])}{questions}</div>{''.join(pictures)}<p class="references">Sources: {refs}</p></details></div></article>''')
+        accounts.append(f'''<article class="account" id="account-{account['id']}"><div class="account-main"><div class="account-heading"><h3>{esc(account['title'])}</h3><span class="period">{esc(account['period']) or 'Period not recorded'}</span></div><div class="account-summary">{paragraphs(account['summary'])}</div><div class="facts"><div><h4>My contribution</h4>{paragraphs(account['contribution'])}</div><div><h4>What happened</h4>{paragraphs(account['outcome'])}</div></div><details class="context-details"><summary>Decisions, shared work and open points <span class="arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m7 4 6 6-6 6"/></svg></span></summary>{details}<div class="limit"><h4>Limits of the account</h4>{bullets(account['limits'])}{questions}</div>{''.join(pictures)}<p class="references">Sources: {refs}</p></details></div></article>''')
     sources = []
     for s in packet['sources']:
         location = f'<p class="source-meta">{esc(s["locator"])}</p>' if s.get('locator') else ''
-        sources.append(f'<details class="source" id="source-{s["id"]}"><summary><span>{esc(s["label"])}</span><small>{esc(s["kind"].replace("_", " "))}</small><span aria-hidden="true">+</span></summary><div class="source-content">{paragraphs(s["content"])}<p class="scope">{esc(s["scope"])}</p>{location}</div></details>')
+        source_date = f'<p class="source-meta">Source date: {esc(s["date"])}</p>' if s.get('date') else ''
+        sources.append(f'<details class="source" id="source-{s["id"]}"><summary><span>{esc(s["label"])}</span><small>{esc(s["kind"].replace("_", " "))}</small><span class="arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m7 4 6 6-6 6"/></svg></span></summary><div class="source-content">{source_date}{paragraphs(s["content"])}<p class="scope">{esc(s["scope"])}</p>{location}</div></details>')
     values = {
         'TITLE': esc(packet['person']['name'] + ' — Career context'), 'NAME': esc(packet['person']['name']),
         'OVERVIEW': paragraphs(packet['person']['overview']), 'BACKGROUND': bullets(packet['person'].get('background', [])),
         'DATE': esc(packet['updatedAt']), 'STATUS': 'Draft for review' if packet['reviewStatus']=='draft' else 'Reviewed by the person',
-        'COUNT': str(len(packet['accounts'])), 'ACCOUNTS': ''.join(accounts) or '<p>No work accounts recorded yet. An agent can help build the first one from your account.</p>',
+        'COUNT': f'{len(packet["accounts"])} work account' + ('' if len(packet['accounts']) == 1 else 's'),
+        'DEMO': '<p class="demo-notice">Synthetic demo data. These work accounts are fictional.</p>' if packet.get('synthetic') else '',
+        'ACCOUNTS': ''.join(accounts) or '<p class="empty">No work accounts recorded yet. Start with one project: what happened, what you did and what remains uncertain.</p>',
         'INDEX': ''.join(f'<a href="#account-{a["id"]}">{esc(a["title"])}</a>' for a in packet['accounts']),
         'SOURCES': ''.join(sources) or '<p>No sources included yet.</p>',
         'DATA': json.dumps(packet, ensure_ascii=True).replace('<', '\\u003c').replace('&', '\\u0026'),
     }
     template = (SKILL / 'assets/sheet.html').read_text(encoding='utf-8')
     output = re.sub(r'@@([A-Z]+)@@', lambda m: values[m[1]], template)
-    destination.write_bytes(output.encode('utf-8'))
+    if destination.is_symlink(): raise ValueError('Output must not be a symbolic link')
+    fd, temporary = tempfile.mkstemp(dir=destination.parent, prefix='.career-context-', suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'wb') as stream: stream.write(output.encode('utf-8'))
+        os.replace(temporary, destination)
+    finally:
+        if os.path.exists(temporary): os.unlink(temporary)
     return {'path': str(destination), 'accounts': len(packet['accounts']), 'sources': len(packet['sources']), 'bytes': len(output.encode()), 'sha256': hashlib.sha256(output.encode()).hexdigest()}
 
 if __name__ == '__main__':

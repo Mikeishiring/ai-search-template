@@ -4,6 +4,8 @@ The format describes context, not job recommendations or a proficiency score. `s
 
 Top-level fields:
 
+- Optional `synthetic` boolean: use `true` only for fictional demonstrations. The label survives visible, text and JSON exports. Omit it or use `false` for personal context; changing the flag never anonymizes content.
+
 - `schema`, `updatedAt` (ISO date), `reviewStatus` (`draft` or `person_reviewed`) and `person` (`name`, `overview`, optional `background` string list).
 - `accounts`: work accounts with stable unique `id`, `title`, `period`, `summary`, `context`, `aim`, `contribution`, `decisions` (strings), `sharedCredit`, `outcome`, `limits` (strings), `questions` (strings), `sourceRefs` (source IDs), and optional `artifacts`.
 - `sources`: unique `id`, `label`, `kind` (`person_account`, `source_excerpt`, `redacted_excerpt`, `archive_summary` or `artifact_record`), `content`, `scope`, and optional `date`, `locator`. `content` is the selected original/excerpt or a clearly labelled summary. A locator is metadata, not proof of retrieval. Never infer that `person_reviewed` means independently verified.

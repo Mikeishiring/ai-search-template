@@ -2,39 +2,128 @@
   "schema": "career-context/v1",
   "updatedAt": "2026-10-25",
   "reviewStatus": "draft",
+  "synthetic": true,
   "person": {
-    "name": "Example person",
-    "overview": "A person-supplied account of their background.",
-    "background": []
+    "name": "Contributor 01",
+    "overview": "I help community teams turn scattered requests into workable routines. My work combines service operations, practical writing and small digital tools. These accounts include shared delivery, a limited trial and an idea that has not launched.",
+    "background": [
+      "Operations and service design for a fictional community library.",
+      "I work with coordinators, volunteers and technical colleagues; the outcomes belong to the team.",
+      "I prefer to test a small change in everyday work before widening it."
+    ]
   },
   "accounts": [
     {
-      "id": "intake-process",
-      "title": "A shared intake process",
-      "period": "2025, approximate",
-      "summary": "I mapped unclear handoffs and introduced a shared review. The team kept using it; turnaround was not measured.",
-      "context": "Requests arrived through several channels.",
-      "aim": "Make the next owner clear.",
-      "contribution": "Mapped the handoffs and introduced the review.",
-      "decisions": [],
-      "sharedCredit": "Researchers shaped assessment criteria.",
-      "outcome": "The team kept using the review.",
+      "id": "request-handoffs",
+      "title": "Making the next owner clear",
+      "period": "January–April 2030",
+      "summary": "Library requests arrived by email, at the desk and in a shared notebook. I mapped the handoffs and introduced a weekly review with the coordinators. They continued using it after the trial; we did not measure turnaround.",
+      "context": "Requests crossed between the front desk, events and facilities. People could see that something needed doing, but the next owner was often implicit.",
+      "aim": "Make ownership visible without asking volunteers to learn another application.",
+      "contribution": "I traced the existing routes, drafted a shared request list and facilitated the first reviews. I revised the list after coordinators found its status labels unclear.",
+      "decisions": [
+        "Used the team's existing spreadsheet so the trial did not depend on a new tool.",
+        "Separated the next owner from the person who first received the request.",
+        "Removed a priority field after the team interpreted its labels differently."
+      ],
+      "sharedCredit": "Contributor 02 proposed the weekly review. The coordinators defined the handoff rules and kept the list current. I designed and facilitated the trial.",
+      "outcome": "The coordinators kept the weekly review after the trial. That is evidence of continued use, not a measured improvement in speed.",
       "limits": [
-        "No measured turnaround improvement."
+        "No baseline or turnaround measurement was collected.",
+        "This account covers one library team and is self-reported."
+      ],
+      "questions": [
+        "Which parts of the review remained in use later in the year?"
+      ],
+      "sourceRefs": [
+        "handoff-account"
+      ]
+    },
+    {
+      "id": "volunteer-guide",
+      "title": "A guide tested at the front desk",
+      "period": "May–July 2030",
+      "summary": "I turned recurring volunteer questions into a short desk guide. Contributor 03 checked the procedures, and two volunteers tried it during supervised shifts. Their feedback improved the guide; independent use was not tested.",
+      "context": "Experienced volunteers answered the same practical questions during busy shifts. Existing notes were distributed across several documents.",
+      "aim": "Put the routine steps in one place while keeping escalation routes visible.",
+      "contribution": "I grouped the questions, drafted the guide and observed the trial. I rewrote the room-booking instructions when volunteers could not tell which exceptions needed a coordinator.",
+      "decisions": [
+        "Organized the guide around tasks, rather than the team's internal structure.",
+        "Kept policy exceptions beside the relevant steps.",
+        "Used a printable format because the shared desk computer was not always available."
+      ],
+      "sharedCredit": "Contributor 03 verified the procedures. The volunteers identified unclear instructions; the coordinator retained responsibility for training and policy.",
+      "outcome": "The revised guide was retained for the next induction. The trial does not establish that volunteers could work independently or that support time fell.",
+      "limits": [
+        "Two volunteers tried the guide with supervision.",
+        "No time saving or change in error rate was measured."
       ],
       "questions": [],
       "sourceRefs": [
-        "account-1"
+        "guide-account",
+        "guide-feedback"
+      ]
+    },
+    {
+      "id": "equipment-prototype",
+      "title": "An equipment log still in progress",
+      "period": "August 2030–ongoing",
+      "summary": "I started a small prototype for tracking borrowed event equipment. It can record a checkout and return using fictional test items. The team has not tried it, and no rollout decision has been made.",
+      "context": "The library had no shared way to see which event equipment was out on loan. A digital log was one proposed response.",
+      "aim": "Test whether a simple checkout history would answer the team's everyday questions.",
+      "contribution": "I sketched the flow and built a local prototype. I have not connected it to real records or arranged a user trial.",
+      "decisions": [
+        "Used fictional test items during prototyping.",
+        "Kept the first version limited to checkout and return.",
+        "Left reminders out until the team decides who would own follow-up."
+      ],
+      "sharedCredit": "Contributor 02 described the current process. The coordinator will decide whether a trial is useful; no team adoption is claimed.",
+      "outcome": "A local prototype exists. User testing, maintenance ownership and deployment remain open.",
+      "limits": [
+        "No real equipment or borrower data has been imported.",
+        "There is no evidence of adoption or operational benefit."
+      ],
+      "questions": [
+        "Who would maintain the log?",
+        "Would a shared paper log solve the problem more simply?"
+      ],
+      "sourceRefs": [
+        "prototype-note"
       ]
     }
   ],
   "sources": [
     {
-      "id": "account-1",
-      "label": "Selected account",
+      "id": "handoff-account",
+      "label": "Account of the request-review trial",
       "kind": "person_account",
-      "content": "The selected person-supplied account belongs here.",
-      "scope": "Self-report; not independently checked."
+      "date": "2030-04-30",
+      "content": "I mapped the routes that requests took through our library and drafted a shared list. Contributor 02 suggested a weekly review, which I facilitated during the trial. The coordinators agreed the handoff rules and kept the list up to date. I simplified the labels after their feedback. They continued the review after the trial. We did not collect a baseline or measure turnaround.",
+      "scope": "Fictional first-person account. Self-report, not independent corroboration."
+    },
+    {
+      "id": "guide-account",
+      "label": "Account of the desk-guide trial",
+      "kind": "person_account",
+      "date": "2030-07-15",
+      "content": "I collected the recurring desk questions, drafted a printable guide and observed two volunteers using it during supervised shifts. Contributor 03 checked the procedures. The room-booking exceptions were unclear, so I rewrote them. The coordinator kept the revised guide for the next induction. We did not test independent use or measure time saved.",
+      "scope": "Fictional first-person account. The trial covers two supervised volunteers."
+    },
+    {
+      "id": "guide-feedback",
+      "label": "Selected feedback on the guide",
+      "kind": "source_excerpt",
+      "date": "2030-07-10",
+      "content": "The routine booking steps were clear, but I could not tell when an exception needed the coordinator. Keep the escalation rule next to the steps, rather than on the last page.",
+      "scope": "Fictional excerpt from Contributor 04's trial feedback. It supports the wording change, not the guide's effectiveness overall."
+    },
+    {
+      "id": "prototype-note",
+      "label": "Equipment-log working note",
+      "kind": "source_excerpt",
+      "date": "2030-08-28",
+      "content": "The local prototype can check out and return fictional equipment items. No real borrower data has been imported. Contributor 02 described the current process; the coordinator has not agreed to a trial. Before continuing, decide who would maintain it and whether a paper log would be enough.",
+      "scope": "Fictional working note from Contributor 01. Records prototype state and open decisions, not delivery or adoption."
     }
   ]
 }
