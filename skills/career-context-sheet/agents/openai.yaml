@@ -1,0 +1,4 @@
+interface:
+  display_name: "Career Context Sheet"
+  short_description: "Build a portable career-context sheet for agents"
+  default_prompt: "Use $career-context-sheet to turn my selected work accounts into one HTML career-context sheet I can give to my agents."

@@ -6,6 +6,7 @@ Trace work from its first proposal through delivery, corrections and later use. 
 
 | Your goal | Working path |
 |---|---|
+| Make career context for your agents | Use the [career-context skill](skills/career-context-sheet/SKILL.md) and portable HTML workflow below |
 | See the research approach | Open the included [synthetic report](AI-SEARCH-MVP.html) locally; no account needed |
 | Build your own dashboard | Follow the local walkthrough below; Python 3.11+ only |
 | Connect an AI host | Follow [MCP setup](docs/MCP.md); the bundled bridge serves fictional cases only |
@@ -18,6 +19,20 @@ Use GitHub's **Use this template** for reusable code, then download its ZIP and 
 Run `python --version`; it must show 3.11 or later. On Windows, `py -3` may be available; on macOS/Linux, use `python3`. Substitute that command for `python` below. The code is platform-neutral, but this walkthrough was exercised on Windows only.
 
 Keep personal evidence outside this checkout, even if your copy of the template is private. Use a separate folder and, for remote backup, a separate empty private repository.
+
+## Make a portable career-context sheet
+
+The [career-context skill](skills/career-context-sheet/SKILL.md) helps an agent turn selected accounts and sources into one HTML file. It keeps the person's contribution, decisions, shared work, outcomes and unknowns together. Career advice and job matching are separate, optional uses.
+
+Try the fictional example from the repository root:
+
+```sh
+python skills/career-context-sheet/scripts/render_context.py examples/career-context.json ../career-context.html
+```
+
+Open `../career-context.html`. It works offline and has **Copy for an agent**, **View agent text**, **Save HTML** and a structured JSON download. Its embedded `career-context-data` JSON block and readable accounts contain the same context. Another agent can read the file without executing JavaScript.
+
+For your own sheet, keep the authoring JSON and output outside this public checkout. Follow the [format](skills/career-context-sheet/references/format.md), or give the skill and selected material to your agent. Hosts that support local skills can use the complete `skills/career-context-sheet/` directory; in Codex, install that directory in your personal skills folder and invoke `$career-context-sheet`. The renderer also accepts an existing sheet for a no-change rebuild. It does not fetch source accounts or save a hosted profile.
 
 ## Build your first dashboard
 

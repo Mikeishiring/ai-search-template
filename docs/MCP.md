@@ -35,6 +35,14 @@ Restart/reconnect the server through your host and confirm the six tools are vis
 
 Only after that succeeds, provide [the synthetic research prompt](../ai-search-mvp/RESEARCH-PROMPT.md) and select the case. `research_run` writes a local synthetic ledger; source operations do not mutate online systems. The model host may send synthetic passages to its inference provider. Model usage and charges belong to that host, not this server.
 
+## Turn selected context into a portable sheet
+
+The companion [career-context skill](../skills/career-context-sheet/SKILL.md) guides the output: one readable HTML sheet with embedded structured context for the person's agents. Use selected accounts and sources, preserve contribution and shared credit, distinguish summaries from original excerpts, and carry unknowns into the exported text. Do not turn a request to capture context into unsolicited career advice.
+
+The skill can work with pasted accounts, local files or selected context returned by an authorized connector. This bundled MCP still serves fictional fixtures only. Installing the skill does not add real-source access, expose personal workspaces or save a hosted profile. Any connector's selected-source and confirmation boundaries still apply.
+
+Try the fictional sheet using the [README walkthrough](../README.md#make-a-portable-career-context-sheet). Keep a real person's packet and generated HTML outside this public template.
+
 ## Important gaps
 
 - `review_submit` saves proposals to `ai-search-mvp/runs/<case>/model-reviews.json`. The historical report currently does **not** render these new submissions. A successful submit is not a refreshed dashboard. Inspect that JSON directly; integration is unfinished.
