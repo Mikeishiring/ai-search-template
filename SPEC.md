@@ -1,4 +1,4 @@
-# AI search MVP research process and technical specification
+# Career Context AI: research process and technical specification
 
 Draft for implementation · 23 October 2026
 

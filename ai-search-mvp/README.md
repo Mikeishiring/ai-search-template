@@ -1,4 +1,4 @@
-# Local AI research MVP
+# Career Context AI: research experiments
 
 This is the historical experiment notebook. For first-time setup or your own data, start with the [root README](../README.md). The separate personal workspace command does not use this experiment ledger or its synthetic MCP server.
 
