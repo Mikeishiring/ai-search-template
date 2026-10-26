@@ -145,17 +145,20 @@ def import_export(workspace, source_file):
             row.update(body='', links=[], attachments=[])
         allowed.append(row)
     current = {r['id']: r for r in corpus['records']}
+    if len({r['id'] for r in allowed}) != len(allowed):
+        raise ValueError('Duplicate IDs in import.')
+    available = current | {r['id']: r for r in allowed}
+    # Normalize the whole batch before comparison or traversal. Missing parents
+    # stay explicit links, including when an identical export is imported again.
+    for row in allowed:
+        if row['parent'] and (row['parent'] not in available or available[row['parent']]['source'] != row['source']):
+            row['links'] = list(row['links']) + [{'source': row['source'], 'id': row['parent']}]
+            row['parent'] = None
     for row in allowed:
         if row['id'] in current and current[row['id']] != row:
             raise ValueError('An existing capture differs. Preserve it and start a new scoped capture for the revision.')
         current[row['id']] = row
-    if len({r['id'] for r in allowed}) != len(allowed):
-        raise ValueError('Duplicate IDs in import.')
-    # Roots cannot traverse into an excluded location; retain the missing-parent fact as a limit.
     for row in current.values():
-        if row['parent'] and (row['parent'] not in current or current[row['parent']]['source'] != row['source']):
-            row['links'] = list(row['links']) + [{'source': row['source'], 'id': row['parent']}]
-            row['parent'] = None
         seen = set(); node = row
         while node['parent']:
             if node['id'] in seen:

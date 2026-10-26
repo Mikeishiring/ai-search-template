@@ -127,6 +127,17 @@ class LocalContextTests(unittest.TestCase):
         self.assertNotEqual(response.returncode, 0)
         self.assertNotIn(b'"tools":', response.stdout)
 
+    def test_missing_parent_chain_is_order_independent_and_repeatable(self):
+        child = self.record | {'id': 'chat:child', 'parent': 'chat:one'}
+        parent = self.record | {'parent': 'chat:excluded-parent'}
+        self.start([child, parent])
+        first = read_json(self.workspace / 'corpus.json')
+        self.assertEqual(first['records'][0]['parent'], 'chat:one')
+        self.assertIsNone(first['records'][1]['parent'])
+        self.assertEqual(first['records'][1]['links'], [{'source': 'chat', 'id': 'chat:excluded-parent'}])
+        local.import_export(self.workspace, self.export)
+        self.assertEqual(first, read_json(self.workspace / 'corpus.json'))
+
     def test_stdio_utf8_preserves_non_ascii_notes(self):
         self.start(policy=self.policy | {'model_processing': 'selected_sources'})
         text = 'Meaning \u2013 caf\u00e9'

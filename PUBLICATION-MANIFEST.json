@@ -1000,7 +1000,7 @@
     },
     {
       "path": "local_context.py",
-      "sha256": "efb1712c3cdafc2f26a7a91a0da8234798b4ef37e2833ec00106b117abd4b9c5"
+      "sha256": "be3936038e5009ad49ce329244e1f8420167c8d29793d0bd55e75d21bd1421d4"
     },
     {
       "path": "personal.py",
@@ -1068,7 +1068,7 @@
     },
     {
       "path": "tests/test_local_context.py",
-      "sha256": "05ffd8b0cfac80aeac61b286d8b989351dc6bd266c3dffb5b4b3ea77273996f3"
+      "sha256": "d50f67fe83862495b5703cddc715ab7345161621d9054c3148c5b2d6e7c13c7e"
     },
     {
       "path": "tests/test_personal.py",
