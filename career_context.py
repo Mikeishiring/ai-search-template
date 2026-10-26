@@ -40,11 +40,15 @@ def main(argv=None):
     local_status.add_argument('workspace', type=Path)
     local_serve = commands.add_parser('research-serve', help='Serve selected local context to an AI host only when the policy permits it')
     local_serve.add_argument('workspace', type=Path)
+    extract = commands.add_parser('research-extract', help='Count pending sections, or extract bounded batches with authenticated Codex')
+    extract.add_argument('workspace', type=Path)
+    extract.add_argument('--max-batches', type=int, default=0, help='Explicit model-call limit (1–20); omitted means a local plan only')
+    extract.add_argument('--timeout', type=int, default=300, help='Per-batch timeout in seconds (30–600)')
     for command in (demo, render):
         command.add_argument('output', type=Path, help='HTML destination outside this project')
         command.add_argument('--force', action='store_true', help='Replace an existing output file')
     args = parser.parse_args(argv)
-    if args.command in {'start', 'local-import', 'local-status', 'research-serve'}:
+    if args.command in {'start', 'local-import', 'local-status', 'research-serve', 'research-extract'}:
         import json
         import local_context
         try:
@@ -56,10 +60,15 @@ def main(argv=None):
                 print(json.dumps(local_context.import_export(args.workspace, args.file)))
             elif args.command == 'local-status':
                 print(json.dumps(local_context.status(args.workspace), indent=2))
+            elif args.command == 'research-extract':
+                import extraction_batches
+                result = (extraction_batches.run(args.workspace, args.max_batches, args.timeout)
+                          if args.max_batches else extraction_batches.plan(args.workspace))
+                print(json.dumps(result, indent=2))
             else:
                 from research_sheet_server import serve
                 serve(args.workspace)
-        except (ValueError, KeyError, TypeError, OSError) as error:
+        except (ValueError, KeyError, TypeError, OSError, RuntimeError) as error:
             parser.exit(2, f'Could not use local context: {error}\n')
         return
     if args.command in {'research-demo', 'research-build'}:
