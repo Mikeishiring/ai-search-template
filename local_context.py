@@ -5,10 +5,10 @@ from pathlib import Path
 
 import personal
 from research_sheet import ROOT, digest, outside_project, read_json, write_json, RENDERER
+import depth_protocol as depth
 
 KINDS = {'channel', 'private_channel', 'dm', 'document', 'repository', 'email', 'calendar'}
-CHECKS = ['origins', 'personal_decisions', 'shared_ownership', 'implementation',
-          'later_outcomes', 'contrary_evidence', 'personal_meaning', 'story_review']
+CHECKS = [*depth.LENSES, 'story_review']
 
 
 def validate_policy(policy):
@@ -66,7 +66,8 @@ def initialize(workspace, policy, policy_base=None):
               'sources': [{'id': s, 'platform': 'Selected local export'} for s in sorted({x['source'] for x in policy['locations']})],
               'records': [], 'attachments': []}
     write_json(workspace / 'corpus.json', corpus)
-    write_json(workspace / 'session.json', {'schema': 'career-local/v1', 'policy_hash': digest(policy), 'corpus_hash': digest(corpus)})
+    write_json(workspace / 'session.json', {'schema': 'career-local/v1', 'policy_hash': digest(policy),
+               'corpus_hash': digest(corpus), 'depth_protocol': depth.PROTOCOL})
     (workspace / '.gitignore').write_text('*\n', encoding='utf-8')
     packet = {'schema': 'career-context/v1', 'updatedAt': corpus['snapshot'], 'reviewStatus': 'draft',
               'person': {'name': policy['subject'], 'overview': '', 'background': []}, 'accounts': [], 'sources': []}
@@ -197,12 +198,22 @@ def status(workspace):
               'network_used': False}
     if events:
         result['research_queue'] = events[-1]['result'].get('planning', {})
+    from ownership_review import evidence_version
+    audit = depth.current_review(events, evidence_version(list(full.values()), events))
+    result['depth_review_current'] = bool(audit)
+    if audit:
+        result['account_reviews'] = audit['arguments']['accounts']
+        result['through_line'] = audit['arguments']['through_line']
+        result['checklist'] = {key: 'agent_reviewed; person_review_pending' for key in depth.LENSES} | {'story_review': 'needs_person_review'}
+        for key in depth.LENSES:
+            states = sorted({l['status'] for a in audit['arguments']['accounts'] for l in a['lenses'] if l['lens'] == key})
+            result['checklist'][key] = ', '.join(states) + '; person_review_pending'
     write_json(workspace / 'checklist.json', result)
     lines = ['# Local career context', '', 'Model processing: ' + policy['model_processing'],
              '', 'Your selected captures, research notes and sheet live in this folder. No source account is connected.',
              '', '| Selected location | Captured | Read in research |', '|---|---:|---:|']
     lines += ['| ' + l['source'] + ' / ' + l['container'].replace('|', '\\|') + ' | ' + str(l['captured']) + ' | ' + str(l['read_in_research']) + ' |' for l in result['locations']]
-    lines += ['', result['coverage_limit'], '', '## Depth review', ''] + ['- [ ] ' + key.replace('_', ' ') for key in CHECKS]
+    lines += ['', result['coverage_limit'], '', '## Depth review', ''] + ['- [ ] ' + key.replace('_', ' ') + ': ' + result['checklist'][key] for key in CHECKS]
     (workspace / 'README.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     return result
 

@@ -58,7 +58,7 @@ def run(output, workspace=None, resume=False, force=False):
                             stderr=subprocess.PIPE, text=True, encoding='utf-8', errors='replace')
     timed_out = False
     try:
-        stdout, stderr = proc.communicate(json.dumps(prompt), timeout=1200)
+        stdout, stderr = proc.communicate(json.dumps(prompt), timeout=3600)
     except subprocess.TimeoutExpired:
         proc.kill()
         stdout, stderr = proc.communicate()

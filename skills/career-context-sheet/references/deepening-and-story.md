@@ -65,3 +65,17 @@ Do source-answerable research first. Do not demand metrics, insist on a success 
 Use the selected originals or cached full text when recovering evidence. Do not cite from memory. No additional retrieval is necessary when the relevant evidence is already present; the repair may be to the narrative.
 
 Before handoff, compare visible prose, copied text and embedded JSON. Deliver one private HTML sheet with the relevant limits and next factual questions. Source coverage, semantic review and the person's recognition are separate checks. None alone certifies a complete life story.
+
+## Enforced flow in the local research server
+
+The integrated server provides 450 source calls and 800 requests. This is ten times the earlier test capacity, not a minimum duration. Prefer consequential questions over extra volume. The general skill works without the server, but then these obligations are instructions rather than executable checks.
+
+1. Use `research_probe` with an account ID, depth lens, question, source and query. Investigate at least two different lenses before that account's first `sheet_plan`, and cover every selected source group. These minimums do not imply sufficient depth.
+2. Read the resulting originals, finish known discovery, save all material actor/action assertions and draft the connected episode. Check the draft and save its first plan.
+3. Challenge the plan with a fresh question about contrary evidence, shared ownership or later outcomes. A relabelled cached search does not count. Follow new leads, revisit whole originals, correct notes and revise the draft and plan.
+4. Submit `depth_review` for all ten lenses per account: origins, stakes, personal decisions, shared ownership, implementation, setbacks, later outcomes, contrary evidence, personal meaning and trajectory. Cite real spans and search receipts. Record a counterpoint or limitation, not just confirmation.
+5. Map every material saved attribution to claims carrying that exact actor/action reference, or explain the omission. Check whether the saved note itself omitted a contribution from the original. A citation to the record cannot substitute for narrative credit.
+6. Evaluate the through-line separately. A cross-episode pattern needs at least two grounded accounts and an exception or limit. One episode cannot establish a career-wide trait.
+7. Resolve accessible pending questions before finishing. Unknown personal meaning, excluded sources and genuine evidence gaps remain explicit. New evidence, notes or a changed plan invalidate the prior review.
+
+The review is performed by the researching agent. The checks validate process and references, not whether the interpretation is true. Do not label it independent or person-reviewed. The local checklist saves per-account findings and gaps; the portable sheet retains questions and limitations while keeping the working audit private.

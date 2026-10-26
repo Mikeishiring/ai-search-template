@@ -29,6 +29,8 @@ def saved_notes(events):
     return notes
 
 class OwnershipSource(DepthSource):
+    tool_definitions = TOOLS
+    local_tools = {'writing_packet', 'save_notes', 'research_status', 'finish_check', 'draft_check'}
     def planning(self):
         p=super().planning();notes=saved_notes(self.events);full=self.full_reads()
         # Remove repeated inventories, not outstanding leads. Full originals remain recoverable.
@@ -36,16 +38,16 @@ class OwnershipSource(DepthSource):
             p.pop(key,None)
         p['writing']={'full_records':len(full),'noted_records':len(notes),'unnoted_ids':sorted(set(full)-set(notes)),
             'material_note_ids':sorted(id for id,n in notes.items() if n['relevance']=='material'),
-            'recovery':'writing_packet and save_notes are free local operations within the 80-request ceiling, including after 45 source calls.'}
+            'recovery':f'writing_packet and save_notes are free local operations within the {self.request_limit}-request ceiling, including after {self.source_budget} source calls.'}
         p['writing']['checked_draft_current']=any(e['tool']=='draft_check' and e['result'].get('valid') and e['result'].get('evidence_version')==evidence_version(list(full.values()),self.events) for e in self.events)
         return p
 
     def finish(self):
         result=super().finish();missing=self.planning()['writing']['unnoted_ids']
         result['unresolved']['unnoted_records']=missing
-        if missing and len(self.events)+1<REQUEST_LIMIT:
+        if missing and len(self.events)+1<self.request_limit:
             result.update(allowed=False,status='continue_writing',receipt_id=None)
-        elif not self.planning()['writing']['checked_draft_current'] and len(self.events)+1<REQUEST_LIMIT:
+        elif not self.planning()['writing']['checked_draft_current'] and len(self.events)+1<self.request_limit:
             result.update(allowed=False,status='check_draft',receipt_id=None)
         elif result['allowed']:
             result['receipt_id']=base.digest([result,[(e['sequence'],e['tool'],e['arguments']) for e in self.events]])
@@ -74,20 +76,20 @@ class OwnershipSource(DepthSource):
         return {'saved_record_ids':sorted(seen),'cache_only':True}
 
     def execute(self,name,args):
-        definition=next((t for t in TOOLS if t['name']==name),None)
+        definition=next((t for t in self.tool_definitions if t['name']==name),None)
         if not definition:raise ValueError('Tool outside allowlist')
         check(args,definition['inputSchema'])
-        if len(self.events)>=REQUEST_LIMIT:return {'error':'request_limit_exhausted','planning':self.planning()}
-        local=name in {'writing_packet','save_notes','research_status','finish_check','draft_check'}
+        if len(self.events)>=self.request_limit:return {'error':'request_limit_exhausted','planning':self.planning()}
+        local=name in self.local_tools
         result=None if local else self.cached(name,args);hit=result is not None;charge=0 if local or hit else 1
         try:
             if name=='finish_check':result=self.finish()
             elif name=='research_status':result={'counts':{'source_calls':self.source_calls(),'requests_before_this_check':len(self.events)},'notes':saved_notes(self.events)}
-            elif name in {'writing_packet','save_notes','draft_check'}:result=self.local(name,args)
-            elif charge and self.source_calls()>=base.BUDGET:result={'error':'budget_exhausted','instruction':'Recover and reconcile cached evidence before finish_check.'};charge=0
+            elif local:result=self.local(name,args)
+            elif charge and self.source_calls()>=self.source_budget:result={'error':'budget_exhausted','instruction':'Recover and reconcile cached evidence before finish_check.'};charge=0
             elif not hit:result=self.dispatch(name,args)
         except (ValueError,KeyError,TypeError):result={'error':'invalid_or_unavailable','detail':'Check source, observed IDs, exact spans or scope.'}
-        self.decorate(result);result.update(cache_hit=hit,source_charge=charge,remaining_calls=base.BUDGET-self.source_calls()-charge)
+        self.decorate(result);result.update(cache_hit=hit,source_charge=charge,remaining_calls=self.source_budget-self.source_calls()-charge)
         event={'sequence':len(self.events)+1,'tool':name,'arguments':args,'result':result,'source_charge':charge,'observed_at':datetime.now(timezone.utc).isoformat()}
         self.events.append(event);result['planning']=self.planning()
         with self.path.open('a',encoding='utf-8') as stream:stream.write(json.dumps(event,ensure_ascii=False)+'\n')

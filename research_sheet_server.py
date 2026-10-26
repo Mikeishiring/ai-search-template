@@ -9,8 +9,9 @@ from research_sheet import (EXPERIMENTS, PLAN_SCHEMA, compile_sheet, digest,
                             draft_hash, evidence_version, load_session)
 import autonomous_server as base
 from mcp_server import check
-from ownership_server import OwnershipSource, TOOLS as RESEARCH_TOOLS, DRAFT_SCHEMA
-from completion_server import REQUEST_LIMIT
+from ownership_server import OwnershipSource, TOOLS as RESEARCH_TOOLS, DRAFT_SCHEMA, saved_notes
+from completion_server import spans
+import depth_protocol as depth
 
 TOOLS = copy.deepcopy(RESEARCH_TOOLS) + [base.tool(
     'sheet_plan',
@@ -18,9 +19,26 @@ TOOLS = copy.deepcopy(RESEARCH_TOOLS) + [base.tool(
     'Every claim must appear in an account. Use questions only for missing facts or personal meaning. Free local operation.',
     {'review': DRAFT_SCHEMA, 'plan': PLAN_SCHEMA}, ['review', 'plan'])]
 TOOLS[-1]['annotations']['readOnlyHint'] = False
+PLAN_TOOL = TOOLS[-1]
+TOOLS += [base.tool('research_probe',
+    'Investigate a consequential question within selected sources. Uses the same bounded search and pagination; '
+    'saves the account, depth lens, question and actual search receipt. Read returned originals before judging them. '
+    'Use at least two lenses before drafting and a fresh contrary-evidence, ownership or later-outcome probe after the first draft.',
+    depth.PROBE_PROPERTIES | {'cursor': {'type': 'string'}}, list(depth.PROBE_PROPERTIES)),
+    base.tool('depth_review',
+    'After sheet_plan, review all ten lenses per account, every material actor/action and the proposed through-line. '
+    'Reference real probe sequence numbers. Preserve gaps. This validates process and references, not semantic truth. '
+    'New evidence, notes or changed prose/layout invalidate the review.',
+    depth.REVIEW_SCHEMA['properties'], depth.REVIEW_SCHEMA['required'])]
+TOOLS[-1]['annotations']['readOnlyHint'] = False
 
 
 class SheetSource(OwnershipSource):
+    source_budget = depth.SOURCE_BUDGET
+    request_limit = depth.REQUEST_LIMIT
+    tool_definitions = TOOLS
+    local_tools = OwnershipSource.local_tools | {'depth_review'}
+
     def accessible(self, record):
         return (super().accessible(record) and record['source'] in self.scope['sources']
                 and record.get('container') not in self.scope.get('excluded_containers', []))
@@ -31,10 +49,51 @@ class SheetSource(OwnershipSource):
         if name == 'read_attachment' and not any(
                 self.accessible(r) and args['id'] in r.get('attachments', []) for r in self.records.values()):
             raise ValueError('Attachment outside selected scope')
+        if name == 'research_probe':
+            if not all(args[k].strip() for k in ('account_id', 'question', 'query')):
+                raise ValueError('Give a specific account, question and search.')
+            return super().dispatch('search', {k: v for k, v in args.items() if k in {'source', 'query', 'cursor'}})
         result = super().dispatch(name, args)
         if name == 'source_inventory':
             result['sources'] = [s for s in result['sources'] if s['id'] in self.scope['sources']]
         return result
+
+    def decorate(self, result):
+        super().decorate(result)
+        # The next journal sequence is the receipt ID returned to the agent.
+        result['sequence'] = len(self.events) + 1
+        if 'notes' in result and 'counts' in result:
+            result['probe_receipts'] = self.probe_receipts()
+
+    def probe_receipts(self):
+        return [{'sequence': e['sequence'], 'account_id': e['arguments']['account_id'],
+                 'lens': e['arguments']['lens'], 'source': e['arguments']['source'],
+                 'query': e['arguments']['query'], 'cache_hit': e['result'].get('cache_hit', False)}
+                for e in self.events if e['tool'] == 'research_probe' and not e['result'].get('error')]
+
+    def cached(self, name, args):
+        if name == 'research_probe':
+            # Relabelling a cached query does not create another challenge pass.
+            query = {k: v for k, v in args.items() if k in {'source', 'query', 'cursor'}}
+            for e in self.events:
+                if e['tool'] not in {'search', 'research_probe'} or e['result'].get('error'):
+                    continue
+                previous = {k: v for k, v in e['arguments'].items() if k in {'source', 'query', 'cursor'}}
+                if query == previous and e['arguments'].get('window', 'all') == 'all':
+                    return {k: copy.deepcopy(v) for k, v in e['result'].items()
+                            if k not in {'planning', 'remaining_calls', 'cache_hit', 'source_charge'}}
+            return None
+        return super().cached(name, args)
+
+    def local(self, name, args):
+        if name == 'depth_review':
+            records = list(self.full_reads().values())
+            result = depth.validate_review(args, self.events, records, saved_notes(self.events), self.scope,
+                                           evidence_version(records, self.events), spans)
+            if not result['valid']:
+                result['available_probe_receipts'] = self.probe_receipts()
+            return result
+        return super().local(name, args)
 
     def planning(self):
         result = super().planning()
@@ -44,12 +103,33 @@ class SheetSource(OwnershipSource):
         plans = [e for e in self.events if e['tool'] == 'sheet_plan' and e['result'].get('valid')]
         version = evidence_version(list(self.full_reads().values()), self.events)
         result['writing']['sheet_plan_current'] = bool(plans and plans[-1]['result']['evidence_version'] == version)
+        review = depth.current_review(self.events, version)
+        result['depth'] = {'protocol': depth.PROTOCOL, 'review_current': bool(review),
+                          'lenses': list(depth.LENSES), 'source_budget': self.source_budget,
+                          'request_limit': self.request_limit,
+                          'pending_research': review['result']['pending_research'] if review else [],
+                          'next_step': 'Resolve pending research or finish_check.' if review else
+                          'Investigate, draft, challenge the draft with a new probe, revise and plan, then depth_review.'}
+        result['calls_remaining'] = self.source_budget - self.source_calls()
+        result['earlier_start'] = self.scope.get('earlier_start', result['earlier_start'])
         return result
 
     def finish(self):
         result = super().finish()
         if not self.planning()['writing']['sheet_plan_current']:
             result.update(allowed=False, status='plan_sheet', receipt_id=None)
+        else:
+            review = depth.current_review(self.events, evidence_version(list(self.full_reads().values()), self.events))
+            if not review:
+                result.update(allowed=False, status='review_depth', receipt_id=None)
+            else:
+                pending = review['result']['pending_research']
+                result['unresolved']['depth_questions'] = pending
+                if pending:
+                    capped = self.source_calls() >= self.source_budget or len(self.events) + 1 >= self.request_limit
+                    result.update(allowed=result['allowed'] and capped, status='depth_budget_limit' if capped else 'continue_depth', receipt_id=None)
+        if result['allowed']:
+            result['receipt_id'] = base.digest([result, [(e['sequence'], e['tool'], e['arguments']) for e in self.events]])
         return result
 
     def execute(self, name, args):
@@ -58,13 +138,19 @@ class SheetSource(OwnershipSource):
             return {'error': 'session_sealed', 'instruction': 'Build the checked sheet from this saved journal.'}
         if name != 'sheet_plan':
             return super().execute(name, args)
-        check(args, TOOLS[-1]['inputSchema'])
-        if len(self.events) >= REQUEST_LIMIT:
+        check(args, PLAN_TOOL['inputSchema'])
+        if len(self.events) >= self.request_limit:
             return {'error': 'request_limit_exhausted'}
         records = list(self.full_reads().values())
         _, validation = compile_sheet(args['review'], args['plan'], records, self.events,
                                       self.scope, self.corpus['snapshot'], draft=True, synthetic=self.corpus['synthetic'])
         current = evidence_version(records, self.events)
+        for account in args['plan']['accounts']:
+            lenses = {e['arguments']['lens'] for e in self.events if e['tool'] == 'research_probe'
+                      and e['arguments']['account_id'] == account['id'] and not e['result'].get('error')}
+            if len(lenses) < 2:
+                validation['errors'].append(account['id'] + ': investigate two different depth questions before planning this account.')
+                validation['valid'] = False
         if not any(e['tool'] == 'draft_check' and e['result'].get('valid')
                    and e['result'].get('draft_hash') == draft_hash(args['review'])
                    and e['result'].get('evidence_version') == current for e in self.events):

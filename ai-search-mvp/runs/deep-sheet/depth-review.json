@@ -1,0 +1,613 @@
+{
+  "accounts": [
+    {
+      "account_id": "atlas-desk-trial",
+      "lenses": [
+        {
+          "lens": "origins",
+          "status": "supported",
+          "finding": "Contributor 02 originated the trial and assigned Contributor 01 to investigate handoffs.",
+          "counterpoint": "Contributor 01 did not originate Atlas.",
+          "evidence": [
+            {
+              "record_id": "chat:origin",
+              "span_id": "chat:origin:f8807d204ac1:0"
+            },
+            {
+              "record_id": "chat:origin",
+              "span_id": "chat:origin:f8807d204ac1:117"
+            }
+          ],
+          "claim_ids": [
+            "c1"
+          ],
+          "probe_sequences": [
+            35
+          ],
+          "next_action": "None."
+        },
+        {
+          "lens": "stakes",
+          "status": "supported",
+          "finding": "The trial addressed split return requests within a one-team approval.",
+          "counterpoint": "No impact measure existed.",
+          "evidence": [
+            {
+              "record_id": "chat:origin",
+              "span_id": "chat:origin:f8807d204ac1:53"
+            },
+            {
+              "record_id": "docs:brief",
+              "span_id": "docs:brief:d22c55dc9a7b:0"
+            }
+          ],
+          "claim_ids": [
+            "c1",
+            "c6"
+          ],
+          "probe_sequences": [],
+          "next_action": "Ask only beyond scope."
+        },
+        {
+          "lens": "personal_decisions",
+          "status": "supported",
+          "finding": "Contributor 01 chose the shared form, corrected field separation, chose an escalation note, and left reminders unbuilt pending ownership.",
+          "counterpoint": "Policy input was shared.",
+          "evidence": [
+            {
+              "record_id": "chat:decision",
+              "span_id": "chat:decision:2be3435a9492:42"
+            },
+            {
+              "record_id": "chat:correction",
+              "span_id": "chat:correction:9b4e3d51dfc2:44"
+            },
+            {
+              "record_id": "chat:followup",
+              "span_id": "chat:followup:38afd3b714fa:79"
+            },
+            {
+              "record_id": "chat:planned",
+              "span_id": "chat:planned:84bbd8fbc41b:71"
+            }
+          ],
+          "claim_ids": [
+            "c2",
+            "c3",
+            "c8",
+            "c10"
+          ],
+          "probe_sequences": [],
+          "next_action": "None."
+        },
+        {
+          "lens": "shared_ownership",
+          "status": "supported",
+          "finding": "Policy, wording, operations, testing, observation and implementation were divided.",
+          "counterpoint": "No sole-credit framing.",
+          "evidence": [
+            {
+              "record_id": "docs:brief",
+              "span_id": "docs:brief:d22c55dc9a7b:118"
+            },
+            {
+              "record_id": "docs:brief",
+              "span_id": "docs:brief:d22c55dc9a7b:194"
+            },
+            {
+              "record_id": "repo:test",
+              "span_id": "repo:test:994abb2dcf30:0"
+            },
+            {
+              "record_id": "docs:feedback",
+              "span_id": "docs:feedback:9005b3eb8f84:143"
+            }
+          ],
+          "claim_ids": [
+            "c3",
+            "c5",
+            "c6",
+            "c7",
+            "c8"
+          ],
+          "probe_sequences": [
+            39
+          ],
+          "next_action": "None."
+        },
+        {
+          "lens": "implementation",
+          "status": "supported",
+          "finding": "Contributor 01 implemented fields, validation, fallback, date correction and escalation note.",
+          "counterpoint": "Implementation alone does not establish use.",
+          "evidence": [
+            {
+              "record_id": "repo:implementation",
+              "span_id": "repo:implementation:025bd55631e9:0"
+            },
+            {
+              "record_id": "repo:fix",
+              "span_id": "repo:fix:068d42a9f8e4:0"
+            },
+            {
+              "record_id": "repo:escalation",
+              "span_id": "repo:escalation:1803db6223ae:0"
+            }
+          ],
+          "claim_ids": [
+            "c4",
+            "c5",
+            "c8"
+          ],
+          "probe_sequences": [
+            37
+          ],
+          "next_action": "None."
+        },
+        {
+          "lens": "setbacks",
+          "status": "supported",
+          "finding": "The first draft crossed a policy boundary, a midnight defect appeared, and two exceptions needed coordinator help.",
+          "counterpoint": "Corrections were made; this was not total failure.",
+          "evidence": [
+            {
+              "record_id": "chat:correction",
+              "span_id": "chat:correction:9b4e3d51dfc2:0"
+            },
+            {
+              "record_id": "repo:test",
+              "span_id": "repo:test:994abb2dcf30:0"
+            },
+            {
+              "record_id": "docs:feedback",
+              "span_id": "docs:feedback:9005b3eb8f84:99"
+            }
+          ],
+          "claim_ids": [
+            "c3",
+            "c5",
+            "c7"
+          ],
+          "probe_sequences": [
+            41
+          ],
+          "next_action": "None."
+        },
+        {
+          "lens": "later_outcomes",
+          "status": "supported",
+          "finding": "The original team continued use; the second-desk trial was deferred.",
+          "counterpoint": "Transferability and time saved remained unknown.",
+          "evidence": [
+            {
+              "record_id": "chat:later",
+              "span_id": "chat:later:179abdb0e057:0"
+            },
+            {
+              "record_id": "chat:later",
+              "span_id": "chat:later:179abdb0e057:193"
+            },
+            {
+              "record_id": "docs:paused",
+              "span_id": "docs:paused:bb19f2de8699:0"
+            },
+            {
+              "record_id": "docs:paused",
+              "span_id": "docs:paused:bb19f2de8699:126"
+            }
+          ],
+          "claim_ids": [
+            "c9"
+          ],
+          "probe_sequences": [
+            38
+          ],
+          "next_action": "Review completion remains unknown."
+        },
+        {
+          "lens": "contrary_evidence",
+          "status": "supported",
+          "finding": "The second-desk trial was deferred, so original-team use did not establish transferability.",
+          "counterpoint": "Deferral reflected staffing, not proof of failure.",
+          "evidence": [
+            {
+              "record_id": "docs:paused",
+              "span_id": "docs:paused:bb19f2de8699:0"
+            },
+            {
+              "record_id": "docs:paused",
+              "span_id": "docs:paused:bb19f2de8699:126"
+            }
+          ],
+          "claim_ids": [
+            "c9"
+          ],
+          "probe_sequences": [
+            59
+          ],
+          "next_action": "None."
+        },
+        {
+          "lens": "personal_meaning",
+          "status": "supported",
+          "finding": "Contributor 01 shifted from chasing misses to clarifying ownership and escalation.",
+          "counterpoint": "They still helped with exceptions.",
+          "evidence": [
+            {
+              "record_id": "docs:personal",
+              "span_id": "docs:personal:adf7d195d37b:0"
+            },
+            {
+              "record_id": "docs:personal",
+              "span_id": "docs:personal:adf7d195d37b:76"
+            },
+            {
+              "record_id": "docs:personal",
+              "span_id": "docs:personal:adf7d195d37b:195"
+            },
+            {
+              "record_id": "docs:personal",
+              "span_id": "docs:personal:adf7d195d37b:227"
+            }
+          ],
+          "claim_ids": [
+            "c11"
+          ],
+          "probe_sequences": [
+            40
+          ],
+          "next_action": "Ask only to qualify meaning."
+        },
+        {
+          "lens": "trajectory",
+          "status": "limited",
+          "finding": "Within the episode, work moved from investigation through implementation and defects to operator-owned daily work.",
+          "counterpoint": "One episode cannot establish a career-wide trajectory.",
+          "evidence": [
+            {
+              "record_id": "chat:origin",
+              "span_id": "chat:origin:f8807d204ac1:117"
+            },
+            {
+              "record_id": "docs:brief",
+              "span_id": "docs:brief:d22c55dc9a7b:45"
+            },
+            {
+              "record_id": "chat:handoff",
+              "span_id": "chat:handoff:88c9733e9825:83"
+            }
+          ],
+          "claim_ids": [
+            "c1",
+            "c6"
+          ],
+          "probe_sequences": [],
+          "next_action": "Keep episode-level."
+        }
+      ]
+    }
+  ],
+  "attribution_coverage": [
+    {
+      "record_id": "chat:origin",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c1"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:origin",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c1"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:decision",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c2"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:decision",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c2"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:decision",
+      "attribution_index": 2,
+      "claim_ids": [],
+      "omission_reason": "Plan superseded by c4 implementation."
+    },
+    {
+      "record_id": "chat:review",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c3"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:correction",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c3"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:correction",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c3"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:correction",
+      "attribution_index": 2,
+      "claim_ids": [
+        "c3"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:correction",
+      "attribution_index": 3,
+      "claim_ids": [
+        "c3"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:followup",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c8"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:followup",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c8"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:handoff",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:handoff",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:handoff",
+      "attribution_index": 2,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:later",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c9"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:later",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c9"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:later",
+      "attribution_index": 2,
+      "claim_ids": [
+        "c9"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:later",
+      "attribution_index": 3,
+      "claim_ids": [],
+      "omission_reason": "Retrospective fix credit omitted because c5 carries original evidence."
+    },
+    {
+      "record_id": "chat:planned",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c10"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "chat:planned",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c10"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:brief",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:brief",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:brief",
+      "attribution_index": 2,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:brief",
+      "attribution_index": 3,
+      "claim_ids": [
+        "c6"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:feedback",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c7"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:feedback",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c7"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:personal",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c11"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:personal",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c11"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:email",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c9"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "docs:paused",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c9"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:implementation",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c4"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:implementation",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c4"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:test",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c5"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:test",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c5"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:fix",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c5"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:fix",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c5"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:escalation",
+      "attribution_index": 0,
+      "claim_ids": [
+        "c8"
+      ],
+      "omission_reason": ""
+    },
+    {
+      "record_id": "repo:escalation",
+      "attribution_index": 1,
+      "claim_ids": [
+        "c8"
+      ],
+      "omission_reason": ""
+    }
+  ],
+  "through_line": {
+    "account_ids": [
+      "atlas-desk-trial"
+    ],
+    "claim_ids": [
+      "c2",
+      "c8",
+      "c11"
+    ],
+    "interpretation": "In this episode, Contributor 01 moved from chasing handoffs toward designing explicit ownership and escalation.",
+    "exception_or_limit": "Single-episode interpretation; work remained shared.",
+    "status": "single_episode"
+  }
+}

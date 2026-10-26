@@ -65,6 +65,6 @@ The demo launcher still accepts only its fixed fictional sources. It cannot laun
 
 ## Depth is a checklist, not a collection count
 
-The local checklist distinguishes captured records from records read in research. It asks for origins, personal decisions, shared ownership, implementation, later outcomes, contrary evidence, personal meaning and story review. The research queue records incomplete threads, pages, references and writing tasks. Semantic checks remain open for review; a high read count does not mark them complete.
+The local checklist distinguishes captured records from records read in research. The [deep research flow](DEEP-RESEARCH-FLOW.md) requires question-led research, a challenge after the first plan and a ten-lens review for each account. It stores findings, counterpoints, remaining questions and attribution coverage alongside the journal. New evidence, notes or a changed plan make the review stale. A completed agent review still leaves person review pending; a high read count does not establish semantic completeness.
 
 This version uses stable snapshots. Identical imports can be repeated before research; conflicting revisions and imports after research begins are refused. The saved run resumes against unchanged captures. For a changed scope or source revision, create a new scoped workspace and retain the previous context as a reference. Automatic synchronization and policy editing with selective deletion are not implemented.

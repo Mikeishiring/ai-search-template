@@ -13,6 +13,7 @@ from completion_server import spans
 from mcp_server import check
 from ownership_review import compile_review, draft_hash, evidence_version
 from career_context import renderer
+import depth_protocol as depth
 RENDERER = renderer()
 
 FIELDS = ('summary', 'context', 'aim', 'contribution', 'decisions', 'sharedCredit', 'outcome')
@@ -66,6 +67,7 @@ def initialize(workspace):
         'schema': 'career-research/v1', 'synthetic': True,
         'corpus_hash': digest(corpus), 'scope_hash': digest(scope),
         'scope': scope, 'source_fixture': 'sheet',
+        'depth_protocol': depth.PROTOCOL,
     })
     return workspace
 
@@ -166,6 +168,9 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
         planning = stop.get('planning', {})
         if planning.get('outside_scope_links') or planning.get('unavailable_or_excluded_links'):
             universal_limits.append('Some source links were outside the selected scope or unavailable in the local exports; those linked originals were not read.')
+    audit = depth.current_review(events, evidence_version(records, events))
+    if audit and (audit['result']['draft_hash'] != draft_hash(raw) or audit['result']['plan_hash'] != digest(plan)):
+        audit = None
     for account, selected in zip(plan['accounts'], account_claims):
         item = {k: account[k] for k in ('id', 'title', 'period')}
         for field in FIELDS:
@@ -174,7 +179,15 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
         # Each selected sentence already carries its qualification beside the claim.
         # Keep account-wide unknowns here without repeating every inline limit.
         item['limits'] = list(dict.fromkeys(universal_limits))
-        item['questions'] = account['questions']
+        item['questions'] = list(account['questions'])
+        if audit:
+            checked = next(a for a in audit['arguments']['accounts'] if a['account_id'] == account['id'])
+            for lens in checked['lenses']:
+                if lens['status'] == 'needs_person':
+                    item['questions'].append(lens['next_action'])
+                elif lens['status'] != 'supported':
+                    item['limits'].append(lens['lens'].replace('_', ' ') + ': ' + lens['finding'] + ' ' + lens['next_action'])
+            item['questions'] = list(dict.fromkeys(item['questions']))
         item['sourceRefs'] = list(dict.fromkeys(source_ids[(e['record_id'], e['span_id'])]
             for i in raw['story_order'] if i in selected for e in raw_claims[i]['evidence']))
         accounts.append(item)
@@ -209,6 +222,9 @@ def build(workspace, output, force=False):
     raw = copy.deepcopy(planned['arguments']['review'])
     raw['stop_receipt_id'] = stop['result']['receipt_id']
     records = list(full_records(events).values())
+    audit = depth.current_review(events, evidence_version(records, events))
+    if session.get('depth_protocol') == depth.PROTOCOL and not audit:
+        raise ValueError('This session requires a current depth review before building.')
     if planned['result']['evidence_version'] != evidence_version(records, events):
         raise ValueError('Sheet plan is stale for the current evidence.')
     packet, validation = compile_sheet(raw, planned['arguments']['plan'], records, events, scope, corpus['snapshot'], synthetic=corpus['synthetic'])
@@ -221,7 +237,9 @@ def build(workspace, output, force=False):
         'sheet_sha256': result['sha256'], 'checked_draft': draft_hash(raw),
         'journal_sha256': hashlib.sha256((workspace / 'calls.jsonl').read_bytes()).hexdigest(),
         'stop': stop['result']['status'], 'unresolved': stop['result']['unresolved'],
-        'source_calls': stop['result']['counts']['source_calls'], 'requests': len(events)})
+        'source_calls': stop['result']['counts']['source_calls'], 'requests': len(events),
+        'depth_protocol': depth.PROTOCOL if audit else 'legacy; no enforced depth review',
+        'depth_review': audit['result'] if audit else None})
     if session.get('schema') == 'career-local/v1':
         from local_context import status
         status(workspace)

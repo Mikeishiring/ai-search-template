@@ -108,6 +108,8 @@ class LocalContextTests(unittest.TestCase):
         write_json(workspace / 'policy.json', policy)
         self.assertEqual(source.execute('writing_packet', {'ids': ['chat:one']})['error'], 'policy_changed')
         self.assertEqual(source.execute('read_record', {'source': 'chat', 'id': 'chat:one'})['error'], 'policy_changed')
+        self.assertEqual(source.execute('research_probe', {'account_id': 'desk', 'lens': 'origins',
+            'question': 'What preceded the form?', 'source': 'chat', 'query': 'form'})['error'], 'policy_changed')
 
     def test_attachment_content_excluded_and_missing_parent_is_not_followed(self):
         record = self.record | {'attachments': ['chat:file'], 'parent': 'chat:excluded-parent'}

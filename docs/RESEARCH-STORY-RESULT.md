@@ -1,6 +1,6 @@
 # One unprompted run built a deeper story
 
-The researcher started with a work question and selected fictional sources. It chose its own reads, saved evidence notes, corrected a draft-check error and produced a sheet plan without a human follow-up prompt. [Open the generated example after downloading](../RESEARCH-STORY.html).
+The researcher started with a work question and selected fictional sources. It chose its own reads, saved evidence notes, corrected a draft-check error and produced a sheet plan without a human follow-up prompt. The original [context packet](../ai-search-mvp/runs/sheet/context.json) remains preserved. The current [HTML example](../RESEARCH-STORY.html) now contains the [subsequent deep-review run](DEEP-RESEARCH-RESULT.md).
 
 | Result | First substantive model run |
 |---|---:|
@@ -27,4 +27,4 @@ An offline [policy replay](../ai-search-mvp/runs/sheet/local-policy-replay.json)
 
 The initial 116 tests and source boundaries were checked by an independent verifier. The later policy checks were completed by the implementation assistant and were not independently reviewed. Visual rendering remains unverified under the existing local-file browser restriction; embedded data, generated HTML and source preservation were checked directly.
 
-[Run the integrated fictional demo](RESEARCH-TO-SHEET.md) · [Choose your local sources and privacy settings](LOCAL-CONTEXT.md)
+[Run the integrated fictional demo](RESEARCH-TO-SHEET.md) Â· [Choose your local sources and privacy settings](LOCAL-CONTEXT.md)

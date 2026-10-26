@@ -10,6 +10,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import research_sheet as bridge
+import depth_protocol as depth
 from research_sheet_server import SheetSource
 from completion_server import spans
 
@@ -46,6 +47,9 @@ class ResearchSheetTests(unittest.TestCase):
     def prepare(self):
         for window in ['earlier', 'primary', 'followup']:
             self.server.execute('list_roots', {'source': 'chat', 'window': window})
+        for lens, query in [('origins', 'form'), ('shared_ownership', 'policy')]:
+            self.server.execute('research_probe', {'account_id': 'desk-form', 'lens': lens,
+                'question': 'What does the selected record establish?', 'source': 'chat', 'query': query})
         self.server.execute('read_record', {'source': 'chat', 'id': 'chat:one'})
         selected = [s['span_id'] for s in spans(self.record)]
         result = self.server.execute('save_notes', {'notes': [{
@@ -62,9 +66,25 @@ class ResearchSheetTests(unittest.TestCase):
         self.prepare()
         planned = self.server.execute('sheet_plan', {'review': self.raw, 'plan': self.plan})
         self.assertTrue(planned['valid'], planned['errors'])
+        audit = self.depth_audit()
+        checked = self.server.execute('depth_review', audit)
+        self.assertTrue(checked['valid'], checked['errors'])
         finished = self.server.execute('finish_check', {})
         self.assertTrue(finished['allowed'], finished)
         self.raw['stop_receipt_id'] = finished['receipt_id']
+
+    def depth_audit(self):
+        self.server.execute('research_probe', {'account_id': 'desk-form', 'lens': 'contrary_evidence',
+            'question': 'Does the original establish use or a different owner?', 'source': 'chat', 'query': 'built'})
+        evidence = [{'record_id': self.record['id'], 'span_id': s['span_id']} for s in spans(self.record)]
+        return {'accounts': [{'account_id': 'desk-form', 'lenses': [
+            {'lens': lens, 'status': 'limited', 'finding': 'The selected record reports a form and separate policy ownership.',
+             'counterpoint': 'This single record does not establish the full episode.',
+             'next_action': 'Review this gap with the person; no additional source is selected.',
+             'evidence': evidence, 'claim_ids': ['c1'], 'probe_sequences': []} for lens in depth.LENSES]}],
+            'attribution_coverage': [{'record_id': 'chat:one', 'attribution_index': 0, 'claim_ids': ['c1'], 'omission_reason': ''}],
+            'through_line': {'status': 'single_episode', 'account_ids': ['desk-form'], 'claim_ids': ['c1'],
+                             'interpretation': 'A single form-building episode.', 'exception_or_limit': 'No wider career pattern is established.'}}
 
     def test_compiled_sheet_retains_exact_evidence_limits_and_shared_credit(self):
         with patch('socket.socket', side_effect=AssertionError('Network forbidden')):
