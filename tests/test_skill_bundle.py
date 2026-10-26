@@ -52,7 +52,7 @@ class SkillBundleTests(unittest.TestCase):
             self.assertEqual(set(archive.namelist()), expected)
             self.assertEqual(len(archive.namelist()), len(expected))
             self.assertTrue(all(i.date_time == (1980, 1, 1, 0, 0, 0) for i in archive.infolist()))
-        self.assertEqual(result["files"], 11)
+        self.assertEqual(result["files"], len(build_skill.MEMBERS) + 1)
 
     def test_repeated_build_is_identical_and_replacement_is_explicit(self):
         first = build_skill.build(self.output)

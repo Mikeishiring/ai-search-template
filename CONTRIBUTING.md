@@ -56,10 +56,14 @@ For a pull request, describe the user-visible change, the checks run and any rem
 
 ## Standalone distribution
 
-The shareable ZIP contains exactly the skill instructions, four references, two renderers, two HTML templates, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
+The shareable ZIP contains the skill instructions, references, sheet/interview/notebook renderers and HTML templates, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
 
 Do not add account configuration, source exports, test transcripts or a runtime dependency to this bundle. Keep optional local research tooling in the full repository. Changes to public input/output behavior must preserve the format and selected personal context.
 
 The Product checks workflow runs toolkit and research tests, offline MCP checks, example reproducibility, publication checks and a bundle build on Windows, macOS and Linux with Python 3.11, plus Linux with Python 3.14. It uses read-only repository permissions and does not publish. A configured workflow is not a passing run: inspect results on the actual release revision.
 
 Before sharing a release, review the diff and embedded data, refresh the publication manifest, run the checks above, and exercise the rendered sheet. Run a fresh host trial after changing research instructions; preserve the first result and judge attribution, decisions, counterevidence and corrections rather than source count alone.
+
+Notebook changes also rebuild `CAREER-NOTEBOOK.html` through `tools/build_demo.py`. The optional renderer, template and notebook reference are named explicitly in the standalone bundle. Test both a sparse account and the fictional quarterly companion; inspect source access, native-dialog menu, image readers and the responsibility follow-up.
+
+Run `node tests/check_notebook.cjs` for the shipped notebook route, menu and source handlers. The Python suite also runs it when Node.js is installed and checks that the notebook rebuild is identical. Node.js 18+ is a development check only; the exported notebook needs a browser, not Node.js.

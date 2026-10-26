@@ -14,6 +14,8 @@ Use work documents only with an approved model and sources you are allowed to sh
 
 Open a work account, follow its sources, then try **View agent text**. **Copy for an agent** carries the same account, including shared credit and limits. GitHub displays HTML as source; use the downloaded file.
 
+For a notebook with a custom navigation menu, quarterly work, visual evidence and interview follow-ups, open **[CAREER-NOTEBOOK.html](CAREER-NOTEBOOK.html)**. This edition uses the same fictional source packet, with an explicit quarterly companion. [Notebook guide](skills/career-context-sheet/references/notebook.md).
+
 ## Make it yours
 
 Give your agent the complete [career-context-sheet](skills/career-context-sheet/SKILL.md) folder and selected material. It includes the research guidance, format, renderer and visual template.

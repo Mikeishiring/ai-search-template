@@ -15,12 +15,15 @@ MEMBERS = (
     "agents/openai.yaml",
     "assets/sheet.html",
     "assets/interview.html",
+    "assets/notebook.html",
     "references/deepening-and-story.md",
     "references/format.md",
     "references/interview-prep.md",
+    "references/notebook.md",
     "references/source-research.md",
     "scripts/render_context.py",
     "scripts/render_interview.py",
+    "scripts/render_notebook.py",
 )
 PREFIX = "career-context-sheet"
 
