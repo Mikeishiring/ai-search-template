@@ -37,7 +37,7 @@ def command(output, schema):
     config = {
         'project_doc_max_bytes': 0,
         'model_instructions_file': str(ROOT / 'model/reviewer-prompt.txt'),
-        'web_search': 'disabled', 'tools.view_image': False,
+        'web_search': 'disabled',
         'skills.max_context_tokens': 1,
         'sqlite_home': str(ROOT / 'runs/model-workspace'),
         'approval_policy': 'never',

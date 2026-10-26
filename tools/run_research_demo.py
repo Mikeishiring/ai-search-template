@@ -15,6 +15,13 @@ import copy
 from research_sheet import plan_schema
 
 
+def audit_events(completed):
+    diagnostics = [e.get('message', '') for e in completed if e.get('type') == 'error']
+    calls = [e for e in completed if e.get('type') not in {'agent_message', 'reasoning', 'error'}]
+    unexpected = [e for e in calls if e.get('type') != 'mcp_tool_call' or e.get('server') != 'synthetic_research']
+    return calls, unexpected, diagnostics
+
+
 def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
     output = outside_project(output)
     if output.suffix.lower() not in {'.html', '.htm'} or not output.parent.is_dir():
@@ -90,13 +97,12 @@ def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
         except ValueError:
             pass
     completed = [e['item'] for e in events if e.get('type') == 'item.completed']
-    calls = [e for e in completed if e.get('type') not in {'agent_message', 'reasoning'}]
-    unexpected = [e for e in calls if e.get('type') != 'mcp_tool_call' or e.get('server') != 'synthetic_research']
+    calls, unexpected, diagnostics = audit_events(completed)
     receipt = {'synthetic': True, 'attempt': index, 'resumed': resume, 'exit_code': proc.returncode,
                'timed_out': timed_out, 'elapsed_seconds': round(time.monotonic() - started, 2),
                'provider': 'Authenticated Codex CLI', 'model': 'CLI default; identifier not exposed by this event stream',
                'human_followup_prompts': 0, 'previous_conversation_supplied': False,
-               'tool_calls': len(calls), 'unexpected_tools': len(unexpected),
+               'tool_calls': len(calls), 'unexpected_tools': len(unexpected), 'runtime_diagnostics': diagnostics,
                **launch_hashes, 'export_protocol': session.get('export_protocol', 'legacy'),
                'usage': [e['usage'] for e in events if e.get('usage')]}
     write_json(workspace / f'attempt-{index}.receipt.json', receipt)

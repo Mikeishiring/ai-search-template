@@ -20,7 +20,7 @@
     },
     {
       "path": "CAREER-CONTEXT.html",
-      "sha256": "0bb80e8f0076feeebbd61bff8288e9b85c15555d2cd370a8de0d2f5f37626c42"
+      "sha256": "d44d5a4a2c6b7654c9e7b1152bf26f5b3f3fb3b5feb455441ecbe7394dcf1283"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -408,7 +408,7 @@
     },
     {
       "path": "ai-search-mvp/model_backend.py",
-      "sha256": "6630480f23f9315f1871eff2774e124907d8fa19d4ab76841dc47d098dbea95d"
+      "sha256": "e4ae3f1962ebfa5d48cb63a9e273a91abc8791368ff94c187033bcbf46117ee9"
     },
     {
       "path": "ai-search-mvp/ownership_experiment.py",
@@ -1052,7 +1052,7 @@
     },
     {
       "path": "examples/career-context.json",
-      "sha256": "7e7fc35f3e94a9663348ff50694ade6d03d55a151135c3520fc9f141fd4d6eb0"
+      "sha256": "d41ea5407549d3f286de305c79d426a25dcf4168857106a0333f6bf945af57d0"
     },
     {
       "path": "examples/first-records.json",
@@ -1060,7 +1060,7 @@
     },
     {
       "path": "examples/interview-preparation.json",
-      "sha256": "cb6c2aa0c11d05ad7ad573debcf2b06a6476eb88f253a206a44333c17d952cd1"
+      "sha256": "7224895a08f0a6354d23c8ceaa0c1381565c6301e4355850e514aece9d63c3c5"
     },
     {
       "path": "examples/local-policy.json",
@@ -1176,7 +1176,7 @@
     },
     {
       "path": "tests/test_model_launcher.py",
-      "sha256": "542c1c968dfe6f723748b61a34b4fe2a3364e5a544dabfa69644e6781b70657a"
+      "sha256": "c9fbbe736d748ce03d4aaa3aba325c323f315fb0f9066523a2df773715ee4761"
     },
     {
       "path": "tests/test_narrative_retention.py",
@@ -1220,7 +1220,7 @@
     },
     {
       "path": "tools/run_research_demo.py",
-      "sha256": "2528de7f3dbf1ce32e957bc65d07e436578c39c828f01ec2cb0fed34f9349e2f"
+      "sha256": "b93efcd61d7d0f374a126c7df57ac5bba3226ae9d482f4417eee0433bd0ac298"
     }
   ]
 }
