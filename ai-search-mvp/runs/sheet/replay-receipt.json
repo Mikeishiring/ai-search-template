@@ -1,0 +1,7 @@
+{
+  "method": "Deterministic replay of the original captured MCP arguments after UTF-8 transport repair; no new model call or human story edits.",
+  "model_calls": 0,
+  "requests": 52,
+  "source_calls": 35,
+  "sheet_sha256": "48879434128e53fe89b2f7caa35273ebf92f421a4edccea903b7680d4d008300"
+}

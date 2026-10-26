@@ -11,6 +11,9 @@ The personal CLI refuses workspace creation inside its own checkout. It cannot t
 | Action | Where content goes |
 |---|---|
 | Personal CLI commands | Local files only; no network, model, Git or subprocess calls |
+| `career_context.py start`, `local-import`, `local-status` | Selected local files only; no model or network calls |
+| `research-demo` | Fixed fictional sources sent through authenticated Codex; no personal input path accepted |
+| `research-serve` | Selected local source text exposed to the connected AI host only when its workspace policy permits model processing |
 | Open the HTML | Browser reads embedded local text; no background requests or external assets |
 | Click an original-source link | Browser contacts that service |
 | Supply evidence to an AI host | Host and potentially its model provider, under their settings |
@@ -26,6 +29,8 @@ Create an empty **private** repository in your own account. Initialize Git in th
 Keep its remote distinct from the template. Do not merge private history into the public template, add a data submodule or enable Pages for the archive. Review collaborators and integrations. `.gitignore` neither removes committed secrets nor makes uploaded files private.
 
 The generated ignore file excludes common environment/key filenames. It does not inspect arbitrary source text for secrets. This template cannot determine whether you are authorized to retain employer or third-party records. Inspect selected material before remote backup or AI sharing.
+
+The newer [local-context setup](LOCAL-CONTEXT.md) excludes its whole folder from Git by default and enforces exact selected locations and files. DMs, private channels and attachment text require explicit choices; permission for DMs does not enable every conversation. This does not control other tools in an AI host or detect an incorrectly labelled source export.
 
 ## Public reuse
 

@@ -17,6 +17,8 @@ Begin by establishing work, sources and privacy. Reuse answers already in the co
 
 Proceed once that scope is clear; do not add a second approval checkpoint for already authorized read-only work. A broad career request can start with one useful period. If source access is unavailable, begin with the person's account and record the missing source rather than blocking the sheet.
 
+When a local-context workspace is supplied, use its saved source/privacy policy as the access ceiling. A DM setting permits only selected conversations; linked records cannot widen it. Model processing may be disabled even when local capture is allowed. Do not bypass those choices with another connector or tool. The repository's `start`, `local-import` and `research-serve` commands support this selected-export workflow; they do not connect live accounts.
+
 For research across channels or services, read [the source-research guide](references/source-research.md). Follow the same scope through discovery, source reads and the final handoff. A link to an excluded source is a recorded gap, not permission to read it.
 
 Read [the deepening and story guide](references/deepening-and-story.md) when researching or synthesizing a work account. Own the next useful pass within the agreed scope: trace decisions, shared contributions, later outcomes and contradictory evidence without waiting for repeated "go deeper" prompts. Keep private continuation state for work spanning sessions. A relevant source or a fluent paragraph is not a completed review.
@@ -34,6 +36,8 @@ Build specific episodes before proposing a career through-line. Ground patterns 
 ## Build the portable artifact
 
 Read [the format](references/format.md) when creating or updating a sheet. Use its `career-context/v1` structure for both the visible sheet and the embedded JSON. Source references must resolve inside the packet; missing originals are explicit. Keep corrections and stable account IDs when updating an existing sheet.
+
+The repository's optional `career_context.py research-demo` connects a fictional-source research journal to this renderer. It requires an authenticated Codex CLI and does not accept personal sources. Its checked claims are mapped into sheet fields without a second prose rewrite; every claim must survive. Use the ordinary private authoring workflow for real material, with the same evidence-to-prose review.
 
 The supplied renderer creates the sheet without libraries or network requests:
 

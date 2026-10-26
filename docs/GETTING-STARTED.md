@@ -2,6 +2,8 @@
 
 Start with one piece of work: what was happening, what you did, who else contributed and what happened next. Rough notes are enough to begin. Missing dates, metrics and outcomes can stay unknown.
 
+For a local archive with enforced source choices, run `python career_context.py start ../my-career-context`. The [local setup](LOCAL-CONTEXT.md) selects exact locations, DM/private-channel access, retention and model-processing preferences before importing anything. Model access is off by default.
+
 ## With an agent
 
 Give your agent [the skill instructions](../skills/career-context-sheet/SKILL.md) and selected notes. If your host supports skills, install the complete `skills/career-context-sheet/` folder using its skill installation flow; the renderer, template and format belong together. In Codex, invoke the installed skill as `$career-context-sheet`.
@@ -19,6 +21,8 @@ Use the [complete starting prompt](../prompts/START-HERE.md) if helpful. Once th
 The agent should maintain the unresolved questions and pursue the next useful read without requiring repeated prompts. It drafts specific episodes before suggesting a career through-line, checks that personal decisions and shared credit survive the prose, and asks what the account misses about your experience. [From evidence to story](FROM-EVIDENCE-TO-STORY.md) explains the workflow and its current limits.
 
 Your host may send selected material to its model provider. Installing the skill does not connect source accounts or grant access to other records.
+
+To test research and sheet creation in one run, use the [integrated fictional demo](RESEARCH-TO-SHEET.md). It requires an authenticated Codex CLI and uses only the bundled fictional sources; real inputs are not accepted by that command.
 
 ## Without an agent
 

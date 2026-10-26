@@ -1,0 +1,28 @@
+{
+  "subject": "Contributor 01",
+  "question": "Understand the desk trial",
+  "earlier_start": "2032-01-01",
+  "start": "2032-02-01",
+  "end": "2032-03-31",
+  "horizon": "2032-05-31",
+  "locations": [
+    {
+      "source": "chat",
+      "container": "desk-team",
+      "kind": "channel"
+    },
+    {
+      "source": "docs",
+      "container": "project-notes",
+      "kind": "document"
+    }
+  ],
+  "import_files": [
+    "selected-export.json"
+  ],
+  "allow_dms": false,
+  "allow_private_channels": false,
+  "allow_attachments": false,
+  "retain_source_text": true,
+  "model_processing": "local_only"
+}

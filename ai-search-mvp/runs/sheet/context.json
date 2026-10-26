@@ -1,0 +1,524 @@
+{
+  "schema": "career-context/v1",
+  "updatedAt": "2032-06-01",
+  "reviewStatus": "draft",
+  "synthetic": true,
+  "person": {
+    "name": "Contributor 01",
+    "overview": "I traced requests through three handoffs and chose to add next-owner and return-date fields to the existing shared form instead of introducing a new application, because volunteers used a shared computer and another login would add a step. The shared-computer constraint is my contemporaneous report; this does not establish that it was the only possible design.\n\nThe experience changed the question I asked: instead of treating every missed handoff as something I should personally chase, I began asking whether ownership and escalation were clear enough for someone else to act, while still helping with exceptions. This is my personal reflection, not a measure of team performance or a claim about a lifelong trait.",
+    "background": []
+  },
+  "accounts": [
+    {
+      "id": "atlas-desk-trial",
+      "title": "Atlas / North Desk trial",
+      "period": "January–May 2032",
+      "summary": "I took on handoff investigation, intake-form implementation and defect follow-up for a trial approved for one library desk team; Contributor 02 retained equipment policy and approval. The January proposal and February brief establish remit and approval, not deployment.\n\nBy April, the original desk team was still using the form and escalation note; Contributor 04 and the coordinator continued to run review and answer exceptions, while my return-date correction remained in place. Continued use was reported for the original team only, and volunteers still needed help with exceptions.",
+      "context": "The follow-up did not measure time saved and did not establish independent operation. The easier-to-follow instructions were qualitative feedback, not a time or autonomy measure.\n\nA second-desk trial was deferred because supervised shifts could not be staffed, while the current desk could continue; whether the form would work at another desk remained unknown. The deferral reflects staffing, not a demonstrated failure of the form.",
+      "aim": "I took on handoff investigation, intake-form implementation and defect follow-up for a trial approved for one library desk team; Contributor 02 retained equipment policy and approval. The January proposal and February brief establish remit and approval, not deployment.",
+      "contribution": "I implemented separate owner and approver fields, return-date validation and a printed fallback list, with Contributor 03 supplying the policy correction. The implementation record alone does not prove desk use.\n\nAfter Contributor 05 found a midnight date fault and supplied tests for both entry routes, I reproduced it, changed conversion to the desk date and tested the correction; both routes then preserved the entered date. The correction was tested on the desk's two documented date-entry routes, not broader environments.\n\nI treated the two exceptions as evidence that a form alone did not resolve policy ambiguity, then added a visible escalation note beside the approver field instead of another status label and kept the printed fallback aligned; Contributor 03 reviewed the wording. The note was implemented, but independent volunteer use had not been tested.",
+      "decisions": [
+        "I traced requests through three handoffs and chose to add next-owner and return-date fields to the existing shared form instead of introducing a new application, because volunteers used a shared computer and another login would add a step. The shared-computer constraint is my contemporaneous report; this does not establish that it was the only possible design.",
+        "My first draft wrongly combined owner and approver; after Contributor 03 explained the policy boundary, I separated the fields and acknowledged that I should have checked it before drafting. Contributor 03 supplied the policy correction; I made the implementation change.",
+        "I offered to add return reminders if response ownership was agreed, but I had not built them. This was an offer with a dependency, not an executed feature."
+      ],
+      "sharedCredit": "Contributor 04 ran the first North Desk shift and owned daily review while I handled defects; the printed fallback stayed available for the shared-computer queue. This establishes the operational handoff and first-shift use, not independent volunteer operation.",
+      "outcome": "Across two supervised shifts run by Contributor 04 and observed by Contributor 06, seven of nine return requests had a named next owner before handoff; the other two needed coordinator help. There was no baseline or turnaround-time measure, and the raw-row attachment was unavailable.\n\nBy April, the original desk team was still using the form and escalation note; Contributor 04 and the coordinator continued to run review and answer exceptions, while my return-date correction remained in place. Continued use was reported for the original team only, and volunteers still needed help with exceptions.\n\nThe follow-up did not measure time saved and did not establish independent operation. The easier-to-follow instructions were qualitative feedback, not a time or autonomy measure.\n\nA second-desk trial was deferred because supervised shifts could not be staffed, while the current desk could continue; whether the form would work at another desk remained unknown. The deferral reflects staffing, not a demonstrated failure of the form.\n\nThe experience changed the question I asked: instead of treating every missed handoff as something I should personally chase, I began asking whether ownership and escalation were clear enough for someone else to act, while still helping with exceptions. This is my personal reflection, not a measure of team performance or a claim about a lifelong trait.",
+      "limits": [
+        "AI-authored draft from fictional sources; the person has not reviewed it.",
+        "Whether the scheduled May 19 review occurred or produced a decision.",
+        "Whether the form would work at another desk or without supervision.",
+        "How much time, if any, the trial saved.",
+        "Whether return reminders were ever built after the follow-up horizon.",
+        "Source unavailable or excluded: docs:raw-rows.",
+        "Rejected interpretation: The May 19 review was completed or produced a decision. The calendar record is an invitation only and explicitly does not establish attendance, completion or a decision.",
+        "Rejected interpretation: The forwarded seven-of-nine observation independently corroborates the trial result. It is explicitly a repost of Contributor 06's observation, not a new measurement.",
+        "Rejected interpretation: The unrelated Atlas catalog-index exercise is part of the equipment desk trial. The record says it is unrelated and supplies no link.",
+        "Rejected interpretation: The form was independently operated or proved time savings. Follow-up says exceptions still required help, time saved was not measured, and supervised observations do not prove independent operation.",
+        "Rejected interpretation: The second-desk deferral shows the form failed. The recorded reason was inability to staff supervised shifts, and current-desk continuation was allowed.",
+        "Evidence coverage: Irrelevant source-level instruction with no authority; excluded from career narrative.",
+        "Evidence coverage: Context for an unresolved scheduled review; retained as an unknown and rejected conclusion rather than a completed outcome.",
+        "Evidence coverage: Irrelevant Atlas name collision; retained to reject identity conflation.",
+        "Evidence coverage: Contextual repost, not independent evidence; retained in rejected conclusions.",
+        "Some source links were outside the selected scope or unavailable in the local exports; those linked originals were not read."
+      ],
+      "questions": [
+        "Did the scheduled May 19 review occur and produce a decision?",
+        "Was the form later tested at another desk or without supervision?",
+        "Were return reminders ever built?"
+      ],
+      "sourceRefs": [
+        "evidence-12fb9e5615b982875e56",
+        "evidence-e5e30ac523ac5198fed7",
+        "evidence-83b3c28e42edb4524291",
+        "evidence-35653da76b8e4e3b060d",
+        "evidence-a64619727fb55c18f5c3",
+        "evidence-758ac318de447f03e28e",
+        "evidence-dc8b1ce1f06070233506",
+        "evidence-c69648d041a67b601bb8",
+        "evidence-79e32036f4dd894cb330",
+        "evidence-0d17d12bc84680a7aefc",
+        "evidence-400f57d8eb597cdb9759",
+        "evidence-55e73ed9ee604b457276",
+        "evidence-8ad5ca6bdb5019fa8974",
+        "evidence-71df92e9b3581471ab3a",
+        "evidence-3811914c1e59ba417e4a",
+        "evidence-0aaec33df848516fc826",
+        "evidence-fbda301cbcd3f0e398c0",
+        "evidence-71c8b3eebdaa38c28a2c",
+        "evidence-ab69269e56913fae593a",
+        "evidence-16b3cadb5fbb30b9ba43",
+        "evidence-2ce08f86320fe089733e",
+        "evidence-de85d108b94462d71d80",
+        "evidence-dd9818c4b61d286816c8",
+        "evidence-893b1a9dd667265d84e5",
+        "evidence-96c494309b00964ca219",
+        "evidence-4b5bb9be6fc19013281d",
+        "evidence-ce3a31e5f6512c6367fe",
+        "evidence-f25848bca318f0434fae",
+        "evidence-a80ea862327eb5baa2a4",
+        "evidence-4ec3c7b230ff5e16377e",
+        "evidence-704d21cca3ed15f6c3bf",
+        "evidence-234eb188ad92d8192ac0",
+        "evidence-ae58b9e3607cd9e9847c",
+        "evidence-3ba48b99ba909b24f5ef",
+        "evidence-52ccc06f0cf09656f2f3",
+        "evidence-cba03838c8029c9f7a73",
+        "evidence-2662917518957558607f",
+        "evidence-ba89bfabc3a5e1dc09fa",
+        "evidence-91b25099c3c40be531f5",
+        "evidence-5ff35337fb3f01007aa6",
+        "evidence-6dad6000a5ec1c39eb9e",
+        "evidence-74c2bf92e3ae763175f9",
+        "evidence-7d769e7903ea8e151387",
+        "evidence-ddbd7cba6a8096eb2d98",
+        "evidence-801af6ed02a63e487ccf",
+        "evidence-baaa6bd563070adbbb2f",
+        "evidence-6d609839a803df32cf6a",
+        "evidence-dc9de537181e1a1ee31d",
+        "evidence-c4fb380805865b88f195",
+        "evidence-28c2b9686e3f5258e09b",
+        "evidence-86a48c0273b9140468ce",
+        "evidence-e947799484e2cfbc2b79"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "evidence-12fb9e5615b982875e56",
+      "label": "Atlas desk proposal (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-01-08",
+      "content": "Contributor 01 can investigate the handoffs; I retain equipment policy and approval.",
+      "scope": "Fictional original excerpt. Record chat:origin; span chat:origin:f8807d204ac1:117. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-e5e30ac523ac5198fed7",
+      "label": "One-team trial brief (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-02-06",
+      "content": "Atlas is approved for one library desk team.",
+      "scope": "Fictional original excerpt. Record docs:brief; span docs:brief:d22c55dc9a7b:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-83b3c28e42edb4524291",
+      "label": "One-team trial brief (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-02-06",
+      "content": "Contributor 01 owns the intake form implementation and defect follow-up.",
+      "scope": "Fictional original excerpt. Record docs:brief; span docs:brief:d22c55dc9a7b:45. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-35653da76b8e4e3b060d",
+      "label": "One-team trial brief (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-02-06",
+      "content": "This approval does not establish deployment.",
+      "scope": "Fictional original excerpt. Record docs:brief; span docs:brief:d22c55dc9a7b:232. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-a64619727fb55c18f5c3",
+      "label": "Atlas scope decision (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-03",
+      "content": "I traced requests through three handoffs.",
+      "scope": "Fictional original excerpt. Record chat:decision; span chat:decision:2be3435a9492:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-758ac318de447f03e28e",
+      "label": "Atlas scope decision (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-03",
+      "content": "I chose to add next-owner and return-date fields to the existing shared form rather than introduce a new application.",
+      "scope": "Fictional original excerpt. Record chat:decision; span chat:decision:2be3435a9492:42. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-dc8b1ce1f06070233506",
+      "label": "Atlas scope decision (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-03",
+      "content": "Volunteers use a shared computer, and a new login would add a step.",
+      "scope": "Fictional original excerpt. Record chat:decision; span chat:decision:2be3435a9492:160. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-c69648d041a67b601bb8",
+      "label": "Clarifying the fields (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-05",
+      "content": "My first draft combined owner and approver.",
+      "scope": "Fictional original excerpt. Record chat:correction; span chat:correction:9b4e3d51dfc2:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-79e32036f4dd894cb330",
+      "label": "Clarifying the fields (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-05",
+      "content": "I changed it to separate those fields after Contributor 03's correction.",
+      "scope": "Fictional original excerpt. Record chat:correction; span chat:correction:9b4e3d51dfc2:44. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-0d17d12bc84680a7aefc",
+      "label": "Clarifying the fields (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-05",
+      "content": "I should have checked that policy boundary before drafting.",
+      "scope": "Fictional original excerpt. Record chat:correction; span chat:correction:9b4e3d51dfc2:117. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-400f57d8eb597cdb9759",
+      "label": "Policy review (Contributor 03)",
+      "kind": "source_excerpt",
+      "date": "2032-02-04",
+      "content": "The person receiving a request is not always its approver.",
+      "scope": "Fictional original excerpt. Record chat:review; span chat:review:807543fff788:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-55e73ed9ee604b457276",
+      "label": "Policy review (Contributor 03)",
+      "kind": "source_excerpt",
+      "date": "2032-02-04",
+      "content": "Please keep the coordinator's approval separate from the next owner.",
+      "scope": "Fictional original excerpt. Record chat:review; span chat:review:807543fff788:59. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-8ad5ca6bdb5019fa8974",
+      "label": "Form implementation (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-12",
+      "content": "Implemented separate owner and approver fields, return-date validation, and a printed fallback list.",
+      "scope": "Fictional original excerpt. Record repo:implementation; span repo:implementation:025bd55631e9:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-71df92e9b3581471ab3a",
+      "label": "Form implementation (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-12",
+      "content": "Contributor 03 supplied the policy correction.",
+      "scope": "Fictional original excerpt. Record repo:implementation; span repo:implementation:025bd55631e9:101. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-3811914c1e59ba417e4a",
+      "label": "Form implementation (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-12",
+      "content": "This change implements the form but does not establish use.",
+      "scope": "Fictional original excerpt. Record repo:implementation; span repo:implementation:025bd55631e9:148. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-0aaec33df848516fc826",
+      "label": "Date validation test (Contributor 05)",
+      "kind": "source_excerpt",
+      "date": "2032-02-14",
+      "content": "I found that a return entered just after midnight could appear overdue on the previous date.",
+      "scope": "Fictional original excerpt. Record repo:test; span repo:test:994abb2dcf30:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-fbda301cbcd3f0e398c0",
+      "label": "Date validation test (Contributor 05)",
+      "kind": "source_excerpt",
+      "date": "2032-02-14",
+      "content": "Contributor 01 investigated timezone handling.",
+      "scope": "Fictional original excerpt. Record repo:test; span repo:test:994abb2dcf30:93. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-71c8b3eebdaa38c28a2c",
+      "label": "Date validation test (Contributor 05)",
+      "kind": "source_excerpt",
+      "date": "2032-02-14",
+      "content": "My test cases cover the desk's two date-entry routes.",
+      "scope": "Fictional original excerpt. Record repo:test; span repo:test:994abb2dcf30:140. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-ab69269e56913fae593a",
+      "label": "Timezone correction (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-16",
+      "content": "I reproduced Contributor 05's midnight case, changed the conversion to use the desk date, and ran both date-entry routes.",
+      "scope": "Fictional original excerpt. Record repo:fix; span repo:fix:068d42a9f8e4:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-16b3cadb5fbb30b9ba43",
+      "label": "Timezone correction (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-16",
+      "content": "Both now preserve the entered date.",
+      "scope": "Fictional original excerpt. Record repo:fix; span repo:fix:068d42a9f8e4:122. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-2ce08f86320fe089733e",
+      "label": "Timezone correction (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-02-16",
+      "content": "Contributor 05 discovered the fault; I implemented and tested this correction.",
+      "scope": "Fictional original excerpt. Record repo:fix; span repo:fix:068d42a9f8e4:158. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-de85d108b94462d71d80",
+      "label": "Atlas becomes North Desk (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-03-01",
+      "content": "We now call the Atlas trial North Desk.",
+      "scope": "Fictional original excerpt. Record chat:handoff; span chat:handoff:88c9733e9825:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-dd9818c4b61d286816c8",
+      "label": "Atlas becomes North Desk (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-03-01",
+      "content": "I ran the first shift with the form today.",
+      "scope": "Fictional original excerpt. Record chat:handoff; span chat:handoff:88c9733e9825:40. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-893b1a9dd667265d84e5",
+      "label": "Atlas becomes North Desk (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-03-01",
+      "content": "I own the daily review; Contributor 01 will handle defects.",
+      "scope": "Fictional original excerpt. Record chat:handoff; span chat:handoff:88c9733e9825:83. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-96c494309b00964ca219",
+      "label": "Atlas becomes North Desk (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-03-01",
+      "content": "The printed list stays available for the shared-computer queue.",
+      "scope": "Fictional original excerpt. Record chat:handoff; span chat:handoff:88c9733e9825:143. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-4b5bb9be6fc19013281d",
+      "label": "One-team trial brief (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-02-06",
+      "content": "Contributor 02 owns equipment policy; Contributor 03 checks policy wording.",
+      "scope": "Fictional original excerpt. Record docs:brief; span docs:brief:d22c55dc9a7b:118. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-ce3a31e5f6512c6367fe",
+      "label": "One-team trial brief (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-02-06",
+      "content": "Contributor 04 owns daily operations.",
+      "scope": "Fictional original excerpt. Record docs:brief; span docs:brief:d22c55dc9a7b:194. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-f25848bca318f0434fae",
+      "label": "Supervised desk trial observations (Contributor 06)",
+      "kind": "source_excerpt",
+      "date": "2032-03-08",
+      "content": "Across two supervised shifts, seven of nine return requests had a named next owner before handoff.",
+      "scope": "Fictional original excerpt. Record docs:feedback; span docs:feedback:9005b3eb8f84:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-a80ea862327eb5baa2a4",
+      "label": "Supervised desk trial observations (Contributor 06)",
+      "kind": "source_excerpt",
+      "date": "2032-03-08",
+      "content": "The two exceptions needed coordinator help.",
+      "scope": "Fictional original excerpt. Record docs:feedback; span docs:feedback:9005b3eb8f84:99. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-4ec3c7b230ff5e16377e",
+      "label": "Supervised desk trial observations (Contributor 06)",
+      "kind": "source_excerpt",
+      "date": "2032-03-08",
+      "content": "I recorded these observations; Contributor 04 ran the shifts.",
+      "scope": "Fictional original excerpt. Record docs:feedback; span docs:feedback:9005b3eb8f84:143. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-704d21cca3ed15f6c3bf",
+      "label": "Supervised desk trial observations (Contributor 06)",
+      "kind": "source_excerpt",
+      "date": "2032-03-08",
+      "content": "We have no baseline and did not measure turnaround time.",
+      "scope": "Fictional original excerpt. Record docs:feedback; span docs:feedback:9005b3eb8f84:205. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-234eb188ad92d8192ac0",
+      "label": "Exception handling (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-09",
+      "content": "The two exceptions showed that a form alone does not resolve policy ambiguity.",
+      "scope": "Fictional original excerpt. Record chat:followup; span chat:followup:38afd3b714fa:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-ae58b9e3607cd9e9847c",
+      "label": "Exception handling (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-09",
+      "content": "I added a visible escalation note beside the approver field, rather than adding another status label.",
+      "scope": "Fictional original excerpt. Record chat:followup; span chat:followup:38afd3b714fa:79. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-3ba48b99ba909b24f5ef",
+      "label": "Escalation note delivered (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-12",
+      "content": "Added the escalation note beside the approver field and kept the printed fallback aligned.",
+      "scope": "Fictional original excerpt. Record repo:escalation; span repo:escalation:1803db6223ae:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-52ccc06f0cf09656f2f3",
+      "label": "Escalation note delivered (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-12",
+      "content": "Contributor 03 reviewed the wording.",
+      "scope": "Fictional original excerpt. Record repo:escalation; span repo:escalation:1803db6223ae:91. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-cba03838c8029c9f7a73",
+      "label": "Escalation note delivered (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-12",
+      "content": "This implements the note; independent volunteer use has not been tested.",
+      "scope": "Fictional original excerpt. Record repo:escalation; span repo:escalation:1803db6223ae:128. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-2662917518957558607f",
+      "label": "North Desk still in use (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-04-18",
+      "content": "We used the form on the desk again this week and still use the escalation note.",
+      "scope": "Fictional original excerpt. Record chat:later; span chat:later:179abdb0e057:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-ba89bfabc3a5e1dc09fa",
+      "label": "North Desk still in use (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-04-18",
+      "content": "I run the review and answer exceptions with the coordinator.",
+      "scope": "Fictional original excerpt. Record chat:later; span chat:later:179abdb0e057:80. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-91b25099c3c40be531f5",
+      "label": "North Desk still in use (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-04-18",
+      "content": "Contributor 01 fixed the return-date issue earlier.",
+      "scope": "Fictional original excerpt. Record chat:later; span chat:later:179abdb0e057:141. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-5ff35337fb3f01007aa6",
+      "label": "North Desk still in use (Contributor 04)",
+      "kind": "source_excerpt",
+      "date": "2032-04-18",
+      "content": "This is still the original team.",
+      "scope": "Fictional original excerpt. Record chat:later; span chat:later:179abdb0e057:193. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-6dad6000a5ec1c39eb9e",
+      "label": "North Desk follow-up email (Contributor 03)",
+      "kind": "source_excerpt",
+      "date": "2032-04-22",
+      "content": "The updated instructions are easier to follow, but volunteers still ask for help with exceptions.",
+      "scope": "Fictional original excerpt. Record docs:email; span docs:email:a1303be883b7:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-74c2bf92e3ae763175f9",
+      "label": "North Desk follow-up email (Contributor 03)",
+      "kind": "source_excerpt",
+      "date": "2032-04-22",
+      "content": "We have not measured time saved.",
+      "scope": "Fictional original excerpt. Record docs:email; span docs:email:a1303be883b7:98. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-7d769e7903ea8e151387",
+      "label": "North Desk follow-up email (Contributor 03)",
+      "kind": "source_excerpt",
+      "date": "2032-04-22",
+      "content": "Do not treat the supervised observations as proof of independent operation.",
+      "scope": "Fictional original excerpt. Record docs:email; span docs:email:a1303be883b7:131. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-ddbd7cba6a8096eb2d98",
+      "label": "Second desk decision (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-05-07",
+      "content": "We have deferred a second-desk trial because we cannot staff its supervised shifts this month.",
+      "scope": "Fictional original excerpt. Record docs:paused; span docs:paused:bb19f2de8699:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-801af6ed02a63e487ccf",
+      "label": "Second desk decision (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-05-07",
+      "content": "The current desk can continue.",
+      "scope": "Fictional original excerpt. Record docs:paused; span docs:paused:bb19f2de8699:95. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-baaa6bd563070adbbb2f",
+      "label": "Second desk decision (Contributor 02)",
+      "kind": "source_excerpt",
+      "date": "2032-05-07",
+      "content": "This does not establish whether the form would work at another desk.",
+      "scope": "Fictional original excerpt. Record docs:paused; span docs:paused:bb19f2de8699:126. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-6d609839a803df32cf6a",
+      "label": "A possible reminder (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-05-15",
+      "content": "I can add return reminders if the coordinator agrees who will respond.",
+      "scope": "Fictional original excerpt. Record chat:planned; span chat:planned:84bbd8fbc41b:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-dc9de537181e1a1ee31d",
+      "label": "A possible reminder (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-05-15",
+      "content": "I have not built them.",
+      "scope": "Fictional original excerpt. Record chat:planned; span chat:planned:84bbd8fbc41b:71. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-c4fb380805865b88f195",
+      "label": "Reflection on the desk trial (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-20",
+      "content": "I used to treat each missed handoff as a request I should personally chase.",
+      "scope": "Fictional original excerpt. Record docs:personal; span docs:personal:adf7d195d37b:0. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-28c2b9686e3f5258e09b",
+      "label": "Reflection on the desk trial (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-20",
+      "content": "During this trial I began asking whether the next owner and escalation path were clear enough for someone else to act.",
+      "scope": "Fictional original excerpt. Record docs:personal; span docs:personal:adf7d195d37b:76. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-86a48c0273b9140468ce",
+      "label": "Reflection on the desk trial (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-20",
+      "content": "I still helped with exceptions.",
+      "scope": "Fictional original excerpt. Record docs:personal; span docs:personal:adf7d195d37b:195. Source report, not independent verification."
+    },
+    {
+      "id": "evidence-e947799484e2cfbc2b79",
+      "label": "Reflection on the desk trial (Contributor 01)",
+      "kind": "source_excerpt",
+      "date": "2032-03-20",
+      "content": "This is my account of what I learned, not a measure of the team's performance.",
+      "scope": "Fictional original excerpt. Record docs:personal; span docs:personal:adf7d195d37b:227. Source report, not independent verification."
+    }
+  ]
+}

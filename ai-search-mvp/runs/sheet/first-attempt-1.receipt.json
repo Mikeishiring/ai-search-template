@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "attempt": 1,
+  "resumed": false,
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_seconds": 365.94,
+  "provider": "Authenticated Codex CLI",
+  "model": "CLI default; identifier not exposed by this event stream",
+  "human_followup_prompts": 0,
+  "previous_conversation_supplied": false,
+  "tool_calls": 52,
+  "unexpected_tools": 0,
+  "prompt_sha256": "52cf856de05aa3e8869189ad2de6dd8bb12dd5ea17c5ba2c840cff10fa348871",
+  "schema_sha256": "607eb172d1ad44ee8f3c9372b3e5e756ca971e93b06125deaf9ab5acaa6f87e0",
+  "usage": [
+    {
+      "input_tokens": 635575,
+      "cached_input_tokens": 570112,
+      "output_tokens": 13640,
+      "reasoning_output_tokens": 560
+    }
+  ]
+}

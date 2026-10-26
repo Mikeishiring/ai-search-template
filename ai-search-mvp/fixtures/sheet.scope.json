@@ -1,0 +1,15 @@
+{
+  "question": "Build a private career-context sheet explaining Contributor 01's work on the Atlas desk trial: their decisions, shared work, what happened later, and what the experience meant to them.",
+  "query": "Atlas desk",
+  "subject": "Contributor 01",
+  "sources": [
+    "chat",
+    "docs",
+    "repo"
+  ],
+  "start": "2032-02-01",
+  "end": "2032-03-31",
+  "horizon": "2032-05-31",
+  "timezone": "UTC",
+  "privacy": "Only the selected fictional sources. Exclude private; retain selected supporting excerpts in a private draft sheet."
+}

@@ -1,4 +1,4 @@
-"""Create a portable Career Context AI sheet. Python 3.11+, no packages or network."""
+"""Create local Career Context AI sheets; optionally research selected sources."""
 import argparse
 import importlib.util
 from pathlib import Path
@@ -21,10 +21,59 @@ def main(argv=None):
     demo = commands.add_parser('demo', help='Create a sheet using the included fictional example')
     render = commands.add_parser('render', help='Build a sheet from your JSON or existing HTML')
     render.add_argument('input', type=Path, help='Selected career context, kept outside this project')
+    research = commands.add_parser('research-demo', help='Use authenticated Codex to research only the fixed fictional sources and build a sheet')
+    research.add_argument('output', type=Path)
+    research.add_argument('--workspace', type=Path, help='Private research state outside this project')
+    research.add_argument('--resume', action='store_true', help='Resume saved state; rebuild a sealed run without another model call')
+    research.add_argument('--force', action='store_true')
+    research_build = commands.add_parser('research-build', help='Build HTML from an existing checked research journal without a model call')
+    research_build.add_argument('workspace', type=Path)
+    research_build.add_argument('output', type=Path)
+    research_build.add_argument('--force', action='store_true')
+    setup = commands.add_parser('start', help='Choose work, exact sources, privacy and a local context folder')
+    setup.add_argument('workspace', type=Path)
+    setup.add_argument('--policy', type=Path, help='Use an explicit saved policy instead of interactive questions')
+    local_import = commands.add_parser('local-import', help='Import only permitted locations from a selected normalized export')
+    local_import.add_argument('workspace', type=Path)
+    local_import.add_argument('file', type=Path)
+    local_status = commands.add_parser('local-status', help='Show local captures and the research-depth checklist')
+    local_status.add_argument('workspace', type=Path)
+    local_serve = commands.add_parser('research-serve', help='Serve selected local context to an AI host only when the policy permits it')
+    local_serve.add_argument('workspace', type=Path)
     for command in (demo, render):
         command.add_argument('output', type=Path, help='HTML destination outside this project')
         command.add_argument('--force', action='store_true', help='Replace an existing output file')
     args = parser.parse_args(argv)
+    if args.command in {'start', 'local-import', 'local-status', 'research-serve'}:
+        import json
+        import local_context
+        try:
+            if args.command == 'start':
+                workspace = (local_context.initialize(args.workspace, local_context.read_json(args.policy), args.policy.resolve().parent)
+                             if args.policy else local_context.wizard(args.workspace))
+                print(f'Created local context in {workspace}\nOpen CAREER-CONTEXT.html. Nothing was uploaded.')
+            elif args.command == 'local-import':
+                print(json.dumps(local_context.import_export(args.workspace, args.file)))
+            elif args.command == 'local-status':
+                print(json.dumps(local_context.status(args.workspace), indent=2))
+            else:
+                from research_sheet_server import serve
+                serve(args.workspace)
+        except (ValueError, KeyError, TypeError, OSError) as error:
+            parser.exit(2, f'Could not use local context: {error}\n')
+        return
+    if args.command in {'research-demo', 'research-build'}:
+        try:
+            if args.command == 'research-demo':
+                from tools.run_research_demo import run
+                result = run(args.output, args.workspace, args.resume, args.force)
+            else:
+                from research_sheet import build
+                result = build(args.workspace, args.output, args.force)
+        except (ValueError, KeyError, TypeError, OSError) as error:
+            parser.exit(2, f'Could not build the research sheet: {error}\n')
+        print(f"Created {result['path']}\nChecked research compiled into {result['accounts']} work accounts. Draft for review.")
+        return
     source = ROOT / 'examples/career-context.json' if args.command == 'demo' else args.input.expanduser().resolve()
     destination = args.output.expanduser().resolve()
     try:

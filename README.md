@@ -40,7 +40,7 @@ Run commands from the extracted project folder. On macOS/Linux, use `python3` if
 - **Sources and open questions:** selected excerpts stay distinct from summaries; unknowns remain explicit.
 - **The same context for an agent:** plain text and structured JSON are included in the HTML. Selected images stay embedded in the file.
 
-The local tools make no model calls or uploads. AI assistance comes from the agent you choose. Live Slack, Notion, GitHub and ATS connectors are **not included**; the bundled MCP server serves fictional research cases only.
+Setup, import, status, `demo` and `render` make no model calls or uploads. The optional `research-demo` invokes authenticated Codex using fixed fictional sources. A local research server can expose selected private captures to an AI host only when the workspace policy explicitly allows it. Live Slack, Notion, GitHub and ATS connectors are **not included**.
 
 ## Keep personal context private
 
@@ -53,15 +53,18 @@ The public project contains reusable tools and fictional examples. It does not c
 | You want to... | Start here |
 |---|---|
 | Create or update a portable sheet | [Getting started](docs/GETTING-STARTED.md) |
+| Choose sources, DM access and local storage | [Your local context](docs/LOCAL-CONTEXT.md) |
 | Keep source versions and proposed claims | [Local evidence workspace](docs/EVIDENCE-WORKSPACE.md) |
 | Prepare selected exports | [Source preparation](docs/SOURCES.md) |
 | Try the fictional MCP research server | [MCP setup](docs/MCP.md) |
 | Test research across channels and sources | [Multi-source tests](docs/MULTISOURCE.md) |
 | Turn research into a recognizable personal story | [From evidence to story](docs/FROM-EVIDENCE-TO-STORY.md) |
+| Run research through to an HTML sheet | [Integrated fictional demo](docs/RESEARCH-TO-SHEET.md) |
+| Inspect the first unprompted story and its limits | [Research-to-sheet result](docs/RESEARCH-STORY-RESULT.md) |
 | Inspect the experiments and their failures | [Research guide](ai-search-mvp/README.md) / [saved report](AI-SEARCH-MVP.html) |
 | Understand the proposed research engine | [Specification](SPEC.md) |
 | Improve the project | [Contributing](CONTRIBUTING.md) |
 
-This is a local toolkit, not a connected career platform. Source collection, automatic personal research and claim review still need development. The experiments retain missed context and attribution errors so those limits can be inspected.
+This is a local toolkit with selected-export research. Live connectors, automatic refresh and reliable semantic review still need development. The experiments retain missed context and attribution errors so those limits can be inspected.
 
 [MIT licensed](LICENSE). Previously named **AI search template**; existing research commands and file formats remain compatible.

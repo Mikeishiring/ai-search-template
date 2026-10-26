@@ -1,0 +1,13 @@
+{
+  "synthetic_test_data": true,
+  "method": "Replay original model-selected calls through the new local-policy/import/server/build path. No new inference or personal data.",
+  "selected_locations": 6,
+  "admitted_records": 21,
+  "excluded_records": 2,
+  "read_records": 21,
+  "sheet_accounts": 1,
+  "selected_excerpts": 52,
+  "model_calls": 0,
+  "policy_checks": "passed",
+  "synthetic_flag_not_forged": true
+}
