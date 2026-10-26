@@ -71,6 +71,28 @@ class InterviewTests(unittest.TestCase):
         for field in ("signal", "stories", "opening", "decode", "chapters", "pace"):
             self.assertIn('id="' + field + '"', html)
 
+    def test_existing_projections_without_short_labels_still_render(self):
+        for signal in self.projection["signals"]:
+            signal.pop("summary", None)
+        for question in self.projection["questions"]:
+            question.pop("label", None)
+        self.projection["priorityGap"].pop("label", None)
+        self.save()
+        self.render()
+        html = self.output.read_text(encoding="utf-8")
+        self.assertIn(self.projection["signals"][0]["reason"], html)
+        self.assertIn("One open question", html)
+        self.assertEqual(self.seed()["questions"], self.projection["questions"])
+
+    def test_short_labels_are_optional_validated_text(self):
+        for key, field in (("signals", "summary"), ("questions", "label"), ("priorityGap", "label")):
+            for invalid in ("", None, [], {"unexpected": "value"}):
+                projection = copy.deepcopy(self.projection)
+                entry = projection[key] if key == "priorityGap" else projection[key][0]
+                entry[field] = invalid
+                with self.subTest(key=key, invalid=invalid), self.assertRaises(ValueError):
+                    interview.prepare(self.packet, projection, interview.fingerprint(self.source))
+
     def test_inspect_supplies_current_fingerprint_and_context_to_model(self):
         result = subprocess.run([sys.executable, "-I", str(SCRIPT), str(self.source), "--inspect"],
                                 cwd=self.folder, capture_output=True, text=True, timeout=20)

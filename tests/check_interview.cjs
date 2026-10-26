@@ -35,6 +35,9 @@ async function main() {
     assert.equal(seed.reviewStatus, 'draft');
     assert.equal(await page.locator('#synthetic-note').isVisible(), true);
     assert.equal(await page.locator('input,form,[data-field]').count(), 0);
+    assert.equal(await page.locator('.top,.eyebrow,.lede').count(), 0);
+    assert.equal(await page.locator('.signals h3 a').count(), seed.signals.length);
+    assert.equal(await page.locator('.selection-notes').getAttribute('open'), null);
     assert.equal(await page.locator('#story-picker').inputValue(), seed.leadStoryIds[0]);
     for (const width of [1440, 768, 375, 320]) {
       await page.setViewportSize({ width, height: width < 500 ? 900 : 1100 });
@@ -45,6 +48,8 @@ async function main() {
       }
       await navigate(page, 'signal');
       await page.screenshot({ path: path.join(output, 'automatic-' + width + '.png'), fullPage: true });
+      await navigate(page, 'decode');
+      await page.screenshot({ path: path.join(output, 'answers-' + width + '.png'), fullPage: true });
       receipt.widths.push(width);
     }
     receipt.checks.push('All six sections start populated at desktop, tablet and mobile widths; no manual intake or storage dependency');
@@ -89,6 +94,18 @@ async function main() {
       await page.locator('#chapters').waitFor({ state: 'visible' });
       assert.equal(await page.locator('#chapter-picker').inputValue(), question.storyId);
     }
+    await navigate(page, 'decode', seed.questions[0].id);
+    await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: () => Promise.reject(Error('Clipboard unavailable')) } }));
+    await page.locator('#decode .is-selected [data-copy=answer]').click();
+    const copiedAnswer = await page.locator('#manual-copy').inputValue();
+    assert(copiedAnswer.startsWith('Fictional example.'));
+    assert(copiedAnswer.includes(seed.questions[0].question));
+    assert(copiedAnswer.includes(seed.questions[0].answer));
+    for (const limit of seed.stories.find(s => s.id === seed.questions[0].storyId).account.limits) assert(copiedAnswer.includes(limit));
+    await page.keyboard.press('Escape');
+    await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: async text => { window.copiedText = text; } } }));
+    await page.locator('#decode .is-selected [data-copy=answer]').click();
+    assert.equal(await page.evaluate(() => window.copiedText), copiedAnswer);
     await navigate(page, 'opening');
     await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: () => Promise.reject(Error('Clipboard unavailable')) } }));
     await page.locator('[data-copy=opening]').click();
@@ -112,7 +129,7 @@ async function main() {
     await page.locator('#stories').waitFor({ state: 'visible' });
     await page.selectOption('#story-picker', seed.stories.at(-1).id);
     await page.waitForURL(new RegExp('#stories/' + seed.stories.at(-1).id + '$'));
-    await page.locator('#stories .is-selected .story-heading h3').evaluate(e => { e.textContent = 'LongTitle'.repeat(100); });
+    await page.locator('#stories .is-selected .story-heading h2').evaluate(e => { e.textContent = 'LongTitle'.repeat(100); });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1), false);
     await page.locator('.skip').focus();
     await page.keyboard.press('Enter');
@@ -122,7 +139,9 @@ async function main() {
     await page.emulateMedia({ media: 'print' });
     assert.equal(await page.locator('.section:visible').count(), 6);
     assert(await page.locator('#synthetic-note').isVisible());
-    assert(await page.locator('.top').isVisible());
+    assert(await page.locator('.heading').isVisible());
+    assert(await page.locator('#decode .answer-notes').first().evaluate(e => e.open));
+    assert(await page.locator('#chapters .evidence-limits').first().evaluate(e => e.open));
     for (const question of seed.questions) {
       const title = page.locator('[data-question-panel="' + question.id + '"] .question-title');
       assert(await title.isVisible());
@@ -140,8 +159,8 @@ async function main() {
       assert.equal(await title.innerText(), question.question);
     }
     assert((await staticPage.locator('#opening').innerText()).includes(seed.opening[0]));
-    await staticPage.locator('#stories details').first().locator('summary').click();
-    assert((await staticPage.locator('#stories details').first().innerText()).includes(seed.stories[0].evidence[0].content));
+    await staticPage.locator('#stories details.original-account').first().locator('summary').click();
+    assert((await staticPage.locator('#stories details.original-account').first().innerText()).includes(seed.stories[0].evidence[0].content));
     await staticContext.close();
     // Copy the standalone file to an unrelated location and open in a fresh context.
     const relocated = path.join(output, 'relocated-preparation.html');

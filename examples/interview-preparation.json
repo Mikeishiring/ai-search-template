@@ -9,12 +9,14 @@
     {
       "title": "Make responsibility visible.",
       "reason": "The request trial separates who receives a task from who owns the next step. It shows design judgment and a shared operating routine.",
-      "storyId": "request-handoffs"
+      "storyId": "request-handoffs",
+      "summary": "A shared list and weekly review made the next owner clearer."
     },
     {
       "title": "Revise the detail that stops someone using it.",
       "reason": "The guide changed after supervised use exposed an unclear escalation rule. The useful evidence is the revision and its retention for induction.",
-      "storyId": "volunteer-guide"
+      "storyId": "volunteer-guide",
+      "summary": "Supervised use exposed an unclear escalation rule in the desk guide."
     }
   ],
   "stories": [
@@ -121,7 +123,8 @@
       "tests": "How you diagnosed a problem, involved others and judged the result.",
       "storyId": "request-handoffs",
       "reason": "It has a concrete ownership problem, your contribution, a team-led operating routine and an observable result.",
-      "answer": "Library requests crossed several teams without a clear next owner. I traced the routes, drafted a shared list and facilitated the trial. Contributor 02 proposed the weekly review; the coordinators defined the rules and kept the list current. I simplified the labels after their feedback. They continued the review after the trial. We did not measure turnaround, so the outcome I can support is continued use."
+      "answer": "Library requests crossed several teams without a clear next owner. I traced the routes, drafted a shared list and facilitated the trial. Contributor 02 proposed the weekly review; the coordinators defined the rules and kept the list current. I simplified the labels after their feedback. They continued the review after the trial. We did not measure turnaround, so the outcome I can support is continued use.",
+      "label": "Improving a process"
     },
     {
       "id": "respond-feedback",
@@ -129,7 +132,8 @@
       "tests": "Whether you can name the change and explain why it mattered.",
       "storyId": "volunteer-guide",
       "reason": "The trial feedback identifies an exact problem in the room-booking instructions.",
-      "answer": "I drafted a printable desk guide and watched two volunteers try it during supervised shifts. Contributor 03 had checked the procedures, but the volunteers still could not tell which booking exceptions needed a coordinator. I moved the escalation rule beside the relevant steps and rewrote those instructions. The coordinator retained the revised guide for the next induction; we did not test independent use."
+      "answer": "I drafted a printable desk guide and watched two volunteers try it during supervised shifts. Contributor 03 had checked the procedures, but the volunteers still could not tell which booking exceptions needed a coordinator. I moved the escalation rule beside the relevant steps and rewrote those instructions. The coordinator retained the revised guide for the next induction; we did not test independent use.",
+      "label": "Responding to feedback"
     },
     {
       "id": "unfinished-work",
@@ -137,12 +141,14 @@
       "tests": "Whether you distinguish a working prototype from a useful, maintained service.",
       "storyId": "equipment-prototype",
       "reason": "The prototype has a narrow working flow and clear decisions that remain open.",
-      "answer": "I have a local equipment-log prototype that records checkout and return using fictional items. It has not been tried by the team. Before continuing, I need to establish who would maintain it and whether a shared paper log would solve the problem more simply. I left reminders out because follow-up has no agreed owner."
+      "answer": "I have a local equipment-log prototype that records checkout and return using fictional items. It has not been tried by the team. Before continuing, I need to establish who would maintain it and whether a shared paper log would solve the problem more simply. I left reminders out because follow-up has no agreed owner.",
+      "label": "Unfinished work"
     }
   ],
   "priorityGap": {
     "storyId": "request-handoffs",
     "question": "Which parts of the weekly review were still in use later in the year?",
-    "why": "This would distinguish immediate continuation after the trial from a lasting routine."
+    "why": "This would distinguish immediate continuation after the trial from a lasting routine.",
+    "label": "Open question: continued use"
   }
 }
