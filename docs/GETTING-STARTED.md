@@ -1,70 +1,72 @@
 # Your first career-context sheet
 
-Start with one piece of work: what was happening, what you did, who else contributed and what happened next. Rough notes are enough to begin. Missing dates, metrics and outcomes can stay unknown.
+Start with one piece of work: what was happening, what you did, who else contributed and what happened next. Rough notes are enough. Missing dates, metrics and outcomes can stay unknown.
 
-## With an agent
+## Use the complete skill
 
-Give your agent [the skill instructions](../skills/career-context-sheet/SKILL.md) and selected notes. If your host supports skills, install the complete `skills/career-context-sheet/` folder using its skill installation flow; the renderer, template and format belong together. In Codex, invoke the installed skill as `$career-context-sheet`.
+The `skills/career-context-sheet/` folder contains the instructions, research references, renderer and HTML template. Keep those files together.
 
-Ask it to create one private HTML file, preserve shared credit and uncertainty, and keep original excerpts separate from summaries. Tell it where to save the sheet, outside this public project. Review the account before changing its state from draft to reviewed.
+From the downloaded project, create the standalone bundle:
 
-The opening should establish three things, without asking again for information you already supplied:
+```sh
+python tools/build_skill.py ../career-context-sheet.zip
+```
 
-- **Work:** the project or career period, your role, and dates for origins and later outcomes.
-- **Sources:** the selected files, channels, folders, repositories or threads it can use, plus earlier project names.
-- **Privacy:** excluded locations or topics, and what may be retained in the private sheet.
+You need Python 3.11 or later. No packages are required. On macOS/Linux, use `python3` if needed; on Windows, `py -3` may be available.
 
-Use the [complete starting prompt](../prompts/START-HERE.md) if helpful. Once the scope is clear, the agent begins authorized reads; it asks later questions only when they change the account. The [multi-source tests](MULTISOURCE.md) demonstrate why aliases and standalone follow-ups matter.
+| Host | Setup |
+|---|---|
+| Codex | Place the extracted `career-context-sheet` folder under `~/.agents/skills/` or a project's `.agents/skills/`, then invoke `$career-context-sheet`. [Official setup](https://learn.chatgpt.com/docs/build-skills). |
+| Claude | Upload the ZIP through **Customize > Skills**. Code execution and file creation must be enabled. [Official setup](https://support.claude.com/en/articles/12512180-use-skills-in-claude). |
+| Another agent | Give it the extracted folder and ask it to follow `SKILL.md`. It needs file access and Python to render the supplied template. A text-only model can help prepare the account, but cannot run the renderer. |
 
-The agent should maintain the unresolved questions and pursue the next useful read without requiring repeated prompts. It drafts specific episodes before suggesting a career through-line, checks that personal decisions and shared credit survive the prose, and asks what the account misses about your experience. [From evidence to story](FROM-EVIDENCE-TO-STORY.md) explains the workflow and its current limits.
+Host support is separate from output quality. The tests check the extracted renderer and portable file; they do not establish equivalent research quality across models.
 
-Your host may send selected material to its model provider. Installing the skill does not connect source accounts or grant access to other records.
+## Make your first account
 
-## Without an agent
+Give the agent selected notes and ask:
 
-You need Python 3.11 or later. No additional packages are required. From the project folder:
+> Use the career-context-sheet skill to make one private HTML file from this material. Preserve my decisions, shared credit and uncertainty. Reuse what I have already told you; ask only about missing scope or facts that change the account.
+
+The opening establishes the work, permitted source locations and privacy boundaries once. Keep inputs, working notes and outputs outside the public checkout. The agent investigates consequential questions, drafts specific episodes, challenges the account and asks what the records miss about your experience.
+
+The [longer starting prompt](../prompts/START-HERE.md) is available for broader research. Existing material and corrections should carry forward, including your wording when it is selected as an exact account. Review the result before changing its state from draft to reviewed.
+
+## Read, reuse and update
+
+Open the HTML in a browser. **View agent text** shows exactly what **Copy for an agent** copies. If clipboard access fails, the text is selected for manual copying. **Save HTML** downloads the portable file; **Download structured context** exports JSON while selected image bytes remain in the HTML.
+
+Attach the HTML to another agent with a separate request, such as: "Use this context to help me prepare for an interview." The file includes selected source excerpts as well as the visible account; review it before sharing.
+
+To update it, give the existing HTML and corrections to the skill. Keep account IDs, original excerpts, shared credit and uncertainty. Re-rendering an existing file preserves its embedded context and images.
+
+## Prepare for an interview
+
+Ask the agent to [prepare an interview](../skills/career-context-sheet/references/interview-prep.md) from your career context and any target you have supplied. It gathers authorized context, selects the strongest stories and drafts all six parts, including an introduction, answers, chapters and timelines. Review the result and practise; answer only the important gaps the available material cannot resolve.
+
+**Copy for your coach** carries the prepared draft and its evidence into your model. Correct the career-context source and ask the agent to regenerate the preparation when facts change. Copy the HTML file itself to move it between devices.
+
+## Render without an agent
+
+From the full project:
 
 ```sh
 python career_context.py demo ../career-context-demo.html
-```
-
-Open the resulting file in your browser. The fictional example has three accounts, including unfinished work.
-
-For your own sheet, create a separate folder such as `../my-context/`. Use the [format reference](../skills/career-context-sheet/references/format.md) to prepare `context.json` there. Replace the fictional content completely and omit `synthetic` or set it to `false`; that flag labels data, it does not anonymize it.
-
-```sh
 python career_context.py render ../my-context/context.json ../my-context/career-context.html
 ```
 
-You can move the HTML without its authoring JSON. Retain the JSON privately if you want to edit it by hand.
+Prepare personal JSON using [the format](../skills/career-context-sheet/references/format.md). Replace fictional content completely; omit `synthetic` or set it to `false`. That label does not anonymize data.
 
-## Give it to another agent
-
-Attach the HTML, or use **Copy for an agent** and paste it into your chosen host. Add your actual request separately, for example: "Use this context to help me prepare for an interview." The sheet supplies context; it does not authorize actions.
-
-**View agent text** shows exactly what the copy action sends. If clipboard access is blocked, the sheet opens that text and selects it for manual copying. **Save HTML** downloads a portable copy. **Download structured context** exports JSON; selected image bytes remain in the HTML.
-
-## Update it
-
-Give an existing sheet and your corrections to an agent using the skill. Ask it to retain account IDs, sources, shared credit and uncertainty. A revised summary must not silently replace an original excerpt.
-
-To rebuild an edited packet into an existing output, add `--force`:
+From a standalone skill, run its renderer directly:
 
 ```sh
-python career_context.py render ../my-context/context.json ../my-context/career-context.html --force
+python scripts/render_context.py ../my-context/context.json ../my-context/career-context.html
 ```
 
-An existing HTML file is also a valid input. Rendering it to a new output preserves its embedded context and selected images; it does not add new information.
+Resolve that script from the extracted skill folder. Existing HTML is also valid input. Both entrypoints preserve an existing output unless you add `--force`; malformed input leaves the old file intact.
 
-## If something goes wrong
+## Larger source collections
 
-| Message or symptom | Next step |
-|---|---|
-| `python` is not recognized | Try `py -3` on Windows or `python3` on macOS/Linux. Check that it reports version 3.11 or later. |
-| Output already exists | Choose a new path, or add `--force` when you intend to replace that file. |
-| Destination is inside the public project | Choose a sibling folder for personal material, such as `../my-context/`. |
-| A required field or source reference is missing | Compare the packet with the [format](../skills/career-context-sheet/references/format.md). Every account must reference an included source. |
-| Copying is blocked | Use the selected text in **View agent text**, or attach the HTML directly. |
-| GitHub shows HTML code | Download the file and open it in a browser. |
+The full repository also provides [local context setup](LOCAL-CONTEXT.md) and an optional research MCP server for selected exports. It adds saved source boundaries, research state and a depth review. These components are not needed to create or read a sheet and are not included in the standalone bundle.
 
-The sheet stays readable without JavaScript; copying and downloads require it. No service login, hosted profile or automatic research happens when you open the file.
+[Privacy and storage](PRIVACY.md) explains what is retained and what your chosen model receives.

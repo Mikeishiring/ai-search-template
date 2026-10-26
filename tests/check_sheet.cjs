@@ -11,7 +11,7 @@ async function main() {
   const output = process.env.CAREER_CONTEXT_QA_DIR || await fs.mkdtemp(path.join(os.tmpdir(), 'career-context-qa-'));
   const browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}) });
   const receipt = { widths: [], checks: [], externalRequests: [], errors: [] };
-  const url = pathToFileURL(path.join(root, 'CAREER-CONTEXT.html')).href;
+  const url = pathToFileURL(process.env.CAREER_CONTEXT_HTML || path.join(root, 'CAREER-CONTEXT.html')).href;
   try {
     const context = await browser.newContext({ acceptDownloads: true, viewport: { width: 1440, height: 1100 } });
     const page = await context.newPage();
@@ -20,7 +20,9 @@ async function main() {
     await page.goto(url);
     const packet = await page.locator('#career-context-data').textContent().then(JSON.parse);
     assert.equal(packet.synthetic, true);
-    assert.equal(await page.locator('.account').count(), 3);
+    assert.ok(packet.accounts.length && packet.accounts[0].sourceRefs.length, 'Use a fictional sheet with an account and source reference for interaction checks');
+    assert.equal(await page.locator('.account').count(), packet.accounts.length);
+    const firstSourceId = packet.accounts[0].sourceRefs[0];
     for (const width of [1440, 768, 375, 320]) {
       await page.setViewportSize({ width, height: width < 500 ? 900 : 1100 });
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
@@ -36,7 +38,8 @@ async function main() {
       for (const key of ['summary', 'contribution', 'sharedCredit', 'outcome']) assert.ok(agentText.includes(account[key]), `Text export missing ${key}`);
       for (const limit of account.limits) assert.ok(agentText.includes(limit));
     }
-    for (const source of packet.sources) assert.ok(agentText.includes(source.content));
+    const unquotedAgentText = agentText.replace(/^> /gm, '');
+    for (const source of packet.sources) assert.ok(unquotedAgentText.includes(source.content));
     await page.keyboard.press('Escape');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'view-context');
     receipt.checks.push('agent text retains account and source content; dialog Escape restores focus');
@@ -52,6 +55,19 @@ async function main() {
     await page.getByRole('button', { name: 'Close', exact: true }).click();
     receipt.checks.push('clipboard success and denied-access fallback');
 
+    // Closing queues a "close" event. A later handler must not steal focus
+    // after the user has already moved to another control.
+    await page.getByRole('button', { name: 'View agent text', exact: true }).click();
+    const focusPreserved = await page.evaluate(() => new Promise(resolve => {
+      const dialog = document.querySelector('#context-reader');
+      const nextControl = document.querySelector('.context-details summary');
+      dialog.addEventListener('close', () => resolve(document.activeElement === nextControl), { once: true });
+      dialog.close();
+      nextControl.focus();
+    }));
+    assert.equal(focusPreserved, true, 'Closing the reader stole focus from the next control');
+    receipt.checks.push('dialog close preserves a subsequent keyboard focus choice');
+
     const summary = page.locator('.context-details summary').first();
     await summary.focus();
     await page.keyboard.press('Enter');
@@ -60,8 +76,8 @@ async function main() {
     assert.equal(await page.locator('.context-details').first().getAttribute('open'), null);
     await page.keyboard.press('Space');
     await page.locator('.references a').first().click();
-    assert.equal(await page.locator('#source-handoff-account').getAttribute('open'), '');
-    assert.equal(await page.evaluate(() => document.activeElement.parentElement.id), 'source-handoff-account');
+    assert.equal(await page.locator('#source-' + firstSourceId).getAttribute('open'), '');
+    assert.equal(await page.evaluate(() => document.activeElement.parentElement.id), 'source-' + firstSourceId);
     receipt.checks.push('keyboard disclosures and source navigation');
 
     const jsonEvent = page.waitForEvent('download');
@@ -89,7 +105,8 @@ async function main() {
     await page.evaluate(() => {
       document.querySelector('.name').textContent = 'Contributor with a very long display name';
       document.querySelector('.account-heading h3').textContent = 'UnbrokenProjectName'.repeat(12);
-      document.querySelector('.source-meta').textContent = 'SourceLocator'.repeat(30);
+      const sourceLabel = document.querySelector('.source-meta') || document.querySelector('.scope');
+      sourceLabel.textContent = 'SourceLocator'.repeat(30);
     });
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     receipt.checks.push('reduced motion; malformed anchor; long-content layout at 320px');
@@ -97,7 +114,7 @@ async function main() {
     const noScript = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 375, height: 900 } });
     const staticPage = await noScript.newPage();
     await staticPage.goto(url);
-    assert.equal(await staticPage.locator('.account').count(), 3);
+    assert.equal(await staticPage.locator('.account').count(), packet.accounts.length);
     await staticPage.locator('.context-details summary').first().click();
     assert.ok(await staticPage.locator('.detail-grid').first().isVisible());
     receipt.checks.push('readable accounts and native disclosures without JavaScript');

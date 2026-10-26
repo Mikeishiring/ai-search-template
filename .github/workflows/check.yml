@@ -1,0 +1,49 @@
+name: Product checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: windows-latest
+            python: "3.11"
+          - os: macos-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.14"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Toolkit and extracted-skill tests
+        run: python -m unittest discover -s tests -q
+      - name: Research regression tests
+        run: python -m unittest discover -s ai-search-mvp/tests -q
+      - name: Offline MCP contract
+        run: python tools/check_mcp.py
+      - name: Multi-source research fixture
+        run: python tools/check_multisource.py
+      - name: Rebuild fictional sheet
+        run: python tools/build_demo.py
+      - name: Verify reproducible example
+        run: git diff --exit-code -- CAREER-CONTEXT.html
+      - name: Publication manifest and links
+        run: python tools/check_release.py
+      - name: Build standalone skill
+        run: python tools/build_skill.py "${{ runner.temp }}/career-context-sheet.zip"

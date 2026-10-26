@@ -1,0 +1,33 @@
+{
+  "synthetic": true,
+  "case": "sheet",
+  "first_run_policy": "One substantive model attempt; preserve first output and any failure. No human follow-up hints. Runtime repairs and reruns must be disclosed.",
+  "case_authorship": "Implementation assistant authored fixture and rubric; neither was independent. Researcher sees only scope and selected tool reads.",
+  "source_budget": 45,
+  "request_limit": 80,
+  "hashes": {
+    "research_sheet.py": "80033159858e153da128bc20f88c8b861528e7bf930d2ba8aaf217b94b6967b7",
+    "research_sheet_server.py": "8e6d6cb4fe2386cf5b0c753459bd812f818c8d17968c38f0ac7ac7a7805eb048",
+    "tools/run_research_demo.py": "799ba66092595c4f30d56d539074ddcb860421d86ff29ea7348b978e3260ec76",
+    "career_context.py": "e2fb34396d25e58ebcdc97eccdf72c8d8e966a2e01a754d6a72ae0da4f08ae16",
+    "prompts/RESEARCH-TO-SHEET.md": "52cf856de05aa3e8869189ad2de6dd8bb12dd5ea17c5ba2c840cff10fa348871",
+    "ai-search-mvp/fixtures/sheet.corpus.json": "4723aa50b63a599687ca79fe87918681c888844a821bc8255efc5b2f66219725",
+    "ai-search-mvp/fixtures/sheet.scope.json": "409138714786fb22fd163aff6a4b85136f3f0c6bffe368e983f67e49d0a34616",
+    "ai-search-mvp/fixtures/sheet.gold.json": "f3803b18468dc44edb4d512b340e9c62c1e09e69c24f59d0b603ce3a71d2e88c",
+    "tests/test_research_sheet.py": "4731f57e6a5cc39d2ac3b7dfcbc41c90d671bc86f61903ea68e48bb9dbe00a92",
+    "ai-search-mvp/autonomous_server.py": "efc88bf86d7d08511699fda4e126e1b60229f6d114e8fa02928f837a87da1ce9",
+    "ai-search-mvp/followup_server.py": "3c5df5973d274f6c91f44426a55af0d87fa1c9a04ad6eb203f9e897bb00786ee",
+    "ai-search-mvp/attribution_server.py": "351f9fde507796c5111c9b86d91006c423fd067fdd3916742daaf4d021698916",
+    "ai-search-mvp/completion_server.py": "e2c13752c078e2e77e9fedb69d8f7057a6f7be1d58630c3f42f2870779ce4a84",
+    "ai-search-mvp/depth_server.py": "8bcf007afb148ac8dd122e163ca8e6ac6c2ea44f1f08b43122427b5797c02846",
+    "ai-search-mvp/retention_server.py": "8d4f63337aea06b39d81c0a0299d145f8e15a7c8730b585edc2fe50d36a71eb9",
+    "ai-search-mvp/ownership_server.py": "e813302d42e912680645e726af18d63da727e91fa5e90ba12d1ed241d82ae785",
+    "ai-search-mvp/ownership_review.py": "a535bde610c49ced2081dff7494deaf64a3d275743c2c3643e9f0a3f7e9184cc",
+    "ai-search-mvp/retention_review.py": "233b1f079dfa34169ac897968fa5f8935b6af9e98ad576ac2bae38bc4a3805c5",
+    "ai-search-mvp/depth_review.py": "8e5048caca78fa12cf43250be41e147a07497af0b746ba57abb93ceed3fd048b",
+    "ai-search-mvp/completion_review.py": "1b7aed0d24e2775561178a427cb1f8f470567b64f9a22a1cd5a270255d193131",
+    "ai-search-mvp/attribution_review.py": "0936c3b067650163e80dace1408f4000014f834d15b5a4eeef5933773fd8a5c2",
+    "ai-search-mvp/model_backend.py": "2ef789c86ae7a9fff2885b4e34c0c5c3f0fc7c3bdc33074fbbd83194f39b7b55",
+    "ai-search-mvp/model/ownership.schema.json": "607eb172d1ad44ee8f3c9372b3e5e756ca971e93b06125deaf9ab5acaa6f87e0"
+  }
+}

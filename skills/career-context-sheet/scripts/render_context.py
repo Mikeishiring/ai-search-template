@@ -1,4 +1,5 @@
 """Render portable career context with no dependencies or network access."""
+import argparse
 import base64
 import copy
 import hashlib
@@ -6,7 +7,6 @@ import html
 import json
 import os
 import re
-import sys
 import tempfile
 from datetime import date
 from html.parser import HTMLParser
@@ -81,9 +81,12 @@ class SheetReader(HTMLParser):
         if tag == 'script': self.capture = False
 
 def load_packet(source):
-    raw = source.read_text(encoding='utf-8')
+    return parse_packet(source.read_text(encoding='utf-8'), is_html=source.suffix.lower() in ['.html', '.htm'])
+
+
+def parse_packet(raw, *, is_html=False):
     if len(raw.encode()) > 24 * 1024 * 1024: raise ValueError('Sheet exceeds 24 MiB')
-    if source.suffix.lower() not in ['.html', '.htm']: return json.loads(raw)
+    if not is_html: return json.loads(raw)
     parser = SheetReader(); parser.feed(raw); data = json.loads(''.join(parser.parts))
     for account in data['accounts']:
         for artifact in account.get('artifacts', []): artifact['_dataUrl'] = parser.images.get(artifact.get('embeddedId'), '')
@@ -102,7 +105,7 @@ def image_data(artifact, base):
     if not signatures[mime]: raise ValueError('Image content does not match its declared format')
     return mime, raw
 
-def render(source, destination):
+def render(source, destination, *, overwrite=True):
     data = load_packet(source); validate(data); packet = copy.deepcopy(data)
     esc = html.escape
     def paragraphs(text): return ''.join(f'<p>{esc(p)}</p>' for p in text.split('\n\n') if p.strip()) or '<p class="muted">Not recorded yet.</p>'
@@ -141,11 +144,36 @@ def render(source, destination):
     fd, temporary = tempfile.mkstemp(dir=destination.parent, prefix='.career-context-', suffix='.tmp')
     try:
         with os.fdopen(fd, 'wb') as stream: stream.write(output.encode('utf-8'))
-        os.replace(temporary, destination)
+        if overwrite:
+            os.replace(temporary, destination)
+        else:
+            os.link(temporary, destination)
     finally:
         if os.path.exists(temporary): os.unlink(temporary)
     return {'path': str(destination), 'accounts': len(packet['accounts']), 'sources': len(packet['sources']), 'bytes': len(output.encode()), 'sha256': hashlib.sha256(output.encode()).hexdigest()}
 
-if __name__ == '__main__':
-    if len(sys.argv) != 3: raise SystemExit('Usage: python render_context.py input.json-or-html output.html')
-    print(json.dumps(render(Path(sys.argv[1]).resolve(), Path(sys.argv[2]).resolve())))
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("input", type=Path, help="Selected context JSON or an existing HTML sheet")
+    parser.add_argument("output", type=Path, help="HTML destination")
+    parser.add_argument("--force", action="store_true", help="Replace an existing output")
+    args = parser.parse_args(argv)
+    try:
+        source = args.input.expanduser().resolve()
+        destination = args.output.expanduser().absolute()
+        if destination.suffix.lower() not in {".html", ".htm"}:
+            raise ValueError("Choose an output ending in .html or .htm.")
+        if destination.is_symlink():
+            raise ValueError("Output must not be a symbolic link.")
+        if destination.exists() and not args.force:
+            raise ValueError("Output already exists; use --force to replace it.")
+        if not destination.parent.is_dir():
+            raise ValueError("Create the output folder first.")
+        result = render(source, destination, overwrite=args.force)
+    except (ValueError, KeyError, TypeError, OSError) as error:
+        parser.exit(2, f"Could not create the sheet: {error}\n")
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    main()

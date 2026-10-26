@@ -1,67 +1,57 @@
 # Career Context AI
 
-**Give your AI the context behind your work.**
+**Keep the context behind your work.**
 
-Keep your contributions, decisions, shared work and outcomes in one readable file. Attach it to an agent when you want help with a resume, interview or career question, without starting your story again.
+Turn selected notes, documents and conversations into one readable file: what you did, why it mattered, who else contributed and what happened next. Give that file to an agent for a resume, interview or career question without rebuilding your story each time.
 
 ![A fictional career-context sheet with readable work accounts and controls for copying context to an agent](docs/career-context-preview.png)
 
-## Try it
+Use work documents only with an approved model and sources you are allowed to share.
 
-1. [Download the project](https://github.com/Mikeishiring/career-context-ai/archive/refs/heads/main.zip) and extract it.
-2. Open **[CAREER-CONTEXT.html](CAREER-CONTEXT.html)** in your browser. The example is fictional and works offline.
-3. Try **View agent text**, expand a work account, or follow one of its sources. **Copy for an agent** carries the same context, including limits and shared credit.
+## Try the sheet
 
-No installation or account is needed to read a sheet. GitHub displays HTML as source; open the downloaded file to use it.
+[Download the project](https://github.com/Mikeishiring/career-context-ai/archive/refs/heads/main.zip), extract it and open **[CAREER-CONTEXT.html](CAREER-CONTEXT.html)** in a browser. The example is fictional and works offline.
+
+Open a work account, follow its sources, then try **View agent text**. **Copy for an agent** carries the same account, including shared credit and limits. GitHub displays HTML as source; use the downloaded file.
 
 ## Make it yours
 
-Start with a project you remember well. Give your agent the bundled [career-context skill](skills/career-context-sheet/SKILL.md), selected notes and this request:
+Give your agent the complete [career-context-sheet](skills/career-context-sheet/SKILL.md) folder and selected material. It includes the research guidance, format, renderer and visual template.
 
-> Help me make a career-context sheet. First establish what work to cover, which sources we can use and what should stay private or out of scope. Reuse anything I have already told you. Follow unresolved questions within that scope without waiting for repeated prompts. Build the story from my decisions, shared work and later outcomes, preserving uncertainty. Ask what the records miss or misrepresent. Create one private HTML file I can read and give to another agent.
+> Help me build a career-context sheet using this skill. Reuse what I have already told you; establish the work, sources and privacy boundaries that are still unclear. Investigate my decisions, shared contributions and later outcomes. Preserve my voice and uncertainty, ask what the records miss, and create one private HTML file I can keep.
 
-The [getting-started guide](docs/GETTING-STARTED.md) covers using the skill, preparing a sheet manually and updating an existing file. You can begin with one account.
+Start with one useful account. The agent should pursue consequential questions and challenge its first draft; you should not need to keep asking it to go deeper.
 
-If you prefer a terminal, use **Python 3.11 or later**, with no packages to install:
+[Get started with Claude, Codex or another agent](docs/GETTING-STARTED.md).
+
+Ask the agent to [prepare an interview](skills/career-context-sheet/references/interview-prep.md). It selects the evidence and drafts an introduction, answers, story chapters and timelines from your context. You review, practise and resolve genuine gaps.
+
+## What you keep
+
+- **Your work in context:** personal decisions, shared work, outcomes and unfinished questions.
+- **Inspectable evidence:** selected excerpts remain distinct from summaries and interpretation.
+- **One portable HTML file:** readable accounts, plain agent text, structured context and selected images travel together.
+
+The renderer uses Python 3.11+ with no packages or network calls. The agent you choose does the research and writing. Live source connectors are supplied by your host; installing this project does not connect accounts.
+
+## For developers
+
+The [product contract](docs/PRODUCT.md) defines the release criteria. The core product is the skill and portable sheet. Build the standalone skill bundle without the research harness:
 
 ```sh
-# Rebuild the fictional example outside the project
-python career_context.py demo ../career-context-demo.html
-
-# Render your own selected context, stored outside this checkout
-python career_context.py render ../my-context/context.json ../my-context/career-context.html
+python tools/build_skill.py ../career-context-sheet.zip
 ```
 
-Run commands from the extracted project folder. On macOS/Linux, use `python3` if needed; on Windows, `py -3` may be available. An existing output is preserved unless you add `--force`.
+The optional local research server adds scoped export access and resumable evidence review. Experiments remain available in the repository so their results and failures can be inspected.
 
-## What travels with your sheet
-
-- **Readable work accounts:** context, contribution, decisions, shared credit and outcomes.
-- **Sources and open questions:** selected excerpts stay distinct from summaries; unknowns remain explicit.
-- **The same context for an agent:** plain text and structured JSON are included in the HTML. Selected images stay embedded in the file.
-
-The local tools make no model calls or uploads. AI assistance comes from the agent you choose. Live Slack, Notion, GitHub and ATS connectors are **not included**; the bundled MCP server serves fictional research cases only.
-
-## Keep personal context private
-
-Your HTML includes the selected source text. Keep real inputs and outputs **outside this public repository**, and inspect the whole file before sharing it. Copying text to an AI host sends it through that host's data handling; local generation does not.
-
-The public project contains reusable tools and fictional examples. It does not contain a personal career archive. [Privacy and storage guide](docs/PRIVACY.md).
-
-## Go deeper
-
-| You want to... | Start here |
+| Need | Guide |
 |---|---|
-| Create or update a portable sheet | [Getting started](docs/GETTING-STARTED.md) |
-| Keep source versions and proposed claims | [Local evidence workspace](docs/EVIDENCE-WORKSPACE.md) |
-| Prepare selected exports | [Source preparation](docs/SOURCES.md) |
-| Try the fictional MCP research server | [MCP setup](docs/MCP.md) |
-| Test research across channels and sources | [Multi-source tests](docs/MULTISOURCE.md) |
-| Turn research into a recognizable personal story | [From evidence to story](docs/FROM-EVIDENCE-TO-STORY.md) |
-| Inspect the experiments and their failures | [Research guide](ai-search-mvp/README.md) / [saved report](AI-SEARCH-MVP.html) |
-| Understand the proposed research engine | [Specification](SPEC.md) |
-| Improve the project | [Contributing](CONTRIBUTING.md) |
+| Create, update or share a sheet | [Getting started](docs/GETTING-STARTED.md) |
+| Select local exports and use the research server | [Local context](docs/LOCAL-CONTEXT.md) |
+| Understand storage and sharing | [Privacy](docs/PRIVACY.md) |
+| Inspect research methods and results | [Research guide](ai-search-mvp/README.md) · [Event retention](docs/EVENT-RETENTION.md) · [Deep-review result](docs/DEEP-RESEARCH-RESULT.md) |
+| Build, test or contribute | [Contributing](CONTRIBUTING.md) |
 
-This is a local toolkit, not a connected career platform. Source collection, automatic personal research and claim review still need development. The experiments retain missed context and attribution errors so those limits can be inspected.
+The research server currently uses selected snapshots. Live connectors, automatic refresh and reliable semantic review remain under development.
 
-[MIT licensed](LICENSE). Previously named **AI search template**; existing research commands and file formats remain compatible.
+[MIT licensed](LICENSE).

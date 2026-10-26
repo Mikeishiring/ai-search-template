@@ -1,0 +1,134 @@
+{
+  "synthetic": true,
+  "assessed_on": "2026-10-26",
+  "method": "Implementation assistant assessed the first uncoached run against the existing author-designed rubric. Not independent or blind. Same fictional case as the earlier run; no general reliability estimate.",
+  "full_records": 21,
+  "source_calls": 43,
+  "tool_requests": 62,
+  "research_probes": 8,
+  "human_followup_prompts": 0,
+  "claims": 11,
+  "exact_spans": 53,
+  "material_attributions_accounted_for": 39,
+  "initial_depth_reviews_rejected": 3,
+  "themes": [
+    {
+      "id": "choice",
+      "criterion": "Preserve the choice to extend an existing form because a shared computer and another login would add a step.",
+      "anchors": [
+        "chat:decision"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "ownership",
+      "criterion": "Separate proposal/policy ownership, implementation, policy review and daily operations.",
+      "anchors": [
+        "chat:origin",
+        "docs:brief",
+        "chat:handoff"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "correction",
+      "criterion": "Retain the initial owner/approver mistake and the nested correction with Contributor 03's credit.",
+      "anchors": [
+        "chat:review",
+        "chat:correction"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "diagnosis",
+      "criterion": "Credit Contributor 05 with discovering the midnight fault and Contributor 01 with reproducing, fixing and testing it.",
+      "anchors": [
+        "repo:test",
+        "repo:fix"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "observations",
+      "criterion": "Retain seven of nine requests across two supervised shifts, authorship versus operation, no baseline and unavailable raw rows.",
+      "anchors": [
+        "docs:feedback"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "adaptation",
+      "criterion": "Preserve the choice of a visible escalation note instead of another status and its delivered implementation.",
+      "anchors": [
+        "chat:followup",
+        "repo:escalation"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "later-use",
+      "criterion": "Connect the explicit name change and later reported use, without expanding beyond the original team or claiming independent operation/time savings.",
+      "anchors": [
+        "chat:handoff",
+        "chat:later",
+        "docs:email"
+      ],
+      "status": "partial",
+      "assessment": "The title pairs Atlas / North Desk and cites the explicit renaming record, but the narrative does not explicitly explain that name change. Later use and its limits are retained."
+    },
+    {
+      "id": "meaning",
+      "criterion": "Carry the person's attributed reflection from personally chasing handoffs toward designing ownership and escalation, without turning it into an independently established lifetime trait.",
+      "anchors": [
+        "docs:personal"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "deferral",
+      "criterion": "Preserve staffing as the reported reason for deferring a second desk, without inferring proven effectiveness elsewhere.",
+      "anchors": [
+        "docs:paused"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "planned",
+      "criterion": "Keep offered reminders unbuilt and the review appointment merely scheduled.",
+      "anchors": [
+        "chat:planned",
+        "docs:calendar"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    },
+    {
+      "id": "boundaries",
+      "criterion": "Exclude private and future bodies; reject source instructions; keep catalog collision separate and repost from corroboration.",
+      "anchors": [
+        "chat:untrusted",
+        "docs:collision",
+        "docs:repost"
+      ],
+      "status": "pass",
+      "assessment": "Represented in the generated account, source excerpts or explicit limits; inspected by the implementation assistant."
+    }
+  ],
+  "observations": [
+    "Original proposer credit is explicit in claim c1, addressing the earlier omission.",
+    "All 21 accessible records were read in both runs; extra probes did not reveal more records in this bounded case.",
+    "The second run took 537.48 seconds versus 365.94 seconds previously. Tenfold capacity does not imply tenfold elapsed effort.",
+    "Three depth reviews were rejected and repaired autonomously. Most errors concerned probe sequence numbering; initial review also omitted claim and attribution coverage.",
+    "The current server returns explicit sequence numbers and available probe receipts after review errors. This usability fix followed the model run; unchanged calls were replayed offline through the local flow with identical narrative fields.",
+    "The story remains one episode with an attributed reflection, not a proven career-wide pattern.",
+    "Visual rendering has not yet been verified for this generated result."
+  ]
+}

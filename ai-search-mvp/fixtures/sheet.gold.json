@@ -1,0 +1,94 @@
+{
+  "synthetic": true,
+  "case": "sheet",
+  "assessment_type": "Author-defined transparent regression case, not an independent blind benchmark",
+  "themes": [
+    {
+      "id": "choice",
+      "criterion": "Preserve the choice to extend an existing form because a shared computer and another login would add a step.",
+      "anchors": [
+        "chat:decision"
+      ]
+    },
+    {
+      "id": "ownership",
+      "criterion": "Separate proposal/policy ownership, implementation, policy review and daily operations.",
+      "anchors": [
+        "chat:origin",
+        "docs:brief",
+        "chat:handoff"
+      ]
+    },
+    {
+      "id": "correction",
+      "criterion": "Retain the initial owner/approver mistake and the nested correction with Contributor 03's credit.",
+      "anchors": [
+        "chat:review",
+        "chat:correction"
+      ]
+    },
+    {
+      "id": "diagnosis",
+      "criterion": "Credit Contributor 05 with discovering the midnight fault and Contributor 01 with reproducing, fixing and testing it.",
+      "anchors": [
+        "repo:test",
+        "repo:fix"
+      ]
+    },
+    {
+      "id": "observations",
+      "criterion": "Retain seven of nine requests across two supervised shifts, authorship versus operation, no baseline and unavailable raw rows.",
+      "anchors": [
+        "docs:feedback"
+      ]
+    },
+    {
+      "id": "adaptation",
+      "criterion": "Preserve the choice of a visible escalation note instead of another status and its delivered implementation.",
+      "anchors": [
+        "chat:followup",
+        "repo:escalation"
+      ]
+    },
+    {
+      "id": "later-use",
+      "criterion": "Connect the explicit name change and later reported use, without expanding beyond the original team or claiming independent operation/time savings.",
+      "anchors": [
+        "chat:handoff",
+        "chat:later",
+        "docs:email"
+      ]
+    },
+    {
+      "id": "meaning",
+      "criterion": "Carry the person's attributed reflection from personally chasing handoffs toward designing ownership and escalation, without turning it into an independently established lifetime trait.",
+      "anchors": [
+        "docs:personal"
+      ]
+    },
+    {
+      "id": "deferral",
+      "criterion": "Preserve staffing as the reported reason for deferring a second desk, without inferring proven effectiveness elsewhere.",
+      "anchors": [
+        "docs:paused"
+      ]
+    },
+    {
+      "id": "planned",
+      "criterion": "Keep offered reminders unbuilt and the review appointment merely scheduled.",
+      "anchors": [
+        "chat:planned",
+        "docs:calendar"
+      ]
+    },
+    {
+      "id": "boundaries",
+      "criterion": "Exclude private and future bodies; reject source instructions; keep catalog collision separate and repost from corroboration.",
+      "anchors": [
+        "chat:untrusted",
+        "docs:collision",
+        "docs:repost"
+      ]
+    }
+  ]
+}

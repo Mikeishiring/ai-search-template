@@ -1,0 +1,20 @@
+{
+  "synthetic": true,
+  "case": "sheet",
+  "protocol": "career-depth/v1",
+  "frozen_on": "2026-10-26",
+  "method": "Same transparent fictional case used during implementation. Not blind or independent; no model-run output supplied. One planned uncoached attempt.",
+  "files": {
+    "depth_protocol.py": "c3aefb2abbec56bdc52c87a8d534c794312ca99a5691a39b7eb47a8a2411292c",
+    "research_sheet.py": "33864ae58db49adbd179dd0b4dffbba1b068dbfa5f91f1afe860f944378fb24a",
+    "research_sheet_server.py": "9296436f435938be7961ca6fd890b0e56eb213dc61bc7a4707f9dc1c3547696e",
+    "local_context.py": "ec4b390a133c17c8f1d047018beb43fc608347b5278306134dba4686e18de2bb",
+    "prompts/RESEARCH-TO-SHEET.md": "819923feeb9af8c58d34c361e7754de837369ed768a279a05651a80827f72b1c",
+    "tools/run_research_demo.py": "7be68f10561123c6bcf0d09c253b76d5fe7e36a32afca768e37c417d9cc56036",
+    "ai-search-mvp/completion_server.py": "3bdbf6139fc80ad21ce4f80630252cb98b50b5df5696637db2f71d2d7fb81c77",
+    "ai-search-mvp/ownership_server.py": "f214d1b057934569271bc879434a02b9567ca19afb3185f0a225119c88f0276b",
+    "ai-search-mvp/fixtures/sheet.corpus.json": "4723aa50b63a599687ca79fe87918681c888844a821bc8255efc5b2f66219725",
+    "ai-search-mvp/fixtures/sheet.scope.json": "409138714786fb22fd163aff6a4b85136f3f0c6bffe368e983f67e49d0a34616",
+    "ai-search-mvp/fixtures/sheet.gold.json": "f3803b18468dc44edb4d512b340e9c62c1e09e69c24f59d0b603ce3a71d2e88c"
+  }
+}

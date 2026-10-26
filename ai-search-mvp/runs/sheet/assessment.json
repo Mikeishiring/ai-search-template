@@ -1,0 +1,131 @@
+{
+  "synthetic": true,
+  "assessed_on": "2026-10-26",
+  "method": "Implementation assistant manually assessed the first narrative against its own prewritten rubric. Not independent or blind. Later transport replay and policy replay made no new model calls.",
+  "full_records_read": 21,
+  "accessible_records": 21,
+  "source_calls": 35,
+  "tool_requests": 52,
+  "claims": 13,
+  "selected_spans": 52,
+  "human_followup_prompts": 0,
+  "themes": [
+    {
+      "id": "choice",
+      "criterion": "Preserve the choice to extend an existing form because a shared computer and another login would add a step.",
+      "anchors": [
+        "chat:decision"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "ownership",
+      "criterion": "Separate proposal/policy ownership, implementation, policy review and daily operations.",
+      "anchors": [
+        "chat:origin",
+        "docs:brief",
+        "chat:handoff"
+      ],
+      "status": "partial",
+      "assessment": "Contributor 02 retains policy/approval credit, but their original proposal is not explicitly credited in the narrative."
+    },
+    {
+      "id": "correction",
+      "criterion": "Retain the initial owner/approver mistake and the nested correction with Contributor 03's credit.",
+      "anchors": [
+        "chat:review",
+        "chat:correction"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "diagnosis",
+      "criterion": "Credit Contributor 05 with discovering the midnight fault and Contributor 01 with reproducing, fixing and testing it.",
+      "anchors": [
+        "repo:test",
+        "repo:fix"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "observations",
+      "criterion": "Retain seven of nine requests across two supervised shifts, authorship versus operation, no baseline and unavailable raw rows.",
+      "anchors": [
+        "docs:feedback"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "adaptation",
+      "criterion": "Preserve the choice of a visible escalation note instead of another status and its delivered implementation.",
+      "anchors": [
+        "chat:followup",
+        "repo:escalation"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "later-use",
+      "criterion": "Connect the explicit name change and later reported use, without expanding beyond the original team or claiming independent operation/time savings.",
+      "anchors": [
+        "chat:handoff",
+        "chat:later",
+        "docs:email"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "meaning",
+      "criterion": "Carry the person's attributed reflection from personally chasing handoffs toward designing ownership and escalation, without turning it into an independently established lifetime trait.",
+      "anchors": [
+        "docs:personal"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "deferral",
+      "criterion": "Preserve staffing as the reported reason for deferring a second desk, without inferring proven effectiveness elsewhere.",
+      "anchors": [
+        "docs:paused"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "planned",
+      "criterion": "Keep offered reminders unbuilt and the review appointment merely scheduled.",
+      "anchors": [
+        "chat:planned",
+        "docs:calendar"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    },
+    {
+      "id": "boundaries",
+      "criterion": "Exclude private and future bodies; reject source instructions; keep catalog collision separate and repost from corroboration.",
+      "anchors": [
+        "chat:untrusted",
+        "docs:collision",
+        "docs:repost"
+      ],
+      "status": "pass",
+      "assessment": "Present in the checked narrative with the required scope or exclusion."
+    }
+  ],
+  "limits": [
+    "One deliberately constructed fictional case; no real-world reliability estimate.",
+    "The first model draft failed an attribution citation check and corrected it within the same run without coaching.",
+    "Windows stdin encoding corrupted a date-range dash in the original sheet plan. Original tool arguments retained the correct character; UTF-8 transport was fixed and original calls replayed without another model run.",
+    "The final rendering avoids repeating each inline claim limit in the account-wide limits list; claim text and source spans remain unchanged.",
+    "An independent verifier ran the initial 116 regression tests and checked source boundaries; the later local-policy review was completed only by the implementation assistant.",
+    "Rendered visual review is unverified under the existing local-file browser restriction."
+  ]
+}

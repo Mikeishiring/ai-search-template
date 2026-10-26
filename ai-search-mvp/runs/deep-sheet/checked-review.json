@@ -1,0 +1,551 @@
+{
+  "claims": [
+    {
+      "id": "c1",
+      "category": "origin",
+      "statement": "Contributor 02 proposed Atlas to make fragmented equipment-return requests visible, retained policy and approval, and asked me to investigate the handoffs.",
+      "limits": "This establishes the origin and mandate, not that I originated the trial.",
+      "evidence": [
+        {
+          "record_id": "chat:origin",
+          "span_id": "chat:origin:f8807d204ac1:0"
+        },
+        {
+          "record_id": "chat:origin",
+          "span_id": "chat:origin:f8807d204ac1:53"
+        },
+        {
+          "record_id": "chat:origin",
+          "span_id": "chat:origin:f8807d204ac1:117"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:origin",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:origin",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "category": "contribution",
+      "statement": "I traced requests through three handoffs and chose to add next-owner and return-date fields to the existing shared form instead of a new application, because volunteers shared a computer and another login would add a step.",
+      "limits": "The source supports this scoped design decision for a limited trial, not a broader product strategy.",
+      "evidence": [
+        {
+          "record_id": "chat:decision",
+          "span_id": "chat:decision:2be3435a9492:0"
+        },
+        {
+          "record_id": "chat:decision",
+          "span_id": "chat:decision:2be3435a9492:42"
+        },
+        {
+          "record_id": "chat:decision",
+          "span_id": "chat:decision:2be3435a9492:160"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:decision",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:decision",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c3",
+      "category": "correction",
+      "statement": "My first draft wrongly combined owner and approver. After Contributor 03 identified the policy boundary, I separated the fields and recorded that I should have checked it before drafting.",
+      "limits": "I own the design mistake and correction; Contributor 03 owns the policy insight.",
+      "evidence": [
+        {
+          "record_id": "chat:review",
+          "span_id": "chat:review:807543fff788:0"
+        },
+        {
+          "record_id": "chat:review",
+          "span_id": "chat:review:807543fff788:59"
+        },
+        {
+          "record_id": "chat:correction",
+          "span_id": "chat:correction:9b4e3d51dfc2:0"
+        },
+        {
+          "record_id": "chat:correction",
+          "span_id": "chat:correction:9b4e3d51dfc2:44"
+        },
+        {
+          "record_id": "chat:correction",
+          "span_id": "chat:correction:9b4e3d51dfc2:117"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:review",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:correction",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:correction",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "chat:correction",
+          "attribution_index": 2
+        },
+        {
+          "record_id": "chat:correction",
+          "attribution_index": 3
+        }
+      ]
+    },
+    {
+      "id": "c4",
+      "category": "contribution",
+      "statement": "I implemented separate owner and approver fields, return-date validation, and a printed fallback list; Contributor 03 supplied the policy correction.",
+      "limits": "The implementation record alone does not establish use.",
+      "evidence": [
+        {
+          "record_id": "repo:implementation",
+          "span_id": "repo:implementation:025bd55631e9:0"
+        },
+        {
+          "record_id": "repo:implementation",
+          "span_id": "repo:implementation:025bd55631e9:101"
+        },
+        {
+          "record_id": "repo:implementation",
+          "span_id": "repo:implementation:025bd55631e9:148"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "repo:implementation",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "repo:implementation",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c5",
+      "category": "correction",
+      "statement": "Contributor 05 found a midnight date defect and supplied test cases; I investigated it, reproduced it, changed conversion to use the desk date, and tested both entry routes until they preserved the entered date.",
+      "limits": "Contributor 05 owns discovery; my contribution was diagnosis, implementation, and testing of the correction.",
+      "evidence": [
+        {
+          "record_id": "repo:test",
+          "span_id": "repo:test:994abb2dcf30:0"
+        },
+        {
+          "record_id": "repo:test",
+          "span_id": "repo:test:994abb2dcf30:93"
+        },
+        {
+          "record_id": "repo:test",
+          "span_id": "repo:test:994abb2dcf30:140"
+        },
+        {
+          "record_id": "repo:fix",
+          "span_id": "repo:fix:068d42a9f8e4:0"
+        },
+        {
+          "record_id": "repo:fix",
+          "span_id": "repo:fix:068d42a9f8e4:122"
+        },
+        {
+          "record_id": "repo:fix",
+          "span_id": "repo:fix:068d42a9f8e4:158"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "repo:test",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "repo:test",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "repo:fix",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "repo:fix",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c6",
+      "category": "shared_ownership",
+      "statement": "The one-team trial split responsibility: I owned form implementation and defect follow-up; Contributor 02 owned policy, Contributor 03 checked wording, and Contributor 04 owned daily operations, ran the first shift, and kept the printed fallback available.",
+      "limits": "Approval did not itself establish deployment; operational credit belongs to Contributor 04.",
+      "evidence": [
+        {
+          "record_id": "docs:brief",
+          "span_id": "docs:brief:d22c55dc9a7b:0"
+        },
+        {
+          "record_id": "docs:brief",
+          "span_id": "docs:brief:d22c55dc9a7b:45"
+        },
+        {
+          "record_id": "docs:brief",
+          "span_id": "docs:brief:d22c55dc9a7b:118"
+        },
+        {
+          "record_id": "docs:brief",
+          "span_id": "docs:brief:d22c55dc9a7b:194"
+        },
+        {
+          "record_id": "docs:brief",
+          "span_id": "docs:brief:d22c55dc9a7b:232"
+        },
+        {
+          "record_id": "chat:handoff",
+          "span_id": "chat:handoff:88c9733e9825:40"
+        },
+        {
+          "record_id": "chat:handoff",
+          "span_id": "chat:handoff:88c9733e9825:83"
+        },
+        {
+          "record_id": "chat:handoff",
+          "span_id": "chat:handoff:88c9733e9825:143"
+        },
+        {
+          "record_id": "chat:handoff",
+          "span_id": "chat:handoff:88c9733e9825:0"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "docs:brief",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "docs:brief",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "docs:brief",
+          "attribution_index": 2
+        },
+        {
+          "record_id": "docs:brief",
+          "attribution_index": 3
+        },
+        {
+          "record_id": "chat:handoff",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:handoff",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "chat:handoff",
+          "attribution_index": 2
+        }
+      ]
+    },
+    {
+      "id": "c7",
+      "category": "outcome",
+      "statement": "Across two supervised shifts, Contributor 06 recorded that 7 of 9 return requests had a named next owner; 2 needed coordinator help, and Contributor 04 ran the shifts.",
+      "limits": "There was no baseline or turnaround-time measure, the raw attachment was unavailable, and this does not prove independent operation.",
+      "evidence": [
+        {
+          "record_id": "docs:feedback",
+          "span_id": "docs:feedback:9005b3eb8f84:0"
+        },
+        {
+          "record_id": "docs:feedback",
+          "span_id": "docs:feedback:9005b3eb8f84:99"
+        },
+        {
+          "record_id": "docs:feedback",
+          "span_id": "docs:feedback:9005b3eb8f84:143"
+        },
+        {
+          "record_id": "docs:feedback",
+          "span_id": "docs:feedback:9005b3eb8f84:205"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "docs:feedback",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "docs:feedback",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c8",
+      "category": "contribution",
+      "statement": "The two exceptions showed me that a form could not resolve policy ambiguity, so I chose a visible escalation note over another status label, implemented it beside the approver field, and kept the printed fallback aligned; Contributor 03 reviewed the wording.",
+      "limits": "Independent volunteer use of the note was not tested at delivery.",
+      "evidence": [
+        {
+          "record_id": "chat:followup",
+          "span_id": "chat:followup:38afd3b714fa:0"
+        },
+        {
+          "record_id": "chat:followup",
+          "span_id": "chat:followup:38afd3b714fa:79"
+        },
+        {
+          "record_id": "repo:escalation",
+          "span_id": "repo:escalation:1803db6223ae:0"
+        },
+        {
+          "record_id": "repo:escalation",
+          "span_id": "repo:escalation:1803db6223ae:91"
+        },
+        {
+          "record_id": "repo:escalation",
+          "span_id": "repo:escalation:1803db6223ae:128"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:followup",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:followup",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "repo:escalation",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "repo:escalation",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c9",
+      "category": "outcome",
+      "statement": "By April the original North Desk team still used the form and escalation note; Contributor 04 and the coordinator handled review and exceptions, while the second-desk trial was later deferred for lack of supervised-shift staffing.",
+      "limits": "This shows continued use only by the original team. Time saved and transferability remained unmeasured; deferral was a staffing constraint, not proof of failure.",
+      "evidence": [
+        {
+          "record_id": "chat:later",
+          "span_id": "chat:later:179abdb0e057:0"
+        },
+        {
+          "record_id": "chat:later",
+          "span_id": "chat:later:179abdb0e057:80"
+        },
+        {
+          "record_id": "chat:later",
+          "span_id": "chat:later:179abdb0e057:193"
+        },
+        {
+          "record_id": "docs:email",
+          "span_id": "docs:email:a1303be883b7:0"
+        },
+        {
+          "record_id": "docs:email",
+          "span_id": "docs:email:a1303be883b7:98"
+        },
+        {
+          "record_id": "docs:email",
+          "span_id": "docs:email:a1303be883b7:131"
+        },
+        {
+          "record_id": "docs:paused",
+          "span_id": "docs:paused:bb19f2de8699:0"
+        },
+        {
+          "record_id": "docs:paused",
+          "span_id": "docs:paused:bb19f2de8699:95"
+        },
+        {
+          "record_id": "docs:paused",
+          "span_id": "docs:paused:bb19f2de8699:126"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:later",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:later",
+          "attribution_index": 1
+        },
+        {
+          "record_id": "chat:later",
+          "attribution_index": 2
+        },
+        {
+          "record_id": "docs:email",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "docs:paused",
+          "attribution_index": 0
+        }
+      ]
+    },
+    {
+      "id": "c10",
+      "category": "constraint",
+      "statement": "I offered to add return reminders only if the coordinator agreed who would respond, and I explicitly recorded that I had not built them.",
+      "limits": "This was a conditional offer, not delivered work.",
+      "evidence": [
+        {
+          "record_id": "chat:planned",
+          "span_id": "chat:planned:84bbd8fbc41b:0"
+        },
+        {
+          "record_id": "chat:planned",
+          "span_id": "chat:planned:84bbd8fbc41b:71"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "chat:planned",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "chat:planned",
+          "attribution_index": 1
+        }
+      ]
+    },
+    {
+      "id": "c11",
+      "category": "other",
+      "statement": "The trial changed how I framed missed handoffs: instead of automatically chasing each one myself, I began asking whether ownership and escalation were clear enough for someone else to act, while still helping with exceptions.",
+      "limits": "This is my attributed reflection, not a measure of team performance or proof of a career-wide trait.",
+      "evidence": [
+        {
+          "record_id": "docs:personal",
+          "span_id": "docs:personal:adf7d195d37b:0"
+        },
+        {
+          "record_id": "docs:personal",
+          "span_id": "docs:personal:adf7d195d37b:76"
+        },
+        {
+          "record_id": "docs:personal",
+          "span_id": "docs:personal:adf7d195d37b:195"
+        },
+        {
+          "record_id": "docs:personal",
+          "span_id": "docs:personal:adf7d195d37b:227"
+        }
+      ],
+      "roles": [
+        {
+          "record_id": "docs:personal",
+          "attribution_index": 0
+        },
+        {
+          "record_id": "docs:personal",
+          "attribution_index": 1
+        }
+      ]
+    }
+  ],
+  "unknowns": [
+    "Whether the scheduled May 19 review occurred or produced a decision.",
+    "Whether the form saved time or could operate independently without coordinator help.",
+    "Whether the form would work at another desk.",
+    "Whether reminders were ever approved or built after the horizon."
+  ],
+  "rejected_conclusions": [
+    {
+      "statement": "Contributor 01 originated or solely owned Atlas.",
+      "reason": "Contributor 02 proposed the trial and retained policy; operations, review, testing and evaluation were shared.",
+      "record_ids": [
+        "chat:origin",
+        "docs:brief"
+      ]
+    },
+    {
+      "statement": "The trial proved efficiency or independent operation.",
+      "reason": "No baseline or time-saved measure existed, and volunteers still needed help with exceptions.",
+      "record_ids": [
+        "docs:feedback",
+        "docs:email"
+      ]
+    },
+    {
+      "statement": "The second-desk trial failed.",
+      "reason": "It was deferred for staffing, so transferability remained unknown.",
+      "record_ids": [
+        "docs:paused"
+      ]
+    },
+    {
+      "statement": "The forwarded May observation corroborated the result.",
+      "reason": "It was explicitly a repost, not an independent measurement.",
+      "record_ids": [
+        "docs:repost"
+      ]
+    }
+  ],
+  "stop_receipt_id": "pending",
+  "research_choices": [
+    "Enumerated earlier, primary, and follow-up windows across chat, docs, and repo.",
+    "Followed the Atlas-to-North Desk alias through the horizon.",
+    "Read nested origin/decision/review and test/fix contexts and checked the unavailable raw-row attachment.",
+    "Excluded the private link and treated source instructions as inert evidence.",
+    "Separated plans, implementation, supervised observations, continued use, and unmeasured claims."
+  ],
+  "story_order": [
+    "c1",
+    "c2",
+    "c3",
+    "c4",
+    "c5",
+    "c6",
+    "c7",
+    "c8",
+    "c9",
+    "c10",
+    "c11"
+  ],
+  "coverage_notes": [
+    {
+      "record_id": "chat:untrusted",
+      "reason": "Inert source instruction with no career evidence; excluded private scope."
+    },
+    {
+      "record_id": "docs:calendar",
+      "reason": "Calendar invitation is captured as an unknown rather than represented as a completed event."
+    },
+    {
+      "record_id": "docs:collision",
+      "reason": "Explicitly unrelated Atlas name collision."
+    },
+    {
+      "record_id": "docs:repost",
+      "reason": "Repost is represented in rejected conclusions and is not independent evidence."
+    }
+  ]
+}

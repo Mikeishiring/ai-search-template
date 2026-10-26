@@ -1,0 +1,529 @@
+{
+  "synthetic": true,
+  "validation": {
+    "valid": true,
+    "errors": [],
+    "claims": [
+      {
+        "id": "c1",
+        "category": "mandate",
+        "statement": "I took on handoff investigation, intake-form implementation and defect follow-up for a trial approved for one library desk team; Contributor 02 retained equipment policy and approval.",
+        "limits": "The January proposal and February brief establish remit and approval, not deployment.",
+        "evidence": [
+          {
+            "record_id": "chat:origin",
+            "span_id": "chat:origin:f8807d204ac1:117",
+            "start": 117,
+            "end": 201,
+            "quote": "Contributor 01 can investigate the handoffs; I retain equipment policy and approval."
+          },
+          {
+            "record_id": "docs:brief",
+            "span_id": "docs:brief:d22c55dc9a7b:0",
+            "start": 0,
+            "end": 44,
+            "quote": "Atlas is approved for one library desk team."
+          },
+          {
+            "record_id": "docs:brief",
+            "span_id": "docs:brief:d22c55dc9a7b:45",
+            "start": 45,
+            "end": 117,
+            "quote": "Contributor 01 owns the intake form implementation and defect follow-up."
+          },
+          {
+            "record_id": "docs:brief",
+            "span_id": "docs:brief:d22c55dc9a7b:232",
+            "start": 232,
+            "end": 276,
+            "quote": "This approval does not establish deployment."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c2",
+        "category": "contribution",
+        "statement": "I traced requests through three handoffs and chose to add next-owner and return-date fields to the existing shared form instead of introducing a new application, because volunteers used a shared computer and another login would add a step.",
+        "limits": "The shared-computer constraint is my contemporaneous report; this does not establish that it was the only possible design.",
+        "evidence": [
+          {
+            "record_id": "chat:decision",
+            "span_id": "chat:decision:2be3435a9492:0",
+            "start": 0,
+            "end": 41,
+            "quote": "I traced requests through three handoffs."
+          },
+          {
+            "record_id": "chat:decision",
+            "span_id": "chat:decision:2be3435a9492:42",
+            "start": 42,
+            "end": 159,
+            "quote": "I chose to add next-owner and return-date fields to the existing shared form rather than introduce a new application."
+          },
+          {
+            "record_id": "chat:decision",
+            "span_id": "chat:decision:2be3435a9492:160",
+            "start": 160,
+            "end": 227,
+            "quote": "Volunteers use a shared computer, and a new login would add a step."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c3",
+        "category": "correction",
+        "statement": "My first draft wrongly combined owner and approver; after Contributor 03 explained the policy boundary, I separated the fields and acknowledged that I should have checked it before drafting.",
+        "limits": "Contributor 03 supplied the policy correction; I made the implementation change.",
+        "evidence": [
+          {
+            "record_id": "chat:correction",
+            "span_id": "chat:correction:9b4e3d51dfc2:0",
+            "start": 0,
+            "end": 43,
+            "quote": "My first draft combined owner and approver."
+          },
+          {
+            "record_id": "chat:correction",
+            "span_id": "chat:correction:9b4e3d51dfc2:44",
+            "start": 44,
+            "end": 116,
+            "quote": "I changed it to separate those fields after Contributor 03's correction."
+          },
+          {
+            "record_id": "chat:correction",
+            "span_id": "chat:correction:9b4e3d51dfc2:117",
+            "start": 117,
+            "end": 176,
+            "quote": "I should have checked that policy boundary before drafting."
+          },
+          {
+            "record_id": "chat:review",
+            "span_id": "chat:review:807543fff788:0",
+            "start": 0,
+            "end": 58,
+            "quote": "The person receiving a request is not always its approver."
+          },
+          {
+            "record_id": "chat:review",
+            "span_id": "chat:review:807543fff788:59",
+            "start": 59,
+            "end": 127,
+            "quote": "Please keep the coordinator's approval separate from the next owner."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c4",
+        "category": "contribution",
+        "statement": "I implemented separate owner and approver fields, return-date validation and a printed fallback list, with Contributor 03 supplying the policy correction.",
+        "limits": "The implementation record alone does not prove desk use.",
+        "evidence": [
+          {
+            "record_id": "repo:implementation",
+            "span_id": "repo:implementation:025bd55631e9:0",
+            "start": 0,
+            "end": 100,
+            "quote": "Implemented separate owner and approver fields, return-date validation, and a printed fallback list."
+          },
+          {
+            "record_id": "repo:implementation",
+            "span_id": "repo:implementation:025bd55631e9:101",
+            "start": 101,
+            "end": 147,
+            "quote": "Contributor 03 supplied the policy correction."
+          },
+          {
+            "record_id": "repo:implementation",
+            "span_id": "repo:implementation:025bd55631e9:148",
+            "start": 148,
+            "end": 207,
+            "quote": "This change implements the form but does not establish use."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c5",
+        "category": "correction",
+        "statement": "After Contributor 05 found a midnight date fault and supplied tests for both entry routes, I reproduced it, changed conversion to the desk date and tested the correction; both routes then preserved the entered date.",
+        "limits": "The correction was tested on the desk's two documented date-entry routes, not broader environments.",
+        "evidence": [
+          {
+            "record_id": "repo:test",
+            "span_id": "repo:test:994abb2dcf30:0",
+            "start": 0,
+            "end": 92,
+            "quote": "I found that a return entered just after midnight could appear overdue on the previous date."
+          },
+          {
+            "record_id": "repo:test",
+            "span_id": "repo:test:994abb2dcf30:93",
+            "start": 93,
+            "end": 139,
+            "quote": "Contributor 01 investigated timezone handling."
+          },
+          {
+            "record_id": "repo:test",
+            "span_id": "repo:test:994abb2dcf30:140",
+            "start": 140,
+            "end": 193,
+            "quote": "My test cases cover the desk's two date-entry routes."
+          },
+          {
+            "record_id": "repo:fix",
+            "span_id": "repo:fix:068d42a9f8e4:0",
+            "start": 0,
+            "end": 121,
+            "quote": "I reproduced Contributor 05's midnight case, changed the conversion to use the desk date, and ran both date-entry routes."
+          },
+          {
+            "record_id": "repo:fix",
+            "span_id": "repo:fix:068d42a9f8e4:122",
+            "start": 122,
+            "end": 157,
+            "quote": "Both now preserve the entered date."
+          },
+          {
+            "record_id": "repo:fix",
+            "span_id": "repo:fix:068d42a9f8e4:158",
+            "start": 158,
+            "end": 236,
+            "quote": "Contributor 05 discovered the fault; I implemented and tested this correction."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c6",
+        "category": "shared_ownership",
+        "statement": "Contributor 04 ran the first North Desk shift and owned daily review while I handled defects; the printed fallback stayed available for the shared-computer queue.",
+        "limits": "This establishes the operational handoff and first-shift use, not independent volunteer operation.",
+        "evidence": [
+          {
+            "record_id": "chat:handoff",
+            "span_id": "chat:handoff:88c9733e9825:0",
+            "start": 0,
+            "end": 39,
+            "quote": "We now call the Atlas trial North Desk."
+          },
+          {
+            "record_id": "chat:handoff",
+            "span_id": "chat:handoff:88c9733e9825:40",
+            "start": 40,
+            "end": 82,
+            "quote": "I ran the first shift with the form today."
+          },
+          {
+            "record_id": "chat:handoff",
+            "span_id": "chat:handoff:88c9733e9825:83",
+            "start": 83,
+            "end": 142,
+            "quote": "I own the daily review; Contributor 01 will handle defects."
+          },
+          {
+            "record_id": "chat:handoff",
+            "span_id": "chat:handoff:88c9733e9825:143",
+            "start": 143,
+            "end": 206,
+            "quote": "The printed list stays available for the shared-computer queue."
+          },
+          {
+            "record_id": "docs:brief",
+            "span_id": "docs:brief:d22c55dc9a7b:118",
+            "start": 118,
+            "end": 193,
+            "quote": "Contributor 02 owns equipment policy; Contributor 03 checks policy wording."
+          },
+          {
+            "record_id": "docs:brief",
+            "span_id": "docs:brief:d22c55dc9a7b:194",
+            "start": 194,
+            "end": 231,
+            "quote": "Contributor 04 owns daily operations."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c7",
+        "category": "outcome",
+        "statement": "Across two supervised shifts run by Contributor 04 and observed by Contributor 06, seven of nine return requests had a named next owner before handoff; the other two needed coordinator help.",
+        "limits": "There was no baseline or turnaround-time measure, and the raw-row attachment was unavailable.",
+        "evidence": [
+          {
+            "record_id": "docs:feedback",
+            "span_id": "docs:feedback:9005b3eb8f84:0",
+            "start": 0,
+            "end": 98,
+            "quote": "Across two supervised shifts, seven of nine return requests had a named next owner before handoff."
+          },
+          {
+            "record_id": "docs:feedback",
+            "span_id": "docs:feedback:9005b3eb8f84:99",
+            "start": 99,
+            "end": 142,
+            "quote": "The two exceptions needed coordinator help."
+          },
+          {
+            "record_id": "docs:feedback",
+            "span_id": "docs:feedback:9005b3eb8f84:143",
+            "start": 143,
+            "end": 204,
+            "quote": "I recorded these observations; Contributor 04 ran the shifts."
+          },
+          {
+            "record_id": "docs:feedback",
+            "span_id": "docs:feedback:9005b3eb8f84:205",
+            "start": 205,
+            "end": 261,
+            "quote": "We have no baseline and did not measure turnaround time."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c8",
+        "category": "contribution",
+        "statement": "I treated the two exceptions as evidence that a form alone did not resolve policy ambiguity, then added a visible escalation note beside the approver field instead of another status label and kept the printed fallback aligned; Contributor 03 reviewed the wording.",
+        "limits": "The note was implemented, but independent volunteer use had not been tested.",
+        "evidence": [
+          {
+            "record_id": "chat:followup",
+            "span_id": "chat:followup:38afd3b714fa:0",
+            "start": 0,
+            "end": 78,
+            "quote": "The two exceptions showed that a form alone does not resolve policy ambiguity."
+          },
+          {
+            "record_id": "chat:followup",
+            "span_id": "chat:followup:38afd3b714fa:79",
+            "start": 79,
+            "end": 180,
+            "quote": "I added a visible escalation note beside the approver field, rather than adding another status label."
+          },
+          {
+            "record_id": "repo:escalation",
+            "span_id": "repo:escalation:1803db6223ae:0",
+            "start": 0,
+            "end": 90,
+            "quote": "Added the escalation note beside the approver field and kept the printed fallback aligned."
+          },
+          {
+            "record_id": "repo:escalation",
+            "span_id": "repo:escalation:1803db6223ae:91",
+            "start": 91,
+            "end": 127,
+            "quote": "Contributor 03 reviewed the wording."
+          },
+          {
+            "record_id": "repo:escalation",
+            "span_id": "repo:escalation:1803db6223ae:128",
+            "start": 128,
+            "end": 200,
+            "quote": "This implements the note; independent volunteer use has not been tested."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c9",
+        "category": "outcome",
+        "statement": "By April, the original desk team was still using the form and escalation note; Contributor 04 and the coordinator continued to run review and answer exceptions, while my return-date correction remained in place.",
+        "limits": "Continued use was reported for the original team only, and volunteers still needed help with exceptions.",
+        "evidence": [
+          {
+            "record_id": "chat:later",
+            "span_id": "chat:later:179abdb0e057:0",
+            "start": 0,
+            "end": 79,
+            "quote": "We used the form on the desk again this week and still use the escalation note."
+          },
+          {
+            "record_id": "chat:later",
+            "span_id": "chat:later:179abdb0e057:80",
+            "start": 80,
+            "end": 140,
+            "quote": "I run the review and answer exceptions with the coordinator."
+          },
+          {
+            "record_id": "chat:later",
+            "span_id": "chat:later:179abdb0e057:141",
+            "start": 141,
+            "end": 192,
+            "quote": "Contributor 01 fixed the return-date issue earlier."
+          },
+          {
+            "record_id": "chat:later",
+            "span_id": "chat:later:179abdb0e057:193",
+            "start": 193,
+            "end": 225,
+            "quote": "This is still the original team."
+          },
+          {
+            "record_id": "docs:email",
+            "span_id": "docs:email:a1303be883b7:0",
+            "start": 0,
+            "end": 97,
+            "quote": "The updated instructions are easier to follow, but volunteers still ask for help with exceptions."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c10",
+        "category": "constraint",
+        "statement": "The follow-up did not measure time saved and did not establish independent operation.",
+        "limits": "The easier-to-follow instructions were qualitative feedback, not a time or autonomy measure.",
+        "evidence": [
+          {
+            "record_id": "docs:email",
+            "span_id": "docs:email:a1303be883b7:98",
+            "start": 98,
+            "end": 130,
+            "quote": "We have not measured time saved."
+          },
+          {
+            "record_id": "docs:email",
+            "span_id": "docs:email:a1303be883b7:131",
+            "start": 131,
+            "end": 206,
+            "quote": "Do not treat the supervised observations as proof of independent operation."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c11",
+        "category": "outcome",
+        "statement": "A second-desk trial was deferred because supervised shifts could not be staffed, while the current desk could continue; whether the form would work at another desk remained unknown.",
+        "limits": "The deferral reflects staffing, not a demonstrated failure of the form.",
+        "evidence": [
+          {
+            "record_id": "docs:paused",
+            "span_id": "docs:paused:bb19f2de8699:0",
+            "start": 0,
+            "end": 94,
+            "quote": "We have deferred a second-desk trial because we cannot staff its supervised shifts this month."
+          },
+          {
+            "record_id": "docs:paused",
+            "span_id": "docs:paused:bb19f2de8699:95",
+            "start": 95,
+            "end": 125,
+            "quote": "The current desk can continue."
+          },
+          {
+            "record_id": "docs:paused",
+            "span_id": "docs:paused:bb19f2de8699:126",
+            "start": 126,
+            "end": 194,
+            "quote": "This does not establish whether the form would work at another desk."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c12",
+        "category": "constraint",
+        "statement": "I offered to add return reminders if response ownership was agreed, but I had not built them.",
+        "limits": "This was an offer with a dependency, not an executed feature.",
+        "evidence": [
+          {
+            "record_id": "chat:planned",
+            "span_id": "chat:planned:84bbd8fbc41b:0",
+            "start": 0,
+            "end": 70,
+            "quote": "I can add return reminders if the coordinator agrees who will respond."
+          },
+          {
+            "record_id": "chat:planned",
+            "span_id": "chat:planned:84bbd8fbc41b:71",
+            "start": 71,
+            "end": 93,
+            "quote": "I have not built them."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      },
+      {
+        "id": "c13",
+        "category": "other",
+        "statement": "The experience changed the question I asked: instead of treating every missed handoff as something I should personally chase, I began asking whether ownership and escalation were clear enough for someone else to act, while still helping with exceptions.",
+        "limits": "This is my personal reflection, not a measure of team performance or a claim about a lifelong trait.",
+        "evidence": [
+          {
+            "record_id": "docs:personal",
+            "span_id": "docs:personal:adf7d195d37b:0",
+            "start": 0,
+            "end": 75,
+            "quote": "I used to treat each missed handoff as a request I should personally chase."
+          },
+          {
+            "record_id": "docs:personal",
+            "span_id": "docs:personal:adf7d195d37b:76",
+            "start": 76,
+            "end": 194,
+            "quote": "During this trial I began asking whether the next owner and escalation path were clear enough for someone else to act."
+          },
+          {
+            "record_id": "docs:personal",
+            "span_id": "docs:personal:adf7d195d37b:195",
+            "start": 195,
+            "end": 226,
+            "quote": "I still helped with exceptions."
+          },
+          {
+            "record_id": "docs:personal",
+            "span_id": "docs:personal:adf7d195d37b:227",
+            "start": 227,
+            "end": 305,
+            "quote": "This is my account of what I learned, not a measure of the team's performance."
+          }
+        ],
+        "state": "needs_semantic_assessment"
+      }
+    ],
+    "quote_count": 52,
+    "meaning_validated": false,
+    "disposition_records": 21,
+    "attribution_chains": 13,
+    "structural_only": true,
+    "completion_receipt_valid": true,
+    "attachment_dispositions": 1,
+    "span_resolution": true,
+    "bookkeeping_derived": true,
+    "narrative_compiled": true,
+    "rejection_only_records": [
+      "docs:calendar",
+      "docs:collision",
+      "docs:repost"
+    ],
+    "material_notes": 17,
+    "material_notes_represented": 17,
+    "action_states_from_saved_notes": true,
+    "draft_preview": false,
+    "source_credit_records": 1,
+    "sheet_claims": 13,
+    "sheet_accounts": 1,
+    "selected_excerpts": 52,
+    "semantic_checked": false
+  },
+  "sheet_sha256": "c1c158a00a0b2b001b90efc18754afa1cf8121ac5535f49a183d4af7e7633b23",
+  "checked_draft": "90150559b646a88dfb13a61fb7da7f4488ebf10c501973153146f26e0f30e95f",
+  "journal_sha256": "54db95d4314b168ee333c14ebabb1a7af91eaf503b4681374c8c46859fc265eb",
+  "stop": "observed_scope_complete",
+  "unresolved": {
+    "unread_surfaced_records": [],
+    "unopened_contexts": [],
+    "unread_references": [],
+    "unchecked_attachments": [],
+    "pending_pages": [],
+    "unfinished_window_sweeps": [],
+    "unnoted_records": []
+  },
+  "source_calls": 35,
+  "requests": 52
+}

@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import time
 from pathlib import Path
@@ -16,11 +17,14 @@ def sha(path):
 
 
 def executable():
-    # Locate the installed binary, not credentials or private source files.
+    # Prefer the active CLI installation; retain the earlier npm layout fallback.
+    active = shutil.which('codex')
+    if active:
+        return Path(active)
     base = Path(os.environ.get('APPDATA', '')) / 'npm/node_modules/@openai/codex'
     matches = list(base.glob('node_modules/@openai/codex-*/vendor/*/bin/codex.exe'))
     if len(matches) != 1:
-        raise RuntimeError('A unique installed Codex executable was not found')
+        raise RuntimeError('Install Codex and put its executable on PATH before running a model trial')
     return matches[0]
 
 
@@ -33,7 +37,7 @@ def command(output, schema):
     config = {
         'project_doc_max_bytes': 0,
         'model_instructions_file': str(ROOT / 'model/reviewer-prompt.txt'),
-        'web_search': 'disabled', 'tools.view_image': False,
+        'web_search': 'disabled',
         'skills.max_context_tokens': 1,
         'sqlite_home': str(ROOT / 'runs/model-workspace'),
         'approval_policy': 'never',

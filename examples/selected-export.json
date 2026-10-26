@@ -1,0 +1,18 @@
+{
+  "records": [
+    {
+      "id": "chat:proposal",
+      "source": "chat",
+      "container": "desk-team",
+      "kind": "channel",
+      "date": "2032-02-03",
+      "author": "Contributor 01",
+      "title": "A proposed handoff change",
+      "body": "I can draft a shared form. Contributor 02 owns the policy. We have not started a trial.",
+      "parent": null,
+      "links": [],
+      "attachments": []
+    }
+  ],
+  "attachments": []
+}

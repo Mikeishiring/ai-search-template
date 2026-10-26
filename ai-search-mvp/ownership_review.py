@@ -8,7 +8,18 @@ ROOT=Path(__file__).resolve().parent
 
 def digest(value):return hashlib.sha256(json.dumps(value,sort_keys=True,ensure_ascii=False).encode()).hexdigest()
 def draft_hash(raw):return digest({k:v for k,v in raw.items() if k!='stop_receipt_id'})
-def evidence_version(records,events):return digest([sorted(records,key=lambda r:r['id']),saved_notes(events)])
+def evidence_version(records,events):
+    components=[sorted(records,key=lambda r:r['id']),saved_notes(events)]
+    # Event dates, significance and dispositions are evidence too. Preserve the
+    # exact legacy digest for journals that predate section extraction.
+    extracted={};source_kinds={}
+    for event in events:
+        if event['tool']=='save_extraction' and event['result'].get('valid'):
+            for section in event['arguments']['sections']:extracted[section['section_id']]=section
+            for item in event['arguments'].get('source_kinds',[]):source_kinds[item['record_id']]=item['kind']
+    if extracted:components.append(extracted)
+    if source_kinds:components.append(source_kinds)
+    return digest(components)
 
 def compile_review(raw,records,events,draft=False):
     check(raw,json.loads((ROOT/'model/ownership.schema.json').read_text(encoding='utf-8')))
