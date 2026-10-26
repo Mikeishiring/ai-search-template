@@ -142,16 +142,23 @@ class LocalContextTests(unittest.TestCase):
 
     def test_stdio_utf8_preserves_non_ascii_notes(self):
         self.start(policy=self.policy | {'model_processing': 'selected_sources'})
-        text = 'Meaning \u2013 caf\u00e9'
-        note = {'record_id': 'chat:one', 'relevance': 'contextual', 'finding': text, 'span_ids': [],
-                'source_kind': 'discussion', 'attributions': [], 'attribution_limits': 'No new attribution.'}
+        import narrative_retention as retention
+        from completion_server import spans
+        record = read_json(self.workspace / 'corpus.json')['records'][0]
+        section = retention.sections(record, spans)[0]
+        text = 'Meaning \u2013 caf\u00e9 form construction was reported.'
+        note = {'section_id': section['section_id'], 'finding': text,
+                'span_ids': [s['span_id'] for s in section['citation_spans']],
+                'disposition': 'context', 'events': [],
+                'reason': 'This transport fixture is testing Unicode preservation only.'}
         requests = [{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call', 'params': {'name': 'read_record', 'arguments': {'source': 'chat', 'id': 'chat:one'}}},
-                    {'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'save_notes', 'arguments': {'notes': [note]}}}]
+                    {'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'save_extraction', 'arguments': {'sections': [note]}}}]
         result = subprocess.run([sys.executable, str(ROOT / 'research_sheet_server.py'), str(self.workspace)],
             input=('\n'.join(json.dumps(r, ensure_ascii=False) for r in requests) + '\n').encode('utf-8'), capture_output=True, timeout=15)
         self.assertEqual(result.returncode, 0, result.stderr.decode('utf-8'))
         journal = [json.loads(l) for l in (self.workspace / 'calls.jsonl').read_text('utf-8').splitlines()]
-        self.assertEqual(journal[-1]['arguments']['notes'][0]['finding'], text)
+        self.assertTrue(journal[-1]['result']['valid'])
+        self.assertEqual(journal[-1]['result']['notes'][0]['finding'], text)
 
 
 if __name__ == '__main__': unittest.main()

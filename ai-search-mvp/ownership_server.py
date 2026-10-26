@@ -24,6 +24,8 @@ TOOLS.append(base.tool('draft_check','Check the complete draft against saved not
 def saved_notes(events):
     notes={}
     for event in events:
+        if event['tool']=='save_extraction' and event['result'].get('valid'):
+            for note in event['result'].get('notes',[]):notes[note['record_id']]=note
         if event['tool']=='save_notes' and not event['result'].get('error'):
             for note in event['arguments']['notes']:notes[note['record_id']]=note
     return notes

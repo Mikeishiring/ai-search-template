@@ -60,6 +60,7 @@ The public project contains reusable tools and fictional examples. It does not c
 | Test research across channels and sources | [Multi-source tests](docs/MULTISOURCE.md) |
 | Turn research into a recognizable personal story | [From evidence to story](docs/FROM-EVIDENCE-TO-STORY.md) |
 | Understand the enforced deep research loop | [Full flow](docs/DEEP-RESEARCH-FLOW.md) |
+| Preserve events and compare unused stories before finishing | [Event retention](docs/EVENT-RETENTION.md) |
 | Run research through to an HTML sheet | [Integrated fictional demo](docs/RESEARCH-TO-SHEET.md) |
 | Inspect the deeper run and its remaining gap | [Deep-review result](docs/DEEP-RESEARCH-RESULT.md) |
 | Inspect the first unprompted story and its limits | [Research-to-sheet result](docs/RESEARCH-STORY-RESULT.md) |

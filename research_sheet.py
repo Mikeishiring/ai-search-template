@@ -14,6 +14,7 @@ from mcp_server import check
 from ownership_review import compile_review, draft_hash, evidence_version
 from career_context import renderer
 import depth_protocol as depth
+import narrative_retention as retention
 RENDERER = renderer()
 
 FIELDS = ('summary', 'context', 'aim', 'contribution', 'decisions', 'sharedCredit', 'outcome')
@@ -55,19 +56,25 @@ def outside_project(path):
     return path
 
 
-def initialize(workspace):
+FIXTURES = {'sheet', 'story-depth'}
+
+
+def initialize(workspace, fixture='sheet'):
     """Only the bundled fictional case can enter the automated model path."""
     workspace = outside_project(workspace)
     if workspace.exists():
         raise ValueError('Research workspace already exists. Resume it or choose a new empty location.')
-    corpus = read_json(EXPERIMENTS / 'fixtures/sheet.corpus.json')
-    scope = read_json(EXPERIMENTS / 'fixtures/sheet.scope.json')
+    if fixture not in FIXTURES:
+        raise ValueError('Choose a bundled fictional research case.')
+    corpus = read_json(EXPERIMENTS / ('fixtures/' + fixture + '.corpus.json'))
+    scope = read_json(EXPERIMENTS / ('fixtures/' + fixture + '.scope.json'))
     workspace.mkdir(parents=True)
     write_json(workspace / 'session.json', {
         'schema': 'career-research/v1', 'synthetic': True,
         'corpus_hash': digest(corpus), 'scope_hash': digest(scope),
-        'scope': scope, 'source_fixture': 'sheet',
+        'scope': scope, 'source_fixture': fixture,
         'depth_protocol': depth.PROTOCOL,
+        'retention_protocol': retention.PROTOCOL,
     })
     return workspace
 
@@ -75,10 +82,13 @@ def initialize(workspace):
 def load_session(workspace):
     workspace = outside_project(workspace)
     session = read_json(workspace / 'session.json')
-    corpus = read_json(EXPERIMENTS / 'fixtures/sheet.corpus.json')
-    scope = read_json(EXPERIMENTS / 'fixtures/sheet.scope.json')
+    fixture = session.get('source_fixture')
+    if fixture not in FIXTURES:
+        raise ValueError('Session does not match a bundled fictional case.')
+    corpus = read_json(EXPERIMENTS / ('fixtures/' + fixture + '.corpus.json'))
+    scope = read_json(EXPERIMENTS / ('fixtures/' + fixture + '.scope.json'))
     if (session.get('schema') != 'career-research/v1' or session.get('synthetic') is not True
-            or session.get('source_fixture') != 'sheet' or session.get('scope') != scope
+            or session.get('scope') != scope
             or session.get('corpus_hash') != digest(corpus) or session.get('scope_hash') != digest(scope)):
         raise ValueError('Session does not match the fixed fictional case. No model call is allowed.')
     return workspace, session, corpus, scope
@@ -225,6 +235,10 @@ def build(workspace, output, force=False):
     audit = depth.current_review(events, evidence_version(records, events))
     if session.get('depth_protocol') == depth.PROTOCOL and not audit:
         raise ValueError('This session requires a current depth review before building.')
+    if session.get('retention_protocol') == retention.PROTOCOL:
+        errors = retention.plan_errors(planned['arguments']['plan'], records, events, spans, challenged=True)
+        if errors:
+            raise ValueError('This session requires current event retention: ' + '; '.join(errors))
     if planned['result']['evidence_version'] != evidence_version(records, events):
         raise ValueError('Sheet plan is stale for the current evidence.')
     packet, validation = compile_sheet(raw, planned['arguments']['plan'], records, events, scope, corpus['snapshot'], synthetic=corpus['synthetic'])
@@ -239,6 +253,7 @@ def build(workspace, output, force=False):
         'stop': stop['result']['status'], 'unresolved': stop['result']['unresolved'],
         'source_calls': stop['result']['counts']['source_calls'], 'requests': len(events),
         'depth_protocol': depth.PROTOCOL if audit else 'legacy; no enforced depth review',
+        'retention_protocol': session.get('retention_protocol', 'legacy; no section retention'),
         'depth_review': audit['result'] if audit else None})
     if session.get('schema') == 'career-local/v1':
         from local_context import status

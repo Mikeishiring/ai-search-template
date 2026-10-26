@@ -30,7 +30,8 @@ class ResearchSheetTests(unittest.TestCase):
         self.scope = {'sources': ['chat'], 'subject': 'Contributor 01',
             'start': '2032-02-01', 'end': '2032-03-31', 'horizon': '2032-05-31'}
         self.log = self.folder / 'calls.jsonl'
-        self.server = SheetSource(self.corpus, self.scope, self.log)
+        # These fixtures exercise the preserved pre-retention journal format.
+        self.server = SheetSource(self.corpus, self.scope, self.log, retention_required=False)
         self.raw = {'claims': [{'id': 'c1', 'category': 'contribution',
             'statement': 'I built the form; Contributor 02 owns the policy.',
             'limits': 'Use and time savings are not established.',
@@ -132,7 +133,7 @@ class ResearchSheetTests(unittest.TestCase):
 
     def test_restart_recovers_queue_notes_and_cache_without_new_source_charge(self):
         self.prepare()
-        restarted = SheetSource(self.corpus, self.scope, self.log)
+        restarted = SheetSource(self.corpus, self.scope, self.log, retention_required=False)
         before = restarted.source_calls()
         packet = restarted.execute('writing_packet', {'ids': ['chat:one']})
         self.assertEqual(packet['records'][0]['note']['finding'], self.record['body'])

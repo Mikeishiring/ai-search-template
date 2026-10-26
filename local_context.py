@@ -6,6 +6,7 @@ from pathlib import Path
 import personal
 from research_sheet import ROOT, digest, outside_project, read_json, write_json, RENDERER
 import depth_protocol as depth
+import narrative_retention as retention
 
 KINDS = {'channel', 'private_channel', 'dm', 'document', 'repository', 'email', 'calendar'}
 CHECKS = [*depth.LENSES, 'story_review']
@@ -67,7 +68,8 @@ def initialize(workspace, policy, policy_base=None):
               'records': [], 'attachments': []}
     write_json(workspace / 'corpus.json', corpus)
     write_json(workspace / 'session.json', {'schema': 'career-local/v1', 'policy_hash': digest(policy),
-               'corpus_hash': digest(corpus), 'depth_protocol': depth.PROTOCOL})
+               'corpus_hash': digest(corpus), 'depth_protocol': depth.PROTOCOL,
+               'retention_protocol': retention.PROTOCOL})
     (workspace / '.gitignore').write_text('*\n', encoding='utf-8')
     packet = {'schema': 'career-context/v1', 'updatedAt': corpus['snapshot'], 'reviewStatus': 'draft',
               'person': {'name': policy['subject'], 'overview': '', 'background': []}, 'accounts': [], 'sources': []}

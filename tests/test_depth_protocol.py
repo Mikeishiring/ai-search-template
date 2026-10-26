@@ -72,7 +72,7 @@ class DepthProtocolTests(unittest.TestCase):
             result = self.server.execute('research_probe', args)
             self.assertEqual(result['sequence'], expected)
         self.assertTrue(result['cache_hit'])
-        restarted = SheetSource(self.corpus, self.scope, self.log)
+        restarted = SheetSource(self.corpus, self.scope, self.log, retention_required=False)
         receipts = restarted.execute('research_status', {})['probe_receipts']
         self.assertEqual([p['sequence'] for p in receipts], [1, 2])
 
@@ -106,7 +106,7 @@ class DepthProtocolTests(unittest.TestCase):
         self.planned()
         audit = self.depth_audit()
         self.assertTrue(self.server.execute('depth_review', audit)['valid'])
-        restarted = SheetSource(self.corpus, self.scope, self.log)
+        restarted = SheetSource(self.corpus, self.scope, self.log, retention_required=False)
         self.assertTrue(restarted.planning()['depth']['review_current'])
         plan = copy.deepcopy(self.plan)
         plan['accounts'][0]['title'] = 'Changed draft title'
@@ -149,6 +149,7 @@ class DepthProtocolTests(unittest.TestCase):
             build(workspace, output)
         session = read_json(workspace / 'session.json')
         session.pop('depth_protocol')
+        session.pop('retention_protocol')
         write_json(workspace / 'session.json', session)
         build(workspace, output)
         self.assertTrue(output.is_file())

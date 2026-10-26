@@ -13,7 +13,7 @@ from model_backend import command, sha
 from research_sheet_server import TOOLS
 
 
-def run(output, workspace=None, resume=False, force=False):
+def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
     output = outside_project(output)
     if output.suffix.lower() not in {'.html', '.htm'} or not output.parent.is_dir():
         raise ValueError('Choose an HTML file in an existing folder.')
@@ -26,7 +26,7 @@ def run(output, workspace=None, resume=False, force=False):
         if events and events[-1]['tool'] == 'finish_check' and events[-1]['result'].get('allowed'):
             return build(workspace, output, force)
     else:
-        initialize(workspace)
+        initialize(workspace, fixture)
         _, _, _, scope = load_session(workspace)
     # Preserve each launch; resuming never changes the scope or discards its journal.
     index = len(list(workspace.glob('attempt-*.receipt.json'))) + 1
@@ -98,8 +98,9 @@ if __name__ == '__main__':
     parser.add_argument('--workspace', type=Path)
     parser.add_argument('--resume', action='store_true')
     parser.add_argument('--force', action='store_true')
+    parser.add_argument('--case', choices=['sheet', 'story-depth'], default='sheet')
     args = parser.parse_args()
     try:
-        print(json.dumps(run(args.output, args.workspace, args.resume, args.force)))
+        print(json.dumps(run(args.output, args.workspace, args.resume, args.force, args.case)))
     except (ValueError, OSError) as error:
         parser.exit(2, str(error) + '\n')

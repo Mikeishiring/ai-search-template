@@ -38,4 +38,14 @@ python tools/check_release.py
 
 Only `docs/career-context-preview.png` is allowed as a binary release asset; it must be the reviewed fictional screenshot. Other binaries are refused. Personal workspaces and hidden session data do not belong in a release.
 
+Screen every outgoing commit's contact metadata before publishing, using the actual destination branch as the range base:
+
+```sh
+python tools/check_git_privacy.py origin/main..HEAD
+```
+
+Use `HEAD` to audit all reachable history. The check reports hashes and fields without echoing rejected addresses. It permits GitHub noreply identities only and checks author, committer and message/trailer addresses. It does not inspect annotated tags or remove existing remote history.
+
+Enable GitHub's private-email setting for web-created merges as well; a local commit check cannot control GitHub's merge author identity. Do not rewrite published history or force-push as an automatic repair. Prepare exact ref changes, preserve file trees, and obtain authorization first.
+
 For a pull request, describe the user-visible change, the checks run and any remaining limits. Preserve draft/review state, source distinctions, dates, ownership and unknowns in every export.

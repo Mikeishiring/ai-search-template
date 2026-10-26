@@ -1,5 +1,6 @@
 """Receipt-backed depth review. Validates the review process, never semantic truth."""
 from collections import Counter
+import narrative_retention as retention
 
 PROTOCOL = 'career-depth/v1'
 SOURCE_BUDGET = 450
@@ -51,6 +52,10 @@ def current_review(events, version):
         return None
     expected = (version, plan['result']['draft_hash'], plan['result']['plan_hash'])
     actual = tuple(review['result'].get(k) for k in ('evidence_version', 'draft_hash', 'plan_hash'))
+    if 'inventory_hash' in review['result']:
+        inventory = next((e for e in reversed(events) if e['tool'] == 'episode_inventory' and e['result'].get('valid')), None)
+        if not inventory or review['result']['inventory_hash'] != retention.digest(inventory['arguments']):
+            return None
     return review if actual == expected and plan['result']['evidence_version'] == version else None
 
 
