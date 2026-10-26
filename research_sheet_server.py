@@ -272,16 +272,19 @@ class SheetSource(OwnershipSource):
 
 class LocalSheetSource(SheetSource):
     """Selected local captures; never relabel personal records as synthetic."""
-    def __init__(self, corpus, scope, log, policy, *, retention_required=True, export_protocol=None):
+    def __init__(self, corpus, scope, log, policy, *, retention_required=True, export_protocol=None, batch_writer=False):
         self.corpus, self.scope, self.path, self.policy = corpus, scope, log, policy
         self.policy_path = log.parent / 'policy.json'
         self.policy_digest = digest(policy)
+        self.batch_writer = batch_writer
         self.records = {r['id']: r for r in corpus['records']}
         self.events = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()] if log.exists() else []
         self.retention_required = retention_required
         self.configure_export(export_protocol)
 
     def execute(self, name, args):
+        if not self.batch_writer and (self.path.parent / 'extraction-batches/running.lock').exists():
+            return {'error': 'extraction_in_progress', 'instruction': 'Wait for batch extraction to release this journal.'}
         # Revocation also blocks an already-running server and cache recovery.
         try:
             current = json.loads(self.policy_path.read_text(encoding='utf-8'))
@@ -289,6 +292,9 @@ class LocalSheetSource(SheetSource):
             return {'error': 'policy_unavailable', 'instruction': 'Stop research and restore or reconfigure the local policy.'}
         if digest(current) != self.policy_digest:
             return {'error': 'policy_changed', 'instruction': 'Stop research. Changed settings require a newly validated session.'}
+        disk_events = [json.loads(line) for line in self.path.read_text(encoding='utf-8').splitlines()] if self.path.exists() else []
+        if disk_events != self.events:
+            return {'error': 'journal_changed', 'instruction': 'Another writer changed this journal. Reconnect to load its saved progress.'}
         return super().execute(name, args)
 
     def accessible(self, record):

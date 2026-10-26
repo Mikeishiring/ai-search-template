@@ -28,8 +28,8 @@ def executable():
     return matches[0]
 
 
-def command(output, schema):
-    workspace = ROOT / 'runs/model-workspace'
+def command(output, schema, *, runtime_home=None):
+    workspace = Path(runtime_home) if runtime_home is not None else ROOT / 'runs/model-workspace'
     workspace.mkdir(parents=True, exist_ok=True)
     cmd = [str(executable()), 'exec', '--ignore-user-config', '--ephemeral', '--skip-git-repo-check',
            '--sandbox', 'read-only', '--color', 'never', '--json', '--cd', str(workspace),
@@ -39,7 +39,7 @@ def command(output, schema):
         'model_instructions_file': str(ROOT / 'model/reviewer-prompt.txt'),
         'web_search': 'disabled',
         'skills.max_context_tokens': 1,
-        'sqlite_home': str(ROOT / 'runs/model-workspace'),
+        'sqlite_home': str(workspace),
         'approval_policy': 'never',
     }
     for feature in ['shell_tool','shell_snapshot','apps','plugins','hooks','memories','multi_agent',

@@ -20,6 +20,8 @@ If resuming a legacy session without `retention.protocol`, save_notes remains av
 
 ## Form and challenge the account
 
+When section extractions already exist, recover them before repeating extraction. Join uncertain years, actors, aliases and sequences against the complete cached originals through writing_packet and selected-source research. Keep the supporting spans from both sides of each join; never fill an unknown from chronology or author metadata alone. An isolated section may lack context already present elsewhere in its original. Requests, standing requirements, praise and banter are not automatically accomplishments. Explain their relevance or exclusion when assembling episodes.
+
 Build connected episodes before a career through-line. The review's claims are the actual HTML prose. Write first-person draft sentences for the scoped subject, retaining exact citations and supported actor-role references to saved attributions. Keep consequential qualifications beside the claims they constrain; do not attach a generic disclaimer to every sentence. Do not fabricate a quotation or motive. Preserve decisions and accomplishments without upgrading plans into delivery or a team result into sole credit. Personal meaning can come from an attributed reflection; source silence is not evidence of a motive.
 
 The ownership review contains claims, unknowns, rejected_conclusions, stop_receipt_id, research_choices, story_order and coverage_notes. story_order lists every claim exactly once. roles use record_id and zero-based attribution_index; cite every span used by the saved attribution. Keep stop_receipt_id pending while drafting. Every material record needs representation or a specific omission reason.

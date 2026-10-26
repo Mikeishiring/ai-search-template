@@ -49,7 +49,7 @@ The optional local research server adds scoped export access and resumable evide
 | Create, update or share a sheet | [Getting started](docs/GETTING-STARTED.md) |
 | Select local exports and use the research server | [Local context](docs/LOCAL-CONTEXT.md) |
 | Understand storage and sharing | [Privacy](docs/PRIVACY.md) |
-| Inspect research methods and results | [Research guide](ai-search-mvp/README.md) · [Event retention](docs/EVENT-RETENTION.md) · [Deep-review result](docs/DEEP-RESEARCH-RESULT.md) |
+| Inspect research methods and results | [Research guide](ai-search-mvp/README.md) · [Event retention](docs/EVENT-RETENTION.md) · [Batch extraction](docs/BATCH-EXTRACTION.md) · [Deep-review result](docs/DEEP-RESEARCH-RESULT.md) |
 | Build, test or contribute | [Contributing](CONTRIBUTING.md) |
 
 The research server currently uses selected snapshots. Live connectors, automatic refresh and reliable semantic review remain under development.

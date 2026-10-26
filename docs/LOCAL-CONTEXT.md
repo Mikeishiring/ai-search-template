@@ -61,7 +61,20 @@ Give the agent the [career-context skill](../skills/career-context-sheet/SKILL.m
 python career_context.py research-build ../my-career-context ../my-career-context/CAREER-CONTEXT.html --force
 ```
 
-The demo launcher still accepts only its fixed fictional sources. It cannot launch a model on a personal workspace by changing a flag.
+The demo launcher still accepts only its fixed fictional sources. For larger selected exports, an optional Codex extraction step processes small batches before the host chooses stories:
+
+```sh
+python career_context.py research-extract ../my-career-context
+python career_context.py research-extract ../my-career-context --max-batches 3
+```
+
+The first command reports pending sections locally without calling a model. The second sends at most four admitted sections per call to the authenticated Codex service, for at most three calls. It requires `selected_sources` and retained source text. This is remote model processing even though inputs, outputs and the resulting archive are saved locally. It uses the CLI's default model with tools, memory and user configuration disabled.
+
+The model is asked to retain actions by every contributor, action states and unresolved context; the host checks exact section coverage and citation references. Accepted extractions enter the same research journal consumed by `research-serve`, so the host can recover them through `episode_packet`. Repeat the bounded command to resume pending sections. It never overwrites accepted extractions or automatically retries a failed call. Receipts and the first response remain in `extraction-batches/`; failed or interrupted attempts block further launches for inspection. Codex also uses its normal local runtime state outside the public project; the launcher reuses that directory instead of creating database copies per batch. If the process was forcibly stopped, confirm it has exited before removing a leftover `running.lock`. Do not run the research host concurrently; the server refuses requests while extraction holds that lock. Reconnect an existing host afterwards to load the updated journal.
+
+Policy, capture and journal changes stop the run before another transfer or import. Source permissions are never expanded to follow a reference. The runner reserves journal capacity for later research, but large archives may still need a narrower new workspace. Existing weak extractions are not silently replaced; preserve that attempt and use a new scoped workspace for a fresh comparison.
+
+Extraction is an intermediate step, not a finished biography. Continue with the host to join dates and actors across original sections, distinguish substantive work from chatter, compare reserve episodes, research counterexamples and complete the depth review. More retained events do not prove a better story. The batch checks validate shape, source references and coverage; semantic review and person review remain necessary. There is no automatic whole-archive narrative launcher yet.
 
 ## Depth is a checklist, not a collection count
 
