@@ -25,9 +25,9 @@ WORKFLOW = [
     "Show the recorded sequence and feedback cycles without inventing dates or speed. Ask only consequential unresolved questions.",
 ]
 NAV = [
-    ("signal", "Your strongest evidence"), ("stories", "Core stories"),
-    ("opening", "The introduction"), ("decode", "Question to answer"),
-    ("chapters", "Story chapters"), ("pace", "The pace of the work"),
+    ("signal", "Focus"), ("stories", "Stories"),
+    ("opening", "Introduction"), ("decode", "Answers"),
+    ("chapters", "Chapters"), ("pace", "Pace"),
 ]
 ID = re.compile(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}")
 TOKEN = re.compile(r"__([A-Z_]+)__")
@@ -104,30 +104,30 @@ def prepare(context, projection, context_sha256):
     collection(projection["signals"], "Signals", maximum=3)
     lead_ids = []
     for signal in projection["signals"]:
-        shape(signal, ["title", "reason", "storyId"], "Signal")
+        shape(signal, ["title", "reason", "storyId"], "Signal", optional=["summary"])
         if signal["storyId"] not in ids or signal["storyId"] in lead_ids:
             raise ValueError("Signals must reference distinct selected stories")
         lead_ids.append(signal["storyId"])
-        for field in ("title", "reason"):
+        for field in ("title", "reason", *(["summary"] if "summary" in signal else [])):
             text(signal[field], field)
     collection(projection["questions"], "Questions", maximum=12)
     question_ids = set()
     for question in projection["questions"]:
-        shape(question, ["id", "question", "tests", "storyId", "reason", "answer"], "Question")
+        shape(question, ["id", "question", "tests", "storyId", "reason", "answer"], "Question", optional=["label"])
         key = question["id"]
         if not isinstance(key, str) or not ID.fullmatch(key) or key in question_ids:
             raise ValueError("Questions need unique safe IDs")
         question_ids.add(key)
         if question["storyId"] not in ids:
             raise ValueError("Question references an unselected story")
-        for field in ("question", "tests", "reason", "answer"):
+        for field in ("question", "tests", "reason", "answer", *(["label"] if "label" in question else [])):
             text(question[field], field)
     gap = projection["priorityGap"]
     if gap is not None:
-        shape(gap, ["storyId", "question", "why"], "Priority gap")
+        shape(gap, ["storyId", "question", "why"], "Priority gap", optional=["label"])
         if gap["storyId"] not in ids:
             raise ValueError("Priority gap references an unselected story")
-        for field in ("question", "why"):
+        for field in ("question", "why", *(["label"] if "label" in gap else [])):
             text(gap[field], field)
     return {**copy.deepcopy(projection), "stories": stories, "leadStoryIds": lead_ids,
             "synthetic": context.get("synthetic", False), "reviewStatus": "draft",
@@ -153,6 +153,7 @@ def source_details(story):
     original = "".join(f"<h4>{label}</h4>{paragraphs(account[key])}" for key, label in (
         ("summary", "Original summary"), ("context", "Context"), ("aim", "Aim"),
         ("contribution", "Personal contribution"), ("sharedCredit", "Shared work"), ("outcome", "Outcome")))
+    original += "<h4>Evidence limits</h4>" + bullets(account["limits"])
     original += "<h4>Decisions</h4>" + bullets(account["decisions"])
     if account["questions"]:
         original += "<h4>Still to clarify</h4>" + bullets(account["questions"])
@@ -163,64 +164,81 @@ def source_details(story):
         evidence.append(f'<article class="source"><h3>{escaped(source["label"])}</h3>'
                         f'<p class="meta">{escaped(metadata)}</p>{paragraphs(source["content"])}'
                         f'<p class="meta">{escaped(source["scope"])}</p>{locator}</article>')
-    return (f'<details class="reference"><summary>Original account and sources</summary>{original}'
+    return (f'<details class="reference original-account"><summary>Original account and sources</summary>{original}'
             f'<div id="evidence-{escaped(story["id"])}">{"".join(evidence)}</div></details>')
 
 
 def render_html(packet):
     by_id = {s["id"]: s for s in packet["stories"]}
-    options = "".join(f'<option value="{escaped(s["id"])}">{escaped(s["title"])}</option>' for s in packet["stories"])
+    stories = [by_id[key] for key in packet["leadStoryIds"]] + [s for s in packet["stories"] if s["id"] not in packet["leadStoryIds"]]
+    def story_options(group):
+        return "".join(f'<option value="{escaped(s["id"])}">{escaped(s["title"])}</option>' for s in group)
+    lead_count = len(packet["leadStoryIds"])
+    options = '<optgroup label="Lead stories">' + story_options(stories[:lead_count]) + '</optgroup>'
+    if len(stories) > lead_count:
+        options += '<optgroup label="For specific questions">' + story_options(stories[lead_count:]) + '</optgroup>'
     signals = "".join(
-        f'<li><span class="number">{i:02d}</span><div><h3>{escaped(s["title"])}</h3><p>{escaped(s["reason"])}</p>'
-        f'<a class="quiet" href="#stories/{escaped(s["storyId"])}">{escaped(by_id[s["storyId"]]["title"])} '
-        '<span class="arrow" aria-hidden="true">→</span></a></div></li>'
-        for i, s in enumerate(packet["signals"], 1))
+        f'<li><h3><a href="#stories/{escaped(s["storyId"])}">{escaped(s["title"])}'
+        f'<span class="arrow" aria-hidden="true">→</span></a></h3><p>{escaped(s.get("summary", s["reason"]))}</p></li>'
+        for s in packet["signals"])
+    selection_notes = ('<details class="reference selection-notes"><summary>Why these stories</summary>' +
+        paragraphs(packet["throughline"]) + "".join(
+            f'<section><h3>{escaped(s["title"])}</h3><p>{escaped(s["reason"])}</p>' +
+            bullets(by_id[s["storyId"]]["account"]["limits"]) +
+            f'<button class="quiet" data-sources="{escaped(s["storyId"])}">Sources</button></section>'
+            for s in packet["signals"]) + '</details>')
     gap = packet["priorityGap"]
-    gap_html = (f'<aside class="gap"><p class="eyebrow">One detail still needed</p><h3>{escaped(gap["question"])}</h3>'
-                f'<p>{escaped(gap["why"])}</p><button class="quiet" data-copy="gap">Copy this question for your coach '
-                '<span class="arrow" aria-hidden="true">→</span></button></aside>') if gap else ""
+    gap_html = (f'<details class="reference gap"><summary>{escaped(gap.get("label", "One open question"))}</summary>'
+                f'<h3>{escaped(gap["question"])}</h3><p>{escaped(gap["why"])}</p>'
+                '<button class="quiet" data-copy="gap">Copy question</button></details>') if gap else ""
     story_html, chapter_html, pace_html = [], [], []
-    for index, story in enumerate(packet["stories"]):
+    for index, story in enumerate(stories):
         account, key = story["account"], escaped(story["id"])
         attr = f'data-story-panel="{key}" class="reading' + (" is-selected" if index == 0 else "") + '"'
-        heading = (f'<header class="story-heading"><h3>{escaped(story["title"])}</h3>'
-                   f'<p class="meta">{escaped(story["when"])} · {escaped(story["tests"])}</p></header>')
-        action = f'<button class="quiet" data-sources="{key}">Sources and scope <span aria-hidden="true">↗</span></button>'
-        limits = '<div class="limit">' + bullets(account["limits"]) + "</div>" if account["limits"] else ""
+        heading = (f'<header class="story-heading"><h2>{escaped(story["title"])}</h2>'
+                   f'<p class="meta">{escaped(story["when"])}</p></header>')
+        action = f'<button class="quiet" data-sources="{key}">Sources and scope</button>'
+        limits = ('<details class="reference evidence-limits"><summary>Evidence limits</summary>' +
+                  bullets(account["limits"]) + '</details>') if account["limits"] else ""
         story_html.append(
             f'<article {attr}>{heading}<p class="takeaway">{escaped(story["takeaway"])}</p>'
-            f'<h4>What happened</h4>{paragraphs(account["outcome"])}<h4>Your part</h4>{paragraphs(account["contribution"])}'
-            f'<h4>Shared work</h4>{paragraphs(account["sharedCredit"])}{limits}'
+            f'<h3>What happened</h3>{paragraphs(account["outcome"])}<h3>Your part</h3>{paragraphs(account["contribution"])}'
+            f'<h3>Shared work</h3>{paragraphs(account["sharedCredit"])}'
             f'<div class="story-actions"><a class="quiet" href="#chapters/{key}">Read the chapters '
-            f'<span class="arrow" aria-hidden="true">→</span></a>{action}</div>{source_details(story)}</article>')
+            f'<span class="arrow" aria-hidden="true">→</span></a>{action}</div>'
+            f'<details class="reference"><summary>Why this story fits</summary><p>{escaped(story["tests"])}</p>'
+            f'{bullets(account["limits"])}</details>{source_details(story)}</article>')
         chapters = "".join(f'<li><div><h4>{escaped(c["title"])}</h4>{paragraphs(c["text"])}</div></li>' for c in story["chapters"])
         chapter_html.append(f'<article {attr}>{heading}<p class="takeaway">{escaped(story["takeaway"])}</p>'
-                            f'<ol class="chapters">{chapters}</ol>{limits}<div class="story-actions">{action}'
-                            f'<a class="quiet" href="#pace/{key}">See the timeline <span class="arrow" aria-hidden="true">→</span></a></div></article>')
+                            f'<ol class="chapters">{chapters}</ol><div class="story-actions">{action}'
+                            f'<a class="quiet" href="#pace/{key}">See the timeline <span class="arrow" aria-hidden="true">→</span></a></div>{limits}</article>')
         milestones = "".join(f'<li><strong>{escaped(m["when"])}</strong> — {escaped(m["text"])}</li>' for m in story["timeline"])
-        pace_html.append(f'<article {attr}>{heading}<ol class="pace">{milestones}</ol>{limits}{action}</article>')
+        pace_html.append(f'<article {attr}>{heading}<ol class="pace">{milestones}</ol>{action}{limits}</article>')
     questions = []
     for index, question in enumerate(packet["questions"]):
         key = escaped(question["storyId"])
+        notes = (f'<details class="reference answer-notes"><summary>Reasoning and evidence limits</summary>'
+                 f'<h4>What it may test</h4><p>{escaped(question["tests"])}</p>'
+                 f'<h4>Why this story</h4><p>{escaped(question["reason"])}</p>'
+                 f'<a class="quiet" href="#stories/{key}">{escaped(by_id[question["storyId"]]["title"])}</a>' +
+                 bullets(by_id[question["storyId"]]["account"]["limits"]) + '</details>')
         questions.append(
             f'<article data-question-panel="{escaped(question["id"])}" class="question' + (" is-selected" if index == 0 else "") +
-            f'"><h3 class="question-title">{escaped(question["question"])}</h3><div class="decoded"><h3>Decode</h3><p>{escaped(question["tests"])}</p></div>'
-            f'<div class="decoded"><h3>Select</h3><div><p>{escaped(question["reason"])}</p>'
-            f'<a class="quiet" href="#stories/{key}">{escaped(by_id[question["storyId"]]["title"])}</a></div></div>'
-            f'<div class="decoded answer"><h3>Deliver</h3>{paragraphs(question["answer"])}</div>'
-            f'<button class="quiet" data-sources="{key}">Check the supporting sources ↗</button></article>')
+            f'"><h2 class="question-title">{escaped(question["question"])}</h2><div class="answer">{paragraphs(question["answer"])}</div>'
+            f'<div class="answer-actions"><button class="quiet" data-copy="answer" data-question-id="{escaped(question["id"])}">Copy answer</button>'
+            f'<button class="quiet" data-sources="{key}">Sources</button><span class="copy-feedback" role="status"></span></div>{notes}</article>')
     values = {
         "TARGET_NOTE": escaped(packet["target"] or "Prepared from your context · no target role selected"),
         "HEADLINE": escaped(packet["headline"]), "THROUGHLINE": escaped(packet["throughline"]),
         "DEMO": '<p class="demo-notice" id="synthetic-note">Fictional example · these work accounts are invented.</p>' if packet["synthetic"] else "",
-        "NAV": "".join(f'<a href="#{key}"' + (' aria-current="page"' if i == 1 else "") + f'><span>{i:02d}</span>{label}</a>' for i, (key, label) in enumerate(NAV, 1)),
-        "OPTIONS": "".join(f'<option value="{key}">{i}. {label}</option>' for i, (key, label) in enumerate(NAV, 1)),
-        "SIGNALS": signals, "GAP": gap_html, "STORY_OPTIONS": options, "STORIES": "".join(story_html),
+        "NAV": "".join(f'<a href="#{key}"' + (' aria-current="page"' if i == 1 else "") + f'>{label}</a>' for i, (key, label) in enumerate(NAV, 1)),
+        "OPTIONS": "".join(f'<option value="{key}">{label}</option>' for i, (key, label) in enumerate(NAV, 1)),
+        "SIGNALS": signals, "SELECTION_NOTES": selection_notes, "GAP": gap_html, "STORY_OPTIONS": options, "STORIES": "".join(story_html),
         "OPENING": "".join(paragraphs(p) for p in packet["opening"]),
         "PROFILE": '<details class="reference"><summary>Original profile context</summary>' +
                    paragraphs(packet["person"]["overview"]) + bullets(packet["person"].get("background", [])) + "</details>",
-        "FLAGS": "".join(f'<a href="#stories/{escaped(s["storyId"])}"><strong>{escaped(by_id[s["storyId"]]["title"])}</strong><span>{escaped(by_id[s["storyId"]]["takeaway"])}</span></a>' for s in packet["signals"]),
-        "QUESTION_OPTIONS": "".join(f'<option value="{escaped(q["id"])}">{escaped(q["question"])}</option>' for q in packet["questions"]),
+        "FLAGS": "".join(f'<a href="#stories/{escaped(s["storyId"])}">{escaped(by_id[s["storyId"]]["title"])} <span class="arrow" aria-hidden="true">→</span></a>' for s in packet["signals"]),
+        "QUESTION_OPTIONS": "".join(f'<option value="{escaped(q["id"])}">{escaped(q.get("label", q["question"]))}</option>' for q in packet["questions"]),
         "QUESTIONS": "".join(questions), "CHAPTERS": "".join(chapter_html), "PACE": "".join(pace_html),
         "PREPARED_ON": escaped(packet["preparedOn"]),
         "SCOPE": f'Model draft · {len(packet["stories"])} selected accounts from {packet["availableAccountCount"]}. Context dated {escaped(packet["contextUpdatedAt"])}; ' + ("reviewed by the person." if packet["contextReviewStatus"] == "person_reviewed" else "draft for review."),

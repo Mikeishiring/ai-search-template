@@ -80,6 +80,8 @@ Use this shape; every story id is an existing career-context account ID. signals
 }
 ```
 
+Optional presentation fields keep the page concise: a signal may include a one-sentence `summary`, and a question or priority gap may include a short `label`. Keep the full reasoning and question; the renderer reveals these details on demand. Existing projections without these fields remain supported.
+
 Write to a separate private destination:
 
 ```text
@@ -94,4 +96,4 @@ Check every drafted factual clause against the referenced accounts and sources, 
 
 Open the result at desktop and mobile widths. All six parts should already be useful. Sources, copy fallback, keyboard navigation, printing and reading without JavaScript should work. The browser does not connect to accounts or refresh itself.
 
-Use Copy for your coach to continue practice or request a revision. Gather available context before asking a question. A correction belongs in the career-context source first, then regenerate the affected preparation from its new fingerprint. The generated page has no separate editable evidence store.
+Use Copy prep to continue practice or request a revision. Gather available context before asking a question. A correction belongs in the career-context source first, then regenerate the affected preparation from its new fingerprint. The generated page has no separate editable evidence store.

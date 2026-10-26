@@ -1060,7 +1060,7 @@
     },
     {
       "path": "examples/interview-preparation.json",
-      "sha256": "7224895a08f0a6354d23c8ceaa0c1381565c6301e4355850e514aece9d63c3c5"
+      "sha256": "2a19818b95c4a6941b854e1c528ebedddc91c447d7851221e7190d89d970db05"
     },
     {
       "path": "examples/local-policy.json",
@@ -1112,7 +1112,7 @@
     },
     {
       "path": "skills/career-context-sheet/assets/interview.html",
-      "sha256": "996743ca5b8f0a86d0e6853c7c3e9c4251896bacea11fbba752b847600c22643"
+      "sha256": "512d23932206bd14425614a81a91ce3b617833d49fcdf30f38b25f7ca8871ff4"
     },
     {
       "path": "skills/career-context-sheet/assets/sheet.html",
@@ -1128,7 +1128,7 @@
     },
     {
       "path": "skills/career-context-sheet/references/interview-prep.md",
-      "sha256": "bcee4429308bb586461ff1694d57767097ddd616027d2e6f25f173106f6ac910"
+      "sha256": "af01b40505daafeadab746691e4b20ae1b28e61db9f8281709d9c79f6cb131ad"
     },
     {
       "path": "skills/career-context-sheet/references/source-research.md",
@@ -1140,11 +1140,11 @@
     },
     {
       "path": "skills/career-context-sheet/scripts/render_interview.py",
-      "sha256": "4c057428fda65e6e538d3af5e94e797bd65404fadb129f09416ccf7fc65b3561"
+      "sha256": "33a3a3fc667e6c4d7c1c857866acb23cd84049e73b6f6b00600dcd84ecabb166"
     },
     {
       "path": "tests/check_interview.cjs",
-      "sha256": "d976234fded9ebdd3f84a1051bf2d7c81e049d94adb6fc481e50045e9fffe54a"
+      "sha256": "15204581e98260256fa63575efde26de63723a689b8f172b798cc03ea1930e23"
     },
     {
       "path": "tests/check_sheet.cjs",
@@ -1168,7 +1168,7 @@
     },
     {
       "path": "tests/test_interview.py",
-      "sha256": "68264e768a17a7943844857bfe8128963b7e2136dde0c6e05e07e2513ed7f9b0"
+      "sha256": "5ee7ca555e1ff40d2a5d636e8725949d0b94280c3e7b374695360f0fdffcedb9"
     },
     {
       "path": "tests/test_local_context.py",
