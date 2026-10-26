@@ -4,7 +4,7 @@ Reading every source can still produce a thin account. A researcher can discard 
 
 New research workspaces therefore enforce a separate retention step:
 
-1. `extraction_packet` returns sections of already-read originals with exact citation spans. `save_extraction` records events or a specific explanation of context for every section. Events retain actor, action, state, event date or uncertainty, significance and evidence. The host derives durable record notes only after every section has a disposition.
+1. `extraction_packet` returns sections of already-read originals with exact citation spans. `save_extraction` records events or a specific explanation of context for every section. Events retain actor, action, state, event date or uncertainty, significance and evidence. Each original is classified once as work, discussion or evaluation, retaining report-author credit. The host derives durable record notes only after every section has a disposition. Empty originals receive an explicit contextual or irrelevant disposition with no invented spans or actions.
 2. `episode_packet` recovers the events, including ones that might not fit the eventual narrative. `episode_inventory` assigns every event to a selected or reserve episode, or records a specific exclusion. Selected episode IDs become the sheet's account IDs.
 3. After the first sheet plan, the researcher revisits the strongest reserve episode and compares it with an account that was selected. Changes to extracted evidence invalidate the selection. New evidence still requires fresh ownership and depth checks.
 4. Completion and building refuse missing sections, an outdated inventory or an unchallenged selection. A model cannot bypass extraction by writing a generic record note.
@@ -45,3 +45,9 @@ The saved journal retained 27 events from all 10 sections of nine authorised ori
 The result still repeated prose across sheet fields. One sentence interpreted the source's ambiguous “we tested” as the two named collaborators testing together; a reviewer should preserve the unspecified group instead. The raw result was retained rather than silently edited into a better experiment. Structural validation did not catch that attribution nuance.
 
 Regression checks also reproduced and fixed stale-review failures: changing an extracted date or significance now invalidates the evidence version, and changing episode selection or its challenge invalidates the depth review. Existing legacy evidence hashes remain unchanged. These checks protect the saved workflow; they do not grade narrative quality.
+
+## Portable writing
+
+New sessions use the career-sheet/v2 export contract. Each detail claim belongs in one field; a short lead may reuse it intentionally. Account limits select supported claims and carry the same original excerpts as other facts. Raw coverage notes, rejected interpretations and audit instructions remain in the research journal. Person-facing questions are chosen once in the account plan.
+
+Collective actors and action states still require a semantic review of the prose. Reference checks do not establish that the model has described ownership correctly. Journals without the export version rebuild through the legacy rules; changing the contract does not rewrite earlier trial outputs.

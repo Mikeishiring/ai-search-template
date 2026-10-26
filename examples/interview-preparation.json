@@ -1,0 +1,148 @@
+{
+  "schema": "interview-preparation/v1",
+  "contextSha256": "7e7fc35f3e94a9663348ff50694ade6d03d55a151135c3520fc9f141fd4d6eb0",
+  "preparedOn": "2030-09-01",
+  "target": null,
+  "headline": "Make everyday work easier to follow.",
+  "throughline": "Lead with the request handoffs and the desk guide: both show how I turn practical feedback into a change a team can use. Keep the equipment prototype available as a story about open decisions.",
+  "signals": [
+    {
+      "title": "Make responsibility visible.",
+      "reason": "The request trial separates who receives a task from who owns the next step. It shows design judgment and a shared operating routine.",
+      "storyId": "request-handoffs"
+    },
+    {
+      "title": "Revise the detail that stops someone using it.",
+      "reason": "The guide changed after supervised use exposed an unclear escalation rule. The useful evidence is the revision and its retention for induction.",
+      "storyId": "volunteer-guide"
+    }
+  ],
+  "stories": [
+    {
+      "id": "request-handoffs",
+      "tests": "Practical judgment and shared delivery",
+      "takeaway": "I made the next owner visible, then revised the trial with the coordinators.",
+      "chapters": [
+        {
+          "title": "Find where requests lose their next owner",
+          "text": "Requests crossed the front desk, events and facilities. I traced the routes and drafted a shared request list, aiming to clarify ownership without adding another application."
+        },
+        {
+          "title": "Test the routine with the team",
+          "text": "Contributor 02 proposed a weekly review, which I facilitated. The coordinators defined the handoff rules and maintained the list. I simplified the status labels after their feedback and removed a priority field that people interpreted differently."
+        },
+        {
+          "title": "Describe the result at its actual scope",
+          "text": "The coordinators continued the weekly review after the trial. We did not collect a baseline or measure turnaround. I would describe continued use, rather than claim a speed improvement."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "January–April 2030",
+          "text": "Mapped the existing routes, drafted the list and facilitated the trial. Separate milestone dates were not recorded."
+        },
+        {
+          "when": "During the trial",
+          "text": "Revised status labels after coordinator feedback."
+        },
+        {
+          "when": "After the trial",
+          "text": "Coordinators continued the weekly review; later-year use remains unconfirmed."
+        }
+      ]
+    },
+    {
+      "id": "volunteer-guide",
+      "tests": "Writing, observation and iteration",
+      "takeaway": "The guide improved when I watched where two supervised volunteers needed help.",
+      "chapters": [
+        {
+          "title": "Put recurring questions into task order",
+          "text": "Existing notes were scattered. I grouped recurring desk questions and drafted a printable guide because the shared desk computer was not always available."
+        },
+        {
+          "title": "Keep exceptions beside the relevant action",
+          "text": "Contributor 03 checked the procedures. Two volunteers tried the guide during supervised shifts. I rewrote the room-booking instructions when they could not tell which exceptions needed a coordinator."
+        },
+        {
+          "title": "Keep the learning within the trial",
+          "text": "The coordinator retained the revised guide for the next induction. Independent use and time savings were not tested. The evidence supports a useful revision, not a general claim that training became faster."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "May–July 2030",
+          "text": "Collected recurring questions, drafted the guide and observed supervised use."
+        },
+        {
+          "when": "10 July 2030",
+          "text": "Recorded feedback identified an unclear escalation rule."
+        },
+        {
+          "when": "By 15 July 2030",
+          "text": "The account records revised instructions and retention for the next induction."
+        }
+      ]
+    },
+    {
+      "id": "equipment-prototype",
+      "tests": "Scope and readiness to stop",
+      "takeaway": "A functioning prototype still needs a reason to be used and someone to maintain it.",
+      "chapters": [
+        {
+          "title": "Make the smallest testable flow",
+          "text": "I sketched a checkout and return flow and built a local prototype using fictional items. Contributor 02 described the existing process."
+        },
+        {
+          "title": "Leave the next decision open",
+          "text": "No team trial or rollout has been agreed. The coordinator decides whether a trial is useful. Maintenance ownership and whether a paper log would suffice remain open; reminders were left out until follow-up has an owner."
+        }
+      ],
+      "timeline": [
+        {
+          "when": "August 2030",
+          "text": "Built a local checkout and return prototype using fictional items."
+        },
+        {
+          "when": "28 August 2030",
+          "text": "The working note records no real data, agreed trial or deployment."
+        }
+      ]
+    }
+  ],
+  "opening": [
+    "I work on the practical routines that help a community team follow through. At a library, I mapped request handoffs and facilitated a trial that made the next owner clearer. The coordinators shaped the rules and continued the weekly review.",
+    "I also write and test small tools for everyday work. A desk guide changed after two volunteers showed me where its escalation instructions were unclear. I prefer to try a small change, learn from its use, and keep the result at the scale the evidence supports."
+  ],
+  "questions": [
+    {
+      "id": "improve-process",
+      "question": "Tell me about a process you improved.",
+      "tests": "How you diagnosed a problem, involved others and judged the result.",
+      "storyId": "request-handoffs",
+      "reason": "It has a concrete ownership problem, your contribution, a team-led operating routine and an observable result.",
+      "answer": "Library requests crossed several teams without a clear next owner. I traced the routes, drafted a shared list and facilitated the trial. Contributor 02 proposed the weekly review; the coordinators defined the rules and kept the list current. I simplified the labels after their feedback. They continued the review after the trial. We did not measure turnaround, so the outcome I can support is continued use."
+    },
+    {
+      "id": "respond-feedback",
+      "question": "When did feedback change your approach?",
+      "tests": "Whether you can name the change and explain why it mattered.",
+      "storyId": "volunteer-guide",
+      "reason": "The trial feedback identifies an exact problem in the room-booking instructions.",
+      "answer": "I drafted a printable desk guide and watched two volunteers try it during supervised shifts. Contributor 03 had checked the procedures, but the volunteers still could not tell which booking exceptions needed a coordinator. I moved the escalation rule beside the relevant steps and rewrote those instructions. The coordinator retained the revised guide for the next induction; we did not test independent use."
+    },
+    {
+      "id": "unfinished-work",
+      "question": "What is still unresolved in your current work?",
+      "tests": "Whether you distinguish a working prototype from a useful, maintained service.",
+      "storyId": "equipment-prototype",
+      "reason": "The prototype has a narrow working flow and clear decisions that remain open.",
+      "answer": "I have a local equipment-log prototype that records checkout and return using fictional items. It has not been tried by the team. Before continuing, I need to establish who would maintain it and whether a shared paper log would solve the problem more simply. I left reminders out because follow-up has no agreed owner."
+    }
+  ],
+  "priorityGap": {
+    "storyId": "request-handoffs",
+    "question": "Which parts of the weekly review were still in use later in the year?",
+    "why": "This would distinguish immediate continuation after the trial from a lasting routine."
+  }
+}

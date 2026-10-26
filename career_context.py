@@ -87,7 +87,7 @@ def main(argv=None):
             raise ValueError('Output already exists. Choose another path or add --force to replace it.')
         if not destination.parent.is_dir():
             raise ValueError('The output folder does not exist. Create it first, outside this project.')
-        result = renderer().render(source, destination)
+        result = renderer().render(source, destination, overwrite=args.force)
     except (ValueError, KeyError, TypeError, OSError) as error:
         parser.exit(2, f'Could not create the sheet: {error}\n')
     print(f"Created {destination}\n{result['accounts']} work accounts; {result['sources']} selected sources.\nOpen the HTML in your browser. Nothing was uploaded.")

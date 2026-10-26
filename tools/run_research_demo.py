@@ -11,6 +11,8 @@ from research_sheet import (EXPERIMENTS, build, events_at, initialize, load_sess
                             outside_project, write_json)
 from model_backend import command, sha
 from research_sheet_server import TOOLS
+import copy
+from research_sheet import plan_schema
 
 
 def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
@@ -39,13 +41,31 @@ def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
                       'Follow consequential gaps without human prompting. Finish with a valid receipt. '
                       'The host builds the HTML from your saved checked review and plan.'}
     write_json(request_file, prompt)
-    cmd = command(response, EXPERIMENTS / 'model/ownership.schema.json')[:-1]
+    session = json.loads((workspace / 'session.json').read_text(encoding='utf-8'))
+    prompt_file = workspace / f'attempt-{index}.instructions.md'
+    schema_file = workspace / f'attempt-{index}.schema.json'
+    prompt_file.write_bytes((ROOT / 'prompts/RESEARCH-TO-SHEET.md').read_bytes())
+    schema_file.write_bytes((EXPERIMENTS / 'model/ownership.schema.json').read_bytes())
+    definitions = copy.deepcopy(TOOLS)
+    next(t for t in definitions if t['name'] == 'sheet_plan')['inputSchema']['properties']['plan'] = plan_schema(session.get('export_protocol'))
+    tools_file = workspace / f'attempt-{index}.tools.json'
+    write_json(tools_file, definitions)
+    launch_hashes = {'prompt_sha256': sha(prompt_file), 'schema_sha256': sha(schema_file),
+                     'tools_sha256': sha(tools_file), 'compiler_sha256': sha(ROOT / 'research_sheet.py'),
+                     'template_sha256': sha(ROOT / 'skills/career-context-sheet/assets/sheet.html')}
+    try:
+        cmd = command(response, schema_file)[:-1]
+    except (OSError, RuntimeError) as error:
+        write_json(workspace / f'attempt-{index}.receipt.json', {
+            'synthetic': True, 'attempt': index, 'resumed': resume, 'stage': 'launch_failed',
+            'model_called': False, 'error': str(error), **launch_hashes})
+        raise ValueError(str(error)) from error
     agent_dir = workspace / 'runtime'
     agent_dir.mkdir(exist_ok=True)
     cmd[cmd.index('--cd') + 1] = str(agent_dir)
     # Reuse the existing ignored CLI state directory from model_backend.command.
     # A new sqlite_home can make the CLI backfill a large local state database per run.
-    cmd += ['-c', 'model_instructions_file=' + json.dumps(str(ROOT / 'prompts/RESEARCH-TO-SHEET.md'))]
+    cmd += ['-c', 'model_instructions_file=' + json.dumps(str(prompt_file))]
     config = {'command': sys.executable, 'args': [str(ROOT / 'research_sheet_server.py'), str(workspace)],
               'enabled': True, 'startup_timeout_sec': 60, 'tool_timeout_sec': 30,
               'enabled_tools': [t['name'] for t in TOOLS]}
@@ -77,8 +97,7 @@ def run(output, workspace=None, resume=False, force=False, fixture='sheet'):
                'provider': 'Authenticated Codex CLI', 'model': 'CLI default; identifier not exposed by this event stream',
                'human_followup_prompts': 0, 'previous_conversation_supplied': False,
                'tool_calls': len(calls), 'unexpected_tools': len(unexpected),
-               'prompt_sha256': sha(ROOT / 'prompts/RESEARCH-TO-SHEET.md'),
-               'schema_sha256': sha(EXPERIMENTS / 'model/ownership.schema.json'),
+               **launch_hashes, 'export_protocol': session.get('export_protocol', 'legacy'),
                'usage': [e['usage'] for e in events if e.get('usage')]}
     write_json(workspace / f'attempt-{index}.receipt.json', receipt)
     write_json(workspace / f'attempt-{index}.events.json', completed)

@@ -21,9 +21,3 @@ For saved agent conversations, separate user accounts, retrieved source text, as
 Read the original account and linked evidence first. Then prioritize unresolved ownership, contradictory outcomes, later corrections, missing parent context and relevant attachments. Alternate locations so one busy channel does not consume the whole budget. On a budget stop, preserve a resumable queue and the limits in the sheet.
 
 Calendar entries establish scheduled activity, not attendance or outcomes. Code establishes implementation activity, not adoption. A person's account can support a clearly attributed self-report without independent corroboration. Keep those distinctions in both prose and agent text.
-
-## What the bundled tests establish
-
-The offline research runner supports explicitly selected synthetic sources, bounded pagination, nested replies, supplied aliases and optional standalone follow-up enumeration. It records out-of-scope links without reading them. The multi-source test includes two chat channels, documents, code, email and calendar records.
-
-These are connector-contract tests using fictional data. No live connector, semantic completeness, real-world recall or private-data access is established by passing them. The current automatic reviewer is lexical; its findings remain candidates for interpretation.

@@ -148,6 +148,87 @@ class ResearchSheetTests(unittest.TestCase):
         self.assertEqual(self.server.execute('source_inventory', {})['error'], 'session_sealed')
         self.assertEqual(before, self.log.read_bytes())
 
+    def current_plan(self):
+        plan = copy.deepcopy(self.plan)
+        plan['schema'] = bridge.EXPORT_PROTOCOL
+        plan['accounts'][0]['limits'] = []
+        return plan
+
+    def test_current_export_rejects_repeated_detail_but_permits_a_short_lead(self):
+        self.prepare()
+        plan = self.current_plan()
+        plan['accounts'][0]['context'] = ['c1']
+        packet, result = bridge.compile_sheet(self.raw, plan, [self.record], self.server.events,
+                                              self.scope, self.corpus['snapshot'], draft=True)
+        self.assertIsNone(packet)
+        self.assertTrue(any('one field' in error for error in result['errors']))
+        plan['accounts'][0]['context'] = []
+        packet, result = bridge.compile_sheet(self.raw, plan, [self.record], self.server.events,
+                                              self.scope, self.corpus['snapshot'], draft=True)
+        self.assertTrue(result['valid'], result['errors'])
+        self.assertEqual(packet['accounts'][0]['summary'], packet['accounts'][0]['contribution'])
+
+    def test_new_claim_id_cannot_hide_identical_detail_prose(self):
+        self.prepare()
+        raw = copy.deepcopy(self.raw)
+        raw['claims'].append(dict(copy.deepcopy(raw['claims'][0]), id='same-prose'))
+        raw['story_order'].append('same-prose')
+        plan = self.current_plan()
+        plan['accounts'][0]['context'] = ['same-prose']
+        packet, result = bridge.compile_sheet(raw, plan, [self.record], self.server.events,
+                                              self.scope, self.corpus['snapshot'], draft=True)
+        self.assertIsNone(packet)
+        self.assertTrue(any('one field' in error for error in result['errors']))
+
+    def test_current_export_keeps_audit_notes_private_and_capture_scope_once(self):
+        self.prepare()
+        plan = self.current_plan()
+        scope = dict(self.scope, capture_limits=['Only the selected desk export was available.'])
+        packet, result = bridge.compile_sheet(self.raw, plan, [self.record], self.server.events,
+                                              scope, self.corpus['snapshot'], draft=True)
+        self.assertTrue(result['valid'], result['errors'])
+        self.assertEqual(packet['accounts'][0]['limits'], [])
+        self.assertEqual(packet['accounts'][0]['questions'], plan['accounts'][0]['questions'])
+        self.assertEqual(packet['person']['background'], scope['capture_limits'])
+        self.assertNotIn(self.raw['unknowns'][0], json.dumps(packet))
+        self.assertIn(self.raw['claims'][0]['limits'], packet['accounts'][0]['contribution'])
+
+    def test_portable_limit_retains_its_own_original_excerpt(self):
+        self.prepare()
+        record = dict(self.record, id='docs:limit', source='docs', title='Trial measurement',
+                      body='The trial did not collect turnaround measurements.')
+        self.server.records[record['id']] = record
+        self.server.scope['sources'].append('docs')
+        self.server.execute('read_record', {'source': 'docs', 'id': record['id']})
+        ids = [span['span_id'] for span in spans(record)]
+        self.server.execute('save_notes', {'notes': [{
+            'record_id': record['id'], 'relevance': 'material', 'finding': record['body'],
+            'span_ids': ids, 'source_kind': 'evaluation', 'attributions': [],
+            'attribution_limits': 'No outcome measurement is recorded.'}]})
+        raw = copy.deepcopy(self.raw)
+        raw['claims'].append({'id': 'c2', 'category': 'contribution', 'statement': record['body'],
+                             'limits': '', 'roles': [],
+                             'evidence': [{'record_id': record['id'], 'span_id': ids[0]}]})
+        raw['story_order'].append('c2')
+        plan = self.current_plan()
+        plan['accounts'][0]['limits'] = ['c2']
+        packet, result = bridge.compile_sheet(raw, plan, [self.record, record], self.server.events,
+                                              self.scope, self.corpus['snapshot'], draft=True)
+        self.assertTrue(result['valid'], result['errors'])
+        self.assertEqual(packet['accounts'][0]['limits'], [record['body']])
+        evidence = next(source for source in packet['sources'] if source['content'] == record['body'])
+        self.assertIn(evidence['id'], packet['accounts'][0]['sourceRefs'])
+
+    def test_current_session_schema_cannot_silently_accept_a_legacy_plan(self):
+        self.prepare()
+        current = SheetSource(self.corpus, self.scope, self.log, retention_required=False,
+                              export_protocol=bridge.EXPORT_PROTOCOL)
+        with self.assertRaises(ValueError):
+            current.execute('sheet_plan', {'review': self.raw, 'plan': self.plan})
+        result = current.execute('sheet_plan', {'review': self.raw, 'plan': self.current_plan()})
+        self.assertTrue(result['valid'], result['errors'])
+        self.assertEqual(current.planning()['writing']['export_protocol'], bridge.EXPORT_PROTOCOL)
+
     def test_real_inputs_and_public_workspaces_never_enter_automated_demo(self):
         with self.assertRaises(ValueError): bridge.initialize(ROOT / 'private-test')
         workspace = bridge.initialize(self.folder / 'research')

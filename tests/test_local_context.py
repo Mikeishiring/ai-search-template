@@ -152,7 +152,7 @@ class LocalContextTests(unittest.TestCase):
                 'disposition': 'context', 'events': [],
                 'reason': 'This transport fixture is testing Unicode preservation only.'}
         requests = [{'jsonrpc': '2.0', 'id': 1, 'method': 'tools/call', 'params': {'name': 'read_record', 'arguments': {'source': 'chat', 'id': 'chat:one'}}},
-                    {'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'save_extraction', 'arguments': {'sections': [note]}}}]
+                    {'jsonrpc': '2.0', 'id': 2, 'method': 'tools/call', 'params': {'name': 'save_extraction', 'arguments': {'sections': [note], 'source_kinds': [{'record_id': record['id'], 'kind': 'discussion'}]}}}]
         result = subprocess.run([sys.executable, str(ROOT / 'research_sheet_server.py'), str(self.workspace)],
             input=('\n'.join(json.dumps(r, ensure_ascii=False) for r in requests) + '\n').encode('utf-8'), capture_output=True, timeout=15)
         self.assertEqual(result.returncode, 0, result.stderr.decode('utf-8'))

@@ -131,6 +131,21 @@ class DepthProtocolTests(unittest.TestCase):
         self.assertFalse(result['valid'])
         self.assertIn('One episode cannot establish a cross-episode pattern.', result['errors'])
 
+    def test_current_export_uses_one_canonical_question_for_person_gaps(self):
+        self.prepare()
+        self.plan = fixtures.ResearchSheetTests.current_plan(self)
+        self.server.configure_export('career-sheet/v2')
+        self.assertTrue(self.server.execute('sheet_plan', {'review': self.raw, 'plan': self.plan})['valid'])
+        audit = self.depth_audit()
+        lens = audit['accounts'][0]['lenses'][0]
+        lens['status'] = 'needs_person'
+        result = self.server.execute('depth_review', audit)
+        self.assertFalse(result['valid'])
+        self.assertTrue(any('canonical person-facing question' in error for error in result['errors']))
+        lens['next_action'] = self.plan['accounts'][0]['questions'][0]
+        result = self.server.execute('depth_review', audit)
+        self.assertTrue(result['valid'], result['errors'])
+
     def test_sheet_capacity_is_ten_times_old_fixture_and_does_not_cut_off_at_45(self):
         self.assertEqual(self.server.source_budget, 450)
         self.assertEqual(self.server.request_limit, 800)
@@ -150,6 +165,7 @@ class DepthProtocolTests(unittest.TestCase):
         session = read_json(workspace / 'session.json')
         session.pop('depth_protocol')
         session.pop('retention_protocol')
+        session.pop('export_protocol')
         write_json(workspace / 'session.json', session)
         build(workspace, output)
         self.assertTrue(output.is_file())

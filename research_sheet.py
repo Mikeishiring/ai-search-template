@@ -36,6 +36,23 @@ PLAN_SCHEMA = {
     },
 }
 
+EXPORT_PROTOCOL = 'career-sheet/v2'
+CURRENT_PLAN_SCHEMA = copy.deepcopy(PLAN_SCHEMA)
+CURRENT_PLAN_SCHEMA['required'].append('schema')
+CURRENT_PLAN_SCHEMA['properties']['schema'] = {'type': 'string', 'enum': [EXPORT_PROTOCOL]}
+_current_account = CURRENT_PLAN_SCHEMA['properties']['accounts']['items']
+_current_account['required'].append('limits')
+_current_account['properties']['limits'] = IDS
+
+
+def plan_schema(protocol):
+    if protocol is None:
+        return PLAN_SCHEMA
+    if protocol != EXPORT_PROTOCOL:
+        raise ValueError('Unsupported sheet export protocol.')
+    return CURRENT_PLAN_SCHEMA
+
+
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -75,6 +92,7 @@ def initialize(workspace, fixture='sheet'):
         'scope': scope, 'source_fixture': fixture,
         'depth_protocol': depth.PROTOCOL,
         'retention_protocol': retention.PROTOCOL,
+        'export_protocol': EXPORT_PROTOCOL,
     })
     return workspace
 
@@ -106,7 +124,9 @@ def full_records(events):
 
 def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, synthetic=True):
     """No model rewrite: fields select checked claims and original source spans."""
-    check(plan, PLAN_SCHEMA)
+    protocol = plan.get('schema')
+    check(plan, plan_schema(protocol))
+    fields = FIELDS + ('limits',) if protocol else FIELDS
     review, validation = compile_review(raw, records, events, draft=draft)
     errors = list(validation['errors'])
     claims = {c['id']: c for c in review['claims']}
@@ -122,17 +142,34 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
             errors.append('Accounts need unique safe IDs.')
         account_ids.add(account['id'])
         selected = []
-        for field in FIELDS:
+        detail_claims = set()
+        detail_texts = set()
+        for field in fields:
             ids = account[field]
             if len(ids) != len(set(ids)) or any(i not in claims for i in ids):
                 errors.append('Unknown or duplicate claim in ' + account['id'] + '.' + field)
+            if protocol and field != 'summary':
+                for cid in ids:
+                    if cid not in claims:
+                        continue
+                    wording = ' '.join(claims[cid]['statement'].split()).casefold()
+                    if cid in detail_claims or wording in detail_texts:
+                        errors.append(account['id'] + ': give each detail claim one field; split repeated compound prose into supported field-specific claims.')
+                    detail_claims.add(cid)
+                    detail_texts.add(wording)
             selected.extend(ids)
+        if protocol:
+            questions = [' '.join(q.split()).casefold() for q in account['questions']]
+            if any(not q for q in questions) or len(questions) != len(set(questions)):
+                errors.append(account['id'] + ': keep each person-facing question once.')
         if not selected:
             errors.append('Each account needs supported content.')
         claimed.update(selected)
         account_claims.append(set(selected))
     if claimed != set(claims):
         errors.append('Every checked claim must survive in an account field.')
+    if protocol and len(plan['overview']) != len(set(plan['overview'])):
+        errors.append('Overview must not repeat a claim.')
     if not plan['overview'] or any(i not in claimed for i in plan['overview']):
         errors.append('Overview must select claims represented in the accounts.')
     if errors:
@@ -188,9 +225,9 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
             item[field] = texts if field == 'decisions' else '\n\n'.join(texts)
         # Each selected sentence already carries its qualification beside the claim.
         # Keep account-wide unknowns here without repeating every inline limit.
-        item['limits'] = list(dict.fromkeys(universal_limits))
+        item['limits'] = [sentence(i) for i in account['limits']] if protocol else list(dict.fromkeys(universal_limits))
         item['questions'] = list(account['questions'])
-        if audit:
+        if audit and not protocol:
             checked = next(a for a in audit['arguments']['accounts'] if a['account_id'] == account['id'])
             for lens in checked['lenses']:
                 if lens['status'] == 'needs_person':
@@ -201,8 +238,15 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
         item['sourceRefs'] = list(dict.fromkeys(source_ids[(e['record_id'], e['span_id'])]
             for i in raw['story_order'] if i in selected for e in raw_claims[i]['evidence']))
         accounts.append(item)
+    background = list(dict.fromkeys(scope.get('capture_limits', []))) if protocol else []
+    if protocol and stop:
+        planning = stop.get('planning', {})
+        if planning.get('outside_scope_links') or planning.get('unavailable_or_excluded_links'):
+            background.append('Some linked originals were outside the selected scope or unavailable in the exports.')
+        if any(stop.get('unresolved', {}).values()):
+            background.append('Research ended with unresolved source questions.')
     packet = {'schema': 'career-context/v1', 'updatedAt': snapshot, 'reviewStatus': 'draft', 'synthetic': synthetic,
-              'person': {'name': scope['subject'], 'overview': '\n\n'.join(sentence(i) for i in plan['overview']), 'background': []},
+              'person': {'name': scope['subject'], 'overview': '\n\n'.join(sentence(i) for i in plan['overview']), 'background': background},
               'accounts': accounts, 'sources': sources}
     RENDERER.validate(packet)
     return packet, validation | {'valid': True, 'errors': [], 'sheet_claims': len(claims),
@@ -241,6 +285,8 @@ def build(workspace, output, force=False):
             raise ValueError('This session requires current event retention: ' + '; '.join(errors))
     if planned['result']['evidence_version'] != evidence_version(records, events):
         raise ValueError('Sheet plan is stale for the current evidence.')
+    if planned['arguments']['plan'].get('schema') != session.get('export_protocol'):
+        raise ValueError('Sheet plan must use the session export protocol; historical journals cannot be silently upgraded.')
     packet, validation = compile_sheet(raw, planned['arguments']['plan'], records, events, scope, corpus['snapshot'], synthetic=corpus['synthetic'])
     if not validation['valid']:
         raise ValueError('Research failed validation: ' + '; '.join(validation['errors']))
@@ -254,6 +300,7 @@ def build(workspace, output, force=False):
         'source_calls': stop['result']['counts']['source_calls'], 'requests': len(events),
         'depth_protocol': depth.PROTOCOL if audit else 'legacy; no enforced depth review',
         'retention_protocol': session.get('retention_protocol', 'legacy; no section retention'),
+        'export_protocol': session.get('export_protocol', 'legacy'),
         'depth_review': audit['result'] if audit else None})
     if session.get('schema') == 'career-local/v1':
         from local_context import status

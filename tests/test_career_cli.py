@@ -70,6 +70,21 @@ class CareerCliTests(unittest.TestCase):
         packet['synthetic'] = 'false'
         with self.assertRaises(ValueError): career_context.renderer().validate(packet)
 
+    def test_render_does_not_replace_a_concurrently_created_output(self):
+        source = self.directory / 'input.json'
+        source.write_bytes((ROOT / 'examples/career-context.json').read_bytes())
+        renderer = career_context.renderer()
+        original_link = renderer.os.link
+        def competing_writer(temporary, destination):
+            self.output.write_text('Concurrent work', encoding='utf-8')
+            return original_link(temporary, destination)
+        with patch.object(career_context, 'renderer', return_value=renderer):
+            with patch.object(renderer.os, 'link', side_effect=competing_writer):
+                with self.assertRaises(SystemExit):
+                    self.run_cli('render', source, self.output)
+        self.assertEqual(self.output.read_text(), 'Concurrent work')
+
+
     def test_missing_fields_have_friendly_error(self):
         source = self.directory / 'input.json'
         source.write_text('{"schema":"career-context/v1","reviewStatus":"draft"}', encoding='utf-8')

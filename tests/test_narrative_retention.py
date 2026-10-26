@@ -42,7 +42,7 @@ class RetentionTests(unittest.TestCase):
 
     def extract_all(self):
         sections=self.server.execute('extraction_packet',{})['sections']
-        result=self.server.execute('save_extraction',{'sections':[self.extraction(s,i) for i,s in enumerate(sections)]})
+        result=self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[self.extraction(s,i) for i,s in enumerate(sections)]})
         self.assertTrue(result['valid'],result)
         return sections
 
@@ -59,7 +59,7 @@ class RetentionTests(unittest.TestCase):
         self.assertGreater(len(packet['sections']),1)
         self.assertIn('access error',packet['sections'][-1]['citation_spans'][-1]['quote'])
         first=self.extraction(packet['sections'][0],0)
-        self.assertTrue(self.server.execute('save_extraction',{'sections':[first]})['valid'])
+        self.assertTrue(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[first]})['valid'])
         self.assertNotIn(self.record['id'],saved_notes(self.server.events))
         self.assertEqual(self.server.execute('finish_check',{})['status'],'retain_evidence')
         self.assertFalse(self.server.execute('episode_inventory',self.inventory())['valid'])
@@ -69,15 +69,15 @@ class RetentionTests(unittest.TestCase):
         section=self.server.execute('extraction_packet',{})['sections'][0]
         for finding in ['Reviewed during full archive sweep; no distinct episode.', 'THREAD PARENT MESSAGE From user Time today']:
             item=self.extraction(section,0);item['finding']=finding
-            self.assertFalse(self.server.execute('save_extraction',{'sections':[item]})['valid'])
+            self.assertFalse(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[item]})['valid'])
 
     def test_cross_section_evidence_and_generic_participation_are_refused(self):
         sections=self.server.execute('extraction_packet',{})['sections']
         item=self.extraction(sections[0],0)
         item['events'][0]['span_ids']=[sections[-1]['citation_spans'][-1]['span_id']]
-        self.assertFalse(self.server.execute('save_extraction',{'sections':[item]})['valid'])
+        self.assertFalse(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[item]})['valid'])
         item=self.extraction(sections[0],0);item['events'][0]['action']='Documented or participated in this source-specific event'
-        self.assertFalse(self.server.execute('save_extraction',{'sections':[item]})['valid'])
+        self.assertFalse(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[item]})['valid'])
 
     def test_repeat_generic_context_cannot_discard_two_sections(self):
         sections=self.server.execute('extraction_packet',{})['sections']
@@ -85,7 +85,7 @@ class RetentionTests(unittest.TestCase):
         for item in items:
             item.update(finding='Committee business provides context for this specific document.',events=[],
                         disposition='context',reason='This section describes room planning without a personal contribution.')
-        self.assertFalse(self.server.execute('save_extraction',{'sections':items})['valid'])
+        self.assertFalse(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':items})['valid'])
 
     def test_derived_notes_and_events_survive_restart_without_source_access(self):
         self.extract_all();before=self.server.source_calls()
@@ -132,7 +132,7 @@ class RetentionTests(unittest.TestCase):
         replacement=self.extraction(sections[0],0)
         replacement['events'][0]['when']='Unknown event date; the minutes date is a recording date.'
         replacement['events'][0]['significance']='The date remains uncertain despite the recorded action.'
-        self.assertTrue(self.server.execute('save_extraction',{'sections':[replacement]})['valid'])
+        self.assertTrue(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[replacement]})['valid'])
         self.assertEqual(saved_notes(self.server.events),notes)
         self.assertNotEqual(evidence_version([self.record],self.server.events),before)
 
@@ -154,17 +154,97 @@ class RetentionTests(unittest.TestCase):
         item=self.extraction(self.server.execute('extraction_packet',{})['sections'][0],0)
         item['events'][0]['action']='implemented catalogue adapter'
         item['events'][0]['significance']='Shared implementation contribution'
-        self.assertTrue(self.server.execute('save_extraction',{'sections':[item]})['valid'])
+        self.assertTrue(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[item]})['valid'])
 
     def test_context_reason_revision_changes_evidence_version(self):
         sections=self.extract_all()
         replacement=self.extraction(sections[0],0)
         replacement.update(disposition='context',events=[],reason='The facilities discussion does not assign work to the subject.')
-        self.assertTrue(self.server.execute('save_extraction',{'sections':[replacement]})['valid'])
+        self.assertTrue(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[replacement]})['valid'])
         before=evidence_version([self.record],self.server.events)
         replacement['reason']='The committee schedule is contextual; its decisions belong to a different team.'
-        self.assertTrue(self.server.execute('save_extraction',{'sections':[replacement]})['valid'])
+        self.assertTrue(self.server.execute('save_extraction',{'source_kinds':[{'record_id':self.record['id'],'kind':'discussion'}],'sections':[replacement]})['valid'])
         self.assertNotEqual(evidence_version([self.record],self.server.events),before)
+
+    def test_empty_original_has_a_resolvable_non_evidential_disposition(self):
+        empty = copy.deepcopy(self.record)
+        empty.update(id="docs:empty", body=" \n\t ", title="Empty selected original")
+        corpus = copy.deepcopy(self.corpus)
+        corpus["records"].append(empty)
+        server = SheetSource(corpus, self.scope, Path(self.temp.name) / "mixed.jsonl")
+        for record in corpus["records"]:
+            server.execute("read_record", {"source": "docs", "id": record["id"]})
+        sections = server.execute("extraction_packet", {})["sections"]
+        empty_section = next(section for section in sections if section["record_id"] == empty["id"])
+        self.assertTrue(empty_section["empty_original"])
+        self.assertEqual(empty_section["citation_spans"], [])
+        items = [self.extraction(section, i) for i, section in enumerate(sections) if section["record_id"] != empty["id"]]
+        items.append({"section_id": empty_section["section_id"],
+            "finding": "This selected original contains no body text.",
+            "span_ids": [], "disposition": "context", "events": [],
+            "reason": "The empty body establishes no personal action or outcome."})
+        result = server.execute("save_extraction", {"sections": items,
+            "source_kinds": [{"record_id": r["id"], "kind": "discussion"} for r in corpus["records"]]})
+        self.assertTrue(result["valid"], result)
+        note = saved_notes(server.events)[empty["id"]]
+        self.assertEqual(note["relevance"], "contextual")
+        self.assertEqual(note["attributions"], [])
+        self.assertEqual(note["span_ids"], [])
+        self.assertEqual(server.planning()["writing"]["unnoted_ids"], [])
+        self.assertEqual(server.planning()["retention"]["pending_sections"], 0)
+        bad = copy.deepcopy(items[-1])
+        bad.update(disposition="events", events=[self.extraction(sections[0], 0)["events"][0]])
+        self.assertFalse(server.execute("save_extraction", {"sections": [bad]})["valid"])
+
+    def test_classification_is_required_once_and_survives_restart(self):
+        section = self.server.execute("extraction_packet", {})["sections"][0]
+        item = self.extraction(section, 0)
+        missing = self.server.execute("save_extraction", {"sections": [item]})
+        self.assertFalse(missing["valid"])
+        self.assertIn("source_kinds", " ".join(missing["errors"]))
+        result = self.server.execute("save_extraction", {"sections": [item],
+            "source_kinds": [{"record_id": self.record["id"], "kind": "evaluation"}]})
+        self.assertTrue(result["valid"], result)
+        restarted = SheetSource(self.corpus, self.scope, self.log)
+        remaining = restarted.execute("extraction_packet", {})["sections"]
+        self.assertTrue(all(section["source_kind"] == "evaluation" for section in remaining))
+        result = restarted.execute("save_extraction", {"sections": [self.extraction(section, i+1) for i, section in enumerate(remaining)]})
+        self.assertTrue(result["valid"], result)
+        self.assertEqual(saved_notes(restarted.events)[self.record["id"]]["source_kind"], "evaluation")
+
+    def test_classification_rejects_unread_or_duplicate_records(self):
+        section = self.server.execute("extraction_packet", {})["sections"][0]
+        item = self.extraction(section, 0)
+        for kinds in [
+            [{"record_id": "docs:unread", "kind": "evaluation"}],
+            [{"record_id": self.record["id"], "kind": "evaluation"}] * 2,
+        ]:
+            self.assertFalse(self.server.execute("save_extraction", {"sections": [item], "source_kinds": kinds})["valid"])
+
+    def test_evaluation_author_credit_and_classification_correction(self):
+        from ownership_review import compile_review
+        sections = self.extract_all()
+        before = evidence_version([self.record], self.server.events)
+        current = retention.state([self.record], self.server.events, spans)
+        result = self.server.execute("save_extraction", {"sections": [self.extraction(sections[0], 0)],
+            "source_kinds": [{"record_id": self.record["id"], "kind": "evaluation"}]})
+        self.assertTrue(result["valid"], result)
+        self.assertNotEqual(before, evidence_version([self.record], self.server.events))
+        self.assertNotEqual(current["version"], retention.state([self.record], self.server.events, spans)["version"])
+        self.assertEqual(saved_notes(self.server.events)[self.record["id"]]["source_kind"], "evaluation")
+        claim = {"id": "c1", "category": "contribution",
+            "statement": "The minutes report a change to the return workflow.",
+            "limits": "The author records the action; this does not establish sole measurement work.",
+            "evidence": [{"record_id": self.record["id"], "span_id": span["span_id"]} for span in spans(self.record)],
+            "roles": [{"record_id": self.record["id"], "attribution_index": 0}]}
+        raw = {"claims": [claim], "unknowns": [], "rejected_conclusions": [],
+            "stop_receipt_id": "pending", "research_choices": [], "story_order": ["c1"], "coverage_notes": []}
+        review, checked = compile_review(raw, [self.record], self.server.events, draft=True)
+        self.assertTrue(checked["valid"], checked["errors"])
+        self.assertEqual(review["source_credits"]["c1"][0]["author"], self.record["author"])
+        self.assertEqual(review["source_credits"]["c1"][0]["basis"],
+                         "source author metadata; not proof of sole measurement work")
+        self.assertIn("Evaluation source was written by " + self.record["author"], review["account"])
 
     def test_legacy_evidence_digest_remains_byte_for_byte_compatible(self):
         from ownership_review import digest

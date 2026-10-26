@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import sys
 
-from research_sheet import (EXPERIMENTS, PLAN_SCHEMA, compile_sheet, digest,
+from research_sheet import (EXPERIMENTS, CURRENT_PLAN_SCHEMA, compile_sheet, digest, plan_schema,
                             draft_hash, evidence_version, load_session)
 import autonomous_server as base
 from mcp_server import check
@@ -17,8 +17,9 @@ import narrative_retention as retention
 TOOLS = copy.deepcopy(RESEARCH_TOOLS) + [base.tool(
     'sheet_plan',
     'Validate and save the complete checked review plus its sheet layout. Field values select claim IDs; no second prose rewrite. '
-    'Every claim must appear in an account. Use questions only for missing facts or personal meaning. Free local operation.',
-    {'review': DRAFT_SCHEMA, 'plan': PLAN_SCHEMA}, ['review', 'plan'])]
+    'Every claim must appear in an account. Give each detail claim one field; limits select supported claim IDs. '
+    'Use questions only for missing facts or personal meaning. Audit notes stay in the journal. Free local operation.',
+    {'review': DRAFT_SCHEMA, 'plan': CURRENT_PLAN_SCHEMA}, ['review', 'plan'])]
 TOOLS[-1]['annotations']['readOnlyHint'] = False
 
 TOOLS += [base.tool('extraction_packet',
@@ -28,6 +29,8 @@ TOOLS += [base.tool('extraction_packet',
     base.tool('save_extraction',
     'Save concrete events or specific context for each cached section. Preserve actor, action, date, state, significance '
     'and exact evidence. The host derives durable record notes only after all its sections are reviewed. '
+    'Classify each original once in source_kinds as work, discussion or evaluation; reuse that classification across batches. '
+    'Empty originals need a context disposition with no spans or events. '
     'Header copies, repeated generic findings and participation placeholders are rejected.',
     retention.EXTRACTION_SCHEMA['properties'], retention.EXTRACTION_SCHEMA['required']),
     base.tool('episode_packet',
@@ -50,6 +53,7 @@ TOOLS += [base.tool('research_probe',
     depth.PROBE_PROPERTIES | {'cursor': {'type': 'string'}}, list(depth.PROBE_PROPERTIES)),
     base.tool('depth_review',
     'After sheet_plan, review all ten lenses per account, every material actor/action and the proposed through-line. '
+    'Compare each prose clause with the saved actor, action and state, including collective actors. '
     'Reference real probe sequence numbers. Preserve gaps. This validates process and references, not semantic truth. '
     'New evidence, notes or changed prose/layout invalidate the review.',
     depth.REVIEW_SCHEMA['properties'], depth.REVIEW_SCHEMA['required'])]
@@ -63,9 +67,16 @@ class SheetSource(OwnershipSource):
     local_tools = OwnershipSource.local_tools | {'depth_review', 'extraction_packet', 'save_extraction',
                                                 'episode_packet', 'episode_inventory'}
 
-    def __init__(self, corpus, scope, log, *, retention_required=True):
+    def __init__(self, corpus, scope, log, *, retention_required=True, export_protocol=None):
         super().__init__(corpus, scope, log)
         self.retention_required = retention_required
+        self.configure_export(export_protocol)
+
+    def configure_export(self, protocol):
+        self.export_protocol = protocol
+        self.tool_definitions = copy.deepcopy(TOOLS)
+        definition = next(t for t in self.tool_definitions if t['name'] == 'sheet_plan')
+        definition['inputSchema']['properties']['plan'] = copy.deepcopy(plan_schema(protocol))
 
     def accessible(self, record):
         return (super().accessible(record) and record['source'] in self.scope['sources']
@@ -124,14 +135,19 @@ class SheetSource(OwnershipSource):
                 by_id = {r['id']: r for r in records}
                 return {'sections': [current['known'][sid] | {'source': {
                     k: by_id[current['known'][sid]['record_id']][k] for k in ('id', 'date', 'author', 'title')},
-                    'saved': current['saved'].get(sid)} for sid in ids],
+                    'saved': current['saved'].get(sid),
+                    'source_kind': current['source_kinds'].get(current['known'][sid]['record_id']),
+                    'empty_original': not current['known'][sid]['citation_spans']} for sid in ids],
                     'remaining_sections': len(current['pending']), 'cache_only': True}
             if name == 'save_extraction':
-                result, saved = retention.validate_extraction(args['sections'], records, self.events, spans)
+                result, saved = retention.validate_extraction(args['sections'], records, self.events, spans, args.get('source_kinds', []))
                 if result['valid']:
                     affected = {current['known'][s['section_id']]['record_id'] for s in args['sections']}
+                    classifications = {item['record_id']: item['kind'] for item in args.get('source_kinds', [])}
+                    affected.update(classifications)
                     result['notes'] = retention.notes_from_extractions(
-                        [r for r in records if r['id'] in affected], current['known'], saved)
+                        [r for r in records if r['id'] in affected], current['known'], saved,
+                        current['source_kinds'] | classifications)
                 return result
             if name == 'episode_packet':
                 items = list(current['events'].values())
@@ -164,6 +180,7 @@ class SheetSource(OwnershipSource):
         result['unread_references'] = [r for r in result['unread_references'] if r not in outside]
         plans = [e for e in self.events if e['tool'] == 'sheet_plan' and e['result'].get('valid')]
         version = evidence_version(list(self.full_reads().values()), self.events)
+        result['writing']['export_protocol'] = self.export_protocol or 'legacy'
         result['writing']['sheet_plan_current'] = bool(plans and plans[-1]['result']['evidence_version'] == version)
         review = depth.current_review(self.events, version)
         result['depth'] = {'protocol': depth.PROTOCOL, 'review_current': bool(review),
@@ -219,7 +236,8 @@ class SheetSource(OwnershipSource):
                     'instruction': 'Use extraction_packet and save_extraction; durable notes are derived from all sections.'}
         if name != 'sheet_plan':
             return super().execute(name, args)
-        check(args, PLAN_TOOL['inputSchema'])
+        definition = next(t for t in self.tool_definitions if t['name'] == 'sheet_plan')
+        check(args, definition['inputSchema'])
         if len(self.events) >= self.request_limit:
             return {'error': 'request_limit_exhausted'}
         records = list(self.full_reads().values())
@@ -254,13 +272,14 @@ class SheetSource(OwnershipSource):
 
 class LocalSheetSource(SheetSource):
     """Selected local captures; never relabel personal records as synthetic."""
-    def __init__(self, corpus, scope, log, policy, *, retention_required=True):
+    def __init__(self, corpus, scope, log, policy, *, retention_required=True, export_protocol=None):
         self.corpus, self.scope, self.path, self.policy = corpus, scope, log, policy
         self.policy_path = log.parent / 'policy.json'
         self.policy_digest = digest(policy)
         self.records = {r['id']: r for r in corpus['records']}
         self.events = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()] if log.exists() else []
         self.retention_required = retention_required
+        self.configure_export(export_protocol)
 
     def execute(self, name, args):
         # Revocation also blocks an already-running server and cache recovery.
@@ -313,12 +332,13 @@ def serve(workspace):
     log = (workspace / 'calls.jsonl').resolve()
     session = read_json(workspace / 'session.json')
     required = session.get('retention_protocol') == retention.PROTOCOL
-    server = LocalSheetSource(corpus, scope, log, policy, retention_required=required) if local else SheetSource(corpus, scope, log, retention_required=required)
+    options = {'retention_required': required, 'export_protocol': session.get('export_protocol')}
+    server = LocalSheetSource(corpus, scope, log, policy, **options) if local else SheetSource(corpus, scope, log, **options)
     schemas = {(EXPERIMENTS / ('model/' + name + '.schema.json')).resolve()
                for name in ['ownership', 'retention', 'depth', 'completion', 'attribution', 'review']}
     if local:
         schemas.add((workspace / 'policy.json').resolve())
-    base.TOOLS = copy.deepcopy(TOOLS)
+    base.TOOLS = copy.deepcopy(server.tool_definitions)
     if local:
         for definition in base.TOOLS:
             definition['description'] = definition['description'].replace('synthetic', 'selected local')

@@ -23,10 +23,12 @@ def array(items, minimum=0, maximum=1000):
 
 EVENT = obj({'actor': TEXT, 'action': TEXT, 'state': {'type': 'string', 'enum': STATES},
              'when': TEXT, 'significance': TEXT, 'span_ids': array(TEXT, 1)})
-EXTRACTION = obj({'section_id': TEXT, 'finding': TEXT, 'span_ids': array(TEXT, 1),
+EXTRACTION = obj({'section_id': TEXT, 'finding': TEXT, 'span_ids': array(TEXT),
                   'disposition': {'type': 'string', 'enum': ['events', 'context', 'irrelevant']},
                   'events': array(EVENT), 'reason': TEXT})
-EXTRACTION_SCHEMA = obj({'sections': array(EXTRACTION, 1, 8)})
+SOURCE_KIND = obj({'record_id': TEXT, 'kind': {'type': 'string', 'enum': ['work', 'discussion', 'evaluation']}})
+EXTRACTION_SCHEMA = obj({'sections': array(EXTRACTION, 1, 8), 'source_kinds': array(SOURCE_KIND, 0, 8)})
+EXTRACTION_SCHEMA['required'] = ['sections']
 INVENTORY_SCHEMA = obj({
     'episodes': array(obj({'id': TEXT, 'title': TEXT, 'event_ids': array(TEXT, 1),
         'why_interesting': TEXT, 'disposition': {'type': 'string', 'enum': ['selected', 'reserve']},
@@ -69,6 +71,8 @@ def sections(record, span_function):
         size += len(span['quote'])
     if group:
         groups.append(group)
+    if not groups:
+        groups = [[]]  # An empty original still needs an honest, non-evidential disposition.
     return [{'section_id': record['id'] + '#' + digest(group)[:16], 'record_id': record['id'],
              'ordinal': i + 1, 'total': len(groups), 'citation_spans': group}
             for i, group in enumerate(groups)]
@@ -88,6 +92,15 @@ def saved_extractions(events, known):
     return saved
 
 
+def source_kinds(events):
+    kinds = {}
+    for event in events:
+        if event['tool'] == 'save_extraction' and event['result'].get('valid'):
+            for item in event['arguments'].get('source_kinds', []):
+                kinds[item['record_id']] = item['kind']
+    return kinds
+
+
 def state(records, events, span_function):
     known = catalog(records, span_function)
     saved = saved_extractions(events, known)
@@ -97,14 +110,28 @@ def state(records, events, span_function):
             eid = sid + ':' + str(i)
             event_map[eid] = event | {'event_id': eid, 'record_id': known[sid]['record_id'],
                                      'section_id': sid}
-    return {'known': known, 'saved': saved, 'events': event_map,
-            'pending': [sid for sid in known if sid not in saved], 'version': digest([known, saved])}
+    kinds = source_kinds(events)
+    components = [known, saved]
+    if kinds:
+        components.append(kinds)
+    return {'known': known, 'saved': saved, 'events': event_map, 'source_kinds': kinds,
+            'pending': [sid for sid in known if sid not in saved], 'version': digest(components)}
 
 
-def validate_extraction(batch, records, events, span_function):
+def validate_extraction(batch, records, events, span_function, classifications=()):
     current = state(records, events, span_function)
     known, saved = current['known'], dict(current['saved'])
     errors, seen = [], set()
+    kinds = dict(current['source_kinds'])
+    record_ids = {record['id'] for record in records}
+    classified = set()
+    for item in classifications:
+        rid = item['record_id']
+        if rid not in record_ids or rid in classified:
+            errors.append('Classify each fully read record ID at most once per submission.')
+        else:
+            kinds[rid] = item['kind']
+        classified.add(rid)
     for section in batch:
         sid = section['section_id']
         if sid not in known or sid in seen:
@@ -112,8 +139,12 @@ def validate_extraction(batch, records, events, span_function):
             continue
         seen.add(sid)
         allowed = {s['span_id'] for s in known[sid]['citation_spans']}
-        if not section['span_ids'] or not set(section['span_ids']) <= allowed:
+        if known[sid]['record_id'] not in kinds:
+            errors.append(sid + ': classify this original as work, discussion or evaluation in source_kinds.')
+        if (allowed and not section['span_ids']) or not set(section['span_ids']) <= allowed:
             errors.append(sid + ': finding evidence must come from this exact section.')
+        if not allowed and (section['events'] or section['disposition'] == 'events'):
+            errors.append(sid + ': an empty original cannot support an event; record context or irrelevance without invented spans.')
         if not specific(section['finding']):
             errors.append(sid + ': replace the header or boilerplate with a concrete finding.')
         if (section['disposition'] == 'events') != bool(section['events']):
@@ -134,7 +165,7 @@ def validate_extraction(batch, records, events, span_function):
     return {'valid': not errors, 'errors': errors, 'semantic_checked': False}, saved
 
 
-def notes_from_extractions(records, known, saved):
+def notes_from_extractions(records, known, saved, kinds):
     notes = []
     for record in records:
         ids = [sid for sid, s in known.items() if s['record_id'] == record['id']]
@@ -146,7 +177,7 @@ def notes_from_extractions(records, known, saved):
         notes.append({'record_id': record['id'], 'relevance': 'material' if attributions else 'contextual',
             'finding': '\n'.join(s['finding'] for s in parts),
             'span_ids': list(dict.fromkeys(span for s in parts for span in s['span_ids'])),
-            'source_kind': 'work' if record['source'] == 'repo' else 'discussion',
+            'source_kind': kinds[record['id']],
             'attributions': attributions,
             'attribution_limits': 'Extracted from every source section; action states are source reports, not independent verification.'})
     return notes

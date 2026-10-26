@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 import personal
-from research_sheet import ROOT, digest, outside_project, read_json, write_json, RENDERER
+from research_sheet import ROOT, digest, outside_project, read_json, write_json, RENDERER, EXPORT_PROTOCOL
 import depth_protocol as depth
 import narrative_retention as retention
 
@@ -69,7 +69,7 @@ def initialize(workspace, policy, policy_base=None):
     write_json(workspace / 'corpus.json', corpus)
     write_json(workspace / 'session.json', {'schema': 'career-local/v1', 'policy_hash': digest(policy),
                'corpus_hash': digest(corpus), 'depth_protocol': depth.PROTOCOL,
-               'retention_protocol': retention.PROTOCOL})
+               'retention_protocol': retention.PROTOCOL, 'export_protocol': EXPORT_PROTOCOL})
     (workspace / '.gitignore').write_text('*\n', encoding='utf-8')
     packet = {'schema': 'career-context/v1', 'updatedAt': corpus['snapshot'], 'reviewStatus': 'draft',
               'person': {'name': policy['subject'], 'overview': '', 'background': []}, 'accounts': [], 'sources': []}

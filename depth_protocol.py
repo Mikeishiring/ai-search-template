@@ -69,6 +69,8 @@ def validate_review(audit, events, records, notes, scope, version, span_function
     accounts = {a['id']: a for a in plan['accounts']}
     claims = {c['id']: c for c in review['claims']}
     fields = ('summary', 'context', 'aim', 'contribution', 'decisions', 'sharedCredit', 'outcome')
+    if plan.get('schema') == 'career-sheet/v2':
+        fields += ('limits',)
     catalog = {(r['id'], s['span_id']) for r in records for s in span_function(r)}
     probes = {e['sequence']: e for e in events if e['tool'] == 'research_probe'
               and not e['result'].get('error')}
@@ -120,6 +122,9 @@ def validate_review(audit, events, records, notes, scope, version, span_function
                 errors.append(label + ': a gap needs a real attempted search, not an untested assumption.')
             if lens['status'] != 'supported' and not lens['next_action'].strip():
                 errors.append(label + ': record the remaining question or boundary.')
+            if plan.get('schema') == 'career-sheet/v2' and lens['status'] == 'needs_person':
+                if lens['next_action'] not in accounts[aid]['questions']:
+                    errors.append(label + ': use the same canonical person-facing question in the account plan.')
             if lens['status'] == 'pending':
                 pending.append({'account_id': aid, 'lens': lens['lens'], 'next_action': lens['next_action']})
         if covered != allowed_claims:
