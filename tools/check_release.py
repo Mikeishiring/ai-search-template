@@ -31,7 +31,7 @@ for name in paths:
         if corpus.get('synthetic') is not True:errors.append((name,'not labeled synthetic'))
     if name == 'examples/career-context.json' and json.loads(text).get('synthetic') is not True:
         errors.append((name,'public career example must be synthetic'))
-    if name in {'CAREER-CONTEXT.html', 'RESEARCH-STORY.html'}:
+    if name in {'CAREER-CONTEXT.html', 'RESEARCH-STORY.html', 'CAREER-NOTEBOOK.html'}:
         payload=re.search(r'<script id="career-context-data" type="application/json">(.*?)</script>',text,re.S)
         if not payload or json.loads(payload[1]).get('synthetic') is not True:
             errors.append((name,'public sheet must be synthetic'))

@@ -1,0 +1,64 @@
+{
+  "schema": "career-quarters/v1",
+  "synthetic": true,
+  "quarters": [
+    {
+      "id": "2030-Q1",
+      "period": "2030 Q1",
+      "title": "Making the next owner clear",
+      "focus": "Make ownership visible without asking volunteers to learn another application.",
+      "actions": [
+        "I traced the existing routes, drafted a shared request list and facilitated the first reviews. I revised the list after coordinators found its status labels unclear."
+      ],
+      "tension": "Requests crossed between the front desk, events and facilities; the next owner was often implicit.",
+      "style": "Used the team's existing spreadsheet so the trial did not depend on a new tool. Separated the next owner from the person who first received the request. Removed a priority field after the team interpreted its labels differently.",
+      "questions": [
+        "Which parts of the review remained in use later in the year?",
+        "This fictional quarter groups the account labelled January\u2013April 2030; it does not establish exact dates for each action."
+      ],
+      "sourceRefs": [
+        "handoff-account"
+      ],
+      "accountId": "request-handoffs"
+    },
+    {
+      "id": "2030-Q2",
+      "period": "2030 Q2",
+      "title": "A guide tested at the front desk",
+      "focus": "Put the routine steps in one place while keeping escalation routes visible.",
+      "actions": [
+        "I grouped the questions, drafted the guide and observed the trial. I rewrote the room-booking instructions when volunteers could not tell which exceptions needed a coordinator."
+      ],
+      "tension": "Existing notes were spread across documents, and the shared desk computer was not always available.",
+      "style": "Organized the guide around tasks, rather than the team's internal structure. Kept policy exceptions beside the relevant steps. Used a printable format because the shared desk computer was not always available.",
+      "questions": [
+        "This fictional quarter groups the account labelled May\u2013July 2030; it does not establish exact dates for each action."
+      ],
+      "sourceRefs": [
+        "guide-account",
+        "guide-feedback"
+      ],
+      "accountId": "volunteer-guide"
+    },
+    {
+      "id": "2030-Q3",
+      "period": "2030 Q3",
+      "title": "An equipment log still in progress",
+      "focus": "Test whether a simple checkout history would answer the team's everyday questions.",
+      "actions": [
+        "I sketched the flow and built a local prototype. I have not connected it to real records or arranged a user trial."
+      ],
+      "tension": "The library lacked a shared equipment record; a user trial and maintenance ownership were still undecided.",
+      "style": "Used fictional test items during prototyping. Kept the first version limited to checkout and return. Left reminders out until the team decides who would own follow-up.",
+      "questions": [
+        "Who would maintain the log?",
+        "Would a shared paper log solve the problem more simply?",
+        "This fictional quarter groups the account labelled August 2030\u2013ongoing; it does not establish exact dates for each action."
+      ],
+      "sourceRefs": [
+        "prototype-note"
+      ],
+      "accountId": "equipment-prototype"
+    }
+  ]
+}
