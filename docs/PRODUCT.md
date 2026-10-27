@@ -1,6 +1,6 @@
 # Product contract
 
-Career Context AI helps a person preserve the context behind their work and carry it into a new agent conversation. The reusable product is a skill, a stable context format and a deterministic HTML renderer. The full repository also maintains optional research tools and their test evidence.
+Career Context AI helps a person preserve the context behind their work and carry it into a new agent conversation. The reusable product is a skill, a stable context format, a local SQLite archive and deterministic HTML renderers for context, resumes and interview preparation. The full repository also maintains optional research tools and their test evidence.
 
 ## The experience
 
@@ -32,6 +32,9 @@ Structural and process checks cannot certify semantic completeness. Keep that li
 - Rendered checks cover mobile and desktop layout, keyboard access, copy fallback, downloads, reduced motion and offline reading.
 - Interview preparation opens as a context-derived draft, with supported initial answers and only consequential gaps for the person. Blank worksheets cannot satisfy this path.
 - Supported-platform tests and release checks pass on the revision being released.
+- The extracted skill creates, searches, updates and recovers a local SQLite archive without repository imports or network access. Revisions retain selected evidence and images without duplicating database files.
+- Fresh role trials cover hiring, engineering, operations, growth, marketing and business development. Source selection, useful artifacts, vocabulary and emphasis follow the person's work; unavailable sources remain explicit gaps.
+- Resume drafts use current context fingerprints and selected account references, preserve supplied reference preferences, and offer usable print and plain-text output. Structured validation is not semantic verification of resume claims.
 
 ## Boundaries
 

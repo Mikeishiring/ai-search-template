@@ -46,6 +46,17 @@ class CareerContextTests(unittest.TestCase):
         self.assertIn('&lt;/script&gt;', markup)
         self.assertEqual(RENDERER.load_packet(sheet), self.packet)
 
+    def test_presentation_links_cannot_escape_or_execute(self):
+        self.packet['presentation'] = {'headline': '<img src=x onerror=alert(1)>', 'files': [{'label': 'Resume', 'path': 'RESUME.html'}]}
+        sheet = self.render(self.packet)
+        self.assertNotIn('<img src=x onerror=alert(1)>', sheet.read_text(encoding='utf-8'))
+        self.assertEqual(RENDERER.load_packet(sheet), self.packet)
+        for unsafe in ['../private.txt', 'https://example.invalid/a.html', 'javascript:alert(1)', '/file.txt', 'x%2fsecret.txt', 'x.html?read=private']:
+            with self.subTest(path=unsafe):
+                self.packet['presentation']['files'][0]['path'] = unsafe
+                with self.assertRaisesRegex(ValueError, 'sibling filenames'):
+                    self.render(self.packet)
+
     def test_missing_source_is_rejected(self):
         self.packet['accounts'][0]['sourceRefs'] = ['missing']
         with self.assertRaisesRegex(ValueError, 'references to included sources'):

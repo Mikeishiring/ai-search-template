@@ -30,6 +30,8 @@ With Playwright available, `node tests/check_sheet.cjs` exercises that path and 
 
 For interview changes, render `examples/career-context.json` with `examples/interview-preparation.json` using the bundled interview renderer. Set `CAREER_INTERVIEW_HTML` to the resulting HTML and run `node tests/check_interview.cjs`. It uses the same QA directory and browser options and checks all six populated sections, source fidelity, navigation, copy fallback, independent reopening, no-JavaScript reading, print and mobile layout.
 
+For resume changes, set `CAREER_RESUME_HTML` to a fictional rendered resume and run `node tests/check_resume.cjs` with `CAREER_CONTEXT_QA_DIR`. It checks text fidelity, copy fallback, downloads, source navigation, print labels and no-JavaScript access at four widths. The adaptive Python tests extract the complete skill and run database, search, resume and recovery journeys across six disciplines. These deterministic cases test contracts; use fresh agent trials from raw notes to assess research and writing choices.
+
 ## Publication review
 
 `tools/check_release.py` checks file patterns, relative links and exact manifest hashes. It is additional screening, not proof that text is anonymous. Review the diff and all embedded data before refreshing the manifest:
@@ -56,7 +58,7 @@ For a pull request, describe the user-visible change, the checks run and any rem
 
 ## Standalone distribution
 
-The shareable ZIP contains the skill instructions, references, sheet/interview/notebook renderers and HTML templates, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
+The shareable ZIP contains exactly the resources named in `tools/build_skill.py`: skill instructions, references, sheet, interview, notebook and resume renderers and templates, the SQLite archive tool, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
 
 Do not add account configuration, source exports, test transcripts or a runtime dependency to this bundle. Keep optional local research tooling in the full repository. Changes to public input/output behavior must preserve the format and selected personal context.
 
