@@ -15,15 +15,21 @@ MEMBERS = (
     "agents/openai.yaml",
     "assets/sheet.html",
     "assets/interview.html",
+    "assets/resume.html",
     "assets/notebook.html",
+    "references/adaptation-and-discovery.md",
     "references/deepening-and-story.md",
     "references/format.md",
     "references/interview-prep.md",
+    "references/local-archive.md",
+    "references/resume.md",
     "references/notebook.md",
     "references/source-research.md",
     "scripts/render_context.py",
     "scripts/render_interview.py",
+    "scripts/render_resume.py",
     "scripts/render_notebook.py",
+    "scripts/archive_context.py",
 )
 PREFIX = "career-context-sheet"
 
@@ -76,7 +82,10 @@ def build(output, force=False):
             os.replace(temporary, destination)
         else:
             # A concurrent build cannot replace an output created after our check.
-            os.link(temporary, destination)
+            if os.name == 'nt':
+                os.rename(temporary, destination)
+            else:
+                os.link(temporary, destination)
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)

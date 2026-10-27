@@ -146,11 +146,11 @@ class SkillBundleTests(unittest.TestCase):
         spec.loader.exec_module(renderer)
         source = self.source()
         output = self.directory / "career.html"
-        original_link = renderer.os.link
+        original_link = renderer.publish_new
         def competing_writer(temporary, destination):
             output.write_text("Concurrent work", encoding="utf-8")
             return original_link(temporary, destination)
-        with patch.object(renderer.os, "link", side_effect=competing_writer):
+        with patch.object(renderer, "publish_new", side_effect=competing_writer):
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
                 renderer.main([str(source), str(output)])
         self.assertEqual(output.read_text(), "Concurrent work")

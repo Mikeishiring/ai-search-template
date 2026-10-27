@@ -44,7 +44,7 @@ for name in paths:
 if errors:
     print(json.dumps({'blocked':errors},indent=2));raise SystemExit(1)
 manifest={'synthetic_only':True,'method':'Reviewed code, docs and synthetic examples. File pattern scan is additional screening, not proof of anonymization or a universal secret detector. Personal workspaces are excluded.','files':files}
-if args.write_manifest:(ROOT/'PUBLICATION-MANIFEST.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
+if args.write_manifest:(ROOT/'PUBLICATION-MANIFEST.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8',newline='\n')
 else:
     old=json.loads((ROOT/'PUBLICATION-MANIFEST.json').read_text(encoding='utf-8'))
     assert {x['path']:x['sha256'] for x in old['files']}=={x['path']:x['sha256'] for x in files},'Manifest is stale; review changes before --write-manifest.'

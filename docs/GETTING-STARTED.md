@@ -34,7 +34,7 @@ The [longer starting prompt](../prompts/START-HERE.md) is available for broader 
 
 ## Read, reuse and update
 
-Open the HTML in a browser. **View agent text** shows exactly what **Copy for an agent** copies. If clipboard access fails, the text is selected for manual copying. **Save HTML** downloads the portable file; **Download structured context** exports JSON while selected image bytes remain in the HTML.
+Open the HTML in a browser. **Preview text** shows exactly what **Copy for an agent** copies. If clipboard access fails, the text is selected for manual copying. **Save full HTML** downloads the portable file; **Download full JSON** exports JSON while selected image bytes remain in the HTML.
 
 Attach the HTML to another agent with a separate request, such as: "Use this context to help me prepare for an interview." The file includes selected source excerpts as well as the visible account; review it before sharing.
 
@@ -65,8 +65,25 @@ python scripts/render_context.py ../my-context/context.json ../my-context/career
 
 Resolve that script from the extracted skill folder. Existing HTML is also valid input. Both entrypoints preserve an existing output unless you add `--force`; malformed input leaves the old file intact.
 
+## Keep a local database
+
+The agent can create the database and HTML together from the context it has prepared:
+
+```sh
+python skills/career-context-sheet/scripts/archive_context.py build ../my-input/context.json ../my-context
+python skills/career-context-sheet/scripts/archive_context.py search ../my-context/career.sqlite "project"
+```
+
+Open `../my-context/CAREER-CONTEXT.html`. Keep `career.sqlite` private; it contains selected sources, images and historical revisions. Use `build --update` to retain corrections in the same database. The [archive guide](../skills/career-context-sheet/references/local-archive.md) explains recovery and retention.
+
+## Create a resume
+
+Give the agent your context plus any target and reference resume. Ask it to follow the [resume guide](../skills/career-context-sheet/references/resume.md) and produce the populated draft. It adapts section order and wording to your experience, preserves evidence links, and does not invent missing titles or dates. The HTML includes a private evidence review, print/PDF layout and plain-text download. Review the printed/text version before using it; those exports omit the underlying evidence.
+
 ## Larger source collections
 
 The full repository also provides [local context setup](LOCAL-CONTEXT.md) and an optional research MCP server for selected exports. It adds saved source boundaries, research state and a depth review. These components are not needed to create or read a sheet and are not included in the standalone bundle.
 
 [Privacy and storage](PRIVACY.md) explains what is retained and what your chosen model receives.
+
+Copy all accounts or select one; private source excerpts are excluded from copied text unless selected. Attribution and limits remain. Full HTML and JSON always include all selected sources. Optional links lead to separately delivered local files.
