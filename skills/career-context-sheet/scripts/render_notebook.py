@@ -164,6 +164,27 @@ def draft_from_packet(packet, images, companion):
     return draft
 
 
+def validate_introductions(options, packet=None):
+    if not isinstance(options, list) or not 1 <= len(options) <= 6:
+        raise ValueError("Introductions must be a list of one to six options")
+    ids = set()
+    sources = {s["id"] for s in packet["sources"]} if packet else None
+    for option in options:
+        context_renderer.keys(option, ["id", "title", "text", "sourceRefs"], "Introduction")
+        for field in ("id", "title", "text"):
+            context_renderer.check_text(option.get(field), f"Introduction {field}")
+            if not option[field].strip():
+                raise ValueError(f"Introduction {field} must not be empty")
+        if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}", option["id"]) or option["id"] in ids:
+            raise ValueError("Introduction IDs must be unique and safe")
+        ids.add(option["id"])
+        refs = option.get("sourceRefs", [])
+        if not isinstance(refs, list) or any(not isinstance(ref, str) for ref in refs) or len(set(refs)) != len(refs):
+            raise ValueError("Introduction sourceRefs must be a list of unique source IDs")
+        if sources is not None and set(refs) - sources:
+            raise ValueError("Introduction sourceRefs must resolve to included sources")
+
+
 def validate_overlay(draft):
     """Retain edits as a distinct layer, with the runtime's basic data contract."""
     if not isinstance(draft, dict) or draft.get("schema") != "career-notebook/v1":
@@ -175,6 +196,8 @@ def validate_overlay(draft):
         raise ValueError("Imported notebook needs a numeric update time")
     for field in ("name", "heading", "intro", "focus"):
         context_renderer.check_text(draft["profile"].get(field, ""), f"Notebook profile {field}")
+    if "introOptions" in draft["profile"]:
+        validate_introductions(draft["profile"]["introOptions"])
     ids = set()
     for account in draft["accounts"]:
         if not isinstance(account, dict):
@@ -239,6 +262,11 @@ def fallback_html(packet, images, companion, draft):
     if any(draft.get(key) != baseline.get(key) for key in ("profile", "accounts", "directions", "quarters")):
         parts.append("<section><h2>Notebook working draft</h2><p>These saved notebook edits are separate from the canonical source context above.</p>")
         parts.append(paragraph(draft["profile"].get("intro", "")))
+        if draft["profile"].get("introOptions"):
+            parts.append("<section><h3>Alternative introductions</h3>")
+            for option in draft["profile"]["introOptions"]:
+                parts.append("<article><h4>" + esc(option["title"]) + "</h4>" + paragraph(option["text"]) + "</article>")
+            parts.append("</section>")
         for account in draft["accounts"]:
             parts.append("<article><h3>" + esc(account.get("title", "Untitled account")) + "</h3>")
             for key in ("period", "problem", "responsibility", "choice", "alternative", "cost", "reason", "action", "after", "shared", "limit", "context", "openQuestions", "privateNotes"):
@@ -261,7 +289,7 @@ def json_script(name, data):
     return '<script id="' + name + '" type="application/json">' + value + "</script>"
 
 
-def render(source, destination, *, quarters=None, overwrite=True):
+def render(source, destination, *, quarters=None, introductions=None, overwrite=True):
     source, destination = Path(source), Path(destination)
     packet, images = prepared_packet(source)
     imported = imported_payloads(source)
@@ -276,6 +304,16 @@ def render(source, destination, *, quarters=None, overwrite=True):
         draft = copy.deepcopy(draft)
         if quarters:
             draft["quarters"] = draft_from_packet(packet, images, companion).get("quarters", [])
+    if introductions:
+        options = json.loads(Path(introductions).read_text(encoding="utf-8"))
+        validate_introductions(options, packet)
+        if options != draft["profile"].get("introOptions"):
+            draft["profile"]["introOptions"] = options
+            # A browser draft for the previous comparison must not hide new options.
+            identity = json.dumps([draft["id"], options], sort_keys=True, ensure_ascii=True).encode()
+            draft["id"] = "comparison-" + hashlib.sha256(identity).hexdigest()[:24]
+    if draft["profile"].get("introOptions"):
+        validate_introductions(draft["profile"]["introOptions"], packet)
     draft["synthetic"] = bool(packet.get("synthetic"))
     template = (SKILL / "assets/notebook.html").read_text(encoding="utf-8-sig")
     for name in ("career-context-data", "career-draft-data", "career-quarters-data"):
@@ -312,6 +350,7 @@ def main(argv=None):
     parser.add_argument("input", type=Path, help="Career-context JSON or an existing HTML notebook")
     parser.add_argument("output", type=Path, help="HTML destination")
     parser.add_argument("--quarters", type=Path, help="Explicit career-quarters/v1 companion")
+    parser.add_argument("--introductions", type=Path, help="Agent-authored introduction options as a JSON list")
     parser.add_argument("--force", action="store_true", help="Replace an existing output")
     args = parser.parse_args(argv)
     try:
@@ -322,7 +361,7 @@ def main(argv=None):
             raise ValueError("Output is a symbolic link or already exists; use --force only for an existing file")
         if not destination.parent.is_dir():
             raise ValueError("Create the output folder first")
-        result = render(args.input.expanduser().resolve(), destination, quarters=args.quarters, overwrite=args.force)
+        result = render(args.input.expanduser().resolve(), destination, quarters=args.quarters, introductions=args.introductions, overwrite=args.force)
     except (ValueError, KeyError, TypeError, OSError) as error:
         parser.exit(2, f"Could not create the notebook: {error}\n")
     print(json.dumps(result))
