@@ -267,7 +267,7 @@ def render(source, projection_source, destination, *, overwrite=False):
         if overwrite:
             os.replace(temporary, destination)
         else:
-            os.link(temporary, destination)
+            render_context.publish_new(temporary, destination)
     finally:
         if os.path.exists(temporary):
             os.unlink(temporary)

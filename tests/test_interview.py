@@ -234,11 +234,11 @@ class InterviewTests(unittest.TestCase):
         self.assertIn("outside the installed skill", result.stderr)
 
     def test_atomic_creation_preserves_a_concurrent_writer(self):
-        original_link = interview.os.link
+        original_link = interview.render_context.publish_new
         def competing_writer(temporary, destination):
             self.output.write_text("Concurrent notes", encoding="utf-8")
             return original_link(temporary, destination)
-        with patch.object(interview.os, "link", side_effect=competing_writer):
+        with patch.object(interview.render_context, "publish_new", side_effect=competing_writer):
             with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
                 interview.main([str(self.source), str(self.draft), str(self.output)])
         self.assertEqual(self.output.read_text(), "Concurrent notes")

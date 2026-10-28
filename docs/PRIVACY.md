@@ -15,12 +15,16 @@ The personal CLI refuses workspace creation inside its own checkout. It cannot t
 | `research-demo` | Fixed fictional sources sent through authenticated Codex; no personal input path accepted |
 | `research-serve` | Selected local source text exposed to the connected AI host only when its workspace policy permits model processing |
 | Open the HTML | Browser reads embedded local text; no background requests or external assets |
+| Standalone archive build/search/export | Local SQLite and HTML only; selected evidence, images, coverage and revisions are retained without network/model calls |
+| Resume HTML | Contains selected private source evidence for review; printing and text export omit the evidence but keep the resume draft |
 | Click an original-source link | Browser contacts that service |
 | Supply evidence to an AI host | Host and potentially its model provider, under their settings |
 | Push a private repository | GitHub receives the committed files |
 | Send or publish the dashboard | Recipient gets embedded evidence, including full imported text |
 
 This CLI does not encrypt files. Local backups, browser extensions and cloud-synced folders remain part of your privacy boundary. It does not create Git repositories or inherit the template's remotes.
+
+The standalone SQLite archive keeps old revisions. Removing material from the current context does not erase those revisions. See [archive retention](../skills/career-context-sheet/references/local-archive.md) before reducing or sharing a database. Source-location labels and reference notes also travel inside the portable HTML.
 
 ## Optional remote backup
 
