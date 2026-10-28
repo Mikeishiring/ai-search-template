@@ -2,7 +2,7 @@
 
 **Keep the context behind your work.**
 
-Turn selected notes, documents and conversations into one readable file: what you did, why it mattered, who else contributed and what happened next. Give that file to an agent for a resume, interview or career question without rebuilding your story each time.
+Turn selected notes, documents, conversations, GitHub projects and social posts into one readable file: what you did, why it mattered, who else contributed and what happened next. Give that file to an agent for a resume, interview or career question without rebuilding your story each time.
 
 ![A fictional career-context sheet with readable work accounts and controls for copying context to an agent](docs/career-context-preview.png)
 
@@ -22,7 +22,7 @@ Give your agent the complete [career-context-sheet](skills/career-context-sheet/
 
 > Use this skill to build my career context. Reuse what you know about my work and goals, discover the sources available here, and guide me through any missing access. Collect relevant evidence and visual examples within scope. Adapt the organization to my work, preserve shared credit and uncertainty, and create a private local database with one HTML entry point. Use my reference material when I ask for a resume or interview preparation.
 
-Start with one useful account. The agent should pursue consequential questions and challenge its first draft; you should not need to keep asking it to go deeper.
+Start with one useful account. The agent should pursue consequential questions and challenge its first draft; you should not need to keep asking it to go deeper. For [GitHub and social profiles](skills/career-context-sheet/references/github-and-social.md), it inventories authorized locations, checks selected code and history, follows original threads and records what remains unread. Older projects and unfinished experiments can belong in the context even when the resume stays concise.
 
 [Get started with Claude, Codex or another agent](docs/GETTING-STARTED.md).
 

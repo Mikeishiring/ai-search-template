@@ -28,7 +28,7 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "530509f68ec2659dbcdd2f0082806c1822ed6960f5b2e5127c9f6c62b67323ca"
+      "sha256": "40022f00e48bf089efef5ca5ddbeb5c59c5bc3d52445ecd43ae6d111a570a670"
     },
     {
       "path": "LICENSE",
@@ -36,7 +36,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "38263fd0458b51169e699127d84ea920a6e225bef28b5920c5f1e3abcb4bf6db"
+      "sha256": "44180d1eabd222f9500c207941e719c1958956484cbf74aef9dd5a99d83309cc"
     },
     {
       "path": "RESEARCH-STORY.html",
@@ -1060,7 +1060,7 @@
     },
     {
       "path": "docs/PRODUCT.md",
-      "sha256": "82ce85ee4e14277bb252b03ae47dd0115f269dd7c83c4c11333b0e5e6604fbb4"
+      "sha256": "356f92685933e6a9ec09109679cf11fc5987beeff9b6de38bb1969fbfbfd96b8"
     },
     {
       "path": "docs/RESEARCH-STORY-RESULT.md",
@@ -1069,6 +1069,10 @@
     {
       "path": "docs/RESEARCH-TO-SHEET.md",
       "sha256": "66f029bab4abb8bf16b974c4a083f6427bea7d96a68891730b34c325224554d2"
+    },
+    {
+      "path": "docs/SOURCE-DISCOVERY-TRIAL.md",
+      "sha256": "106dd084e70d9bd83f8565f014de756d145ec0bc783e9e5bb61f5b99ba6c0518"
     },
     {
       "path": "docs/SOURCES.md",
@@ -1156,7 +1160,7 @@
     },
     {
       "path": "skills/career-context-sheet/SKILL.md",
-      "sha256": "2dd5b679ce58e9656aa421914018ea7058598caea7207150c6420455a8529f72"
+      "sha256": "ee45864d3ca27c566325e2804f3629763b0617ecadfb76274bccf98f67e20b5e"
     },
     {
       "path": "skills/career-context-sheet/agents/openai.yaml",
@@ -1180,7 +1184,7 @@
     },
     {
       "path": "skills/career-context-sheet/references/adaptation-and-discovery.md",
-      "sha256": "e73cfd4d74a9b29be7b6157ae46a4d588668e3667e6e41ae70f69eefa95ef22a"
+      "sha256": "a27efaa0bb42ed0546d49c745ca9c77f2539e21ecf08143d7e86b0aaecca8a68"
     },
     {
       "path": "skills/career-context-sheet/references/deepening-and-story.md",
@@ -1189,6 +1193,10 @@
     {
       "path": "skills/career-context-sheet/references/format.md",
       "sha256": "e8b9893f232f5a16024c04e206238218b51e39d663d6f23e7957ffdf973f2b8a"
+    },
+    {
+      "path": "skills/career-context-sheet/references/github-and-social.md",
+      "sha256": "bca116ee06fef78be933afba88129aaf485fdb42bcb344465b78dc1942505e9b"
     },
     {
       "path": "skills/career-context-sheet/references/interview-prep.md",
@@ -1212,7 +1220,7 @@
     },
     {
       "path": "skills/career-context-sheet/references/source-research.md",
-      "sha256": "22292b85016f565ffb53fbd551cac80653409e0681a314bb72ba720e1fd7ee59"
+      "sha256": "4b975734181407049fe3defb88a4c48bf54ee26595afd03911a2c7561532783a"
     },
     {
       "path": "skills/career-context-sheet/scripts/archive_context.py",
@@ -1257,6 +1265,10 @@
     {
       "path": "tests/fictional_story.py",
       "sha256": "16823af75a1a91d4cb051dd3b25032c0d9d34959e244a79f614d8b43db942436"
+    },
+    {
+      "path": "tests/fixtures/source-discovery.json",
+      "sha256": "ef3dac87fbb1a45870694e4825f1e6b30e5f012fd13917aa1a4125cd09d76d16"
     },
     {
       "path": "tests/test_adaptive_workflow.py",
@@ -1340,7 +1352,7 @@
     },
     {
       "path": "tools/build_skill.py",
-      "sha256": "893c268e889c881e514cf7f4089a8da45e36e86aa422e36db8b8e7fce1295378"
+      "sha256": "7f23fe99f0a8ebe5af66c78f48e37b575e6de9b96853f079f8da701715754050"
     },
     {
       "path": "tools/check_git_privacy.py",

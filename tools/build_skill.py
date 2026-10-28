@@ -26,6 +26,7 @@ MEMBERS = (
     "references/notebook.md",
     "references/introductions.md",
     "references/source-research.md",
+    "references/github-and-social.md",
     "scripts/render_context.py",
     "scripts/render_interview.py",
     "scripts/render_resume.py",

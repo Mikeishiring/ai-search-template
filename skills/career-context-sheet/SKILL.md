@@ -19,7 +19,7 @@ Use supplied accounts, selected local files or authorized connectors. The skill 
 
 ## Research and preserve the person
 
-Read [source research](references/source-research.md) when using records across locations. Read [deepening and story](references/deepening-and-story.md) when researching or synthesizing an account; it covers continuation, evidence review and the optional local research server.
+Read [source research](references/source-research.md) when using records across locations. For GitHub, social profiles or linked portfolios, read [GitHub and social discovery](references/github-and-social.md). Inventory authorized sources beyond projects already named in the resume, inspect selected originals and implementation, and retain meaningful older or unfinished work before choosing stories. Read [deepening and story](references/deepening-and-story.md) when researching or synthesizing an account; it covers continuation, evidence review and the optional local research server.
 
 Own the next useful investigation within scope: origins and aliases, decisions, implementation, shared contributions, setbacks, later use and contrary evidence. Keep compact private continuation state for work spanning sessions: the source boundary, retained evidence, draft, selection decisions, unresolved checks and next action. Recover that state after interruption instead of restarting or asking the person to repeat the request. Use bounded retries; retain failures and stop on revoked permissions, corrupt state or exhausted budgets. Continue while consequential accessible questions remain within the authorized run; record the reason and remaining work when stopping.
 

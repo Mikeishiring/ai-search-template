@@ -24,6 +24,8 @@ If access is missing, name the platform and one actionable route: connect its su
 
 Only scope questions that affect access or interpretation should interrupt research. For example: “I can read the supplied project notes. May I also use the selected repository, or should I keep this to the notes?” Do not repeat settled permissions. With no connector, continue from authorized supplied material and disclose the missing original.
 
+For repository and social-profile research, use [GitHub and social discovery](github-and-social.md). The existing resume is a starting account, not an exhaustive project list. Discover potentially relevant accounts across authorized sources before narrowing the story.
+
 ## Choose evidence that fits the work
 
 These are starting lenses, not mandatory sections or platform requirements:
