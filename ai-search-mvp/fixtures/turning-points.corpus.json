@@ -150,6 +150,48 @@
       "repost_of": null
     },
     {
+      "id": "docs:briefing-choice",
+      "source": "docs",
+      "date": "2034-02-22",
+      "author": "Contributor 01",
+      "container": "docs-observatory",
+      "title": "Volunteer briefing choice",
+      "body": "I kept written photo instructions as the default for returning volunteers. For first-time operators I chose a ten-minute telescope walk-through instead of another long induction deck. Contributor 03 retained the equipment sign-off; I did not replace that check with my briefing.",
+      "parent": null,
+      "links": [],
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "chat:opening-sequence",
+      "source": "chat",
+      "date": "2034-03-14",
+      "author": "Contributor 01",
+      "container": "chat-observatory",
+      "title": "Public observing night sequence",
+      "body": "For the public observing night I set this order: inspect the telescope, obtain Contributor 03's sign-off, then open the visitor queue. I asked Contributor 04 to manage entry while I briefed the volunteer operators. The night is planned for April 9, not delivered yet.",
+      "parent": null,
+      "links": [],
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
+      "id": "docs:opening-delivery",
+      "source": "docs",
+      "date": "2034-04-10",
+      "author": "Contributor 04",
+      "container": "docs-observatory",
+      "title": "Public observing night report",
+      "body": "Contributor 01 led the April 9 operator briefing and coordinated the observing night after Contributor 03 signed off the telescope. I managed the visitor queue. A cloud break ended the session early; we did not complete the second viewing slot. No attendance or satisfaction total was collected.",
+      "parent": null,
+      "links": [],
+      "attachments": [],
+      "link_only": false,
+      "repost_of": null
+    },
+    {
       "id": "private:excluded",
       "source": "private",
       "date": "2034-05-20",

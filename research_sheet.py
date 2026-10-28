@@ -288,10 +288,14 @@ def build(workspace, output, force=False):
         errors = retention.plan_errors(planned['arguments']['plan'], records, events, spans, challenged=True)
         if errors:
             raise ValueError('This session requires current event retention: ' + '; '.join(errors))
-    if session.get('turning_point_protocol') == turning_points.PROTOCOL:
-        turning = turning_points.status(events, records, spans)
+    if session.get('turning_point_protocol'):
+        turning = turning_points.status(events, records, spans, session['turning_point_protocol'])
         if not turning['current']:
             raise ValueError('Turning-point review is incomplete: ' + '; '.join(turning['errors']))
+        if session['turning_point_protocol'] == turning_points.PROTOCOL:
+            errors = turning_points.overview_errors(audit['arguments'], planned)
+            if errors:
+                raise ValueError('; '.join(errors))
     if planned['result']['evidence_version'] != evidence_version(records, events):
         raise ValueError('Sheet plan is stale for the current evidence.')
     if planned['arguments']['plan'].get('schema') != session.get('export_protocol'):

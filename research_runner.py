@@ -14,6 +14,66 @@ from research_sheet_server import TOOLS
 import depth_protocol as depth
 from research_lock import exclusive_run
 
+FINISH_GRACE_SECONDS = 5
+POLL_SECONDS = 2
+
+
+def finish_marker(workspace):
+    """Observe a complete final append without reparsing the growing journal.
+
+    This is only a reason to stop waiting for redundant model output. The
+    stopped worker's policy, journal and build gates are still revalidated.
+    """
+    path = workspace / 'calls.jsonl'
+    if not path.is_file() or path.is_symlink():
+        return None
+    with path.open('rb') as stream:
+        stream.seek(0, os.SEEK_END)
+        size = stream.tell()
+        width = min(size, 16384)
+        while width:
+            stream.seek(size - width)
+            tail = stream.read(width)
+            if not tail.endswith(b'\n'):
+                return None
+            lines = tail.rstrip(b'\r\n').rsplit(b'\n', 1)
+            if len(lines) == 2 or width == size:
+                try:
+                    event = json.loads(lines[-1])
+                except (ValueError, UnicodeDecodeError):
+                    return None
+                if (isinstance(event, dict) and event.get('tool') == 'finish_check'
+                        and isinstance(event.get('result'), dict) and event['result'].get('allowed') is True):
+                    return size, event.get('sequence'), event['result'].get('receipt_id')
+                return None
+            if width >= 8 * 1024 * 1024:
+                return None
+            width = min(size, width * 2)
+    return None
+
+
+def wait_for_worker(proc, prompt, workspace, timeout):
+    deadline, finished_since, previous = time.monotonic() + timeout, None, None
+    payload = json.dumps(prompt)
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            stop_worker(proc)
+            return {'timed_out': True, 'stopped_after_finish': False}
+        try:
+            proc.communicate(payload, timeout=min(remaining, POLL_SECONDS))
+            return {'timed_out': False, 'stopped_after_finish': False}
+        except subprocess.TimeoutExpired:
+            payload = None  # communicate has already sent stdin; never send twice.
+            marker = finish_marker(workspace)
+            now = time.monotonic()
+            if marker != previous or marker is None:
+                finished_since = now if marker is not None else None
+            previous = marker
+            if finished_since is not None and now - finished_since >= FINISH_GRACE_SECONDS:
+                stop_worker(proc)
+                return {'timed_out': False, 'stopped_after_finish': True}
+
 
 def save(path, value):
     """Atomically replace a small supervisor checkpoint, including a disk flush."""
@@ -177,11 +237,7 @@ def launch(workspace, session, scope, attempt, timeout):
             proc = subprocess.Popen(cmd + ['-'], stdin=subprocess.PIPE, stdout=out, stderr=err,
                 text=True, encoding='utf-8', start_new_session=os.name != 'nt')
             save(attempt / 'worker.json', {'pid': proc.pid, 'started_at': time.time()})
-            try:
-                proc.communicate(json.dumps(prompt), timeout=timeout)
-            except subprocess.TimeoutExpired:
-                result['timed_out'] = True
-                stop_worker(proc)
+            result.update(wait_for_worker(proc, prompt, workspace, timeout))
             result.update(exit_code=proc.returncode, runtime_complete=True)
     finally:
         try:

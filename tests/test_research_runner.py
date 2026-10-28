@@ -182,6 +182,42 @@ class RecoveryTests(unittest.TestCase):
         self.assertEqual(read_json(attempt / 'receipt.json'), result)
         self.assertFalse(runner.worker_alive(read_json(attempt / 'worker.json')['pid']))
 
+    def test_durable_finish_stops_a_worker_waiting_on_redundant_final_output(self):
+        source = fixture.source(self.workspace)
+        fixture.complete(source, fixture.prepare(source))
+        code = 'import sys,time; sys.stdin.read(); time.sleep(30)'
+        proc = subprocess.Popen([sys.executable, '-c', code], stdin=subprocess.PIPE,
+                                text=True, start_new_session=os.name != 'nt')
+        try:
+            with patch.object(runner, 'FINISH_GRACE_SECONDS', 0), patch.object(runner, 'POLL_SECONDS', 0.1):
+                receipt = runner.wait_for_worker(proc, {}, self.workspace, 10)
+            self.assertTrue(receipt['stopped_after_finish'])
+            self.assertFalse(receipt['timed_out'])
+            self.assertIsNotNone(proc.poll())
+            result = self.run_story(lambda *a: self.fail('A valid sealed journal needs no new worker'))
+            self.assertEqual(result['worker_attempts'], 0)
+        finally:
+            runner.stop_worker(proc)
+
+    def test_finish_marker_ignores_torn_and_nonfinal_receipts(self):
+        journal = self.workspace / 'calls.jsonl'
+        allowed = json.dumps({'tool': 'finish_check', 'sequence': 1,
+                              'result': {'allowed': True, 'receipt_id': 'fictional'}}).encode()
+        for raw in (allowed, allowed + b'\n{}\n', allowed + b'\n{"sequence":'):
+            journal.write_bytes(raw)
+            self.assertIsNone(runner.finish_marker(self.workspace))
+        journal.write_bytes(b'x' * 20000 + b'\n' + allowed + b'\n')
+        self.assertEqual(runner.finish_marker(self.workspace)[1:], (1, 'fictional'))
+
+    def test_observed_finish_cannot_bypass_the_real_build_gates(self):
+        def worker(workspace, *args):
+            (workspace / 'calls.jsonl').write_text(json.dumps({'tool': 'finish_check', 'sequence': 1,
+                'arguments': {}, 'result': {'allowed': True, 'receipt_id': 'fictional'}}) + '\n', encoding='utf-8')
+            return {'exit_code': 1, 'stopped_after_finish': True, 'worker_stopped': True}
+        with self.assertRaises(ValueError):
+            self.run_story(worker)
+        self.assertFalse(self.output.exists())
+
     def test_actual_mcp_recovers_saved_plan_with_offline_guard_enabled(self):
         source = fixture.source(self.workspace)
         prepared = fixture.prepare(source)
