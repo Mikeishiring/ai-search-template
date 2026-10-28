@@ -24,7 +24,7 @@
     },
     {
       "path": "CAREER-NOTEBOOK.html",
-      "sha256": "48924d0e800c1e7eeb28d8aa37755bea95944cc8a804a5b8e41dc08a2c4a855f"
+      "sha256": "2fe45890709b164ba8281c69e50c478d3a7a0cf1797fe3857216adcac8a92caa"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -1156,7 +1156,7 @@
     },
     {
       "path": "skills/career-context-sheet/SKILL.md",
-      "sha256": "df936821594b56c1b7e71372add038df9bd4ea0f86f49c089f22a91a1086c791"
+      "sha256": "2dd5b679ce58e9656aa421914018ea7058598caea7207150c6420455a8529f72"
     },
     {
       "path": "skills/career-context-sheet/agents/openai.yaml",
@@ -1168,7 +1168,7 @@
     },
     {
       "path": "skills/career-context-sheet/assets/notebook.html",
-      "sha256": "adffcd1f92f430a4b12188718c99f5244189ac4e8160502519004ba5fb1cd40f"
+      "sha256": "42ff87958716accee4b7ce281f66092a565a1dbc15b9a6cdb8f743987bd1e3b1"
     },
     {
       "path": "skills/career-context-sheet/assets/resume.html",
@@ -1192,7 +1192,11 @@
     },
     {
       "path": "skills/career-context-sheet/references/interview-prep.md",
-      "sha256": "af01b40505daafeadab746691e4b20ae1b28e61db9f8281709d9c79f6cb131ad"
+      "sha256": "af86c4a29a80810c87b2372516bc52ad926ac2367a1971fd39b082d10a93ee38"
+    },
+    {
+      "path": "skills/career-context-sheet/references/introductions.md",
+      "sha256": "c8051824dd372bf71c462954c15bb5d486313e2eac1f05259af97d1e2c42c052"
     },
     {
       "path": "skills/career-context-sheet/references/local-archive.md",
@@ -1200,7 +1204,7 @@
     },
     {
       "path": "skills/career-context-sheet/references/notebook.md",
-      "sha256": "e09f5c697c9c050405f047727dc8fd917f4883ad114db2e20e27e74c74b16699"
+      "sha256": "d59f2f79bd7a9424a2042258a93c58ef4b9c548637ecb4003acaac0431f8ae01"
     },
     {
       "path": "skills/career-context-sheet/references/resume.md",
@@ -1224,7 +1228,7 @@
     },
     {
       "path": "skills/career-context-sheet/scripts/render_notebook.py",
-      "sha256": "e965e22c73899f29d1ebafe1768fcc4c43e8546bfc06ae850d39e7689db7f10d"
+      "sha256": "efde3b612b6c3a080536c26294cf586f0b3992e688b0403d142971740d16a4d6"
     },
     {
       "path": "skills/career-context-sheet/scripts/render_resume.py",
@@ -1240,7 +1244,7 @@
     },
     {
       "path": "tests/check_notebook.cjs",
-      "sha256": "0ba3287bf377f6c5ab6f33f84c898e57f053748eecb952e08c5eac66b0e87200"
+      "sha256": "6a4595f18c778adfb2f4feb7215820c03882222b7fb3b3bac037d406a885f65c"
     },
     {
       "path": "tests/check_resume.cjs",
@@ -1304,7 +1308,7 @@
     },
     {
       "path": "tests/test_notebook.py",
-      "sha256": "29c6efa1c4f1bbdddb3e350d5c025f1013607f2c9398c3a4c464ff04a2d0dabd"
+      "sha256": "623c4406a031e514738cb1cc9410be2912a2c74c801994d7a6d6ec247aad1aaf"
     },
     {
       "path": "tests/test_personal.py",
@@ -1336,7 +1340,7 @@
     },
     {
       "path": "tools/build_skill.py",
-      "sha256": "b42c188744d00e51b491e4565f66fbfaf8c311dbecf85a14d17d3bd345c62aa6"
+      "sha256": "893c268e889c881e514cf7f4089a8da45e36e86aa422e36db8b8e7fce1295378"
     },
     {
       "path": "tools/check_git_privacy.py",

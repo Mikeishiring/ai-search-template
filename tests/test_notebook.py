@@ -72,6 +72,45 @@ class NotebookTests(unittest.TestCase):
         self.assertIn('<noscript id="career-context-fallback">', markup)
         self.assertNotIn("Notebook working draft</h2>", markup)
 
+    def test_introductions_preserve_current_text_sources_and_roundtrip(self):
+        options = [{"id": f"angle-{i}", "title": f"Angle {i}",
+                    "text": f"Fictional proposal {i}: <script>inert</script>\n\nA second paragraph.",
+                    "sourceRefs": [self.packet["sources"][0]["id"]]} for i in range(6)]
+        inputs = self.folder / "introductions.json"
+        inputs.write_text(json.dumps(options), encoding="utf-8")
+        notebook.render(self.source, self.output, introductions=inputs)
+        draft = self.payload()
+        self.assertEqual(draft["profile"]["intro"], self.packet["person"]["overview"])
+        self.assertEqual(draft["profile"]["introOptions"], options)
+        self.assertEqual(notebook.context_renderer.load_packet(self.output), self.packet)
+        fallback = self.output.read_text(encoding="utf-8").split('<noscript id="career-context-fallback">')[1].split('</noscript>')[0]
+        self.assertIn('Fictional proposal 5: &lt;script&gt;inert&lt;/script&gt;', fallback)
+        rebuilt = self.folder / "rebuilt.html"
+        notebook.render(self.output, rebuilt)
+        self.assertEqual(self.output.read_bytes(), rebuilt.read_bytes())
+        notebook.render(self.output, rebuilt, introductions=inputs)
+        self.assertEqual(self.payload(path=rebuilt)["id"], draft["id"])
+        options[0]["text"] = "A revised fictional proposal."
+        inputs.write_text(json.dumps(options), encoding="utf-8")
+        notebook.render(self.output, rebuilt, introductions=inputs)
+        self.assertNotEqual(self.payload(path=rebuilt)["id"], draft["id"])
+        self.assertEqual(self.payload(path=rebuilt)["accounts"], draft["accounts"])
+
+    def test_invalid_introductions_do_not_replace_output(self):
+        notebook.render(self.source, self.output)
+        original = self.output.read_bytes()
+        good = {"id": "craft", "title": "Craft", "text": "A fictional account."}
+        cases = [[], [good] * 7, [good, good], [{**good, "text": " "}],
+                 [{**good, "text": {}}], [{**good, "id": "<unsafe>"}],
+                 [{**good, "sourceRefs": ["missing"]}], [{**good, "sourceRefs": [["nested"]]}]]
+        inputs = self.folder / "invalid-introductions.json"
+        for options in cases:
+            with self.subTest(options=options):
+                inputs.write_text(json.dumps(options), encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    notebook.render(self.source, self.output, introductions=inputs)
+                self.assertEqual(self.output.read_bytes(), original)
+
     def test_no_change_rebuild_is_canonical_and_identity_is_stable(self):
         notebook.render(self.source, self.output)
         rebuilt = self.folder / "rebuilt.html"
