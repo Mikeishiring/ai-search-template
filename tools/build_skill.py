@@ -24,6 +24,7 @@ MEMBERS = (
     "references/local-archive.md",
     "references/resume.md",
     "references/notebook.md",
+    "references/introductions.md",
     "references/source-research.md",
     "scripts/render_context.py",
     "scripts/render_interview.py",

@@ -7,12 +7,15 @@ Use the notebook when the person wants to read connected work accounts, follow a
 ```text
 python scripts/render_notebook.py context.json career-notebook.html
 python scripts/render_notebook.py context.json career-notebook.html --quarters quarters.json
+python scripts/render_notebook.py context.json career-notebook.html --introductions introductions.json
 python scripts/render_notebook.py existing-notebook.html refreshed-notebook.html
 ```
 
 Resolve the script relative to this skill. Python 3.11 or later and the standard library are sufficient. The renderer accepts `career-context/v1` JSON or an HTML file containing that packet. Replacing an existing output requires `--force`.
 
 The output contains the complete canonical packet, the notebook working draft and selected image bytes. The bundled example and runtime work offline; optional linked films and external sources need internet access. Accounts, source records, images and explicit quarters also remain readable as ordinary HTML without JavaScript.
+
+For an About Me review, follow [introduction choices](introductions.md). The optional introductions input adds agent-authored alternatives to the private working profile without replacing the existing overview. Open `?person=own&view=overview&compare=intros` to review them. Reimport retains them; the selected portfolio excludes them. Different options receive a new browser-storage identity so older browser drafts cannot hide the new comparison. Use a downloaded copy containing the latest edits as input.
 
 ## Two retained layers
 
