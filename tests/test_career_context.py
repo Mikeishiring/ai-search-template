@@ -111,6 +111,27 @@ class CareerContextTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'unreferenced source'):
             self.render(self.packet)
 
+    def test_embedded_image_bytes_do_not_become_canonical_packet_text_on_rebuild(self):
+        import base64
+        import struct
+        import zlib
+        # A valid one-pixel PNG with a text chunk exercises the same boundary
+        # with a small packet cap instead of allocating dozens of image MiB.
+        pixel = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aEkwAAAAASUVORK5CYII=')
+        chunk = b'tEXt' + b'Fixture\0' + b'fictional image padding ' * 1000
+        image = pixel[:-12] + struct.pack('>I', len(chunk) - 4) + chunk + struct.pack('>I', zlib.crc32(chunk)) + pixel[-12:]
+        (self.directory / 'pixel.png').write_bytes(image)
+        self.packet['accounts'][0]['artifacts'] = [{'id': 'pixel', 'title': 'Fictional pixel',
+            'caption': 'Format test', 'file': 'pixel.png'}]
+        cap = len(json.dumps(self.packet).encode()) + 1500
+        with patch.object(RENDERER, 'MAX_PACKET_BYTES', cap):
+            sheet = self.render(self.packet)
+            loaded = RENDERER.load_packet(sheet)
+            self.assertGreater(len(json.dumps(loaded).encode()), cap)
+            rebuilt = self.directory / 'image-rebuilt.html'
+            RENDERER.render(sheet, rebuilt)
+            self.assertEqual(sheet.read_bytes(), rebuilt.read_bytes())
+
     def test_supported_image_bytes_are_preserved_and_path_is_removed(self):
         import base64
         import hashlib

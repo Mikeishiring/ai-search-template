@@ -71,6 +71,7 @@ def prepare(server):
     claims = [{'id': 'c' + str(i + 1), 'category': 'contribution', 'statement': r['body'], 'limits': '',
         'evidence': [{'record_id': r['id'], 'span_id': s['span_id']} for s in spans(r)],
         'roles': [{'record_id': r['id'], 'attribution_index': 0}]} for i, r in enumerate(server.corpus['records'])]
+    claims[0]['limits'] = 'These records do not establish completed rota transfer or measured impact.'
     raw = {'claims': claims[:1], 'unknowns': [], 'rejected_conclusions': [], 'stop_receipt_id': 'pending',
            'research_choices': ['Read the two selected fictional originals.'], 'story_order': ['c1'],
            'coverage_notes': [{'record_id': 'docs:rota', 'reason': 'Keep the announced rota handoff in reserve while evaluating its connection.'}]}
@@ -95,6 +96,10 @@ def complete(server, prepared):
     packet = call(server, 'turning_point_packet', {})
     decisions = [{'event_id': e['event_id'], 'kind': 'handoff' if e['record_id'] == 'docs:rota' else 'changed_approach',
         'account_id': 'calibration', 'claim_ids': ['c2' if e['record_id'] == 'docs:rota' else 'c1'],
+        'importance': 'essential', 'qualifying_event_ids': [],
+        'prose_checks': [{'claim_id': 'c2' if e['record_id'] == 'docs:rota' else 'c1',
+            'quote': next(c['statement'] for c in claims if c['id'] == ('c2' if e['record_id'] == 'docs:rota' else 'c1')),
+            'state_check': 'The prose preserves the reported action and does not claim completed transfer.'}],
         'reason': ('The rota announcement explains the intended focus without proving transfer completion.'
                    if e['record_id'] == 'docs:rota' else 'The written checklist responds directly to the reported alignment faults.')}
         for e in packet['events']]
@@ -108,8 +113,8 @@ def complete(server, prepared):
         'attribution_coverage': [{'record_id': r['id'], 'attribution_index': 0,
             'claim_ids': ['c' + str(i + 1)], 'omission_reason': ''} for i, r in enumerate(server.corpus['records'])],
         'through_line': {'status': 'single_episode', 'account_ids': ['calibration'], 'claim_ids': ['c1', 'c2'],
-            'interpretation': 'Written calibration work alongside an announced rota transfer.',
-            'exception_or_limit': 'One episode, without proof of transfer completion or measured impact.'}}
+            'interpretation': claims[0]['statement'],
+            'exception_or_limit': claims[0]['limits']}}
     call(server, 'depth_review', audit)
     result = call(server, 'finish_check', {})
     assert result['allowed'], result

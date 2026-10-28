@@ -101,7 +101,13 @@ def validate(data):
             if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}', aid) or aid in artifact_ids: raise ValueError('Artifacts need unique safe IDs')
             artifact_ids.add(aid)
     if used != source_ids: raise ValueError('Remove unreferenced source records from the packet')
-    if len(json.dumps(data, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
+    # HTML loading temporarily attaches image bytes. They live outside the
+    # canonical JSON and have their own image and complete-document bounds.
+    canonical = dict(data, accounts=[dict(account, artifacts=[
+        {k: v for k, v in artifact.items() if k != '_dataUrl'}
+        for artifact in account.get('artifacts', [])]) if 'artifacts' in account else account
+        for account in data['accounts']])
+    if len(json.dumps(canonical, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
         raise ValueError('Sheet exceeds 24 MiB')
 
 class SheetReader(HTMLParser):
@@ -116,8 +122,11 @@ class SheetReader(HTMLParser):
         if tag == 'script': self.capture = False
 
 def load_packet(source):
-    if source.stat().st_size > 24 * 1024 * 1024: raise ValueError('Sheet exceeds 24 MiB')
-    return parse_packet(source.read_text(encoding='utf-8'), is_html=source.suffix.lower() in ['.html', '.htm'])
+    is_html = source.suffix.lower() in ['.html', '.htm']
+    maximum = MAX_DOCUMENT_BYTES if is_html else MAX_PACKET_BYTES
+    if source.stat().st_size > maximum:
+        raise ValueError('HTML sheet exceeds 64 MiB' if is_html else 'Sheet exceeds 24 MiB')
+    return parse_packet(source.read_text(encoding='utf-8'), is_html=is_html)
 
 
 def parse_packet(raw, *, is_html=False):
@@ -205,6 +214,7 @@ def render(source, destination, *, overwrite=True):
         'SOURCES': ''.join(sources) or '<p>No sources included yet.</p>',
         'DATA': json.dumps(packet, ensure_ascii=True).replace('<', '\\u003c').replace('&', '\\u0026'),
     }
+    validate(packet)  # Embedded-image metadata must also fit the canonical packet.
     template = (SKILL / 'assets/sheet.html').read_text(encoding='utf-8')
     output = re.sub(r'@@([A-Z]+)@@', lambda m: values[m[1]], template)
     if len(output.encode('utf-8')) > MAX_DOCUMENT_BYTES:

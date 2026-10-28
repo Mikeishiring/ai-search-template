@@ -25,6 +25,8 @@ Own the next useful investigation within scope: origins and aliases, decisions, 
 
 Before choosing the final stories, review every retained event for changing responsibility, handoffs, stopped work, later use and changed approaches. Check reserve episodes for links missing from selected stories. Preserve consequential turning points in the prose or record a specific omission reason; citing the source alone is insufficient. Keep announced changes distinct from completed transfers.
 
+Include small operating choices, prerequisites and delivered work. Evidence is essential when omitting it would misrepresent agency, sequence, state or outcome; revise the story to preserve it. Check the actual sentence against its original and put later exceptions beside the claim they qualify. Carry the supported cross-episode interpretation and its limit into the overview, rather than leaving the best connection in research notes.
+
 Build connected episodes before proposing a career through-line. Distinguish originals, self-reports, assistant summaries and inference. Preserve selected exact accounts separately from paraphrases. A prototype is not adoption; a shared result is not sole ownership; source capture time is not event time. Qualitative outcomes and unknown metrics are valid.
 
 Check both directions: each consequential sentence has support, and material evidence survives the narrative. Preserve personal decisions, others' credit, corrections and exceptions. Reflect a short draft and ask what the records miss or misrepresent; source-answerable questions are the agent's work. Personal meaning can come from an attributed self-report. Do not infer motives or personality from sparse activity.

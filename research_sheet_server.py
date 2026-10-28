@@ -76,12 +76,15 @@ TOOLS += [base.tool('resume_packet',
     'Cache only. Saved judgments are not automatically current; inspect research_status and repair stale gates.', {}, []),
     base.tool('turning_point_packet',
     'Review every retained event for responsibility changes, handoffs, stopped work, later use and changed approaches. '
-    'Includes reserve/excluded origins and claim pointers. Omit event_ids for the next 50 unreviewed events.',
+    'Includes reserve/excluded origins and actual referencing prose. Include practical operating decisions and delivery. '
+    'Omit event_ids for the next 50 unreviewed events.',
     {'event_ids': retention.array(retention.TEXT, 1, turning_points.BATCH_SIZE)}, []),
     base.tool('save_turning_points',
     'Save event-specific turning-point judgments against the current draft and selection. Connect consequential '
     'reserve events to selected accounts, preserve announced/planned states, and cite represented claims or explain omission. '
-    'Review all events before depth_review and finish; these checks do not certify meaning.',
+    'Mark essential events; they cannot be omitted. Quote each claim in prose_checks and explain actor/action/state fidelity. '
+    'Represent qualifying_event_ids in the same account. Review all events before depth_review and finish; '
+    'these checks do not certify meaning.',
     turning_points.SAVE_SCHEMA['properties'], turning_points.SAVE_SCHEMA['required'])]
 TOOLS[-1]['annotations']['readOnlyHint'] = False
 PLAN_TOOL = next(t for t in TOOLS if t['name'] == 'sheet_plan')
@@ -181,7 +184,8 @@ class SheetSource(OwnershipSource):
                     if e['result'].get('error') or e['result'].get('valid') is False],
                 'planning': self.planning(), 'cache_only': True}
         if name in {'turning_point_packet', 'save_turning_points'}:
-            ctx = turning_points.context(self.events, list(self.full_reads().values()), spans)
+            ctx = turning_points.context(self.events, list(self.full_reads().values()), spans,
+                                         self.turning_protocol())
             if name == 'turning_point_packet':
                 return turning_points.packet(self.events, ctx, args.get('event_ids'))
             errors = turning_points.validate(args['decisions'], ctx)
@@ -269,14 +273,19 @@ class SheetSource(OwnershipSource):
                 result['inventory_hash'] = retention.inventory_hash(inventory) if inventory else None
                 result['valid'] = not result['errors']
             if self.turning_required:
-                turning = turning_points.status(self.events, records, spans)
+                turning = turning_points.status(self.events, records, spans, self.turning_protocol())
                 result['errors'] += turning['errors']
                 result['turning_points'] = turning
+                if self.turning_protocol() == turning_points.PROTOCOL:
+                    result['errors'] += turning_points.overview_errors(args, depth.latest_plan(self.events))
                 result['valid'] = not result['errors']
             if not result['valid']:
                 result['available_probe_receipts'] = self.probe_receipts()
             return result
         return super().local(name, args)
+
+    def turning_protocol(self):
+        return self.turning_required if isinstance(self.turning_required, str) else turning_points.PROTOCOL
 
     def coverage_context(self):
         records = list(self.full_reads().values())
@@ -301,7 +310,8 @@ class SheetSource(OwnershipSource):
                           'next_step': 'Resolve pending research or finish_check.' if review else
                           'Investigate, draft, challenge the draft with a new probe, revise and plan, then depth_review.'}
         if self.turning_required:
-            result['turning_points'] = turning_points.status(self.events, list(self.full_reads().values()), spans)
+            result['turning_points'] = turning_points.status(self.events, list(self.full_reads().values()), spans,
+                                                            self.turning_protocol())
         result['calls_remaining'] = self.source_budget - self.source_calls()
         result['earlier_start'] = self.scope.get('earlier_start', result['earlier_start'])
         if self.retention_required:
@@ -337,7 +347,8 @@ class SheetSource(OwnershipSource):
                     capped = self.source_calls() >= self.source_budget or len(self.events) + 1 >= self.request_limit
                     result.update(allowed=result['allowed'] and capped, status='depth_budget_limit' if capped else 'continue_depth', receipt_id=None)
         if self.turning_required:
-            turning = turning_points.status(self.events, list(self.full_reads().values()), spans)
+            turning = turning_points.status(self.events, list(self.full_reads().values()), spans,
+                                            self.turning_protocol())
             if not turning['current']:
                 result['unresolved']['turning_points'] = turning['errors']
                 result.update(allowed=False, status='review_turning_points', receipt_id=None)
@@ -466,7 +477,7 @@ def serve_locked(workspace):
     session = read_json(workspace / 'session.json')
     required = session.get('retention_protocol') == retention.PROTOCOL
     options = {'retention_required': required, 'export_protocol': session.get('export_protocol'),
-               'turning_required': session.get('turning_point_protocol') == turning_points.PROTOCOL}
+               'turning_required': session.get('turning_point_protocol', False)}
     server = LocalSheetSource(corpus, scope, log, policy, **options) if local else SheetSource(corpus, scope, log, **options)
     schemas = {(EXPERIMENTS / ('model/' + name + '.schema.json')).resolve()
                for name in ['ownership', 'retention', 'depth', 'completion', 'attribution', 'review']}
