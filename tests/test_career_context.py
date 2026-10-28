@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -50,6 +51,47 @@ class CareerContextTests(unittest.TestCase):
         self.packet['accounts'][0]['sourceRefs'] = ['missing']
         with self.assertRaisesRegex(ValueError, 'references to included sources'):
             self.render(self.packet)
+
+    def test_large_selected_excerpt_collection_round_trips_without_loss(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='Selected excerpt ' + str(i))
+                                  for i in range(400)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        self.assertEqual(RENDERER.load_packet(self.render(self.packet)), self.packet)
+
+    def test_large_collection_still_has_count_and_aggregate_size_bounds(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i))
+                                  for i in range(RENDERER.MAX_SOURCES + 1)]
+        with self.assertRaisesRegex(ValueError, 'sources has 2049 entries; maximum is 2048'):
+            RENDERER.validate(self.packet)
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='x' * 100_000)
+                                  for i in range(260)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        with self.assertRaisesRegex(ValueError, 'Sheet exceeds 24 MiB'):
+            RENDERER.validate(self.packet)
+
+    def test_large_html_reopens_and_rebuilds_while_output_remains_bounded(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='x' * 70_000)
+                                  for i in range(200)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        sheet = self.render(self.packet)
+        self.assertGreater(sheet.stat().st_size, RENDERER.MAX_PACKET_BYTES)
+        self.assertEqual(RENDERER.load_packet(sheet), self.packet)
+        rebuilt = self.directory / 'rebuilt.html'
+        RENDERER.render(sheet, rebuilt)
+        self.assertEqual(sheet.read_bytes(), rebuilt.read_bytes())
+        before = sheet.read_bytes()
+        with patch.object(RENDERER, 'MAX_DOCUMENT_BYTES', 1000):
+            with self.assertRaisesRegex(ValueError, 'HTML sheet exceeds 64 MiB'):
+                self.render(self.packet)
+            with self.assertRaisesRegex(ValueError, 'HTML sheet exceeds 64 MiB'):
+                RENDERER.load_packet(sheet)
+        self.assertEqual(sheet.read_bytes(), before)
 
     def test_unselected_source_dump_is_rejected(self):
         extra = copy.deepcopy(self.packet['sources'][0])

@@ -131,6 +131,13 @@ class ResearchSheetTests(unittest.TestCase):
         self.assertFalse(result['valid'])
         self.assertTrue(any('draft_check' in e for e in result['errors']))
 
+    def test_renderer_capacity_failure_is_an_actionable_plan_error(self):
+        self.prepare()
+        with patch.object(bridge.RENDERER, 'validate', side_effect=ValueError('sources has 2049 entries; maximum is 2048')):
+            result = self.server.execute('sheet_plan', {'review': self.raw, 'plan': self.plan})
+        self.assertFalse(result['valid'])
+        self.assertIn('Sheet validation: sources has 2049 entries; maximum is 2048', result['errors'])
+
     def test_restart_recovers_queue_notes_and_cache_without_new_source_charge(self):
         self.prepare()
         restarted = SheetSource(self.corpus, self.scope, self.log, retention_required=False)

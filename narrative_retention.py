@@ -4,6 +4,7 @@ These are structural and anti-placeholder checks, not a semantic truth grader.
 No source access, model calls or filesystem writes occur in this module.
 """
 from collections import Counter
+import copy
 import hashlib
 import json
 import re
@@ -30,13 +31,18 @@ SOURCE_KIND = obj({'record_id': TEXT, 'kind': {'type': 'string', 'enum': ['work'
 EXTRACTION_SCHEMA = obj({'sections': array(EXTRACTION, 1, 8), 'source_kinds': array(SOURCE_KIND, 0, 8)})
 EXTRACTION_SCHEMA['required'] = ['sections']
 INVENTORY_SCHEMA = obj({
-    'episodes': array(obj({'id': TEXT, 'title': TEXT, 'event_ids': array(TEXT, 1),
+    'episodes': array(obj({'id': TEXT, 'title': TEXT, 'event_ids': array(TEXT),
         'why_interesting': TEXT, 'disposition': {'type': 'string', 'enum': ['selected', 'reserve']},
         'selection_reason': TEXT}), 1, 80),
     'excluded_events': array(obj({'event_id': TEXT, 'reason': TEXT})),
     'challenge': obj({'reserve_episode_id': TEXT, 'selected_episode_id': TEXT,
                        'comparison': TEXT, 'no_reserve_reason': TEXT}),
 })
+INVENTORY_SCHEMA['properties']['assignment_mode'] = {'type': 'string', 'enum': ['inline', 'saved']}
+ASSIGNMENT_BATCH_SIZE = 100
+ASSIGNMENT_PACKET_SIZE = 30
+ASSIGNMENT_SCHEMA = obj({'retention_version': TEXT, 'assignments': array(obj({
+    'event_id': TEXT, 'episode_id': TEXT, 'exclusion_reason': TEXT}), 1, ASSIGNMENT_BATCH_SIZE)})
 
 
 def digest(value):
@@ -183,6 +189,88 @@ def notes_from_extractions(records, known, saved, kinds):
     return notes
 
 
+def saved_assignments(events, version):
+    rows = {}
+    for event in events:
+        if (event['tool'] == 'save_episode_assignments' and event['result'].get('valid')
+                and event['result'].get('retention_version') == version):
+            rows.update((row['event_id'], row) for row in event['arguments']['assignments'])
+    return rows
+
+
+def assignment_hash(events, version):
+    return digest(saved_assignments(events, version))
+
+
+def assignment_packet(events, current, refs=None):
+    stored = saved_assignments(events, current['version'])
+    counts = Counter(row['episode_id'] for row in stored.values() if row['episode_id'])
+    chosen = refs if refs is not None else [eid for eid in current['events'] if eid not in stored][:ASSIGNMENT_PACKET_SIZE]
+    if len(set(chosen)) != len(chosen) or any(eid not in current['events'] for eid in chosen):
+        raise ValueError('Use unique, known event IDs when recovering assignments.')
+    return {'retention_version': current['version'], 'total': len(current['events']),
+            'remaining': len(set(current['events']) - set(stored)),
+            'events': [current['events'][eid] | {'saved_assignment': stored.get(eid)} for eid in chosen],
+            'episode_counts': dict(sorted(counts.items())[:80]), 'episode_count': len(counts),
+            'episode_counts_truncated': len(counts) > 80,
+            'excluded_count': sum(not row['episode_id'] for row in stored.values()), 'cache_only': True}
+
+
+def validate_assignments(args, current):
+    errors, seen = [], set()
+    if current['pending'] or args['retention_version'] != current['version']:
+        errors.append('Finish extraction and use the current retention version before assigning events.')
+    for row in args['assignments']:
+        eid, episode, reason = row['event_id'], row['episode_id'], row['exclusion_reason']
+        if eid not in current['events'] or eid in seen:
+            errors.append('Use each known event ID at most once per assignment batch.')
+        seen.add(eid)
+        if bool(episode) == bool(reason.strip()):
+            errors.append('Choose exactly one episode ID or a specific exclusion reason for each event.')
+        elif episode and not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,99}', episode):
+            errors.append('Episode IDs must be stable safe account IDs.')
+        elif not episode and not specific(reason):
+            errors.append('Explain the specific evidence being excluded.')
+    return {'valid': not errors, 'errors': errors, 'retention_version': current['version'],
+            'semantic_checked': False, 'cache_only': True}
+
+
+def resolve_inventory(inventory, events, current):
+    resolved = copy.deepcopy(inventory)
+    if resolved.pop('assignment_mode', 'inline') != 'saved':
+        return resolved, []
+    if any(e['event_ids'] for e in resolved['episodes']) or resolved['excluded_events']:
+        return resolved, ['Do not mix inline event IDs or exclusions with saved assignments.']
+    rows = saved_assignments(events, current['version'])
+    errors = []
+    if set(rows) != set(current['events']):
+        errors.append('Assign every current event before finalizing the episode inventory.')
+    episodes = {episode['id']: episode for episode in resolved['episodes']}
+    if any(row['episode_id'] and row['episode_id'] not in episodes for row in rows.values()):
+        errors.append('Define every episode named in the saved assignments.')
+    for eid, row in rows.items():
+        if row['episode_id'] in episodes:
+            episodes[row['episode_id']]['event_ids'].append(eid)
+        elif not row['episode_id']:
+            resolved['excluded_events'].append({'event_id': eid, 'reason': row['exclusion_reason']})
+    return resolved, errors
+
+
+def inventory_hash(event):
+    inventory = copy.deepcopy(event['arguments'])
+    if inventory.pop('assignment_mode', 'inline') == 'saved':
+        return digest([inventory, event['result']['assignments_hash']])
+    return digest(inventory)
+
+
+def inventory_is_current(event, events):
+    if event['arguments'].get('assignment_mode') == 'saved':
+        return event['result'].get('assignments_hash') == assignment_hash(events, event['result']['retention_version'])
+    # Starting a new assignment pass makes an older inline selection provisional.
+    after = events[events.index(event) + 1:]
+    return not any(e['tool'] == 'save_episode_assignments' and e['result'].get('valid') for e in after)
+
+
 def validate_inventory(inventory, current):
     errors, assigned, ids = [], [], []
     if current['pending']:
@@ -190,6 +278,8 @@ def validate_inventory(inventory, current):
     for episode in inventory['episodes']:
         ids.append(episode['id'])
         assigned += episode['event_ids']
+        if not episode['event_ids']:
+            errors.append('Every defined episode needs at least one retained event.')
         if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_-]{0,99}', episode['id']):
             errors.append('Episode IDs must be stable safe account IDs.')
         if not specific(episode['why_interesting']) or not specific(episode['selection_reason']):
@@ -223,8 +313,9 @@ def validate_inventory(inventory, current):
 
 
 def latest_inventory(events, current):
-    return next((e for e in reversed(events) if e['tool'] == 'episode_inventory' and e['result'].get('valid')
-                 and e['result']['retention_version'] == current['version']), None)
+    event = next((e for e in reversed(events) if e['tool'] == 'episode_inventory' and e['result'].get('valid')
+                  and e['result']['retention_version'] == current['version']), None)
+    return event if event and inventory_is_current(event, events) else None
 
 
 def plan_errors(plan, records, events, span_function, *, challenged=False):

@@ -155,7 +155,7 @@ class ExtractionBatchTests(unittest.TestCase):
                 output = attempt / 'output.json'
                 cmd = ['codex', '--cd', str(attempt), '-']
                 if kind == 'timeout':
-                    outcome = subprocess.TimeoutExpired(cmd, 30)
+                    outcome = subprocess.TimeoutExpired(cmd, 30, output=b'{"type":"error"}\n', stderr=b'fictional transport timeout')
                 else:
                     write_json(output, {'sections': []})
                     outcome = subprocess.CompletedProcess(cmd, 0, json.dumps({'type': 'item.started', 'item': {'type': 'command_execution'}}), '')
@@ -164,6 +164,9 @@ class ExtractionBatchTests(unittest.TestCase):
                 receipt = read_json(attempt / 'receipt.json')
                 self.assertIn('failure', receipt)
                 self.assertTrue((attempt / 'input.json').exists())
+                if kind == 'timeout':
+                    self.assertIn('"type":"error"', (attempt / 'partial-stdout.txt').read_text())
+                    self.assertEqual((attempt / 'diagnostic.txt').read_text(), 'fictional transport timeout')
 
     def test_private_runtime_home_controls_database_location(self):
         import model_backend
@@ -191,6 +194,29 @@ class ExtractionBatchTests(unittest.TestCase):
         empty = next(s for s in current['saved'].values() if not s['span_ids'])
         self.assertEqual(empty['events'], [])
         self.assertEqual(empty['disposition'], 'context')
+
+    def test_later_content_can_correct_provisional_record_kind(self):
+        # Four long metadata-only spans precede the substantive template.
+        headers = ['Capture field ' + str(i) + ': ' + ('background ' * 180) + '.' for i in range(4)]
+        self.records = [self.records[0] | {'body': '\n'.join(headers) + '\nTemplate: require an owner and a review date.'}]
+        self.start()
+        kinds = iter(['discussion', 'work'])
+        def invoke(packet, folder, timeout):
+            response = self.response(packet, folder, timeout)
+            kind = next(kinds)
+            response['source_kinds'][0]['kind'] = kind
+            return response
+        with patch.object(batches, 'model_call', side_effect=invoke):
+            first = batches.run(self.workspace, 1)
+            self.assertGreater(first['pending_sections'], 0)
+            second = batches.run(self.workspace, 1)
+        self.assertEqual(second['pending_sections'], 0)
+        _, _, _, source = batches.open_source(self.workspace)
+        from ownership_server import saved_notes
+        self.assertEqual(saved_notes(source.events)['chat:0']['source_kind'], 'work')
+        saved = [e for e in source.events if e['tool'] == 'save_extraction']
+        self.assertEqual(saved[0]['arguments']['source_kinds'][0]['kind'], 'discussion')
+        self.assertEqual(saved[1]['arguments']['source_kinds'][0]['kind'], 'work')
 
 
 if __name__ == '__main__':

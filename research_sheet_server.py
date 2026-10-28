@@ -13,6 +13,8 @@ from ownership_server import OwnershipSource, TOOLS as RESEARCH_TOOLS, DRAFT_SCH
 from completion_server import spans
 import depth_protocol as depth
 import narrative_retention as retention
+import depth_coverage
+import turning_points
 
 TOOLS = copy.deepcopy(RESEARCH_TOOLS) + [base.tool(
     'sheet_plan',
@@ -22,6 +24,19 @@ TOOLS = copy.deepcopy(RESEARCH_TOOLS) + [base.tool(
     {'review': DRAFT_SCHEMA, 'plan': CURRENT_PLAN_SCHEMA}, ['review', 'plan'])]
 TOOLS[-1]['annotations']['readOnlyHint'] = False
 
+TOOLS += [base.tool('attribution_packet',
+    'Recover the next 100 unreviewed material actor/actions after the final sheet plan and episode selection. '
+    'Includes exact record-level attribution indices and referencing claim IDs, not automatic coverage judgments. '
+    'Omit refs for the next pending batch; pass exact refs to revise saved coverage. Cache only.',
+    {'refs': depth.array(depth_coverage.REF, 1, depth_coverage.BATCH_SIZE)}, []),
+    base.tool('save_attribution_coverage',
+    'Save or revise up to 100 actor/action coverage judgments for the exact review_version from attribution_packet. '
+    'Each needs a claim carrying that exact role or a substantive omission reason. '
+    'Changed evidence, prose, layout or episode selection invalidates these batches. '
+    'Once every attribution is reviewed, depth_review may use an empty attribution_coverage list; full coverage is still required.',
+    depth_coverage.SAVE_SCHEMA['properties'], depth_coverage.SAVE_SCHEMA['required'])]
+TOOLS[-1]['annotations']['readOnlyHint'] = False
+
 TOOLS += [base.tool('extraction_packet',
     'Recover up to eight unreviewed sections from fully read cached originals. Extract each section before choosing stories. '
     'No source access or charge. Omit section_ids for the next unreviewed sections.',
@@ -29,22 +44,46 @@ TOOLS += [base.tool('extraction_packet',
     base.tool('save_extraction',
     'Save concrete events or specific context for each cached section. Preserve actor, action, date, state, significance '
     'and exact evidence. The host derives durable record notes only after all its sections are reviewed. '
-    'Classify each original once in source_kinds as work, discussion or evaluation; reuse that classification across batches. '
+    'Classify originals in source_kinds as work, discussion or evaluation; reuse the classification unless later substantive content corrects it. '
     'Empty originals need a context disposition with no spans or events. '
     'Header copies, repeated generic findings and participation placeholders are rejected.',
     retention.EXTRACTION_SCHEMA['properties'], retention.EXTRACTION_SCHEMA['required']),
     base.tool('episode_packet',
-    'Recover the extracted event inventory in pages of 30 and the last episode selection. Cache only. '
+    'Recover extracted events in pages of 30 and a compact summary of the last episode selection. Cache only. '
     'Use these events to connect need, action, reaction, correction and later outcome before ranking stories.',
     {'offset': {'type': 'integer', 'minimum': 0}}, []),
     base.tool('episode_inventory',
     'Keep every extracted event in a selected or reserve episode, or give its specific exclusion. '
     'Choose stable episode IDs matching sheet accounts. Compare the strongest reserve with a selected account. '
-    'After the first sheet plan, reconsider and resubmit this inventory before depth_review.',
+    'After the first sheet plan, reconsider and resubmit this inventory before depth_review. '
+    'For large archives, assignment_mode=saved combines current saved batches; supply episode definitions '
+    'with empty event_ids and an empty excluded_events list. Every event is still required.',
     retention.INVENTORY_SCHEMA['properties'], retention.INVENTORY_SCHEMA['required'])]
+TOOLS += [base.tool('episode_assignment_packet',
+    'Recover the next 30 unassigned events, exact evidence pointers and current episode counts. '
+    'Connect these to stable episodes; no automatic grouping or omission. Pass event_ids to revisit saved assignments. Cache only.',
+    {'event_ids': retention.array(retention.TEXT, 1, retention.ASSIGNMENT_PACKET_SIZE)}, []),
+    base.tool('save_episode_assignments',
+    'Save or revise up to 100 explicit event-to-episode assignments, or evidence-specific exclusions, '
+    'for the current retention_version. Changed extraction invalidates batches; changed assignments invalidate selection and depth review. '
+    'After all events are assigned, finalize episode_inventory with assignment_mode=saved.',
+    retention.ASSIGNMENT_SCHEMA['properties'], retention.ASSIGNMENT_SCHEMA['required'])]
 for definition in TOOLS:
-    if definition['name'] in {'save_extraction', 'episode_inventory'}:
+    if definition['name'] in {'save_extraction', 'episode_inventory', 'save_episode_assignments'}:
         definition['annotations']['readOnlyHint'] = False
+TOOLS += [base.tool('resume_packet',
+    'Recover the last saved draft, checked plan, depth audit and recent refusals after interruption. '
+    'Cache only. Saved judgments are not automatically current; inspect research_status and repair stale gates.', {}, []),
+    base.tool('turning_point_packet',
+    'Review every retained event for responsibility changes, handoffs, stopped work, later use and changed approaches. '
+    'Includes reserve/excluded origins and claim pointers. Omit event_ids for the next 50 unreviewed events.',
+    {'event_ids': retention.array(retention.TEXT, 1, turning_points.BATCH_SIZE)}, []),
+    base.tool('save_turning_points',
+    'Save event-specific turning-point judgments against the current draft and selection. Connect consequential '
+    'reserve events to selected accounts, preserve announced/planned states, and cite represented claims or explain omission. '
+    'Review all events before depth_review and finish; these checks do not certify meaning.',
+    turning_points.SAVE_SCHEMA['properties'], turning_points.SAVE_SCHEMA['required'])]
+TOOLS[-1]['annotations']['readOnlyHint'] = False
 PLAN_TOOL = next(t for t in TOOLS if t['name'] == 'sheet_plan')
 TOOLS += [base.tool('research_probe',
     'Investigate a consequential question within selected sources. Uses the same bounded search and pagination; '
@@ -65,11 +104,15 @@ class SheetSource(OwnershipSource):
     request_limit = depth.REQUEST_LIMIT
     tool_definitions = TOOLS
     local_tools = OwnershipSource.local_tools | {'depth_review', 'extraction_packet', 'save_extraction',
-                                                'episode_packet', 'episode_inventory'}
+                                                'episode_packet', 'episode_inventory',
+                                                'episode_assignment_packet', 'save_episode_assignments',
+                                                'attribution_packet', 'save_attribution_coverage',
+                                                'resume_packet', 'turning_point_packet', 'save_turning_points'}
 
-    def __init__(self, corpus, scope, log, *, retention_required=True, export_protocol=None):
+    def __init__(self, corpus, scope, log, *, retention_required=True, export_protocol=None, turning_required=False):
         super().__init__(corpus, scope, log)
         self.retention_required = retention_required
+        self.turning_required = turning_required
         self.configure_export(export_protocol)
 
     def configure_export(self, protocol):
@@ -125,9 +168,45 @@ class SheetSource(OwnershipSource):
         return super().cached(name, args)
 
     def local(self, name, args):
-        if name in {'extraction_packet', 'save_extraction', 'episode_packet', 'episode_inventory'}:
+        if name == 'resume_packet':
+            draft = next((e for e in reversed(self.events) if e['tool'] == 'draft_check'), None)
+            plan = depth.latest_plan(self.events)
+            audit = depth.latest_review(self.events)
+            return {'draft': draft['arguments']['draft'] if draft else None,
+                'draft_validation': draft['result'].get('errors', []) if draft else [],
+                'checked_plan': plan['arguments'] if plan else None,
+                'last_depth_audit': audit['arguments'] if audit else None,
+                'recent_refusals': [{'tool': e['tool'], 'result': {k: e['result'][k] for k in
+                    ('error', 'errors', 'valid', 'status', 'instruction') if k in e['result']}} for e in self.events[-10:]
+                    if e['result'].get('error') or e['result'].get('valid') is False],
+                'planning': self.planning(), 'cache_only': True}
+        if name in {'turning_point_packet', 'save_turning_points'}:
+            ctx = turning_points.context(self.events, list(self.full_reads().values()), spans)
+            if name == 'turning_point_packet':
+                return turning_points.packet(self.events, ctx, args.get('event_ids'))
+            errors = turning_points.validate(args['decisions'], ctx)
+            if args['review_version'] != ctx['version']:
+                errors.append('Turning-point decisions belong to a stale draft, evidence or episode selection.')
+            return {'valid': not errors, 'errors': errors, 'review_version': ctx['version'],
+                    'semantic_checked': False, 'cache_only': True}
+        if name in {'attribution_packet', 'save_attribution_coverage'}:
+            version, review = self.coverage_context()
+            notes = saved_notes(self.events)
+            if name == 'attribution_packet':
+                return depth_coverage.packet(self.events, notes, version, review, args.get('refs'))
+            errors = depth_coverage.validate(args['attribution_coverage'], notes, review)
+            if args['review_version'] != version:
+                errors.append('Coverage belongs to a stale evidence, draft, plan or episode selection version.')
+            return {'valid': not errors, 'errors': errors, 'review_version': version,
+                    'semantic_checked': False, 'cache_only': True}
+        if name in {'extraction_packet', 'save_extraction', 'episode_packet', 'episode_inventory',
+                    'episode_assignment_packet', 'save_episode_assignments'}:
             records = list(self.full_reads().values())
             current = retention.state(records, self.events, spans)
+            if name == 'episode_assignment_packet':
+                return retention.assignment_packet(self.events, current, args.get('event_ids'))
+            if name == 'save_episode_assignments':
+                return retention.validate_assignments(args, current)
             if name == 'extraction_packet':
                 ids = args.get('section_ids', current['pending'][:8])
                 if any(sid not in current['known'] for sid in ids):
@@ -155,23 +234,55 @@ class SheetSource(OwnershipSource):
                 prior = retention.latest_inventory(self.events, current)
                 return {'events': items[offset:offset + 30], 'total': len(items),
                         'next_offset': offset + 30 if offset + 30 < len(items) else None,
-                        'inventory': prior['arguments'] if prior else None, 'cache_only': True}
-            return retention.validate_inventory(args, current)
+                        'inventory': {'hash': retention.inventory_hash(prior),
+                            'episodes': [{k: v for k, v in episode.items() if k != 'event_ids'}
+                                         for episode in prior['arguments']['episodes']],
+                            'challenge': prior['arguments']['challenge']} if prior else None, 'cache_only': True}
+            resolved, errors = retention.resolve_inventory(args, self.events, current)
+            result = retention.validate_inventory(resolved, current)
+            result['errors'] += errors
+            result['valid'] = not result['errors']
+            if args.get('assignment_mode') == 'saved':
+                result['assignments_hash'] = retention.assignment_hash(self.events, current['version'])
+            result['inventory_hash'] = retention.inventory_hash({'arguments': args, 'result': result})
+            return result
         if name == 'depth_review':
             records = list(self.full_reads().values())
-            result = depth.validate_review(args, self.events, records, saved_notes(self.events), self.scope,
+            evidence = evidence_version(records, self.events)
+            plan = depth.latest_plan(self.events)
+            if not plan or plan['result']['evidence_version'] != evidence:
+                return depth.validate_review(args, self.events, records, saved_notes(self.events),
+                                             self.scope, evidence, spans)
+            version, _ = self.coverage_context()
+            combined = dict(args, attribution_coverage=depth_coverage.combine(
+                self.events, version, args['attribution_coverage']))
+            result = depth.validate_review(combined, self.events, records, saved_notes(self.events), self.scope,
                                            evidence_version(records, self.events), spans)
+            result.update(coverage_review_version=version,
+                          coverage_batch_sequences=depth_coverage.contributing_sequences(self.events, version),
+                          coverage_hash=depth_coverage.coverage_hash(self.events, version, args['attribution_coverage']))
             if self.retention_required:
                 plan = depth.latest_plan(self.events)
                 if plan:
                     result['errors'] += retention.plan_errors(plan['arguments']['plan'], records, self.events, spans, challenged=True)
                 inventory = retention.latest_inventory(self.events, retention.state(records, self.events, spans))
-                result['inventory_hash'] = retention.digest(inventory['arguments']) if inventory else None
+                result['inventory_hash'] = retention.inventory_hash(inventory) if inventory else None
+                result['valid'] = not result['errors']
+            if self.turning_required:
+                turning = turning_points.status(self.events, records, spans)
+                result['errors'] += turning['errors']
+                result['turning_points'] = turning
                 result['valid'] = not result['errors']
             if not result['valid']:
                 result['available_probe_receipts'] = self.probe_receipts()
             return result
         return super().local(name, args)
+
+    def coverage_context(self):
+        records = list(self.full_reads().values())
+        inventory = retention.latest_inventory(self.events, retention.state(records, self.events, spans))
+        inventory_hash = retention.inventory_hash(inventory) if inventory else None
+        return depth_coverage.context(self.events, evidence_version(records, self.events), inventory_hash)
 
     def planning(self):
         result = super().planning()
@@ -189,6 +300,8 @@ class SheetSource(OwnershipSource):
                           'pending_research': review['result']['pending_research'] if review else [],
                           'next_step': 'Resolve pending research or finish_check.' if review else
                           'Investigate, draft, challenge the draft with a new probe, revise and plan, then depth_review.'}
+        if self.turning_required:
+            result['turning_points'] = turning_points.status(self.events, list(self.full_reads().values()), spans)
         result['calls_remaining'] = self.source_budget - self.source_calls()
         result['earlier_start'] = self.scope.get('earlier_start', result['earlier_start'])
         if self.retention_required:
@@ -198,7 +311,7 @@ class SheetSource(OwnershipSource):
             result['retention'] = {'protocol': retention.PROTOCOL, 'sections': len(current['known']),
                 'reviewed_sections': len(current['saved']), 'pending_sections': len(current['pending']),
                 'events': len(current['events']), 'inventory_current': bool(retention.latest_inventory(self.events, current)),
-                'next_step': 'extraction_packet, save_extraction, episode_packet, then episode_inventory before drafting.'}
+                'next_step': 'Complete extraction; recover events through episode_packet or bounded episode_assignment_packet/save_episode_assignments, then finalize episode_inventory before drafting.'}
         return result
 
     def finish(self):
@@ -223,6 +336,11 @@ class SheetSource(OwnershipSource):
                 if pending:
                     capped = self.source_calls() >= self.source_budget or len(self.events) + 1 >= self.request_limit
                     result.update(allowed=result['allowed'] and capped, status='depth_budget_limit' if capped else 'continue_depth', receipt_id=None)
+        if self.turning_required:
+            turning = turning_points.status(self.events, list(self.full_reads().values()), spans)
+            if not turning['current']:
+                result['unresolved']['turning_points'] = turning['errors']
+                result.update(allowed=False, status='review_turning_points', receipt_id=None)
         if result['allowed']:
             result['receipt_id'] = base.digest([result, [(e['sequence'], e['tool'], e['arguments']) for e in self.events]])
         return result
@@ -272,11 +390,12 @@ class SheetSource(OwnershipSource):
 
 class LocalSheetSource(SheetSource):
     """Selected local captures; never relabel personal records as synthetic."""
-    def __init__(self, corpus, scope, log, policy, *, retention_required=True, export_protocol=None, batch_writer=False):
+    def __init__(self, corpus, scope, log, policy, *, retention_required=True, export_protocol=None, batch_writer=False, turning_required=False):
         self.corpus, self.scope, self.path, self.policy = corpus, scope, log, policy
         self.policy_path = log.parent / 'policy.json'
         self.policy_digest = digest(policy)
         self.batch_writer = batch_writer
+        self.turning_required = turning_required
         self.records = {r['id']: r for r in corpus['records']}
         self.events = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines()] if log.exists() else []
         self.retention_required = retention_required
@@ -324,6 +443,14 @@ class LocalSheetSource(SheetSource):
 
 
 def serve(workspace):
+    from research_lock import exclusive_run
+    from research_sheet import outside_project
+    workspace = outside_project(workspace)
+    with exclusive_run(workspace / 'research-server.lock'):
+        serve_locked(workspace)
+
+
+def serve_locked(workspace):
     # MCP JSON is UTF-8 even when the Windows console code page differs.
     sys.stdin.reconfigure(encoding='utf-8')
     sys.stdout.reconfigure(encoding='utf-8')
@@ -338,7 +465,8 @@ def serve(workspace):
     log = (workspace / 'calls.jsonl').resolve()
     session = read_json(workspace / 'session.json')
     required = session.get('retention_protocol') == retention.PROTOCOL
-    options = {'retention_required': required, 'export_protocol': session.get('export_protocol')}
+    options = {'retention_required': required, 'export_protocol': session.get('export_protocol'),
+               'turning_required': session.get('turning_point_protocol') == turning_points.PROTOCOL}
     server = LocalSheetSource(corpus, scope, log, policy, **options) if local else SheetSource(corpus, scope, log, **options)
     schemas = {(EXPERIMENTS / ('model/' + name + '.schema.json')).resolve()
                for name in ['ownership', 'retention', 'depth', 'completion', 'attribution', 'review']}

@@ -26,6 +26,15 @@ def main(argv=None):
     research.add_argument('--workspace', type=Path, help='Private research state outside this project')
     research.add_argument('--resume', action='store_true', help='Resume saved state; rebuild a sealed run without another model call')
     research.add_argument('--force', action='store_true')
+    research.add_argument('--case', choices=['sheet', 'story-depth', 'turning-points'], default='sheet')
+    research.add_argument('--max-attempts', type=int, default=3)
+    research.add_argument('--timeout', type=int, default=3600)
+    supervised = commands.add_parser('research-run', help='Research an approved local workspace with bounded automatic recovery')
+    supervised.add_argument('workspace', type=Path)
+    supervised.add_argument('output', type=Path)
+    supervised.add_argument('--max-attempts', type=int, default=3)
+    supervised.add_argument('--timeout', type=int, default=3600)
+    supervised.add_argument('--force', action='store_true')
     research_build = commands.add_parser('research-build', help='Build HTML from an existing checked research journal without a model call')
     research_build.add_argument('workspace', type=Path)
     research_build.add_argument('output', type=Path)
@@ -71,11 +80,14 @@ def main(argv=None):
         except (ValueError, KeyError, TypeError, OSError, RuntimeError) as error:
             parser.exit(2, f'Could not use local context: {error}\n')
         return
-    if args.command in {'research-demo', 'research-build'}:
+    if args.command in {'research-demo', 'research-build', 'research-run'}:
         try:
             if args.command == 'research-demo':
                 from tools.run_research_demo import run
-                result = run(args.output, args.workspace, args.resume, args.force)
+                result = run(args.output, args.workspace, args.resume, args.force, args.case, args.max_attempts, args.timeout)
+            elif args.command == 'research-run':
+                from research_runner import run
+                result = run(args.workspace, args.output, max_attempts=args.max_attempts, timeout=args.timeout, force=args.force)
             else:
                 from research_sheet import build
                 result = build(args.workspace, args.output, args.force)

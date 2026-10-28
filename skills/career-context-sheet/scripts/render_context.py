@@ -17,6 +17,9 @@ TEXT_FIELDS = ['title', 'period', 'summary', 'context', 'aim', 'contribution', '
 LIST_FIELDS = ['decisions', 'limits', 'questions', 'sourceRefs']
 KINDS = {'person_account', 'source_excerpt', 'redacted_excerpt', 'archive_summary', 'artifact_record'}
 MIMES = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif'}
+MAX_SOURCES = 2048
+MAX_PACKET_BYTES = 24 * 1024 * 1024
+MAX_DOCUMENT_BYTES = 64 * 1024 * 1024
 
 def check_text(value, label, maximum=100_000):
     if not isinstance(value, str) or '\0' in value or len(value) > maximum:
@@ -37,8 +40,9 @@ def validate(data):
     for field in ['name', 'overview']: check_text(person[field], field)
     if not isinstance(person.get('background', []), list): raise ValueError('Background must be a list')
     for line in person.get('background', []): check_text(line, 'Background item')
-    for field, maximum in [('accounts', 80), ('sources', 160)]:
-        if not isinstance(data[field], list) or len(data[field]) > maximum: raise ValueError(f'Invalid {field} collection')
+    for field, maximum in [('accounts', 80), ('sources', MAX_SOURCES)]:
+        if not isinstance(data[field], list): raise ValueError(f'{field} must be a list')
+        if len(data[field]) > maximum: raise ValueError(f'{field} has {len(data[field])} entries; maximum is {maximum}')
         if any(not isinstance(item, dict) for item in data[field]):
             raise ValueError(f'{field} entries must be objects')
         ids = [item.get('id') for item in data[field]]
@@ -68,6 +72,8 @@ def validate(data):
             if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}', aid) or aid in artifact_ids: raise ValueError('Artifacts need unique safe IDs')
             artifact_ids.add(aid)
     if used != source_ids: raise ValueError('Remove unreferenced source records from the packet')
+    if len(json.dumps(data, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
+        raise ValueError('Sheet exceeds 24 MiB')
 
 class SheetReader(HTMLParser):
     def __init__(self): super().__init__(); self.capture = False; self.parts = []; self.images = {}
@@ -85,9 +91,12 @@ def load_packet(source):
 
 
 def parse_packet(raw, *, is_html=False):
-    if len(raw.encode()) > 24 * 1024 * 1024: raise ValueError('Sheet exceeds 24 MiB')
+    maximum = MAX_DOCUMENT_BYTES if is_html else MAX_PACKET_BYTES
+    if len(raw.encode()) > maximum: raise ValueError('HTML sheet exceeds 64 MiB' if is_html else 'Sheet exceeds 24 MiB')
     if not is_html: return json.loads(raw)
     parser = SheetReader(); parser.feed(raw); data = json.loads(''.join(parser.parts))
+    if len(json.dumps(data, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
+        raise ValueError('Sheet exceeds 24 MiB')
     for account in data['accounts']:
         for artifact in account.get('artifacts', []): artifact['_dataUrl'] = parser.images.get(artifact.get('embeddedId'), '')
     return data
@@ -140,6 +149,8 @@ def render(source, destination, *, overwrite=True):
     }
     template = (SKILL / 'assets/sheet.html').read_text(encoding='utf-8')
     output = re.sub(r'@@([A-Z]+)@@', lambda m: values[m[1]], template)
+    if len(output.encode('utf-8')) > MAX_DOCUMENT_BYTES:
+        raise ValueError('HTML sheet exceeds 64 MiB')
     if destination.is_symlink(): raise ValueError('Output must not be a symbolic link')
     fd, temporary = tempfile.mkstemp(dir=destination.parent, prefix='.career-context-', suffix='.tmp')
     try:

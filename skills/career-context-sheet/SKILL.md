@@ -19,7 +19,9 @@ Use supplied accounts, selected local files or authorized connectors. The skill 
 
 Read [source research](references/source-research.md) when using records across locations. Read [deepening and story](references/deepening-and-story.md) when researching or synthesizing an account; it covers continuation, evidence review and the optional local research server.
 
-Own the next useful investigation within scope: origins and aliases, decisions, implementation, shared contributions, setbacks, later use and contrary evidence. Keep compact private continuation state for work spanning sessions. Continue while consequential accessible questions remain within the authorized run; record the reason and remaining work when stopping.
+Own the next useful investigation within scope: origins and aliases, decisions, implementation, shared contributions, setbacks, later use and contrary evidence. Keep compact private continuation state for work spanning sessions: the source boundary, retained evidence, draft, selection decisions, unresolved checks and next action. Recover that state after interruption instead of restarting or asking the person to repeat the request. Use bounded retries; retain failures and stop on revoked permissions, corrupt state or exhausted budgets. Continue while consequential accessible questions remain within the authorized run; record the reason and remaining work when stopping.
+
+Before choosing the final stories, review every retained event for changing responsibility, handoffs, stopped work, later use and changed approaches. Check reserve episodes for links missing from selected stories. Preserve consequential turning points in the prose or record a specific omission reason; citing the source alone is insufficient. Keep announced changes distinct from completed transfers.
 
 Build connected episodes before proposing a career through-line. Distinguish originals, self-reports, assistant summaries and inference. Preserve selected exact accounts separately from paraphrases. A prototype is not adoption; a shared result is not sole ownership; source capture time is not event time. Qualitative outcomes and unknown metrics are valid.
 
