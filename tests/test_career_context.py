@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -62,12 +63,74 @@ class CareerContextTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'references to included sources'):
             self.render(self.packet)
 
+    def test_large_selected_excerpt_collection_round_trips_without_loss(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='Selected excerpt ' + str(i))
+                                  for i in range(400)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        self.assertEqual(RENDERER.load_packet(self.render(self.packet)), self.packet)
+
+    def test_large_collection_still_has_count_and_aggregate_size_bounds(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i))
+                                  for i in range(RENDERER.MAX_SOURCES + 1)]
+        with self.assertRaisesRegex(ValueError, 'sources has 2049 entries; maximum is 2048'):
+            RENDERER.validate(self.packet)
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='x' * 100_000)
+                                  for i in range(260)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        with self.assertRaisesRegex(ValueError, 'Sheet exceeds 24 MiB'):
+            RENDERER.validate(self.packet)
+
+    def test_large_html_reopens_and_rebuilds_while_output_remains_bounded(self):
+        original = self.packet['sources'][0]
+        self.packet['sources'] = [dict(original, id='source-' + str(i), content='x' * 70_000)
+                                  for i in range(200)]
+        for account in self.packet['accounts']:
+            account['sourceRefs'] = [s['id'] for s in self.packet['sources']]
+        sheet = self.render(self.packet)
+        self.assertGreater(sheet.stat().st_size, RENDERER.MAX_PACKET_BYTES)
+        self.assertEqual(RENDERER.load_packet(sheet), self.packet)
+        rebuilt = self.directory / 'rebuilt.html'
+        RENDERER.render(sheet, rebuilt)
+        self.assertEqual(sheet.read_bytes(), rebuilt.read_bytes())
+        before = sheet.read_bytes()
+        with patch.object(RENDERER, 'MAX_DOCUMENT_BYTES', 1000):
+            with self.assertRaisesRegex(ValueError, 'HTML sheet exceeds 64 MiB'):
+                self.render(self.packet)
+            with self.assertRaisesRegex(ValueError, 'HTML sheet exceeds 64 MiB'):
+                RENDERER.load_packet(sheet)
+        self.assertEqual(sheet.read_bytes(), before)
+
     def test_unselected_source_dump_is_rejected(self):
         extra = copy.deepcopy(self.packet['sources'][0])
         extra['id'] = 'unselected'
         self.packet['sources'].append(extra)
         with self.assertRaisesRegex(ValueError, 'unreferenced source'):
             self.render(self.packet)
+
+    def test_embedded_image_bytes_do_not_become_canonical_packet_text_on_rebuild(self):
+        import base64
+        import struct
+        import zlib
+        # A valid one-pixel PNG with a text chunk exercises the same boundary
+        # with a small packet cap instead of allocating dozens of image MiB.
+        pixel = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aEkwAAAAASUVORK5CYII=')
+        chunk = b'tEXt' + b'Fixture\0' + b'fictional image padding ' * 1000
+        image = pixel[:-12] + struct.pack('>I', len(chunk) - 4) + chunk + struct.pack('>I', zlib.crc32(chunk)) + pixel[-12:]
+        (self.directory / 'pixel.png').write_bytes(image)
+        self.packet['accounts'][0]['artifacts'] = [{'id': 'pixel', 'title': 'Fictional pixel',
+            'caption': 'Format test', 'file': 'pixel.png'}]
+        cap = len(json.dumps(self.packet).encode()) + 1500
+        with patch.object(RENDERER, 'MAX_PACKET_BYTES', cap):
+            sheet = self.render(self.packet)
+            loaded = RENDERER.load_packet(sheet)
+            self.assertGreater(len(json.dumps(loaded).encode()), cap)
+            rebuilt = self.directory / 'image-rebuilt.html'
+            RENDERER.render(sheet, rebuilt)
+            self.assertEqual(sheet.read_bytes(), rebuilt.read_bytes())
 
     def test_supported_image_bytes_are_preserved_and_path_is_removed(self):
         import base64

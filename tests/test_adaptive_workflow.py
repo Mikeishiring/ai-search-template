@@ -205,15 +205,16 @@ class AdaptiveWorkflowTests(unittest.TestCase):
         self.assertEqual(renderer.image_data(artifact, self.folder)[1], image)
 
     def test_aggregate_size_failure_does_not_replace_sheet(self):
-        self.packet['accounts'][0]['summary'] = 'A' * 100_000
+        self.packet['accounts'][0]['summary'] = '<' * 100_000
         self.packet['accounts'] = [dict(copy.deepcopy(self.packet['accounts'][0]), id='account-' + str(i)) for i in range(80)]
-        # The repeated field appears in both visible text and embedded JSON.
+        # Escaping expands the repeated field in visible HTML and embedded JSON
+        # beyond the 64 MiB document cap while the input remains below 24 MiB.
         for account in self.packet['accounts']:
             account['context'] = 'B' * 100_000
         self.save()
         output = self.folder / 'sheet.html'
         output.write_text('Keep prior sheet', encoding='utf-8')
-        with self.assertRaisesRegex(ValueError, 'Rendered sheet exceeds'):
+        with self.assertRaisesRegex(ValueError, 'HTML sheet exceeds 64 MiB'):
             renderer.render(self.source, output)
         self.assertEqual(output.read_text(), 'Keep prior sheet')
 

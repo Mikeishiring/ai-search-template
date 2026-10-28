@@ -61,7 +61,15 @@ Give the agent the [career-context skill](../skills/career-context-sheet/SKILL.m
 python career_context.py research-build ../my-career-context ../my-career-context/CAREER-CONTEXT.html --force
 ```
 
-The demo launcher still accepts only its fixed fictional sources. For larger selected exports, an optional Codex extraction step processes small batches before the host chooses stories:
+For an already configured workspace, the bounded research supervisor can run the complete loop:
+
+```sh
+python career_context.py research-run ../my-career-context ../my-career-context/CAREER-CONTEXT.html --force --max-attempts 3 --timeout 3600
+```
+
+This sends admitted source text to the authenticated Codex service only when the saved policy permits model processing. The command rechecks that policy before each attempt and before building. It resumes saved research automatically after a stopped worker, within the original limits, and reviews turning points across selected and reserve events. No new source permission is inferred. See [recovery limits](RESEARCH-TO-SHEET.md#automatic-recovery-and-turning-points). Re-running this same command resumes its saved state; it does not reset the attempt budget.
+
+The demo launcher accepts only its fixed fictional sources. For larger selected exports, an optional Codex extraction step processes small batches before the host chooses stories:
 
 ```sh
 python career_context.py research-extract ../my-career-context
@@ -74,7 +82,7 @@ The model is asked to retain actions by every contributor, action states and unr
 
 Policy, capture and journal changes stop the run before another transfer or import. Source permissions are never expanded to follow a reference. The runner reserves journal capacity for later research, but large archives may still need a narrower new workspace. Existing weak extractions are not silently replaced; preserve that attempt and use a new scoped workspace for a fresh comparison.
 
-Extraction is an intermediate step, not a finished biography. Continue with the host to join dates and actors across original sections, distinguish substantive work from chatter, compare reserve episodes, research counterexamples and complete the depth review. More retained events do not prove a better story. The batch checks validate shape, source references and coverage; semantic review and person review remain necessary. There is no automatic whole-archive narrative launcher yet.
+Extraction is an intermediate step, not a finished biography. Continue with the host to join dates and actors across original sections, distinguish substantive work from chatter, compare reserve episodes, research counterexamples and complete the depth review. More retained events do not prove a better story. The batch checks validate shape, source references and coverage; semantic review and person review remain necessary. The `research-run` supervisor can perform these steps within its saved limits. The separate `research-extract` command retains its explicit failed-batch inspection behavior; the supervisor does not erase or override those failures.
 
 ## Depth is a checklist, not a collection count
 

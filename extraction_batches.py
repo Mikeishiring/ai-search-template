@@ -88,8 +88,13 @@ def model_call(packet, folder, timeout):
             (folder / 'diagnostic.txt').write_text(proc.stderr[-5000:], encoding='utf-8')
             raise ValueError('Codex did not return a clean extraction; inspect the saved attempt.')
         return read_json(output)
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as error:
         receipt['failure'] = 'timeout'
+        for name, partial in [('partial-stdout.txt', error.stdout), ('diagnostic.txt', error.stderr)]:
+            if partial:
+                if isinstance(partial, bytes):
+                    partial = partial.decode('utf-8', errors='replace')
+                (folder / name).write_text(partial, encoding='utf-8')
         raise ValueError('Extraction timed out. The first attempt is preserved; no automatic retry.') from None
     except (OSError, RuntimeError, ValueError):
         receipt.setdefault('failure', 'model_call_failed')
@@ -109,9 +114,9 @@ def validate_response(response, selected, corpus, source):
     expected_records = {s['record_id'] for s in selected}
     if len(kinds) != len(expected_records) or {k['record_id'] for k in kinds} != expected_records:
         raise ValueError('Classifications must cover only the supplied records, once each.')
-    previous = retention.source_kinds(source.events)
-    if any(k['record_id'] in previous and previous[k['record_id']] != k['kind'] for k in kinds):
-        raise ValueError('Source classification changed across batches; review it before proceeding.')
+    # Earlier batches may contain only capture metadata. A later substantive
+    # section can correct the original's provisional classification; saving it
+    # also refreshes the derived record note through the existing journal.
     result, _ = retention.validate_extraction(response['sections'], corpus['records'], source.events, spans, kinds)
     if not result['valid']:
         raise ValueError('Extraction failed structural checks: ' + '; '.join(result['errors']))
@@ -136,6 +141,13 @@ def run(workspace, max_batches, timeout=300):
         raise ValueError('Choose a limit from 1 to 20 model calls per invocation.')
     if not 30 <= timeout <= 600:
         raise ValueError('Choose a per-batch timeout from 30 to 600 seconds.')
+    from research_lock import exclusive_run
+    workspace = outside_project(workspace)
+    with exclusive_run(workspace / 'research-server.lock'):
+        return run_exclusive(workspace, max_batches, timeout)
+
+
+def run_exclusive(workspace, max_batches, timeout):
     workspace, session, corpus, source = open_source(workspace)
     folder = workspace / 'extraction-batches'
     if folder.is_symlink():

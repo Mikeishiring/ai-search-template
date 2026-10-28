@@ -46,7 +46,7 @@ The [product contract](docs/PRODUCT.md) defines the release criteria. The core p
 python tools/build_skill.py ../career-context-sheet.zip
 ```
 
-The optional local research server adds scoped export access and resumable evidence review. Experiments remain available in the repository so their results and failures can be inspected.
+The optional local research server adds scoped export access, turning-point review and saved-draft recovery. A bounded supervisor can resume interrupted workers; see the [research flow](docs/RESEARCH-TO-SHEET.md). Experiments remain available in the repository so their results and failures can be inspected.
 
 | Need | Guide |
 |---|---|

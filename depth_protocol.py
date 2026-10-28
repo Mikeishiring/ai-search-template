@@ -4,7 +4,7 @@ import narrative_retention as retention
 
 PROTOCOL = 'career-depth/v1'
 SOURCE_BUDGET = 450
-REQUEST_LIMIT = 800
+REQUEST_LIMIT = 1600
 LENSES = ('origins', 'stakes', 'personal_decisions', 'shared_ownership', 'implementation',
           'setbacks', 'later_outcomes', 'contrary_evidence', 'personal_meaning', 'trajectory')
 STATUSES = ('supported', 'limited', 'needs_person', 'out_of_scope', 'pending')
@@ -54,7 +54,25 @@ def current_review(events, version):
     actual = tuple(review['result'].get(k) for k in ('evidence_version', 'draft_hash', 'plan_hash'))
     if 'inventory_hash' in review['result']:
         inventory = next((e for e in reversed(events) if e['tool'] == 'episode_inventory' and e['result'].get('valid')), None)
-        if not inventory or review['result']['inventory_hash'] != retention.digest(inventory['arguments']):
+        if (not inventory or not retention.inventory_is_current(inventory, events)
+                or review['result']['inventory_hash'] != retention.inventory_hash(inventory)):
+            return None
+    if 'coverage_hash' in review['result']:
+        from depth_coverage import coverage_hash
+        actual_coverage = coverage_hash(events, review['result']['coverage_review_version'],
+                                        review['arguments']['attribution_coverage'])
+        if actual_coverage != review['result']['coverage_hash']:
+            return None
+    elif any(e['tool'] == 'save_attribution_coverage' and e['result'].get('valid')
+             and e['sequence'] > review['sequence'] for e in events):
+        # Legacy reviews did not fingerprint saved coverage. A later decision
+        # must be reviewed explicitly rather than inherit that older receipt.
+        return None
+    if 'turning_points' in review['result']:
+        import turning_points
+        audit = review['result']['turning_points']
+        if (not audit.get('current') or audit.get('decisions_hash') != retention.digest(
+                turning_points.saved(events, audit.get('review_version')))):
             return None
     return review if actual == expected and plan['result']['evidence_version'] == version else None
 

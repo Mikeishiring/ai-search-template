@@ -28,7 +28,7 @@
     },
     {
       "path": "CONTRIBUTING.md",
-      "sha256": "6d38518042fd2a7894e1e0d9da78fb89d499dc76f09978060f68ed052cabdd91"
+      "sha256": "7e5857609b179d6001bc220c25b1e2ca2b97c7a6b425cd397c72e408614932cd"
     },
     {
       "path": "LICENSE",
@@ -36,7 +36,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "7c9a49cbbbac27e1d7862bb17c6c2e9f3e5052dd1d261b8ad53de170647645a1"
+      "sha256": "38263fd0458b51169e699127d84ea920a6e225bef28b5920c5f1e3abcb4bf6db"
     },
     {
       "path": "RESEARCH-STORY.html",
@@ -313,6 +313,14 @@
     {
       "path": "ai-search-mvp/fixtures/training.scope.json",
       "sha256": "4a0f5c587c4a7c64a93c3d2d26d7aee284648bf1511316e1cb326478f90b7c7e"
+    },
+    {
+      "path": "ai-search-mvp/fixtures/turning-points.corpus.json",
+      "sha256": "d1f4c41a33df51ef3c5590ec37570c028d6eb0eb856f1deeea0028d953cd08e0"
+    },
+    {
+      "path": "ai-search-mvp/fixtures/turning-points.scope.json",
+      "sha256": "f1b747ad296d1897455a7b1a85dbd0d1314b8f426ce169d5d90198c3b32a900c"
     },
     {
       "path": "ai-search-mvp/followup_experiment.py",
@@ -984,11 +992,15 @@
     },
     {
       "path": "career_context.py",
-      "sha256": "fa7637d03681633d5aee743fdad1a364a7ca3b00759bc9949623dcc00c94fec7"
+      "sha256": "6c1d58496a13f39a2204789af1661fe61737efb29cfe8deeb1c0959f84c49de7"
+    },
+    {
+      "path": "depth_coverage.py",
+      "sha256": "aae7e1a06bf871c88b1beed7b169e679626508878f09e9720ae3368a47b98509"
     },
     {
       "path": "depth_protocol.py",
-      "sha256": "af7f6327cf5aed55990a1d165e3d29d0dc646c42d7adaf7d28376c59c83d1748"
+      "sha256": "fc5a862c4a50cbbe3abc784c2529c3258575968ff1bd29368804089227d80817"
     },
     {
       "path": "docs/ADAPTIVE-WORKFLOW-REVIEW.md",
@@ -1000,7 +1012,7 @@
     },
     {
       "path": "docs/DEEP-RESEARCH-FLOW.md",
-      "sha256": "5627243e8f004be378123acb78c9c6b78244baa38a7ab510514b4dfd3a7586a8"
+      "sha256": "fa82f0b751c4a99b89da4da3437f74bb581ca5a861dbde42cb34df47530a9ee9"
     },
     {
       "path": "docs/DEEP-RESEARCH-RESULT.md",
@@ -1008,7 +1020,7 @@
     },
     {
       "path": "docs/EVENT-RETENTION.md",
-      "sha256": "2014bda13a9bc96cd2cd28a10e4ebbbefead28b6ff433d6ef8934247f9e2433b"
+      "sha256": "8c4074faf8eecb7d605a03e7839362b5f46ef9ce262ef2bb6d68c5b832680d2e"
     },
     {
       "path": "docs/EVIDENCE-WORKSPACE.md",
@@ -1028,7 +1040,7 @@
     },
     {
       "path": "docs/LOCAL-CONTEXT.md",
-      "sha256": "7091256c3f6143ba285e781ea30f85d3567f44fbccaac2025f48577addcc628f"
+      "sha256": "57d946c169ea7758f511699e0ba582b9ccca51308b9ef4fe778a3d1714e65b1d"
     },
     {
       "path": "docs/MCP.md",
@@ -1056,11 +1068,15 @@
     },
     {
       "path": "docs/RESEARCH-TO-SHEET.md",
-      "sha256": "0a1d8b86b25bba1a8a2ba0d9063f3030bb9b558aac8b2ea3a41ef6c40aa842b5"
+      "sha256": "66f029bab4abb8bf16b974c4a083f6427bea7d96a68891730b34c325224554d2"
     },
     {
       "path": "docs/SOURCES.md",
       "sha256": "4b8371b14f3746ccf576fe4b6fde31814b37f2cdf81196e29ab2e033efd367a8"
+    },
+    {
+      "path": "docs/TURNING-POINTS-AND-RECOVERY.md",
+      "sha256": "18c5d2406be0e6d3fd29b53fc24f4f356c9aa3005fc305aaecc1cbb893aa20fd"
     },
     {
       "path": "docs/career-context-preview.png",
@@ -1092,15 +1108,15 @@
     },
     {
       "path": "extraction_batches.py",
-      "sha256": "a3a0ff98c35fb78e95c2348bf32434f8a5c0de0e48646ee32975596d6c46f868"
+      "sha256": "c58f1bfb3bacd6bc6b190c24401d8862275973318ee826d990a56855d516ec74"
     },
     {
       "path": "local_context.py",
-      "sha256": "0b6384bc1761db333f77c5d5f408f0daf7c92a8d875064144668655157a5423e"
+      "sha256": "bf8d9ef6dff0606c0e07c45eade3be70f397089baff39002cdbe30196093ae35"
     },
     {
       "path": "narrative_retention.py",
-      "sha256": "238fb471ecabca050bf8b05dca4530d69c8cb6c524b49e90dd44975798e73193"
+      "sha256": "715175ba6201a8a07fc57193c2c32ec541953cfe8617f3a92f44967ecc7a3318"
     },
     {
       "path": "personal.py",
@@ -1108,7 +1124,7 @@
     },
     {
       "path": "prompts/EXTRACT-SECTIONS.md",
-      "sha256": "5fe2e740e97532672305c7991720b85fa8cc82479110d5a8332dc6508de43cbf"
+      "sha256": "5002df1e1d683cf685c597d25aad6ec0d9a7a9dbebb32840c7f9241959445110"
     },
     {
       "path": "prompts/PERSONAL-REVIEW.md",
@@ -1116,23 +1132,31 @@
     },
     {
       "path": "prompts/RESEARCH-TO-SHEET.md",
-      "sha256": "2c7c5cfebc22f8926ea7e90a05344c90a21c079c91164865a4e32be415b91515"
+      "sha256": "0f25407d20fd74eeb8c38b5bf6ed41363d5ab1c88cdff63e3beb15c36b13d82f"
     },
     {
       "path": "prompts/START-HERE.md",
       "sha256": "149aa4fd01fb8698c9c06b212e6e3d07cda57afa79c5476c0a72d1257ef86484"
     },
     {
+      "path": "research_lock.py",
+      "sha256": "d1211db7d67b54178061e03a9364c264f1f3863c88ce7660996c5ff89abd4c27"
+    },
+    {
+      "path": "research_runner.py",
+      "sha256": "c9df2ee9e9f061a00048fa5098a68a1625b3f312ebec77cac8831e6e390e70b5"
+    },
+    {
       "path": "research_sheet.py",
-      "sha256": "d67c739db173c42d90ca9e851a614bfd1e286494b49d6dc2ff5c883b52becbd7"
+      "sha256": "0ea08105d3e094045dcf6188051c84cdc2d578aedb10d8c0730635d4d112aa0e"
     },
     {
       "path": "research_sheet_server.py",
-      "sha256": "f4e12ff96f4e3ee8dcbe8c6cd91ccc350ee410c6bf0bd66c80b8686d179bcead"
+      "sha256": "a0f09102a839d7ab81a0d87a38fcf2ef1fb07a0d6fce83bef7f7545ac5bc617d"
     },
     {
       "path": "skills/career-context-sheet/SKILL.md",
-      "sha256": "c71f952d4e50c4dc840f31b596cbf0fb26c771acc20396e1a7a51b9f570e84d0"
+      "sha256": "df936821594b56c1b7e71372add038df9bd4ea0f86f49c089f22a91a1086c791"
     },
     {
       "path": "skills/career-context-sheet/agents/openai.yaml",
@@ -1160,7 +1184,7 @@
     },
     {
       "path": "skills/career-context-sheet/references/deepening-and-story.md",
-      "sha256": "860da6a06f9af050130307e3afee76c9c83d4269c62ea3ddc9ad175c6d030430"
+      "sha256": "4d4197fbef622d62506f85a9d53a82046c27fab4c399086816efced3340fe08a"
     },
     {
       "path": "skills/career-context-sheet/references/format.md",
@@ -1192,7 +1216,7 @@
     },
     {
       "path": "skills/career-context-sheet/scripts/render_context.py",
-      "sha256": "01534dea8e72742c9d6f4fbfd3bbc86a97ba8f6e59dd120fb021c79b13499e16"
+      "sha256": "408711d7c09b1e17eff3686b83a915106f8506c8f8bddb36c921a59cf0c39549"
     },
     {
       "path": "skills/career-context-sheet/scripts/render_interview.py",
@@ -1227,8 +1251,12 @@
       "sha256": "30284961d8a12c091b3ba4f02d0a9ab9be44636358cf4fa91ed6299752e9102e"
     },
     {
+      "path": "tests/fictional_story.py",
+      "sha256": "16823af75a1a91d4cb051dd3b25032c0d9d34959e244a79f614d8b43db942436"
+    },
+    {
       "path": "tests/test_adaptive_workflow.py",
-      "sha256": "bfe690eafef09410a26612feed04f8a978098a9c75157864a92d3a3b30f6fd7d"
+      "sha256": "49acff5c223a3f28f7055340a6513d90ea5e187d511531cf994510916ede9fbb"
     },
     {
       "path": "tests/test_career_cli.py",
@@ -1236,15 +1264,23 @@
     },
     {
       "path": "tests/test_career_context.py",
-      "sha256": "cfab2bffe236bc758c6823a6156d65c42edd8dbd1d6ef9c09bba6f54ed081652"
+      "sha256": "95704f88f82e8b71896bce68cfca1fdddf2a4576620b5498b68dead0e80c86ea"
+    },
+    {
+      "path": "tests/test_depth_coverage.py",
+      "sha256": "1302e35e1426e5c797d5f8da55d57f248b7f184ca64fe54d9cb2692acf1e55b4"
     },
     {
       "path": "tests/test_depth_protocol.py",
-      "sha256": "cd16fbd0a7956412b0ef01c97ef0bffeaa9420a83487514e8ed1d2500b59255a"
+      "sha256": "5689f9672eea71ca3c71a27b3480790345a41122611b8f16e4a29c394c924202"
+    },
+    {
+      "path": "tests/test_episode_assignments.py",
+      "sha256": "36061a07be0a9c993c3d5d5b38349d8fda8fc0f9ce160d4ce94010ec078c78f3"
     },
     {
       "path": "tests/test_extraction_batches.py",
-      "sha256": "32212e68d5c6f1224c82f37fd5f19f4ac0f08d43079ae7b1cd7d831b4c131e45"
+      "sha256": "70a4e7197d149ca646c5e72824da4ba0e04d6f54f45b46ae554496c44d538bc0"
     },
     {
       "path": "tests/test_git_privacy.py",
@@ -1275,12 +1311,24 @@
       "sha256": "4f2ca61df87c233ca8a9d8af60c44be9bd689065f84b32583bee47def7e49834"
     },
     {
+      "path": "tests/test_push_privacy.py",
+      "sha256": "41cbb636c94cc28c572bff54a88421a945bed378a9873099f2a9c266e3602f0c"
+    },
+    {
+      "path": "tests/test_research_runner.py",
+      "sha256": "239dbec7bd43336f88f380ba95dd3c4423ca0476b740c56e6ce56bcd3b04cae3"
+    },
+    {
       "path": "tests/test_research_sheet.py",
-      "sha256": "368a7bae60e90749a19c9d5c936c656e708c757046353b27e29302af28c655a5"
+      "sha256": "d136e2b8b35ad02d6535844f761a54fdc65bd877d918ce2ec0134014f47fbf1c"
     },
     {
       "path": "tests/test_skill_bundle.py",
       "sha256": "75800979c0153ff1ba76011867a0df0cfd977d62fc2f66f30beadfe10f5da4ea"
+    },
+    {
+      "path": "tests/test_turning_points.py",
+      "sha256": "71f9cc832e8f6b4a66bba95df5c6612b985a781c0cbe998f35ca761914626a5a"
     },
     {
       "path": "tools/build_demo.py",
@@ -1303,12 +1351,20 @@
       "sha256": "88673c70b24bbc5149afcd9e20b4bdfe6ffc055b275c3d96e48012ef9a8360d4"
     },
     {
+      "path": "tools/check_push_privacy.py",
+      "sha256": "38452a46171df1225195d058a1a367d4464dfb0f79a1a410195b961512e74ce6"
+    },
+    {
       "path": "tools/check_release.py",
       "sha256": "2f5c83ca299dbc55e445d500e0cc9eaa023b6c2ea2e9da3573d4a7ad64e44cf3"
     },
     {
       "path": "tools/run_research_demo.py",
-      "sha256": "b93efcd61d7d0f374a126c7df57ac5bba3226ae9d482f4417eee0433bd0ac298"
+      "sha256": "087a9dd7fc2020ae38a605652caadccfaae90916769814de1fd64435bd2e943d"
+    },
+    {
+      "path": "turning_points.py",
+      "sha256": "6954091e8c833a5ee19b7591c8065e00998bac4479593ca7d0655c515197d043"
     }
   ]
 }

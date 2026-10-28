@@ -44,7 +44,7 @@ Each lens keeps a finding, counterpoint, exact evidence, represented claims and 
 
 ## Where the effort goes
 
-The integrated server allows **450 charged source calls and 800 total requests**, compared with the first demonstration's **45 and 80**. Source: `depth_protocol.py` and the historical `completion_server.py` defaults. The demo launcher allows up to **one hour per attempt**, up from twenty minutes. These bounds increase capacity; they do not promise a tenfold runtime or require spending the entire budget.
+The integrated server allows **450 charged source calls and 1,600 total requests**, compared with the first demonstration's **45 and 80**. Source: `depth_protocol.py` and the historical `completion_server.py` defaults. The total request ceiling includes extraction, cached recovery and batched attribution review; those local operations do not consume the charged source allowance. The demo launcher allows up to **one hour per attempt**, up from twenty minutes. These bounds increase capacity; they do not promise a tenfold runtime or require spending the entire budget.
 
 At least two different depth questions must be investigated before each account's first plan. Probes must cover each selected source group. After that plan, a fresh query must challenge contrary evidence, ownership or later outcomes for each account. The researcher should continue beyond those minimums whenever an accessible question could change the story.
 

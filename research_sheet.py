@@ -15,6 +15,7 @@ from ownership_review import compile_review, draft_hash, evidence_version
 from career_context import renderer
 import depth_protocol as depth
 import narrative_retention as retention
+import turning_points
 RENDERER = renderer()
 
 FIELDS = ('summary', 'context', 'aim', 'contribution', 'decisions', 'sharedCredit', 'outcome')
@@ -73,7 +74,7 @@ def outside_project(path):
     return path
 
 
-FIXTURES = {'sheet', 'story-depth'}
+FIXTURES = {'sheet', 'story-depth', 'turning-points'}
 
 
 def initialize(workspace, fixture='sheet'):
@@ -92,6 +93,7 @@ def initialize(workspace, fixture='sheet'):
         'scope': scope, 'source_fixture': fixture,
         'depth_protocol': depth.PROTOCOL,
         'retention_protocol': retention.PROTOCOL,
+        'turning_point_protocol': turning_points.PROTOCOL,
         'export_protocol': EXPORT_PROTOCOL,
     })
     return workspace
@@ -248,7 +250,10 @@ def compile_sheet(raw, plan, records, events, scope, snapshot, *, draft=False, s
     packet = {'schema': 'career-context/v1', 'updatedAt': snapshot, 'reviewStatus': 'draft', 'synthetic': synthetic,
               'person': {'name': scope['subject'], 'overview': '\n\n'.join(sentence(i) for i in plan['overview']), 'background': background},
               'accounts': accounts, 'sources': sources}
-    RENDERER.validate(packet)
+    try:
+        RENDERER.validate(packet)
+    except ValueError as error:
+        return None, validation | {'valid': False, 'errors': ['Sheet validation: ' + str(error)]}
     return packet, validation | {'valid': True, 'errors': [], 'sheet_claims': len(claims),
                                 'sheet_accounts': len(accounts), 'selected_excerpts': len(sources), 'semantic_checked': False}
 
@@ -283,6 +288,14 @@ def build(workspace, output, force=False):
         errors = retention.plan_errors(planned['arguments']['plan'], records, events, spans, challenged=True)
         if errors:
             raise ValueError('This session requires current event retention: ' + '; '.join(errors))
+    if session.get('turning_point_protocol'):
+        turning = turning_points.status(events, records, spans, session['turning_point_protocol'])
+        if not turning['current']:
+            raise ValueError('Turning-point review is incomplete: ' + '; '.join(turning['errors']))
+        if session['turning_point_protocol'] == turning_points.PROTOCOL:
+            errors = turning_points.overview_errors(audit['arguments'], planned)
+            if errors:
+                raise ValueError('; '.join(errors))
     if planned['result']['evidence_version'] != evidence_version(records, events):
         raise ValueError('Sheet plan is stale for the current evidence.')
     if planned['arguments']['plan'].get('schema') != session.get('export_protocol'):

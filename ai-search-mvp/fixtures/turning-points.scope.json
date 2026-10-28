@@ -1,0 +1,16 @@
+{
+  "question": "Build career-context accounts of Contributor 01 at the observatory: calibration and public observing nights, operating choices, changing responsibility, shared credit, delivery and later use.",
+  "query": "observatory calibration",
+  "subject": "Contributor 01",
+  "sources": [
+    "docs",
+    "chat",
+    "repo"
+  ],
+  "earlier_start": "2034-01-01",
+  "start": "2034-02-01",
+  "end": "2034-03-31",
+  "horizon": "2034-05-31",
+  "timezone": "UTC",
+  "privacy": "Only the selected fictional sources. Exclude private. Preserve selected exact excerpts in a private draft sheet."
+}

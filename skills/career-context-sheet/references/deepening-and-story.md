@@ -46,6 +46,8 @@ After drafting, revisit originals behind notes marked contextual, irrelevant or 
 
 Keep this working index private. The sheet should contain the useful story and its evidence, not an exhaustive ledger.
 
+Small operating choices and delivered work count: who chose the next step, which prerequisite delayed it, how responsibility changed, and what another person actually used. Mark evidence essential when omission would change the reader's understanding of agency, sequence, state or outcome. Preserve that evidence in the story. For a handoff, compare announcement, actual transfer and later continued involvement. Quote the actual draft sentence in the private review and explain its actor/action/state fidelity; a citation or intention to qualify the wording is insufficient.
+
 ## Build episodes before a career through-line
 
 For each useful episode, connect the situation, stakes, choices, personal action, shared contribution, outcome and later understanding. Use the existing account fields; an unknown detail can remain empty. Do not require a dramatic turning point or a numerical result.
@@ -78,14 +80,14 @@ Before handoff, compare visible prose, copied text and embedded JSON. Deliver on
 
 ## Enforced flow in the local research server
 
-The integrated server provides 450 source calls and 800 requests. This is ten times the earlier test capacity, not a minimum duration. Prefer consequential questions over extra volume. The general skill works without the server, but then these obligations are instructions rather than executable checks.
+The integrated server provides 450 source calls and 1,600 requests. This capacity supports bounded extraction and event review; it is not a minimum duration. Prefer consequential questions over extra volume. The general skill works without the server, but then these obligations are instructions rather than executable checks.
 
 1. Use `research_probe` with an account ID, depth lens, question, source and query. Investigate at least two different lenses before that account's first `sheet_plan`, and cover every selected source group. These minimums do not imply sufficient depth.
 2. Read the originals and finish known discovery. When the server reports `retention.protocol`, use `extraction_packet` and `save_extraction` to review every cached section, then `episode_packet` and `episode_inventory` to retain each event in a selected or reserve episode or a specific exclusion. Selected episode IDs become account IDs. The host derives source notes; `save_notes` is for legacy sessions. Draft, check and save the first plan.
 3. Challenge the plan with a fresh question about contrary evidence, shared ownership or later outcomes. A relabelled cached search does not count. Follow new leads, revisit whole originals and correct the evidence. In retention sessions, compare the strongest reserve episode with a selected account and resubmit the inventory after the first plan. Revise the draft and plan.
 4. Submit `depth_review` for all ten lenses per account: origins, stakes, personal decisions, shared ownership, implementation, setbacks, later outcomes, contrary evidence, personal meaning and trajectory. Cite real spans and search receipts. Record a counterpoint or limitation, not just confirmation.
 5. Map every material saved attribution to claims carrying that exact actor/action reference, or explain the omission. Check whether the saved note itself omitted a contribution from the original. A citation to the record cannot substitute for narrative credit.
-6. Evaluate the through-line separately. A cross-episode pattern needs at least two grounded accounts and an exception or limit. One episode cannot establish a career-wide trait.
+6. Review `turning_point_packet` including reserve events. In v2 sessions, `save_turning_points` requires importance, exact `prose_checks` and `qualifying_event_ids`. Essential events cannot be omitted; their qualifications must survive in the same account. Evaluate the through-line separately: a cross-episode pattern needs at least two grounded accounts and an exception or limit. Quote the actual overview's interpretation and limit in the depth review, so the connection reaches the reader. One episode cannot establish a career-wide trait.
 7. Resolve accessible pending questions before finishing. Unknown personal meaning, excluded sources and genuine evidence gaps remain explicit. New evidence, notes or a changed plan invalidate the prior review.
 
 The review is performed by the researching agent. The checks validate process and references, not whether the interpretation is true. Do not label it independent or person-reviewed. The local checklist saves per-account findings and gaps; the portable sheet retains questions and limitations while keeping the working audit private.
