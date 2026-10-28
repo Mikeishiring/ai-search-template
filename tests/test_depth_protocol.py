@@ -146,9 +146,9 @@ class DepthProtocolTests(unittest.TestCase):
         result = self.server.execute('depth_review', audit)
         self.assertTrue(result['valid'], result['errors'])
 
-    def test_sheet_capacity_is_ten_times_old_fixture_and_does_not_cut_off_at_45(self):
+    def test_sheet_preserves_source_budget_and_adds_local_review_capacity(self):
         self.assertEqual(self.server.source_budget, 450)
-        self.assertEqual(self.server.request_limit, 800)
+        self.assertEqual(self.server.request_limit, 1600)
         for i in range(46):
             result = self.server.execute('search', {'source': 'chat', 'query': 'no-match-' + str(i)})
             self.assertNotIn('error', result)
@@ -166,6 +166,7 @@ class DepthProtocolTests(unittest.TestCase):
         session.pop('depth_protocol')
         session.pop('retention_protocol')
         session.pop('export_protocol')
+        session.pop('turning_point_protocol')
         write_json(workspace / 'session.json', session)
         build(workspace, output)
         self.assertTrue(output.is_file())

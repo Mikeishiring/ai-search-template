@@ -17,6 +17,9 @@ TEXT_FIELDS = ['title', 'period', 'summary', 'context', 'aim', 'contribution', '
 LIST_FIELDS = ['decisions', 'limits', 'questions', 'sourceRefs']
 KINDS = {'person_account', 'source_excerpt', 'redacted_excerpt', 'archive_summary', 'artifact_record'}
 MIMES = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif'}
+MAX_SOURCES = 2048
+MAX_PACKET_BYTES = 24 * 1024 * 1024
+MAX_DOCUMENT_BYTES = 64 * 1024 * 1024
 
 def check_text(value, label, maximum=100_000):
     if not isinstance(value, str) or '\0' in value or len(value) > maximum:
@@ -64,8 +67,9 @@ def validate(data):
             raise ValueError('Invalid collection access')
         if location['status'] not in ['not_started', 'partial', 'read', 'blocked', 'excluded']:
             raise ValueError('Invalid collection status')
-    for field, maximum in [('accounts', 80), ('sources', 160)]:
-        if not isinstance(data[field], list) or len(data[field]) > maximum: raise ValueError(f'Invalid {field} collection')
+    for field, maximum in [('accounts', 80), ('sources', MAX_SOURCES)]:
+        if not isinstance(data[field], list): raise ValueError(f'{field} must be a list')
+        if len(data[field]) > maximum: raise ValueError(f'{field} has {len(data[field])} entries; maximum is {maximum}')
         if any(not isinstance(item, dict) for item in data[field]):
             raise ValueError(f'{field} entries must be objects')
         ids = [item.get('id') for item in data[field]]
@@ -97,6 +101,14 @@ def validate(data):
             if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}', aid) or aid in artifact_ids: raise ValueError('Artifacts need unique safe IDs')
             artifact_ids.add(aid)
     if used != source_ids: raise ValueError('Remove unreferenced source records from the packet')
+    # HTML loading temporarily attaches image bytes. They live outside the
+    # canonical JSON and have their own image and complete-document bounds.
+    canonical = dict(data, accounts=[dict(account, artifacts=[
+        {k: v for k, v in artifact.items() if k != '_dataUrl'}
+        for artifact in account.get('artifacts', [])]) if 'artifacts' in account else account
+        for account in data['accounts']])
+    if len(json.dumps(canonical, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
+        raise ValueError('Sheet exceeds 24 MiB')
 
 class SheetReader(HTMLParser):
     def __init__(self): super().__init__(); self.capture = False; self.parts = []; self.images = {}
@@ -110,14 +122,20 @@ class SheetReader(HTMLParser):
         if tag == 'script': self.capture = False
 
 def load_packet(source):
-    if source.stat().st_size > 24 * 1024 * 1024: raise ValueError('Sheet exceeds 24 MiB')
-    return parse_packet(source.read_text(encoding='utf-8'), is_html=source.suffix.lower() in ['.html', '.htm'])
+    is_html = source.suffix.lower() in ['.html', '.htm']
+    maximum = MAX_DOCUMENT_BYTES if is_html else MAX_PACKET_BYTES
+    if source.stat().st_size > maximum:
+        raise ValueError('HTML sheet exceeds 64 MiB' if is_html else 'Sheet exceeds 24 MiB')
+    return parse_packet(source.read_text(encoding='utf-8'), is_html=is_html)
 
 
 def parse_packet(raw, *, is_html=False):
-    if len(raw.encode()) > 24 * 1024 * 1024: raise ValueError('Sheet exceeds 24 MiB')
+    maximum = MAX_DOCUMENT_BYTES if is_html else MAX_PACKET_BYTES
+    if len(raw.encode()) > maximum: raise ValueError('HTML sheet exceeds 64 MiB' if is_html else 'Sheet exceeds 24 MiB')
     if not is_html: return json.loads(raw)
     parser = SheetReader(); parser.feed(raw); data = json.loads(''.join(parser.parts))
+    if len(json.dumps(data, ensure_ascii=False).encode('utf-8')) > MAX_PACKET_BYTES:
+        raise ValueError('Sheet exceeds 24 MiB')
     for account in data['accounts']:
         for artifact in account.get('artifacts', []): artifact['_dataUrl'] = parser.images.get(artifact.get('embeddedId'), '')
     return data
@@ -196,10 +214,11 @@ def render(source, destination, *, overwrite=True):
         'SOURCES': ''.join(sources) or '<p>No sources included yet.</p>',
         'DATA': json.dumps(packet, ensure_ascii=True).replace('<', '\\u003c').replace('&', '\\u0026'),
     }
+    validate(packet)  # Embedded-image metadata must also fit the canonical packet.
     template = (SKILL / 'assets/sheet.html').read_text(encoding='utf-8')
     output = re.sub(r'@@([A-Z]+)@@', lambda m: values[m[1]], template)
-    if len(output.encode('utf-8')) > 24 * 1024 * 1024:
-        raise ValueError('Rendered sheet exceeds 24 MiB; select fewer or smaller images')
+    if len(output.encode('utf-8')) > MAX_DOCUMENT_BYTES:
+        raise ValueError('HTML sheet exceeds 64 MiB')
     if destination.is_symlink(): raise ValueError('Output must not be a symbolic link')
     fd, temporary = tempfile.mkstemp(dir=destination.parent, prefix='.career-context-', suffix='.tmp')
     try:

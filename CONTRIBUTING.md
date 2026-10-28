@@ -53,6 +53,10 @@ Use `HEAD` to audit all reachable history. The check reports hashes and fields w
 
 Enable GitHub's private-email setting for web-created merges as well; a local commit check cannot control GitHub's merge author identity. Do not rewrite published history or force-push as an automatic repair. Prepare exact ref changes, preserve file trees, and obtain authorization first.
 
+For local merges, set author and committer to the account's GitHub noreply identity before creating the merge commit, then check the resulting `origin/main..HEAD` range before a normal push. This preserves the metadata you checked locally. Inspect Actions on that pushed revision; local checks are not a substitute for a failing required remote check.
+
+`tools/check_push_privacy.py` can run from a local pre-push hook using Python, both hook arguments (`"$@"`), and Git's ref-update lines on stdin. It screens new branch commits against the actual push destination's advertised main and existing branch updates against their advertised old tips. It never exempts unpublished local main, skips no new commits because old history has an email, and blocks if the baseline cannot be checked. Fetch first. Deleting a branch adds no commits; tags require separate review. Install the hook locally with absolute interpreter/script paths appropriate to your machine, never committed machine paths or credentials.
+
 For a pull request, describe the user-visible change, the checks run and any remaining limits. Preserve draft/review state, source distinctions, dates, ownership and unknowns in every export.
 
 
