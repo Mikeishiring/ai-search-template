@@ -12,13 +12,15 @@ Use work documents only with an approved model and sources you are allowed to sh
 
 [Download the project](https://github.com/Mikeishiring/career-context-ai/archive/refs/heads/main.zip), extract it and open **[CAREER-CONTEXT.html](CAREER-CONTEXT.html)** in a browser. The example is fictional and works offline.
 
-Open a work account, follow its sources, then try **View agent text**. **Copy for an agent** carries the same account, including shared credit and limits. GitHub displays HTML as source; use the downloaded file.
+Open a work account, follow its sources, then try **Preview text**. **Copy for an agent** carries the same account, including shared credit and limits. GitHub displays HTML as source; use the downloaded file.
+
+For a notebook with a custom navigation menu, quarterly work, visual evidence and interview follow-ups, open **[CAREER-NOTEBOOK.html](CAREER-NOTEBOOK.html)**. This edition uses the same fictional source packet, with an explicit quarterly companion. [Notebook guide](skills/career-context-sheet/references/notebook.md).
 
 ## Make it yours
 
-Give your agent the complete [career-context-sheet](skills/career-context-sheet/SKILL.md) folder and selected material. It includes the research guidance, format, renderer and visual template.
+Give your agent the complete [career-context-sheet](skills/career-context-sheet/SKILL.md) folder and selected material. It includes source discovery, role-specific evidence guidance, a local SQLite archive, and HTML renderers for context, resumes and interview preparation.
 
-> Help me build a career-context sheet using this skill. Reuse what I have already told you; establish the work, sources and privacy boundaries that are still unclear. Investigate my decisions, shared contributions and later outcomes. Preserve my voice and uncertainty, ask what the records miss, and create one private HTML file I can keep.
+> Use this skill to build my career context. Reuse what you know about my work and goals, discover the sources available here, and guide me through any missing access. Collect relevant evidence and visual examples within scope. Adapt the organization to my work, preserve shared credit and uncertainty, and create a private local database with one HTML entry point. Use my reference material when I ask for a resume or interview preparation.
 
 Start with one useful account. The agent should pursue consequential questions and challenge its first draft; you should not need to keep asking it to go deeper.
 
@@ -31,8 +33,10 @@ Ask the agent to [prepare an interview](skills/career-context-sheet/references/i
 - **Your work in context:** personal decisions, shared work, outcomes and unfinished questions.
 - **Inspectable evidence:** selected excerpts remain distinct from summaries and interpretation.
 - **One portable HTML file:** readable accounts, plain agent text, structured context and selected images travel together.
+- **A local SQLite archive:** searchable accounts and sources, selected image bytes, collection coverage and recoverable revisions.
+- **Role-appropriate drafts:** [resumes](skills/career-context-sheet/references/resume.md) with print/PDF and text export, plus interview preparation grounded in the same context.
 
-The renderer uses Python 3.11+ with no packages or network calls. The agent you choose does the research and writing. Live source connectors are supplied by your host; installing this project does not connect accounts.
+The scripts use Python 3.11+ with no packages or network calls. The agent you choose does the research and writing. Live source connectors are supplied by your host; installing this project does not connect accounts. Collection covers selected accessible sources, not every platform or all career history. The database is private and unencrypted.
 
 ## For developers
 
@@ -55,3 +59,5 @@ The optional local research server adds scoped export access, turning-point revi
 The research server currently uses selected snapshots. Live connectors, automatic refresh and reliable semantic review remain under development.
 
 [MIT licensed](LICENSE).
+
+Copy all accounts or select one; private source excerpts are excluded from copied text unless selected. Attribution and limits remain. Full HTML and JSON always include all selected sources. Optional links lead to separately delivered local files.

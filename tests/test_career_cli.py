@@ -74,12 +74,12 @@ class CareerCliTests(unittest.TestCase):
         source = self.directory / 'input.json'
         source.write_bytes((ROOT / 'examples/career-context.json').read_bytes())
         renderer = career_context.renderer()
-        original_link = renderer.os.link
+        original_link = renderer.publish_new
         def competing_writer(temporary, destination):
             self.output.write_text('Concurrent work', encoding='utf-8')
             return original_link(temporary, destination)
         with patch.object(career_context, 'renderer', return_value=renderer):
-            with patch.object(renderer.os, 'link', side_effect=competing_writer):
+            with patch.object(renderer, 'publish_new', side_effect=competing_writer):
                 with self.assertRaises(SystemExit):
                     self.run_cli('render', source, self.output)
         self.assertEqual(self.output.read_text(), 'Concurrent work')

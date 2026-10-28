@@ -30,6 +30,8 @@ With Playwright available, `node tests/check_sheet.cjs` exercises that path and 
 
 For interview changes, render `examples/career-context.json` with `examples/interview-preparation.json` using the bundled interview renderer. Set `CAREER_INTERVIEW_HTML` to the resulting HTML and run `node tests/check_interview.cjs`. It uses the same QA directory and browser options and checks all six populated sections, source fidelity, navigation, copy fallback, independent reopening, no-JavaScript reading, print and mobile layout.
 
+For resume changes, set `CAREER_RESUME_HTML` to a fictional rendered resume and run `node tests/check_resume.cjs` with `CAREER_CONTEXT_QA_DIR`. It checks text fidelity, copy fallback, downloads, source navigation, print labels and no-JavaScript access at four widths. The adaptive Python tests extract the complete skill and run database, search, resume and recovery journeys across six disciplines. These deterministic cases test contracts; use fresh agent trials from raw notes to assess research and writing choices.
+
 ## Publication review
 
 `tools/check_release.py` checks file patterns, relative links and exact manifest hashes. It is additional screening, not proof that text is anonymous. Review the diff and all embedded data before refreshing the manifest:
@@ -56,10 +58,14 @@ For a pull request, describe the user-visible change, the checks run and any rem
 
 ## Standalone distribution
 
-The shareable ZIP contains exactly the skill instructions, four references, two renderers, two HTML templates, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
+The shareable ZIP contains exactly the resources named in `tools/build_skill.py`: skill instructions, references, sheet, interview, notebook and resume renderers and templates, the SQLite archive tool, host metadata and license. The builder names each input explicitly; it does not recurse through a workspace. Tests extract it into an unrelated folder and run isolated Python against it, including update and failure paths.
 
 Do not add account configuration, source exports, test transcripts or a runtime dependency to this bundle. Keep optional local research tooling in the full repository. Changes to public input/output behavior must preserve the format and selected personal context.
 
 The Product checks workflow runs toolkit and research tests, offline MCP checks, example reproducibility, publication checks and a bundle build on Windows, macOS and Linux with Python 3.11, plus Linux with Python 3.14. It uses read-only repository permissions and does not publish. A configured workflow is not a passing run: inspect results on the actual release revision.
 
 Before sharing a release, review the diff and embedded data, refresh the publication manifest, run the checks above, and exercise the rendered sheet. Run a fresh host trial after changing research instructions; preserve the first result and judge attribution, decisions, counterevidence and corrections rather than source count alone.
+
+Notebook changes also rebuild `CAREER-NOTEBOOK.html` through `tools/build_demo.py`. The optional renderer, template and notebook reference are named explicitly in the standalone bundle. Test both a sparse account and the fictional quarterly companion; inspect source access, native-dialog menu, image readers and the responsibility follow-up.
+
+Run `node tests/check_notebook.cjs` for the shipped notebook route, menu and source handlers. The Python suite also runs it when Node.js is installed and checks that the notebook rebuild is identical. Node.js 18+ is a development check only; the exported notebook needs a browser, not Node.js.
