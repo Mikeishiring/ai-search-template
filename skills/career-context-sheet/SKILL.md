@@ -29,6 +29,10 @@ Check both directions: each consequential sentence has support, and material evi
 
 Let the template carry draft and fictional labels; use the overview for the person and their work. Keep the summary connected and concise, then use detail fields to add evidence and decisions instead of repeating the whole account. Limits record consequential uncertainty, not repeated method or privacy notices. Keep factual questions that could change the account.
 
+## When an introduction is requested
+
+Read [introduction choices](references/introductions.md). Make the first review a comparison of five or six supported narratives, adapted to the person's experience, demonstrated level, audience and goal. Show different organising ideas, not cosmetic rewrites. Preserve the current introduction until the person chooses; keep their feedback for the next session. Context capture alone does not require this step.
+
 ## Render the sheet
 
 Read [the format](references/format.md). Use `career-context/v1`, stable account IDs and resolving source references. Preserve corrections when updating. Inputs and working notes stay private; the HTML is the deliverable.
