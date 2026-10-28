@@ -16,6 +16,8 @@ For each location, retain what was read, the dates actually covered, open pagina
 
 For saved agent conversations, separate user accounts, retrieved source text, assistant interpretation and intended actions. A chat summary may point to an original or capture a useful correction; it does not independently corroborate the source it summarized. Use the [deepening and story guide](deepening-and-story.md) to carry evidence into an account and resume unfinished work.
 
+For repositories, posts and portfolios, [GitHub and social discovery](github-and-social.md) covers account enumeration, implementation/history checks, attribution and cross-posted evidence.
+
 ## Spend reads where they can change the story
 
 Read the original account and linked evidence first. Then prioritize unresolved ownership, contradictory outcomes, later corrections, missing parent context and relevant attachments. Alternate locations so one busy channel does not consume the whole budget. On a budget stop, preserve a resumable queue and the limits in the sheet.

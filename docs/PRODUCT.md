@@ -36,6 +36,8 @@ Structural and process checks cannot certify semantic completeness. Keep that li
 - Fresh role trials cover hiring, engineering, operations, growth, marketing and business development. Source selection, useful artifacts, vocabulary and emphasis follow the person's work; unavailable sources remain explicit gaps.
 - Resume drafts use current context fingerprints and selected account references, preserve supplied reference preferences, and offer usable print and plain-text output. Structured validation is not semantic verification of resume claims.
 
+- GitHub/social research discovers substantial work beyond the existing resume, inspects selected implementation and original threads, preserves authorship and prototype limits, and records inventory versus read coverage separately.
+
 ## Boundaries
 
 Live connectors, continuous synchronization, hosted storage, automatic publication and an additional agent framework are not required for the core product. Add them only when a demonstrated user need outweighs their maintenance cost. Resume and interview outputs reuse the context; they do not silently replace it. When interview preparation is requested, the model gathers the already-authorized context, selects relevant evidence and drafts interviewer takeaways, core stories, an introduction with follow-up flags, question-to-story answers, story chapters and real timelines. These six principles organize the model's output. The person reviews the draft and answers genuine evidence gaps; they do not re-enter known facts or author the initial preparation. Preserve source references, shared credit, uncertainty and personal language in that projection. It does not change the source sheet's evidence or review state.
