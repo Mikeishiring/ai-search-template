@@ -1400,7 +1400,7 @@
     },
     {
       "path": "tools/build_demo.py",
-      "sha256": "cc6c4e6ce43456d23f2444eb7e356109b6d9ddbcedeb7c1bb0dcc5ade526351b"
+      "sha256": "0a57059d05cc759d63eddfb4a3d3ab80952df754837d52052e88aaf2a63bc9e8"
     },
     {
       "path": "tools/build_skill.py",
