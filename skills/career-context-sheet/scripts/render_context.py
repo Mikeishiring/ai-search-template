@@ -4,6 +4,7 @@ import base64
 import copy
 import hashlib
 import html
+import importlib.util
 import json
 import os
 import re
@@ -21,6 +22,17 @@ MAX_SOURCES = 2048
 MAX_PACKET_BYTES = 24 * 1024 * 1024
 MAX_DOCUMENT_BYTES = 64 * 1024 * 1024
 
+
+def load_helper(name):
+    spec = importlib.util.spec_from_file_location('career_' + name, Path(__file__).with_name(name + '.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+sections = load_helper('document_sections')
+_interview_renderer = None
+
 def check_text(value, label, maximum=100_000):
     if not isinstance(value, str) or '\0' in value or len(value) > maximum:
         raise ValueError(f'{label} must be text of at most {maximum} characters, without NULs')
@@ -30,7 +42,7 @@ def keys(value, allowed, label):
         raise ValueError(f'{label} has an unsupported field or is not an object')
 
 def validate(data):
-    keys(data, ['schema', 'updatedAt', 'reviewStatus', 'person', 'accounts', 'sources', 'synthetic', 'profile', 'collection', 'presentation'], 'Sheet')
+    keys(data, ['schema', 'updatedAt', 'reviewStatus', 'person', 'accounts', 'sources', 'synthetic', 'profile', 'collection', 'presentation', 'timeline', 'interview', 'rehearsal'], 'Sheet')
     if 'presentation' in data:
         presentation = data['presentation']
         keys(presentation, ['headline', 'files'], 'Presentation')
@@ -83,9 +95,26 @@ def validate(data):
         for field in ['date', 'locator']:
             if field in source: check_text(source[field], field)
     for account in data['accounts']:
-        keys(account, ['id', *TEXT_FIELDS, *LIST_FIELDS, 'artifacts', 'tags'], 'Account')
+        keys(account, ['id', *TEXT_FIELDS, *LIST_FIELDS, 'artifacts', 'tags', 'capabilities'], 'Account')
         if not isinstance(account.get('tags', []), list) or len(account.get('tags', [])) > 20: raise ValueError('Invalid account tags')
         for tag in account.get('tags', []): check_text(tag, 'Account tag', 200)
+        capabilities = account.get('capabilities', [])
+        if not isinstance(capabilities, list) or len(capabilities) > 30:
+            raise ValueError('Capabilities must be a list of at most 30 entries')
+        for capability in capabilities:
+            keys(capability, ['name', 'kind', 'application', 'assistance', 'limits'], 'Capability')
+            if capability.get('kind') not in ['practice', 'tool']:
+                raise ValueError('Capability kind must be practice or tool')
+            for field, maximum in [('name', 200), ('application', 3000), ('assistance', 3000)]:
+                check_text(capability.get(field), 'Capability ' + field, maximum)
+                if not capability[field].strip():
+                    raise ValueError('Capability ' + field + ' must not be blank')
+            limits = capability.get('limits')
+            if not isinstance(limits, list) or len(limits) > 20:
+                raise ValueError('Capability limits must be a list of at most 20 entries')
+            for limit in limits:
+                check_text(limit, 'Capability limit', 1000)
+                if not limit.strip(): raise ValueError('Capability limit must not be blank')
         for field in TEXT_FIELDS: check_text(account[field], field)
         for field in LIST_FIELDS:
             if not isinstance(account[field], list): raise ValueError(f'{field} must be a list')
@@ -100,6 +129,13 @@ def validate(data):
             aid = artifact['id']
             if not re.fullmatch(r'[a-zA-Z0-9][a-zA-Z0-9_-]{0,99}', aid) or aid in artifact_ids: raise ValueError('Artifacts need unique safe IDs')
             artifact_ids.add(aid)
+    used.update(sections.validate_timeline(data, check_text, keys))
+    if 'interview' in data:
+        global _interview_renderer
+        if _interview_renderer is None:
+            _interview_renderer = load_helper('render_interview')
+        _interview_renderer.validate_projection(data, data['interview'], sections.evidence_fingerprint(data))
+    sections.validate_rehearsal(data, check_text, keys)
     if used != source_ids: raise ValueError('Remove unreferenced source records from the packet')
     # HTML loading temporarily attaches image bytes. They live outside the
     # canonical JSON and have their own image and complete-document bounds.
@@ -169,13 +205,70 @@ def publish_new(temporary, destination):
     else:
         os.link(temporary, destination)
 
-def render(source, destination, *, overwrite=True):
+def capability_text(capability):
+    text = (f'{capability["name"]} ({capability["kind"]}): {capability["application"]}\n'
+            f'Assistance: {capability["assistance"]}')
+    if capability['limits']:
+        text += '\nLimits: ' + ' '.join(capability['limits'])
+    return text
+
+
+def capability_index(accounts):
+    groups = {}
+    for account in accounts:
+        for capability in account.get('capabilities', []):
+            key = (capability['name'].casefold(), capability['kind'])
+            group = groups.setdefault(key, {'name': capability['name'], 'kind': capability['kind'], 'accounts': {}})
+            group['accounts'][account['id']] = account['title']
+    if not groups:
+        return ''
+    entries = []
+    for group in groups.values():
+        links = ''.join(f'<a href="#account-{aid}" data-show-capabilities="{aid}">{html.escape(title)}'
+                        '<span aria-hidden="true">↗</span></a>' for aid, title in group['accounts'].items())
+        entries.append(f'<li><div><strong>{html.escape(group["name"])}</strong>'
+                       f'<span class="kind">{group["kind"].capitalize()}</span></div><div>{links}</div></li>')
+    return ('<details class="capability-index" id="skills"><summary>Skills &amp; tools'
+            '<span class="disclosure-mark" aria-hidden="true">+</span></summary><ul>' + ''.join(entries) + '</ul></details>')
+
+
+def account_capabilities(account):
+    entries = []
+    for capability in account.get('capabilities', []):
+        c = {k: html.escape(capability[k]) for k in ('name', 'kind', 'application', 'assistance')}
+        limits = ''.join(f'<li>{html.escape(limit)}</li>' for limit in capability['limits'])
+        entries.append(f'<li class="capability"><div class="capability-heading"><h4>{c["name"]}</h4>'
+                       f'<span class="kind">{c["kind"].capitalize()}</span></div><p>{c["application"]}</p>'
+                       f'<p class="assistance"><span>Assistance</span> {c["assistance"]}</p>'
+                       + (f'<ul class="capability-limits">{limits}</ul>' if limits else '') + '</li>')
+    if not entries:
+        return ''
+    return ('<details class="capability-details"><summary>Skills &amp; tools'
+            '<span class="disclosure-mark" aria-hidden="true">+</span></summary><ul class="capability-list">'
+            + ''.join(entries) + '</ul></details>')
+
+
+def preserve_views(previous, incoming):
+    missing = [key for key in ['timeline', 'interview'] if previous.get(key) and not incoming.get(key)]
+    if missing:
+        raise ValueError('Update would remove ' + ', '.join(missing) + '. Retain the complete packet; use --allow-remove-views only for intentional removal.')
+
+
+def render(source, destination, *, overwrite=True, allow_view_removal=False):
+    if source.suffix.lower() in {'.html', '.htm'} and re.search(r'<script[^>]+id=[\"\']career-draft-data[\"\']', source.read_text(encoding='utf-8')):
+        raise ValueError('This file contains notebook edits. Use merge_notebook.py to reconcile them before rendering the complete document.')
     data = load_packet(source); validate(data); packet = copy.deepcopy(data)
+    if overwrite and destination.exists() and not allow_view_removal:
+        try:
+            previous = load_packet(destination)
+        except (ValueError, KeyError, TypeError):
+            previous = None
+        if isinstance(previous, dict): preserve_views(previous, packet)
     esc = html.escape
     def paragraphs(text): return ''.join(f'<p>{esc(p)}</p>' for p in text.split('\n\n') if p.strip())
     def bullets(items): return '<ul>' + ''.join(f'<li>{esc(i)}</li>' for i in items) + '</ul>' if items else ''
     accounts = []
-    for account in packet['accounts']:
+    for ordinal, account in enumerate(packet['accounts'], 1):
         pictures = []
         for artifact in account.get('artifacts', []):
             mime, raw = image_data(artifact, source.parent); artifact.pop('file', None); artifact.pop('_dataUrl', None)
@@ -187,7 +280,7 @@ def render(source, destination, *, overwrite=True):
         questions = '<h4>Still to clarify</h4>' + bullets(account['questions']) if account['questions'] else ''
         refs = ' · '.join(f'<a href="#source-{esc(ref)}">{esc(next(s["label"] for s in packet["sources"] if s["id"]==ref))}</a>' for ref in account['sourceRefs'])
         limits = '<div class="limit" aria-label="Limits">' + bullets(account['limits']) + '</div>' if account['limits'] else ''
-        accounts.append(f'''<article class="account" id="account-{account['id']}"><div class="account-main"><div class="account-heading"><h3>{esc(account['title'])}</h3><span class="period">{esc(account['period']) or 'Period not recorded'}</span></div><div class="account-summary">{paragraphs(account['summary'])}</div>{''.join(pictures)}{limits}<details class="context-details"><summary>Context &amp; evidence <span class="arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m7 4 6 6-6 6"/></svg></span></summary>{details}{questions}<p class="references">Sources: {refs}</p></details></div></article>''')
+        accounts.append(f'''<article class="account" id="account-{account['id']}"><div class="account-ordinal" aria-hidden="true">{ordinal:02d}</div><div class="account-main"><div class="account-heading"><span class="period">{esc(account['period']) or 'Period not recorded'}</span><h3>{esc(account['title'])}</h3></div><div class="account-summary">{paragraphs(account['summary'])}</div>{''.join(pictures)}{limits}{account_capabilities(account)}<details class="context-details"><summary>Context &amp; evidence <span class="arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="m7 4 6 6-6 6"/></svg></span></summary>{details}{questions}<p class="references">Sources: {refs}</p></details></div></article>''')
     sources = []
     for s in packet['sources']:
         location = f'<p class="source-meta">{esc(s["locator"])}</p>' if s.get('locator') else ''
@@ -199,10 +292,19 @@ def render(source, destination, *, overwrite=True):
     coverage = ''.join('<tr>' + ''.join('<td>' + esc(location[field].replace('_', ' ') if field == 'status' else location[field]) + '</td>'
                                       for field in ['platform', 'location', 'status', 'scope', 'nextStep']) + '</tr>' for location in packet.get('collection', []))
     values = {
-        'HEADLINE': esc(packet.get('presentation', {}).get('headline') or 'Career context.'),
+        'SECTIONSCSS': (SKILL / 'assets/sections.css').read_text(encoding='utf-8'),
+        'SECTIONSSCRIPT': (SKILL / 'assets/sections.js').read_text(encoding='utf-8'),
+        'TIMELINE': sections.timeline_html(packet),
+        'INTERVIEW': sections.interview_html(packet),
+        'TIMELINECOUNT': f'{len(packet.get("timeline", []))} periods' if packet.get('timeline') else '',
+        'PREPSTATE': 'Draft for practice' if packet.get('interview') else '',
+        'HEADLINE': esc(packet.get('presentation', {}).get('headline') or 'Work, in context.'),
         'FILES': '<nav class="related-files" aria-label="Local files">' + ''.join(f'<a href="{esc(item["path"])}">{esc(item["label"])}</a>' for item in packet.get('presentation', {}).get('files', [])) + '</nav>',
         'OPTIONS': ''.join(f'<option value="{a["id"]}">{esc(a["title"])}</option>' for a in packet['accounts']),
         'PROFILE': '<dl class="profile">' + profile_html + '</dl>' if profile_html else '',
+        'CAPABILITIES': capability_index(packet['accounts']),
+        'SKILLSLINK': '<a href="#skills">Skills</a>' if any(a.get('capabilities') for a in packet['accounts']) else '',
+        'SKILLOPTIONS': ''.join(f'<option value="{esc(name, quote=True)}">{esc(name)}</option>' for name in sorted({c['name'] for a in packet['accounts'] for c in a.get('capabilities', [])}, key=str.casefold)),
         'COVERAGE': '<details class="coverage"><summary>Source coverage</summary><div class="table-scroll"><table><thead><tr><th>Platform</th><th>Location</th><th>State</th><th>Read scope</th><th>Next step</th></tr></thead><tbody>' + coverage + '</tbody></table></div></details>' if coverage else '',
         'TITLE': esc(packet['person']['name'] + ' — Career context'), 'NAME': esc(packet['person']['name']),
         'OVERVIEW': paragraphs(packet['person']['overview']), 'BACKGROUND': ('<section class="background" aria-labelledby="background-title"><h2 id="background-title">Broader background</h2>' + bullets(packet['person']['background']) + '</section>') if packet['person'].get('background') else '',
@@ -210,7 +312,7 @@ def render(source, destination, *, overwrite=True):
         'COUNT': f'{len(packet["accounts"])} work account' + ('' if len(packet['accounts']) == 1 else 's'),
         'DEMO': '<p class="demo-notice">Synthetic demo data. These work accounts are fictional.</p>' if packet.get('synthetic') else '',
         'ACCOUNTS': ''.join(accounts) or '<p class="empty">No work accounts recorded yet. Start with one project: what happened, what you did and what remains uncertain.</p>',
-        'INDEX': ''.join(f'<a href="#account-{a["id"]}">{esc(a["title"])}</a>' for a in packet['accounts']),
+        'INDEX': ''.join(f'<a href="#account-{a["id"]}"><span aria-hidden="true">{i:02d}</span>{esc(a["title"])}</a>' for i, a in enumerate(packet['accounts'], 1)),
         'SOURCES': ''.join(sources) or '<p>No sources included yet.</p>',
         'DATA': json.dumps(packet, ensure_ascii=True).replace('<', '\\u003c').replace('&', '\\u0026'),
     }
@@ -234,11 +336,22 @@ def render(source, destination, *, overwrite=True):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path, help="Selected context JSON or an existing HTML sheet")
-    parser.add_argument("output", type=Path, help="HTML destination")
+    parser.add_argument("output", type=Path, nargs='?', help="HTML destination")
+    parser.add_argument("--inspect", action="store_true", help="Read the canonical evidence fingerprint for embedded interview preparation")
     parser.add_argument("--force", action="store_true", help="Replace an existing output")
+    parser.add_argument("--allow-remove-views", action="store_true", help="Explicitly allow removing an existing timeline or interview view")
     args = parser.parse_args(argv)
     try:
         source = args.input.expanduser().resolve()
+        if args.inspect:
+            packet = load_packet(source)
+            evidence = {k: v for k, v in packet.items() if k not in ['interview', 'rehearsal']}
+            validate(evidence)
+            basis = sections.evidence_fingerprint(packet)
+            print(json.dumps({'contextSha256': basis, 'interviewCurrent': packet.get('interview', {}).get('contextSha256') == basis, 'context': packet}))
+            return
+        if args.output is None:
+            raise ValueError('Choose an HTML output path')
         destination = args.output.expanduser().absolute()
         if destination.suffix.lower() not in {".html", ".htm"}:
             raise ValueError("Choose an output ending in .html or .htm.")
@@ -248,7 +361,7 @@ def main(argv=None):
             raise ValueError("Output already exists; use --force to replace it.")
         if not destination.parent.is_dir():
             raise ValueError("Create the output folder first.")
-        result = render(source, destination, overwrite=args.force)
+        result = render(source, destination, overwrite=args.force, allow_view_removal=args.allow_remove_views)
     except (ValueError, KeyError, TypeError, OSError) as error:
         parser.exit(2, f"Could not create the sheet: {error}\n")
     print(json.dumps(result))

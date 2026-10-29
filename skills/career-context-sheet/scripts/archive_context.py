@@ -59,7 +59,7 @@ def atomic_write(path, content):
             os.unlink(temporary)
 
 
-def build(source, workspace, *, update=False):
+def build(source, workspace, *, update=False, allow_view_removal=False):
     source, workspace = Path(source).resolve(), Path(workspace).expanduser().absolute()
     if workspace.is_symlink() or workspace.resolve().is_relative_to(renderer.SKILL.resolve()):
         raise ValueError('Use a private workspace outside the installed skill')
@@ -117,6 +117,8 @@ def build(source, workspace, *, update=False):
             previous = sheet.read_bytes()
             if hashlib.sha256(previous).hexdigest() != meta.get('current'):
                 raise ValueError('The saved sheet has local changes; use it as input in a new workspace to preserve both versions')
+            if not allow_view_removal:
+                renderer.preserve_views(renderer.parse_packet(previous.decode('utf-8'), is_html=True), packet)
         new_revision = not db.execute('SELECT 1 FROM revisions WHERE id=?', (revision,)).fetchone()
         if new_revision:
             db.execute('INSERT INTO revisions VALUES (?,?,?,?)',
@@ -204,6 +206,7 @@ def main(argv=None):
     create.add_argument('input', type=Path)
     create.add_argument('workspace', type=Path)
     create.add_argument('--update', action='store_true')
+    create.add_argument('--allow-remove-views', action='store_true')
     find = commands.add_parser('search', help='Search current accounts and selected source text locally')
     find.add_argument('database', type=Path)
     find.add_argument('query')
@@ -214,7 +217,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'build':
-            result = build(args.input, args.workspace, update=args.update)
+            result = build(args.input, args.workspace, update=args.update, allow_view_removal=args.allow_remove_views)
         elif args.command == 'search':
             result = search(args.database, args.query)
         else:

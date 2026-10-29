@@ -37,6 +37,17 @@
       ],
       "sourceRefs": [
         "handoff-account"
+      ],
+      "capabilities": [
+        {
+          "name": "Process mapping",
+          "kind": "practice",
+          "application": "Traced request routes and revised the shared list after coordinator feedback.",
+          "assistance": "Coordinators defined the handoff rules; AI involvement is not recorded.",
+          "limits": [
+            "Self-reported work with one library team."
+          ]
+        }
       ]
     },
     {
@@ -68,10 +79,10 @@
       "id": "equipment-prototype",
       "title": "An equipment log still in progress",
       "period": "August 2030–ongoing",
-      "summary": "I started a small prototype for tracking borrowed event equipment. It can record a checkout and return using fictional test items. The team has not tried it, and no rollout decision has been made.",
+      "summary": "I started a small equipment-log prototype using AI-generated Python. It can record a checkout and return using fictional test items. The team has not tried it, and no rollout decision has been made.",
       "context": "The library had no shared way to see which event equipment was out on loan. A digital log was one proposed response.",
       "aim": "Test whether a simple checkout history would answer the team's everyday questions.",
-      "contribution": "I sketched the flow and built a local prototype. I have not connected it to real records or arranged a user trial.",
+      "contribution": "I sketched the flow, asked AI to generate a Python prototype and checked checkout and return with fictional items. I cannot write Python independently. I have not connected it to real records or arranged a user trial.",
       "decisions": [
         "Used fictional test items during prototyping.",
         "Kept the first version limited to checkout and return.",
@@ -81,7 +92,8 @@
       "outcome": "A local prototype exists. User testing, maintenance ownership and deployment remain open.",
       "limits": [
         "No real equipment or borrower data has been imported.",
-        "There is no evidence of adoption or operational benefit."
+        "There is no evidence of adoption or operational benefit.",
+        "Independent Python programming is not claimed; AI generated the code."
       ],
       "questions": [
         "Who would maintain the log?",
@@ -89,6 +101,18 @@
       ],
       "sourceRefs": [
         "prototype-note"
+      ],
+      "capabilities": [
+        {
+          "name": "Python",
+          "kind": "tool",
+          "application": "Directed a local equipment-log prototype and checked checkout and return with fictional items.",
+          "assistance": "AI generated the Python code.",
+          "limits": [
+            "Independent Python programming is not claimed.",
+            "No deployment or team adoption."
+          ]
+        }
       ]
     }
   ],
@@ -122,7 +146,7 @@
       "label": "Equipment-log working note",
       "kind": "source_excerpt",
       "date": "2030-08-28",
-      "content": "The local prototype can check out and return fictional equipment items. No real borrower data has been imported. Contributor 02 described the current process; the coordinator has not agreed to a trial. Before continuing, decide who would maintain it and whether a paper log would be enough.",
+      "content": "The local prototype can check out and return fictional equipment items. No real borrower data has been imported. Contributor 02 described the current process; the coordinator has not agreed to a trial. Before continuing, decide who would maintain it and whether a paper log would be enough. I sketched the flow and asked AI to generate the Python code, then checked checkout and return with fictional items. I cannot write Python independently.",
       "scope": "Fictional working note from Contributor 01. Records prototype state and open decisions, not delivery or adoption."
     }
   ]

@@ -34,17 +34,19 @@ The [longer starting prompt](../prompts/START-HERE.md) is available for broader 
 
 ## Read, reuse and update
 
-Open the HTML in a browser. **Preview text** shows exactly what **Copy for an agent** copies. If clipboard access fails, the text is selected for manual copying. **Save full HTML** downloads the portable file; **Download full JSON** exports JSON while selected image bytes remain in the HTML.
+Open the HTML in a browser. Work, Career timeline and Interview prep share one file and its evidence. Search for work or choose a skill to narrow the accounts. The **Skills & tools** index opens the related work with its contribution, assistance and limits.
+
+The export panel shows the current copy scope. Expand it to choose all accounts, visible results or one account, and whether to include source excerpts. **Preview text** shows exactly what **Copy for an agent** copies. If clipboard access fails, the text is selected for manual copying. **Save full HTML** always downloads the complete portable file with filters reset; **Download full JSON** exports the complete packet while selected image bytes remain in the HTML.
 
 Attach the HTML to another agent with a separate request, such as: "Use this context to help me prepare for an interview." The file includes selected source excerpts as well as the visible account; review it before sharing.
 
-To update it, give the existing HTML and corrections to the skill. Keep account IDs, original excerpts, shared credit and uncertainty. Re-rendering an existing file preserves its embedded context and images.
+To update it, give the existing HTML and corrections to the skill. Keep account IDs, original excerpts, shared credit and uncertainty. Re-rendering the complete file preserves work, timeline, interview preparation, rehearsal notes and embedded images. Reconcile older notebooks before refreshing; do not replace a complete file with an earlier work-only packet.
 
 ## Prepare for an interview
 
 Ask the agent to [prepare an interview](../skills/career-context-sheet/references/interview-prep.md) from your career context and any target you have supplied. It gathers authorized context, selects the strongest stories and drafts all six parts, including an introduction, answers, chapters and timelines. Review the result and practise; answer only the important gaps the available material cannot resolve.
 
-**Copy for your coach** carries the prepared draft and its evidence into your model. Correct the career-context source and ask the agent to regenerate the preparation when facts change. Copy the HTML file itself to move it between devices.
+**Copy interview prep** carries the prepared draft, shared credit and limits into your model. Rehearsal notes save in the browser; use **Save full HTML** to keep a portable copy. Correct the career-context source and ask the agent to regenerate the preparation when facts change. Copy the HTML file itself to move it between devices.
 
 ## Render without an agent
 

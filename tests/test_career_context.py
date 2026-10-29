@@ -47,6 +47,37 @@ class CareerContextTests(unittest.TestCase):
         self.assertIn('&lt;/script&gt;', markup)
         self.assertEqual(RENDERER.load_packet(sheet), self.packet)
 
+    def test_capabilities_keep_assistance_limits_and_work_links(self):
+        sheet = self.render(self.packet)
+        markup = sheet.read_text(encoding='utf-8')
+        for account in self.packet['accounts']:
+            for capability in account.get('capabilities', []):
+                self.assertIn(capability['assistance'], markup)
+                for limit in capability['limits']:
+                    self.assertIn(limit, markup)
+                self.assertIn('href="#account-' + account['id'] + '"', markup)
+        self.assertEqual(RENDERER.load_packet(sheet), self.packet)
+        for account in self.packet['accounts']:
+            account.pop('capabilities', None)
+        without_skills = self.render(self.packet).read_text(encoding='utf-8')
+        self.assertNotIn('id="skills"', without_skills)
+        self.assertNotRegex(without_skills, r'<a\b[^>]*\bhref="#skills"')
+
+    def test_capability_validation_and_hostile_text(self):
+        capability = self.packet['accounts'][2]['capabilities'][0]
+        for field, value in [('kind', 'expert'), ('assistance', ''), ('application', None),
+                             ('limits', 'none'), ('limits', ['']), ('name', ' '), ('score', 100)]:
+            with self.subTest(field=field, value=value):
+                changed = copy.deepcopy(self.packet)
+                changed['accounts'][2]['capabilities'][0][field] = value
+                with self.assertRaises(ValueError):
+                    RENDERER.validate(changed)
+        hostile = '</script><script>alert(1)</script>'
+        capability['name'] = hostile
+        markup = self.render(self.packet).read_text(encoding='utf-8')
+        self.assertNotIn(hostile, markup)
+        self.assertIn('&lt;/script&gt;', markup)
+
     def test_presentation_links_cannot_escape_or_execute(self):
         self.packet['presentation'] = {'headline': '<img src=x onerror=alert(1)>', 'files': [{'label': 'Resume', 'path': 'RESUME.html'}]}
         sheet = self.render(self.packet)

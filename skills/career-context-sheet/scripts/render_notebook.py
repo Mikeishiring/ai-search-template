@@ -126,7 +126,8 @@ def context_sections(account):
     sections = [("Summary", account["summary"]), ("Context", account["context"]), ("Aim", account["aim"]),
                 ("Personal contribution", account["contribution"]), ("Decisions and approach", account["decisions"]),
                 ("Shared work", account["sharedCredit"]), ("Outcome", account["outcome"]),
-                ("Limits", account["limits"]), ("Open factual questions", account["questions"])]
+                ("Limits", account["limits"]), ("Open factual questions", account["questions"]),
+                ("Skills & tools", '\n\n'.join(context_renderer.capability_text(c) for c in account.get('capabilities', [])))]
     return [(label, "\n".join(value) if isinstance(value, list) else value) for label, value in sections]
 
 
@@ -292,6 +293,8 @@ def json_script(name, data):
 def render(source, destination, *, quarters=None, introductions=None, overwrite=True):
     source, destination = Path(source), Path(destination)
     packet, images = prepared_packet(source)
+    if packet.get('timeline') or packet.get('interview'):
+        raise ValueError('This is a complete career document. Use render_context.py to preserve its timeline and interview preparation.')
     imported = imported_payloads(source)
     companion = json.loads(Path(quarters).read_text(encoding="utf-8")) if quarters else imported.value("career-quarters-data")
     if companion is not None:

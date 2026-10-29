@@ -84,6 +84,18 @@ class AdaptiveWorkflowTests(unittest.TestCase):
                 self.assertEqual(recovered.read_bytes(), sheet.read_bytes())
                 self.assertEqual(hashlib.sha256(recovered.read_bytes()).hexdigest(), built['revision'])
 
+    def test_tool_search_keeps_assistance_and_limits_through_archive_recovery(self):
+        self.packet = json.loads((ROOT / 'examples/career-context.json').read_text(encoding='utf-8'))
+        self.save()
+        archive.build(self.source, self.workspace)
+        database = self.workspace / 'career.sqlite'
+        result = next(r for r in archive.search(database, 'Python') if r['kind'] == 'account')
+        account = json.loads(result['content'])
+        self.assertEqual(account, self.packet['accounts'][2])
+        recovered = self.folder / 'recovered.html'
+        archive.export(database, recovered)
+        self.assertEqual(renderer.load_packet(recovered), self.packet)
+
     def test_corrections_are_searchable_and_previous_revision_recovers(self):
         first = archive.build(self.source, self.workspace)
         old = (self.workspace / 'CAREER-CONTEXT.html').read_bytes()
