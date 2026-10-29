@@ -63,8 +63,13 @@ def inspect_context(source):
 
 def prepare(context, projection, context_sha256):
     render_context.validate(context)
+    return validate_projection(context, projection, context_sha256)
+
+
+def validate_projection(context, projection, context_sha256):
+    """Validate preparation against an already-validated context packet."""
     shape(projection, ["schema", "contextSha256", "preparedOn", "target", "headline", "throughline",
-                       "signals", "stories", "opening", "questions", "priorityGap"], "Preparation")
+                       "signals", "stories", "opening", "questions", "priorityGap"], "Preparation", optional=["introOptions"])
     if projection["schema"] != SCHEMA:
         raise ValueError("Unsupported preparation schema")
     if projection["contextSha256"] != context_sha256:
@@ -77,18 +82,26 @@ def prepare(context, projection, context_sha256):
     collection(projection["opening"], "Opening", maximum=4)
     for paragraph in projection["opening"]:
         text(paragraph, "Opening paragraph")
+    if "introOptions" in projection:
+        collection(projection["introOptions"], "Introduction alternatives", minimum=0, maximum=6)
+        for option in projection["introOptions"]:
+            shape(option, ["title", "text"], "Introduction alternative")
+            text(option["title"], "Introduction title")
+            text(option["text"], "Introduction text")
     collection(projection["stories"], "Stories")
     accounts = {a["id"]: a for a in context["accounts"]}
     sources = {s["id"]: s for s in context["sources"]}
     stories, ids = [], set()
     for draft in projection["stories"]:
-        shape(draft, ["id", "tests", "takeaway", "chapters", "timeline"], "Story")
+        shape(draft, ["id", "tests", "takeaway", "chapters", "timeline"], "Story", optional=["practice"])
         key = draft["id"]
         if not isinstance(key, str) or key not in accounts or key in ids:
             raise ValueError("Stories must reference unique account IDs from the current context")
         ids.add(key)
         for field in ("tests", "takeaway"):
             text(draft[field], field)
+        if "practice" in draft:
+            render_context.check_text(draft["practice"], "Practice notes", 15000)
         for field, keys in (("chapters", ["title", "text"]), ("timeline", ["when", "text"])):
             collection(draft[field], field, maximum=12)
             for entry in draft[field]:

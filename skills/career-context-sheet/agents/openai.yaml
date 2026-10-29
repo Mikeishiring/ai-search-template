@@ -1,4 +1,4 @@
 interface:
-  display_name: "Career Context Sheet"
-  short_description: "Build career context, a local archive and resume drafts"
-  default_prompt: "Use $career-context-sheet to discover my selected sources, adapt to my work and goals, and build a private local archive with a portable HTML entry point."
+  display_name: "Career Context"
+  short_description: "Work, timeline and interview prep in one private document"
+  default_prompt: "Use $career-context-sheet to build one private document with my work evidence, linked skills and AI-assisted tools, career timeline and interview preparation, preserving existing stories and corrections."

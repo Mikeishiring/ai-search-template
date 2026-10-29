@@ -7,7 +7,7 @@ python scripts/archive_context.py build context.json my-context
 python scripts/archive_context.py search my-context/career.sqlite "handoff"
 ```
 
-`my-context/CAREER-CONTEXT.html` is the reading entry point. `career.sqlite` stores normalized accounts, sources, account/source links, selected image bytes, source coverage and complete revisions. Search returns up to 50 matching current accounts/sources. It uses literal substring matching, not semantic ranking. Images and tags survive updates; raw unselected exports are not copied.
+`my-context/CAREER-CONTEXT.html` is the reading entry point for Work, Career timeline and Interview prep. `career.sqlite` stores normalized accounts, sources, account/source links, selected image bytes, source coverage and complete revisions, including timeline, preparation and saved rehearsal notes. Search returns up to 50 matching current accounts/sources. It uses literal substring matching, not semantic ranking. Images and tags survive updates; raw unselected exports are not copied.
 
 When facts change, update the selected context, preserve account/source IDs and correction evidence, and run:
 
@@ -16,6 +16,8 @@ python scripts/archive_context.py build corrected.json my-context --update
 ```
 
 Identical input adds no revision. Changed content retains a historical revision in the same database; it does not create another database. A different person's name is rejected to prevent mixing archives. An independently edited HTML file is preserved: import it into a new workspace or reconcile it before updating. Source facts are never automatically refreshed from connected services.
+
+An update that drops an existing timeline or interview view is rejected. Reuse the complete packet. `--allow-remove-views` is for an explicit decision to remove those views, never for bypassing a reconciliation problem. Refresh preparation against the current evidence fingerprint when career facts change.
 
 Recover a portable sheet without the original files:
 

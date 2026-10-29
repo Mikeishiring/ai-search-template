@@ -95,7 +95,7 @@ def main(argv=None):
             parser.exit(2, f'Could not build the research sheet: {error}\n')
         print(f"Created {result['path']}\nChecked research compiled into {result['accounts']} work accounts. Draft for review.")
         return
-    source = ROOT / 'examples/career-context.json' if args.command == 'demo' else args.input.expanduser().resolve()
+    source = ROOT / 'examples/complete-context.json' if args.command == 'demo' else args.input.expanduser().resolve()
     destination = args.output.expanduser().resolve()
     try:
         if destination.is_relative_to(ROOT):

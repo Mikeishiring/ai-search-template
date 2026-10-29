@@ -10,27 +10,19 @@ Open the comparison as the first review destination. Number the options, label t
 
 ## Deliver the comparison
 
-The host agent writes the options; static HTML does not generate them. The [notebook renderer](notebook.md) accepts an optional private JSON list:
+The host agent writes the options; static HTML does not generate them. Keep the comparison inside the complete document as `interview.introOptions`:
 
 ```json
 [
   {
-    "id": "craft",
     "title": "Depth in the work",
-    "text": "The full proposed introduction, grounded in this person's accounts.",
-    "sourceRefs": ["an-included-source-id"]
+    "text": "The full proposed introduction, grounded in this person's accounts."
   }
 ]
 ```
 
-This illustrates the shape, not reusable wording. Supply five or six options for a full first review. The renderer accepts one to six to preserve smaller author-selected sets. IDs must be unique; titles and text must be nonempty. Optional sourceRefs must resolve to sources in the canonical packet. Structural validation does not prove factual support.
+This illustrates the shape, not reusable wording. Supply five or six supported options for a full first review; retain a smaller existing set when appropriate. Keep their evidence in the underlying accounts. Structural validation does not prove factual support.
 
-```text
-python scripts/render_notebook.py career-context.html career-notebook.html --introductions introductions.json
-```
+Re-render the complete packet with `render_context.py`, or update its existing archive. In Interview prep, open **Alternative openings** beneath the retained opening. Comparing does not change the current introduction. Full HTML, JSON and complete copied preparation retain the options.
 
-Open the output with `?person=own&view=overview&compare=intros`. The overview also has a Compare introductions control. Copying and comparing do not change the current introduction. Private HTML, its reading fallback and copied coach context retain the alternatives. The selected public portfolio excludes them.
-
-Use the latest downloaded notebook as input when revising an existing comparison, so saved edits survive. Supplying different options creates a new browser-storage identity; download browser-only edits before generating that revision. Reopening without new input preserves the existing options and identity. Apply the person's chosen text only when requested, preserving the other options for reference.
-
-The simpler career-context sheet and interview brief support a single overview or opening. Conduct the comparison in a notebook or the conversation before rendering the chosen text there. Do not put notebook fields into career-context/v1 or interview-preparation/v1. Keep any interim opening clearly proposed and preserve already-written text while the choice is open.
+Use the latest complete saved document when revising a comparison so rehearsal notes and all other views survive. Apply the person's chosen wording only when requested, preserving the other options for reference. Keep the current opening while the choice is unresolved. Older notebook comparisons should be reconciled through [the migration guide](notebook.md), not maintained as a second version.

@@ -128,6 +128,21 @@ class SkillBundleTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("career-context-data", output.read_text(encoding="utf-8"))
 
+    def test_extracted_skill_preserves_the_complete_document(self):
+        skill = self.extracted()
+        source = self.directory / 'complete.json'
+        source.write_bytes((ROOT / 'examples/complete-context.json').read_bytes())
+        output = self.directory / 'complete.html'
+        result = self.command(skill, source, output)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        markup = output.read_text(encoding='utf-8')
+        packet = json.loads(re.search(r'<script id="career-context-data" type="application/json">(.*?)</script>', markup, re.S)[1])
+        self.assertEqual(packet, json.loads(source.read_text(encoding='utf-8')))
+        for period in packet['timeline']:
+            self.assertIn('id="quarter-' + period['id'] + '"', markup)
+        for story in packet['interview']['stories']:
+            self.assertIn('id="prep-story-' + story['id'] + '"', markup)
+
     def test_invalid_packet_with_force_does_not_replace_output(self):
         skill = self.extracted()
         source = self.directory / "invalid.json"

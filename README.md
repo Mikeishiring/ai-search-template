@@ -12,13 +12,15 @@ Use work documents only with an approved model and sources you are allowed to sh
 
 [Download the project](https://github.com/Mikeishiring/career-context-ai/archive/refs/heads/main.zip), extract it and open **[CAREER-CONTEXT.html](CAREER-CONTEXT.html)** in a browser. The example is fictional and works offline.
 
-Open a work account, follow its sources, then try **Preview text**. **Copy for an agent** carries the same account, including shared credit and limits. GitHub displays HTML as source; use the downloaded file.
+Find work by its title, activity or tool. **Skills & tools** links each capability to the accounts behind it. Open an account's evidence, then use **Preview text** to inspect an export of all accounts, visible results or one account. Shared credit, assistance and limits travel with the text. GitHub displays HTML as source; use the downloaded file.
 
-For a notebook with a custom navigation menu, quarterly work, visual evidence and interview follow-ups, open **[CAREER-NOTEBOOK.html](CAREER-NOTEBOOK.html)**. This edition uses the same fictional source packet, with an explicit quarterly companion. [Notebook guide](skills/career-context-sheet/references/notebook.md).
+**Career timeline** connects supported periods to the work. **Interview prep** includes an opening, lead stories, drafted answers, chapters and rehearsal notes. They are views of this same file. [Bring an older notebook into it](skills/career-context-sheet/references/notebook.md).
 
 ## Make it yours
 
 Give your agent the complete [career-context-sheet](skills/career-context-sheet/SKILL.md) folder and selected material. It includes source discovery, role-specific evidence guidance, a local SQLite archive, and HTML renderers for context, resumes and interview preparation.
+
+The skill works independently of a job-search service. Keep things you have done at the centre; the optional **Skills & tools** index links practices and tools to those accounts, retaining AI assistance and limits. Later searches can draw on that evidence without treating a tool you used through AI as a language you can program in independently.
 
 > Use this skill to build my career context. Reuse what you know about my work and goals, discover the sources available here, and guide me through any missing access. Collect relevant evidence and visual examples within scope. Adapt the organization to my work, preserve shared credit and uncertainty, and create a private local database with one HTML entry point. Use my reference material when I ask for a resume or interview preparation.
 
@@ -26,7 +28,9 @@ Start with one useful account. The agent should pursue consequential questions a
 
 [Get started with Claude, Codex or another agent](docs/GETTING-STARTED.md).
 
-Ask the agent to [prepare an interview](skills/career-context-sheet/references/interview-prep.md). It selects the evidence and drafts an introduction, answers, story chapters and timelines from your context. You review, practise and resolve genuine gaps.
+Ask the agent to [prepare an interview](skills/career-context-sheet/references/interview-prep.md). It updates Interview prep in the same document with an introduction, answers, story chapters and recorded milestones. You review, practise and resolve genuine gaps.
+
+Supply a vacancy to [compare it with your context](skills/career-context-sheet/references/role-comparison.md). The agent checks the full job description, searches work accounts, timeline sources and authorized originals, and distinguishes direct experience, transferable work and unresolved evidence. Useful new evidence is carried back into the same career document, with timeline links and refreshed interview preparation. The bundled retrieval helper finds reading leads; the agent makes the assessment.
 
 ## What you keep
 

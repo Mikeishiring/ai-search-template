@@ -235,7 +235,7 @@ class NotebookTests(unittest.TestCase):
     def test_isolated_direct_renderer_needs_no_repository_and_replacement_is_explicit(self):
         scripts = self.skill / "scripts"
         scripts.mkdir()
-        for name in ("render_notebook.py", "render_context.py"):
+        for name in ("render_notebook.py", "render_context.py", "document_sections.py"):
             shutil.copyfile(SCRIPT.with_name(name), scripts / name)
         def command(*args):
             return subprocess.run([sys.executable, "-I", str(scripts / "render_notebook.py"), str(self.source), str(self.output), *args], cwd=self.folder, capture_output=True, text=True, timeout=20)
